@@ -9,11 +9,23 @@ interface ScrollPoint {
   timestamp: number
 }
 
+export enum WheelPhase {
+  'IDLE' = 'IDLE',
+  'RECOGNIZED' = 'RECOGNIZED',
+  'INTERRUPTED' = 'INTERRUPTED',
+  'ENDED' = 'ENDED',
+}
+
+type PhaseData = ReturnType<typeof WheelAnalyzer.prototype.getCurrentState>
+type SubscribeFn = (type: WheelPhase, data: PhaseData) => void
+
 const defaults = {
   isDebug: true,
 }
 
 class WheelAnalyzer {
+  static Phase = WheelPhase
+
   private isScrolling = false
   private isMomentum = false
   private isInterrupted = false
@@ -26,19 +38,34 @@ class WheelAnalyzer {
   private scrollPointsToMerge: ScrollPoint[] = []
   private overallDecreasing: boolean[] = []
 
+  private subscriptions: SubscribeFn[] = []
+
   private options: any
   private readonly debouncedEndScroll: any
 
-  constructor(options: any) {
+  constructor(options?: any) {
     this.debouncedEndScroll = debounce(50, this.endScroll)
     this.options = Object.assign(defaults, options)
   }
 
-  private publish(type, data) {
-
+  private publish: SubscribeFn = (phase, data) => {
+    this.subscriptions.forEach(fn => fn(phase, data))
   }
 
-  public feedWheel(wheelEvents) {
+  public subscribe = (callback: SubscribeFn) => {
+    this.subscriptions.push(callback)
+    // return bound unsubscribe
+    return this.unsubscribe.bind(this, callback)
+  }
+
+  public unsubscribe = (callback: SubscribeFn) => {
+    if (!callback) {
+      return console.warn('need to provide callback used to subscribe')
+    }
+    this.subscriptions = this.subscriptions.filter(s => s !== callback)
+  }
+
+  public feedWheel = wheelEvents => {
     const that = this
 
     if (!wheelEvents) {
@@ -112,7 +139,7 @@ class WheelAnalyzer {
 
         // check if momentum can be recognized
         if (!this.isMomentum && this.checkForMomentum()) {
-          this.publish('recognized', this.getCurrentState())
+          this.publish(WheelPhase.RECOGNIZED, this.getCurrentState())
           //this.onMomentumRecognized.fireWith(this, this.getCurrentState());
         } else if (this.isMomentum) {
           this.checkForEnding()
@@ -157,9 +184,9 @@ class WheelAnalyzer {
   momentumEnded() {
     if (!this.willEndSoon) {
       this.isInterrupted = true
-      this.publish('interrupted', this.getCurrentState())
+      this.publish(WheelPhase.INTERRUPTED, this.getCurrentState())
     } else {
-      this.publish('ended', this.getCurrentState())
+      this.publish(WheelPhase.ENDED, this.getCurrentState())
     }
   }
 
@@ -171,14 +198,11 @@ class WheelAnalyzer {
     }, 0)
 
     const timePassedInInterval = Math.abs(
-      scrollPointsToAnalyze[scrollPointsToAnalyze.length - 1].timestamp -
-        scrollPointsToAnalyze[0].timestamp
+      scrollPointsToAnalyze[scrollPointsToAnalyze.length - 1].timestamp - scrollPointsToAnalyze[0].timestamp
     )
     const currentVelocity = (totalDelta / (timePassedInInterval || 1)) * 1000
 
-    this.deltaVelocity = this.deltaVelocity
-      ? currentVelocity * 0.8 + this.deltaVelocity * 0.2
-      : currentVelocity
+    this.deltaVelocity = this.deltaVelocity ? currentVelocity * 0.8 + this.deltaVelocity * 0.2 : currentVelocity
   }
 
   checkForMomentum() {
@@ -222,7 +246,7 @@ class WheelAnalyzer {
         return a + b
       }) / scrollPointsToAnalizeAbsDeltas.length
 
-    if (absDeltaAvrg < 1.3) {
+    if (absDeltaAvrg <= 1.34) {
       this.willEndSoon = true
     }
 
