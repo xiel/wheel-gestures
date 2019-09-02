@@ -1,6 +1,6 @@
 import { debounce } from 'throttle-debounce'
 
-const WHEELEVENTS_TO_MERGE = 2 // 2
+const WHEELEVENTS_TO_MERGE = 2
 const WHEELEVENTS_TO_ANALAZE = 3
 
 interface ScrollPoint {
@@ -27,16 +27,18 @@ class WheelAnalyzer {
   private overallDecreasing: boolean[] = []
 
   private options: any
-  private debouncedEndScroll: any
+  private readonly debouncedEndScroll: any
 
   constructor(options: any) {
     this.debouncedEndScroll = debounce(50, this.endScroll)
     this.options = Object.assign(defaults, options)
   }
 
-  publish(type, data) {}
+  private publish(type, data) {
 
-  feedWheel(wheelEvents) {
+  }
+
+  public feedWheel(wheelEvents) {
     const that = this
 
     if (!wheelEvents) {
@@ -52,7 +54,7 @@ class WheelAnalyzer {
     }
   }
 
-  addWheelEvent(e: WheelEvent) {
+  private addWheelEvent(e: WheelEvent) {
     if (e.deltaMode !== 0) {
       if (this.options.isDebug) {
         console.warn('deltaMode is not 0')

@@ -1,8 +1,8 @@
 {
-  "name": "wheelanalyzer",
-  "main": "dist/wheelAnalyzer.cjs.js",
-  "module": "dist/wheelAnalyzer.esm.js",
-  "types": "dist/wheelAnalyzer.d.ts",
+  "name": "wheel-analyzer",
+  "main": "dist/wheel-analyzer.cjs.js",
+  "module": "dist/wheel-analyzer.esm.js",
+  "types": "dist/wheel-analyzer.d.ts",
   "version": "0.0.1",
   "description": "wheel gestures and momentum detection",
   "scripts": {
