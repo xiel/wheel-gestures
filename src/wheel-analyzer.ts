@@ -19,13 +19,19 @@ export enum WheelPhase {
 type PhaseData = ReturnType<typeof WheelAnalyzer.prototype.getCurrentState>
 type SubscribeFn = (type: WheelPhase, data: PhaseData) => void
 
-const defaults = {
-  isDebug: true,
+type Axis = 'x' | 'y'
+
+interface Options {
+  allowsAxis: Axis[]
+  isDebug?: boolean
 }
 
-class WheelAnalyzer {
-  static Phase = WheelPhase
+const defaults: Options = {
+  allowsAxis: ['x', 'y'],
+  isDebug: process.env.NODE_ENV === 'development',
+}
 
+export class WheelAnalyzer {
   private isScrolling = false
   private isMomentum = false
   private isInterrupted = false
@@ -39,13 +45,32 @@ class WheelAnalyzer {
   private overallDecreasing: boolean[] = []
 
   private subscriptions: SubscribeFn[] = []
+  private targets: Element[] = []
 
   private options: any
   private readonly debouncedEndScroll: any
 
-  constructor(options?: any) {
+  constructor(options?: Partial<Options>) {
     this.debouncedEndScroll = debounce(50, this.endScroll)
     this.options = Object.assign(defaults, options)
+    console.log(this)
+  }
+
+  // TODO: improve with wheelIntent
+  public observe = (target: Element) => {
+    target.addEventListener('wheel', this.feedWheel, { passive: false })
+    this.targets.push(target)
+    return this.unobserve.bind(this, target)
+  }
+
+  public unobserve = (target: Element) => {
+    target.removeEventListener('wheel', this.feedWheel)
+    this.targets = this.targets.filter(t => t !== target)
+  }
+
+  // stops watching all of its target elements for visibility changes.
+  public disconnect = () => {
+    this.targets.forEach(this.unobserve)
   }
 
   private publish: SubscribeFn = (phase, data) => {
@@ -88,6 +113,9 @@ class WheelAnalyzer {
       }
       return
     }
+
+    // TODO: only prevent when wheel event was in allowed dir (keep preventing for current series tho)
+    e.preventDefault()
 
     if (!this.isScrolling) {
       this.beginScroll()
@@ -264,5 +292,3 @@ class WheelAnalyzer {
     })
   }
 }
-
-export default WheelAnalyzer

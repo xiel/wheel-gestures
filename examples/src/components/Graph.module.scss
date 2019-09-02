@@ -1,0 +1,12 @@
+.container {
+    height: 500vh;
+    background: aquamarine;
+
+    &[data-phase="RECOGNIZED"] {
+        background: cadetblue;
+    }
+
+    &[data-phase="INTERRUPTED"] {
+        background: ghostwhite;
+    }
+}

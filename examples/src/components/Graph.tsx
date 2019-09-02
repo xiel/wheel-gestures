@@ -1,32 +1,33 @@
 import React, { useEffect, useState } from 'react'
-import c from './Graph.module.css'
-import WheelAnalyzer from 'wheel-analyzer'
+import { WheelAnalyzer, WheelPhase } from 'wheel-analyzer'
+import c from './Graph.module.scss'
 
 interface Props {}
 
 export default function Graph(props: Props) {
-  const [wheelAnalyzer, setWA] = useState<WheelAnalyzer | undefined>(() => new WheelAnalyzer())
+  const [element, setElement] = useState<HTMLDivElement | null>(null)
+  const [wheelAnalyzer] = useState(() => new WheelAnalyzer())
+  const [phase, setPhase] = useState<WheelPhase>(WheelPhase.IDLE)
+
+  useEffect(() => (element ? wheelAnalyzer.observe(element) : undefined), [element, wheelAnalyzer])
 
   useEffect(() => {
-    if(!wheelAnalyzer) {
+    if (!wheelAnalyzer) {
       return
     }
-
-    const unsubscribe = wheelAnalyzer.subscribe((type, data) => {
-      console.log('subscribe', type, data)
+    const unsubscribe = wheelAnalyzer.subscribe(type => {
+      setPhase(type)
     })
 
     return () => unsubscribe()
   }, [wheelAnalyzer])
 
-  // @ts-ignore
   return (
-    <div className={c.container} onWheel={wheelAnalyzer && wheelAnalyzer.feedWheel} onClick={() => setWA(undefined)}>
+    <div className={c.container} data-phase={phase} ref={setElement}>
       <p>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolor fugit
-        quos totam. Consequuntur distinctio eius et exercitationem expedita
-        facere fugiat hic impedit ipsam, necessitatibus, nobis, perferendis
-        quidem reprehenderit repudiandae sapiente!
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolor fugit quos totam. Consequuntur distinctio eius
+        et exercitationem expedita facere fugiat hic impedit ipsam, necessitatibus, nobis, perferendis quidem
+        reprehenderit repudiandae sapiente!
       </p>
     </div>
   )
