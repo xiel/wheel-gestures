@@ -9,7 +9,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [8.x, 10.x, 12.x]
+        node-version: [8.x, 12.x]
 
     steps:
     - uses: actions/checkout@v1
@@ -21,7 +21,7 @@ jobs:
       run: |
         curl -o- -L https://yarnpkg.com/install.sh | bash
         yarn
-        yarn build run build --if-present
+        yarn build
         yarn test
       env:
         CI: true
