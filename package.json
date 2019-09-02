@@ -12,7 +12,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/xiel/wheelAnalyzer.git"
+    "url": "git+https://github.com/xiel/wheel-analyzer.git"
   },
   "keywords": [
     "wheel",
@@ -25,9 +25,9 @@
   "author": "Felix Leupold <felix@xiel.de>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/xiel/wheelAnalyzer/issues"
+    "url": "https://github.com/xiel/wheel-analyzer/issues"
   },
-  "homepage": "https://github.com/xiel/wheelAnalyzer#readme",
+  "homepage": "https://github.com/xiel/wheel-analyzer#readme",
   "dependencies": {
     "throttle-debounce": "^2.1.0"
   },
