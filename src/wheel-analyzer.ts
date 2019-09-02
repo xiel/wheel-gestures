@@ -11,9 +11,13 @@ interface ScrollPoint {
 
 export enum WheelPhase {
   'IDLE' = 'IDLE',
-  'RECOGNIZED' = 'RECOGNIZED',
-  'INTERRUPTED' = 'INTERRUPTED',
-  'ENDED' = 'ENDED',
+  'WHEEL_START' = 'WHEEL_START',
+  'WHEEL_MOVE' = 'WHEEL_MOVE',
+  'WHEEL_END' = 'WHEEL_END',
+  'MOMENTUM_WHEEL' = 'MOMENTUM_WHEEL',
+  'MOMENTUM_RECOGNIZED' = 'MOMENTUM_RECOGNIZED',
+  'MOMENTUM_INTERRUPTED' = 'MOMENTUM_INTERRUPTED',
+  'MOMENTUM_ENDED' = 'MOMENTUM_ENDED',
 }
 
 type PhaseData = ReturnType<typeof WheelAnalyzer.prototype.getCurrentState>
@@ -45,7 +49,7 @@ export class WheelAnalyzer {
   private overallDecreasing: boolean[] = []
 
   private subscriptions: SubscribeFn[] = []
-  private targets: Element[] = []
+  private targets: EventTarget[] = []
 
   private options: any
   private readonly debouncedEndScroll: any
@@ -57,13 +61,13 @@ export class WheelAnalyzer {
   }
 
   // TODO: improve with wheelIntent
-  public observe = (target: Element) => {
+  public observe = (target: EventTarget) => {
     target.addEventListener('wheel', this.feedWheel, { passive: false })
     this.targets.push(target)
     return this.unobserve.bind(this, target)
   }
 
-  public unobserve = (target: Element) => {
+  public unobserve = (target: EventTarget) => {
     target.removeEventListener('wheel', this.feedWheel)
     this.targets = this.targets.filter(t => t !== target)
   }
@@ -99,14 +103,14 @@ export class WheelAnalyzer {
 
     if (Array.isArray(wheelEvents)) {
       wheelEvents.forEach(function(wheelEvent) {
-        that.addWheelEvent(wheelEvent)
+        that.processWheelEvent(wheelEvent)
       })
     } else {
-      this.addWheelEvent(wheelEvents)
+      this.processWheelEvent(wheelEvents)
     }
   }
 
-  private addWheelEvent(e: WheelEvent) {
+  private processWheelEvent(e: WheelEvent) {
     if (e.deltaMode !== 0) {
       if (this.options.isDebug) {
         console.warn('deltaMode is not 0')
@@ -167,7 +171,7 @@ export class WheelAnalyzer {
 
         // check if momentum can be recognized
         if (!this.isMomentum && this.checkForMomentum()) {
-          this.publish(WheelPhase.RECOGNIZED, this.getCurrentState())
+          this.publish(WheelPhase.MOMENTUM_RECOGNIZED, this.getCurrentState())
           //this.onMomentumRecognized.fireWith(this, this.getCurrentState());
         } else if (this.isMomentum) {
           this.checkForEnding()
@@ -205,16 +209,15 @@ export class WheelAnalyzer {
       this.isMomentum = false
       this.momentumEnded()
     }
-
     this.isScrolling = false
   }
 
   momentumEnded() {
     if (!this.willEndSoon) {
       this.isInterrupted = true
-      this.publish(WheelPhase.INTERRUPTED, this.getCurrentState())
+      this.publish(WheelPhase.MOMENTUM_INTERRUPTED, this.getCurrentState())
     } else {
-      this.publish(WheelPhase.ENDED, this.getCurrentState())
+      this.publish(WheelPhase.MOMENTUM_ENDED, this.getCurrentState())
     }
   }
 

@@ -15,8 +15,9 @@ export default function Graph(props: Props) {
     if (!wheelAnalyzer) {
       return
     }
-    const unsubscribe = wheelAnalyzer.subscribe(type => {
+    const unsubscribe = wheelAnalyzer.subscribe((type, data) => {
       setPhase(type)
+      console.log(type, data)
     })
 
     return () => unsubscribe()
