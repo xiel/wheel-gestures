@@ -6,8 +6,8 @@
   "version": "0.0.2-RC",
   "description": "wheel gestures and momentum detection",
   "scripts": {
-    "build": "rollup -c ./rollup.config.js",
-    "dev": "rollup -c ./rollup.config.js -w",
+    "build": "rollup -c",
+    "dev": "rollup -c -w",
     "test": "react-scripts test"
   },
   "repository": {
