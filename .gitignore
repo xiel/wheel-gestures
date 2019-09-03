@@ -8,4 +8,3 @@ build
 yarn-error.log
 react-app-env.d.ts
 coverage
-*.js
