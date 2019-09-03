@@ -5,10 +5,10 @@ import useRefOfLatest from '../../hooks/useRefOfLatest'
 import { debounce } from 'throttle-debounce'
 
 interface Props {
-  target?: Element
+  domTarget?: EventTarget | React.RefObject<EventTarget> | null
 }
 
-export default function WheelRecorder({ target = document.body }: Props) {
+export default function WheelRecorder({ domTarget = document.body }: Props) {
   const [recording, setRecording] = useState(false)
   const recordedEvents = useRef<WheelEventData[]>([])
   const [downloadHref, setDownloadHref] = useState('')
@@ -49,10 +49,12 @@ export default function WheelRecorder({ target = document.body }: Props) {
   }, [recording])
 
   useEffect(() => {
+    const element = domTarget && 'current' in domTarget ? domTarget.current : domTarget
     if (!recording) {
       createDownloadHref.current()
       return
     }
+    if(!element) return
     recordedEvents.current = []
     const stopWhenDone = debounce(2000, () => setRecording(false))
     const handler = (e: WheelEvent) => {
@@ -61,11 +63,11 @@ export default function WheelRecorder({ target = document.body }: Props) {
       if (autoStop) {
         stopWhenDone()
       }
-      e.preventDefault && e.preventDefault()
+      e.preventDefault()
     }
-    target.addEventListener('wheel', handler as EventListener, { passive: false })
-    return () => target.removeEventListener('wheel', handler as EventListener)
-  }, [autoStop, createDownloadHref, recording, target])
+    element.addEventListener('wheel', handler as EventListener, { passive: false })
+    return () => element.removeEventListener('wheel', handler as EventListener)
+  }, [autoStop, createDownloadHref, recording, domTarget])
 
   const downloadFallbackName = new Date().toJSON()
 

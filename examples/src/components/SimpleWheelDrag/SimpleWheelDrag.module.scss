@@ -1,3 +1,10 @@
+.container {
+  position: relative;
+  overflow: hidden;
+  height: 80vh;
+  background: whitesmoke;
+}
+
 .box {
   position: absolute;
   top: 0;

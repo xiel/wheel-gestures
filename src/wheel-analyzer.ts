@@ -197,7 +197,7 @@ export class WheelAnalyzer {
     }
   }
 
-  getDebugState(){
+  getDebugState() {
     const { scrollPointsToMerge, scrollPoints } = this
     return { scrollPointsToMerge, scrollPoints }
   }

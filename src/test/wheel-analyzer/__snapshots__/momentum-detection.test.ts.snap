@@ -1,5 +1,117 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`momentum detection recognizes swipe down - fast 1`] = `
+Object {
+  "phases": Array [
+    Object {
+      "range": Array [
+        0,
+        15,
+      ],
+      "wheelType": "WHEEL",
+    },
+    Object {
+      "range": Array [
+        15,
+        95,
+      ],
+      "wheelType": "MOMENTUM_WHEEL",
+    },
+    Object {
+      "range": Array [
+        0,
+        95,
+      ],
+      "wheelType": "ANY_WHEEL",
+    },
+  ],
+}
+`;
+
+exports[`momentum detection recognizes swipe down 1`] = `
+Object {
+  "phases": Array [
+    Object {
+      "range": Array [
+        0,
+        35,
+      ],
+      "wheelType": "WHEEL",
+    },
+    Object {
+      "range": Array [
+        35,
+        87,
+      ],
+      "wheelType": "MOMENTUM_WHEEL",
+    },
+    Object {
+      "range": Array [
+        0,
+        87,
+      ],
+      "wheelType": "ANY_WHEEL",
+    },
+  ],
+}
+`;
+
+exports[`momentum detection recognizes swipe left - fast 1`] = `
+Object {
+  "phases": Array [
+    Object {
+      "range": Array [
+        0,
+        15,
+      ],
+      "wheelType": "WHEEL",
+    },
+    Object {
+      "range": Array [
+        15,
+        100,
+      ],
+      "wheelType": "MOMENTUM_WHEEL",
+    },
+    Object {
+      "range": Array [
+        0,
+        100,
+      ],
+      "wheelType": "ANY_WHEEL",
+    },
+  ],
+}
+`;
+
+exports[`momentum detection recognizes swipe left 1`] = `
+Object {
+  "phases": Array [
+    Object {
+      "range": Array [
+        0,
+        23,
+      ],
+      "wheelType": "WHEEL",
+    },
+    Object {
+      "range": Array [
+        23,
+        82,
+      ],
+      "wheelType": "MOMENTUM_WHEEL",
+    },
+    Object {
+      "range": Array [
+        0,
+        82,
+      ],
+      "wheelType": "ANY_WHEEL",
+    },
+  ],
+}
+`;
+
 exports[`momentum detection recognizes swipe right - fast 1`] = `
 Object {
   "phases": Array [
@@ -49,6 +161,62 @@ Object {
       "range": Array [
         0,
         63,
+      ],
+      "wheelType": "ANY_WHEEL",
+    },
+  ],
+}
+`;
+
+exports[`momentum detection recognizes swipe up - fast 1`] = `
+Object {
+  "phases": Array [
+    Object {
+      "range": Array [
+        0,
+        17,
+      ],
+      "wheelType": "WHEEL",
+    },
+    Object {
+      "range": Array [
+        17,
+        98,
+      ],
+      "wheelType": "MOMENTUM_WHEEL",
+    },
+    Object {
+      "range": Array [
+        0,
+        98,
+      ],
+      "wheelType": "ANY_WHEEL",
+    },
+  ],
+}
+`;
+
+exports[`momentum detection recognizes swipe up 1`] = `
+Object {
+  "phases": Array [
+    Object {
+      "range": Array [
+        0,
+        21,
+      ],
+      "wheelType": "WHEEL",
+    },
+    Object {
+      "range": Array [
+        21,
+        84,
+      ],
+      "wheelType": "MOMENTUM_WHEEL",
+    },
+    Object {
+      "range": Array [
+        0,
+        84,
       ],
       "wheelType": "ANY_WHEEL",
     },
