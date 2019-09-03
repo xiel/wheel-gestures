@@ -1,11 +1,24 @@
+.container {
+  display: inline-grid;
+  grid-auto-flow: column;
+  grid-gap: 0.5em;
+
+  > * {
+    display: flex;
+    align-items: center;
+  }
+}
+
 .recordButton {
   width: 32px;
   height: 32px;
   border: 0 none;
   border-radius: 32px;
+  color: #333;
   background: lightgray;
 
   &.active {
+    color: white;
     background: orangered;
   }
 }

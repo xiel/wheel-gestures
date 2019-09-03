@@ -14,6 +14,8 @@ export interface WheelEventData
   extends Pick<WheelEvent, WheelEventDataRequiredFields>,
     Partial<Omit<WheelEvent, WheelEventDataRequiredFields>> {}
 
+export type WheelTypes = 'WHEEL' | 'ANY_WHEEL' | 'MOMENTUM_WHEEL'
+
 export enum WheelPhase {
   'ANY_WHEEL_START' = 'ANY_WHEEL_START',
   'ANY_WHEEL' = 'ANY_WHEEL',
@@ -23,12 +25,12 @@ export enum WheelPhase {
   'WHEEL_END' = 'WHEEL_END',
   'MOMENTUM_WHEEL_START' = 'MOMENTUM_WHEEL_START',
   'MOMENTUM_WHEEL' = 'MOMENTUM_WHEEL',
-  'MOMENTUM_WHEEL_CANCELED' = 'MOMENTUM_WHEEL_CANCELED',
-  'MOMENTUM_WHEEL_ENDED' = 'MOMENTUM_WHEEL_ENDED',
+  'MOMENTUM_WHEEL_CANCEL' = 'MOMENTUM_WHEEL_CANCEL',
+  'MOMENTUM_WHEEL_END' = 'MOMENTUM_WHEEL_END',
 }
 
-type PhaseData = ReturnType<typeof WheelAnalyzer.prototype.getCurrentState>
-type SubscribeFn = (type: WheelPhase, data: PhaseData) => void
+export type PhaseData = ReturnType<typeof WheelAnalyzer.prototype.getCurrentState>
+export type SubscribeFn = (type: WheelPhase, data: PhaseData) => void
 type DeltaProp = 'deltaX' | 'deltaY'
 type Axis = 'x' | 'y'
 
@@ -64,7 +66,7 @@ export class WheelAnalyzer {
   private subscriptions: SubscribeFn[] = []
   private targets: EventTarget[] = []
 
-  private options: any
+  private options: Options
   private readonly debouncedEndScroll: any
 
   constructor(options?: Partial<Options>) {
@@ -89,7 +91,7 @@ export class WheelAnalyzer {
     this.targets.forEach(this.unobserve)
   }
 
-  private publish = (phase: WheelPhase, data = this.getCurrentState()) => {
+  private publish = (phase: WheelPhase, data = this.getCurrentState(phase)) => {
     this.subscriptions.forEach((fn) => fn(phase, data))
   }
 
@@ -195,8 +197,16 @@ export class WheelAnalyzer {
     }
   }
 
-  getCurrentState() {
+  getDebugState(){
+    const { scrollPointsToMerge, scrollPoints } = this
+    return { scrollPointsToMerge, scrollPoints }
+  }
+
+  getCurrentState(type: WheelPhase) {
+    const debugData = this.options.isDebug ? this.getDebugState() : null
     return {
+      type,
+      debugData,
       willEndSoon: this.willEndSoon,
       isScrolling: this.isScrolling,
       isMomentum: this.isMomentum,
@@ -227,9 +237,9 @@ export class WheelAnalyzer {
 
     if (this.isMomentum) {
       if (!this.willEndSoon) {
-        this.publish(WheelPhase.MOMENTUM_WHEEL_CANCELED)
+        this.publish(WheelPhase.MOMENTUM_WHEEL_CANCEL)
       } else {
-        this.publish(WheelPhase.MOMENTUM_WHEEL_ENDED)
+        this.publish(WheelPhase.MOMENTUM_WHEEL_END)
       }
       this.isMomentum = false
     } else {
