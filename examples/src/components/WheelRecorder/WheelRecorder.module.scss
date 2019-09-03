@@ -2,6 +2,9 @@
   display: inline-grid;
   grid-auto-flow: column;
   grid-gap: 0.5em;
+  padding: 1em;
+  border-radius: 32px;
+  border: 2px solid lightgray;
 
   > * {
     display: flex;
@@ -16,9 +19,11 @@
   border-radius: 32px;
   color: #333;
   background: lightgray;
+  transition: 500ms;
 
   &.active {
     color: white;
     background: orangered;
+    transform: perspective(600px) rotateY(360deg);
   }
 }

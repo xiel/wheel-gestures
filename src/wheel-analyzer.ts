@@ -289,11 +289,6 @@ export class WheelAnalyzer {
 
     this.overallDecreasing.push(isOverallDecreasing)
 
-    const { overallDecreasing, scrollPoints, scrollPointsToMerge } = this
-
-    // console.log({ overallDecreasing, scrollPoints, scrollPointsToMerge })
-    // console.log({ scrollPointsToAnalize, scrollPointsToAnalizeAbsDeltas, absDeltasMin, absDeltasMax })
-
     if (this.checkDecreases()) {
       this.isMomentum = true
     }

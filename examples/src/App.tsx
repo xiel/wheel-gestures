@@ -7,7 +7,7 @@ const App: React.FC = () => {
   return (
     <Router>
       <h1>wheelAnalyzer</h1>
-      <nav style={{ display: 'inline-grid', gridRow: 'auto' }}>
+      <nav style={{ display: 'inline-grid', gridAutoFlow: 'column', gridGap: '1em', margin: '1em 0' }}>
         <Link to="/">Home</Link>
         <Link to="/graph">Graph</Link>
         <Link to="/simple-wheel-drag">SimpleWheelDrag</Link>
