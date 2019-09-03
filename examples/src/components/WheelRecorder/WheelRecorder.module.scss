@@ -1,0 +1,11 @@
+.recordButton {
+  width: 32px;
+  height: 32px;
+  border: 0 none;
+  border-radius: 32px;
+  background: lightgray;
+
+  &.active {
+    background: orangered;
+  }
+}

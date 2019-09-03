@@ -7,7 +7,7 @@ interface Props {}
 export default function Graph(props: Props) {
   const [element, setElement] = useState<HTMLDivElement | null>(null)
   const [wheelAnalyzer] = useState(() => new WheelAnalyzer())
-  const [phase, setPhase] = useState<WheelPhase>(WheelPhase.IDLE)
+  const [phase, setPhase] = useState<WheelPhase>()
 
   useEffect(() => (element ? wheelAnalyzer.observe(element) : undefined), [element, wheelAnalyzer])
 
@@ -24,7 +24,7 @@ export default function Graph(props: Props) {
   }, [wheelAnalyzer])
 
   return (
-    <div className={c.container} data-phase={phase} ref={setElement}>
+    <div className={c.container} data-phase={phase || ''} ref={setElement}>
       <p>
         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolor fugit quos totam. Consequuntur distinctio eius
         et exercitationem expedita facere fugiat hic impedit ipsam, necessitatibus, nobis, perferendis quidem

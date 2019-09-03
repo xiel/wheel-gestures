@@ -9,21 +9,34 @@ interface ScrollPoint {
   timestamp: number
 }
 
+type WheelEventDataRequiredFields = 'deltaMode' | 'deltaX' | 'deltaY'
+export interface WheelEventData
+  extends Pick<WheelEvent, WheelEventDataRequiredFields>,
+    Partial<Omit<WheelEvent, WheelEventDataRequiredFields>> {}
+
 export enum WheelPhase {
-  'IDLE' = 'IDLE',
+  'ANY_WHEEL_START' = 'ANY_WHEEL_START',
+  'ANY_WHEEL' = 'ANY_WHEEL',
+  'ANY_WHEEL_END' = 'ANY_WHEEL_END',
   'WHEEL_START' = 'WHEEL_START',
-  'WHEEL_MOVE' = 'WHEEL_MOVE',
+  'WHEEL' = 'WHEEL',
   'WHEEL_END' = 'WHEEL_END',
+  'MOMENTUM_WHEEL_START' = 'MOMENTUM_WHEEL_START',
   'MOMENTUM_WHEEL' = 'MOMENTUM_WHEEL',
-  'MOMENTUM_RECOGNIZED' = 'MOMENTUM_RECOGNIZED',
-  'MOMENTUM_INTERRUPTED' = 'MOMENTUM_INTERRUPTED',
-  'MOMENTUM_ENDED' = 'MOMENTUM_ENDED',
+  'MOMENTUM_WHEEL_CANCELED' = 'MOMENTUM_WHEEL_CANCELED',
+  'MOMENTUM_WHEEL_ENDED' = 'MOMENTUM_WHEEL_ENDED',
 }
 
 type PhaseData = ReturnType<typeof WheelAnalyzer.prototype.getCurrentState>
 type SubscribeFn = (type: WheelPhase, data: PhaseData) => void
-
+type DeltaProp = 'deltaX' | 'deltaY'
 type Axis = 'x' | 'y'
+
+const axes: [Axis, Axis] = ['x', 'y']
+const deltaProp: Record<Axis, DeltaProp> = {
+  x: 'deltaX',
+  y: 'deltaY',
+}
 
 interface Options {
   allowsAxis: Axis[]
@@ -38,10 +51,10 @@ const defaults: Options = {
 export class WheelAnalyzer {
   private isScrolling = false
   private isMomentum = false
-  private isInterrupted = false
   private willEndSoon = false
 
   private lastAbsDelta = Infinity
+  private axisDeltas: number[] = [0, 0]
   private deltaVelocity = 0 // px per second
   private deltaTotal = 0 // moved during this scroll interaction
   private scrollPoints: ScrollPoint[] = []
@@ -57,19 +70,18 @@ export class WheelAnalyzer {
   constructor(options?: Partial<Options>) {
     this.debouncedEndScroll = debounce(50, this.endScroll)
     this.options = Object.assign(defaults, options)
-    console.log(this)
   }
 
   // TODO: improve with wheelIntent
   public observe = (target: EventTarget) => {
-    target.addEventListener('wheel', this.feedWheel, { passive: false })
+    target.addEventListener('wheel', this.feedWheel as EventListener, { passive: false })
     this.targets.push(target)
     return this.unobserve.bind(this, target)
   }
 
   public unobserve = (target: EventTarget) => {
-    target.removeEventListener('wheel', this.feedWheel)
-    this.targets = this.targets.filter(t => t !== target)
+    target.removeEventListener('wheel', this.feedWheel as EventListener)
+    this.targets = this.targets.filter((t) => t !== target)
   }
 
   // stops watching all of its target elements for visibility changes.
@@ -77,8 +89,8 @@ export class WheelAnalyzer {
     this.targets.forEach(this.unobserve)
   }
 
-  private publish: SubscribeFn = (phase, data) => {
-    this.subscriptions.forEach(fn => fn(phase, data))
+  private publish = (phase: WheelPhase, data = this.getCurrentState()) => {
+    this.subscriptions.forEach((fn) => fn(phase, data))
   }
 
   public subscribe = (callback: SubscribeFn) => {
@@ -91,26 +103,20 @@ export class WheelAnalyzer {
     if (!callback) {
       return console.warn('need to provide callback used to subscribe')
     }
-    this.subscriptions = this.subscriptions.filter(s => s !== callback)
+    this.subscriptions = this.subscriptions.filter((s) => s !== callback)
   }
 
-  public feedWheel = wheelEvents => {
-    const that = this
-
-    if (!wheelEvents) {
-      return
-    }
+  public feedWheel = (wheelEvents: WheelEventData | WheelEventData[]) => {
+    if (!wheelEvents) return
 
     if (Array.isArray(wheelEvents)) {
-      wheelEvents.forEach(function(wheelEvent) {
-        that.processWheelEvent(wheelEvent)
-      })
+      wheelEvents.forEach((wheelEvent) => this.processWheelEventData(wheelEvent))
     } else {
-      this.processWheelEvent(wheelEvents)
+      this.processWheelEventData(wheelEvents)
     }
   }
 
-  private processWheelEvent(e: WheelEvent) {
+  private processWheelEventData(e: WheelEventData) {
     if (e.deltaMode !== 0) {
       if (this.options.isDebug) {
         console.warn('deltaMode is not 0')
@@ -119,7 +125,9 @@ export class WheelAnalyzer {
     }
 
     // TODO: only prevent when wheel event was in allowed dir (keep preventing for current series tho)
-    e.preventDefault()
+    if (e.preventDefault) {
+      e.preventDefault()
+    }
 
     if (!this.isScrolling) {
       this.beginScroll()
@@ -130,11 +138,14 @@ export class WheelAnalyzer {
     const currentDelta = Math.abs(e.deltaY) > Math.abs(e.deltaX) ? e.deltaY : e.deltaX
     const currentAbsDelta = Math.abs(currentDelta)
 
-    if (currentAbsDelta > this.lastAbsDelta) {
-      this.endScroll(e)
+    // TODO: added this.isMomentum here recently
+    if (this.isMomentum && currentAbsDelta > this.lastAbsDelta) {
+      console.log('larger abs delte, restart scroll!')
+      this.endScroll()
       this.beginScroll()
     }
 
+    this.axisDeltas = this.axisDeltas.map((delta, i) => delta + e[deltaProp[axes[i]]])
     this.deltaTotal = this.deltaTotal + currentDelta
     this.lastAbsDelta = currentAbsDelta
 
@@ -165,17 +176,21 @@ export class WheelAnalyzer {
 
       // reset merge array
       this.scrollPointsToMerge.length = 0
+    }
 
-      if (this.scrollPoints.length > WHEELEVENTS_TO_ANALAZE) {
-        this.updateVelocity()
+    this.publish(WheelPhase.ANY_WHEEL)
+    this.publish(this.isMomentum ? WheelPhase.MOMENTUM_WHEEL : WheelPhase.WHEEL)
 
-        // check if momentum can be recognized
-        if (!this.isMomentum && this.checkForMomentum()) {
-          this.publish(WheelPhase.MOMENTUM_RECOGNIZED, this.getCurrentState())
-          //this.onMomentumRecognized.fireWith(this, this.getCurrentState());
-        } else if (this.isMomentum) {
-          this.checkForEnding()
-        }
+    if (this.scrollPoints.length > WHEELEVENTS_TO_ANALAZE) {
+      this.updateVelocity()
+
+      // check if momentum can be recognized
+      if (!this.isMomentum && this.checkForMomentum()) {
+        console.log('MOMENTUM!')
+        this.publish(WheelPhase.WHEEL_END)
+        this.publish(WheelPhase.MOMENTUM_WHEEL_START)
+      } else if (this.isMomentum) {
+        this.checkForEnding()
       }
     }
   }
@@ -185,9 +200,9 @@ export class WheelAnalyzer {
       willEndSoon: this.willEndSoon,
       isScrolling: this.isScrolling,
       isMomentum: this.isMomentum,
-      isInterrupted: this.isInterrupted,
       deltaVelocity: this.deltaVelocity,
       deltaTotal: this.deltaTotal,
+      axisDeltas: this.axisDeltas,
     }
   }
 
@@ -195,30 +210,34 @@ export class WheelAnalyzer {
     this.willEndSoon = false
     this.isScrolling = true
     this.isMomentum = false
-    this.isInterrupted = false
     this.lastAbsDelta = Infinity
+    this.axisDeltas = [0, 0]
     this.deltaVelocity = 0
     this.deltaTotal = 0
     this.scrollPoints = []
     this.overallDecreasing.length = 0
     this.scrollPointsToMerge.length = 0
+
+    this.publish(WheelPhase.ANY_WHEEL_START)
+    this.publish(WheelPhase.WHEEL_START)
   }
 
-  endScroll(e: WheelEvent) {
-    if (this.isMomentum) {
-      this.isMomentum = false
-      this.momentumEnded()
-    }
+  private endScroll() {
     this.isScrolling = false
-  }
 
-  momentumEnded() {
-    if (!this.willEndSoon) {
-      this.isInterrupted = true
-      this.publish(WheelPhase.MOMENTUM_INTERRUPTED, this.getCurrentState())
+    if (this.isMomentum) {
+      if (!this.willEndSoon) {
+        this.publish(WheelPhase.MOMENTUM_WHEEL_CANCELED)
+      } else {
+        this.publish(WheelPhase.MOMENTUM_WHEEL_ENDED)
+      }
+      this.isMomentum = false
     } else {
-      this.publish(WheelPhase.MOMENTUM_ENDED, this.getCurrentState())
+      // in case of momentum, this event was triggered when the momentum was detected
+      this.publish(WheelPhase.WHEEL_END)
     }
+
+    this.publish(WheelPhase.ANY_WHEEL_END)
   }
 
   updateVelocity() {
@@ -260,7 +279,12 @@ export class WheelAnalyzer {
 
     this.overallDecreasing.push(isOverallDecreasing)
 
-    if (this.checkDecreases(this.overallDecreasing)) {
+    const { overallDecreasing, scrollPoints, scrollPointsToMerge } = this
+
+    // console.log({ overallDecreasing, scrollPoints, scrollPointsToMerge })
+    // console.log({ scrollPointsToAnalize, scrollPointsToAnalizeAbsDeltas, absDeltasMin, absDeltasMax })
+
+    if (this.checkDecreases()) {
       this.isMomentum = true
     }
 
@@ -284,8 +308,8 @@ export class WheelAnalyzer {
     return this.willEndSoon
   }
 
-  checkDecreases(decreaseBooleans) {
-    const decreaseBooleansToCheck = decreaseBooleans.slice(-3)
+  checkDecreases() {
+    const decreaseBooleansToCheck = this.overallDecreasing.slice(-3)
 
     if (decreaseBooleansToCheck.length < 3) {
       return false

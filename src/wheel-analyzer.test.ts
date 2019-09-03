@@ -1,4 +1,4 @@
-import WheelAnalyzer from './wheel-analyzer'
+import { WheelAnalyzer } from './wheel-analyzer'
 
 describe('creation', () => {
   it('can be created without options', () => {
