@@ -27,7 +27,10 @@ export function recordPhases(wheelEvents: WheelEventData[]) {
     const isStart = type.endsWith('_START')
     const isEnd = type.endsWith('_END')
     const isCancel = type.endsWith('_CANCEL')
-    const wheelType = type.replace('_START', '').replace('_END', '') as WheelTypes
+    const wheelType = type
+      .replace('_START', '')
+      .replace('_END', '')
+      .replace('_CANCEL', '') as WheelTypes
 
     // keep track of start and end indices for each phase
     if (isStart) {
