@@ -2,7 +2,6 @@
 wheel gestures and momentum detection
 
 [![npm (tag)](https://img.shields.io/npm/v/wheel-analyzer/latest.svg)](https://www.npmjs.com/package/use-location-state)
-[![codecov badge](https://img.shields.io/codecov/c/github/xiel/wheel-analyzer/master.svg?color=hotpink)](https://codecov.io/gh/xiel/wheel-analyzer)
 ![GitHub top language](https://img.shields.io/github/languages/top/xiel/wheel-analyzer.svg)
 
 you bring the wheel events, wheelAnalyzer returns wheel gestures & momentum information
