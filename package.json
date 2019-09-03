@@ -3,7 +3,7 @@
   "main": "dist/wheel-analyzer.cjs.js",
   "module": "dist/wheel-analyzer.esm.js",
   "types": "dist/wheel-analyzer.d.ts",
-  "version": "0.0.1",
+  "version": "0.0.2-RC",
   "description": "wheel gestures and momentum detection",
   "scripts": {
     "build": "rollup -c ./rollup.config.js",
@@ -31,6 +31,9 @@
   "dependencies": {
     "throttle-debounce": "^2.1.0"
   },
+  "files": [
+    "dist/**/*"
+  ],
   "eslintConfig": {
     "extends": "react-app"
   },
