@@ -143,6 +143,12 @@ body {
     'Droid Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  padding: 2rem;
+
+  @media (prefers-color-scheme: dark) {
+    color: #fff;
+    background: #000;
+  }
 }
 
 code {
@@ -152,3 +158,4 @@ code {
 *:focus {
   outline: 0 none;
 }
+

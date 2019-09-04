@@ -40,7 +40,6 @@ export default function WheelRecorder({ domTarget = document.body }: Props) {
 
   useEffect(() => {
     const handleKey = ({ key, metaKey }: KeyboardEvent) => {
-      console.info('KEYPRESS', key, metaKey)
       if(key === 'e' && metaKey) {
         setRecording(!recording)
       }

@@ -8,14 +8,28 @@ interface WheelDragState {
 
 type WheelDragHandler = (state: WheelDragState) => void
 
-interface Options {
-  domTarget?: EventTarget | React.RefObject<EventTarget> | null
+const wheelType = {
+  user: {
+    start: WheelPhase.WHEEL_START,
+    wheel: WheelPhase.WHEEL,
+    end: WheelPhase.WHEEL_END,
+  },
+  any: {
+    start: WheelPhase.ANY_WHEEL_START,
+    wheel: WheelPhase.ANY_WHEEL,
+    end: WheelPhase.ANY_WHEEL_END,
+  },
 }
 
-export default function useWheelDrag(handler: WheelDragHandler, { domTarget }: Options = {}) {
+interface Options {
+  domTarget?: EventTarget | React.RefObject<EventTarget> | null
+  wheelReason?: keyof typeof wheelType
+}
+
+export default function useWheelDrag(handler: WheelDragHandler, { domTarget, wheelReason = 'user' }: Options = {}) {
   const dragState = useRef<WheelDragState>({
     down: false,
-    delta: [0,0]
+    delta: [0, 0],
   })
   const wheelAnalyzer = useMemo(() => new WheelAnalyzer(), [])
 
@@ -29,13 +43,14 @@ export default function useWheelDrag(handler: WheelDragHandler, { domTarget }: O
 
     const unsubscribe = wheelAnalyzer.subscribe((type, data) => {
       switch (type) {
-        case WheelPhase.WHEEL_START:
+        // case wheelType[wheelReason].start:
+        //   dragState.current.down = true
+        //   break
+        case wheelType[wheelReason].wheel:
           dragState.current.down = true
+          dragState.current.delta = data.axisDeltas.map((d) => d * -1 / 2)
           break
-        case WheelPhase.WHEEL:
-          dragState.current.delta = data.axisDeltas.map(d => d * -1)
-          break
-        case WheelPhase.WHEEL_END:
+        case wheelType[wheelReason].end:
           dragState.current.down = false
           break
         default:
@@ -46,7 +61,7 @@ export default function useWheelDrag(handler: WheelDragHandler, { domTarget }: O
     })
 
     return () => unsubscribe()
-  }, [handler, wheelAnalyzer])
+  }, [handler, wheelAnalyzer, wheelReason])
 
   return null
 }

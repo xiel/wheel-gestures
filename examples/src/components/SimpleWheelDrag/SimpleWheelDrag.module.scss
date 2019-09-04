@@ -3,6 +3,10 @@
   overflow: hidden;
   height: 80vh;
   background: whitesmoke;
+
+  @media (prefers-color-scheme: dark) {
+    background: #111;
+  }
 }
 
 .box {
@@ -16,4 +20,10 @@
   height: 80px;
   background: hotpink;
   border-radius: 16px;
+
+  &.momentum {
+    opacity: 0.5;
+    width: 100px;
+    height: 100px;
+  }
 }
