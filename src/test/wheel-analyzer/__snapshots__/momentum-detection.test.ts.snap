@@ -6,13 +6,14 @@ Object {
     Object {
       "range": Array [
         0,
-        15,
+        27,
       ],
       "wheelType": "WHEEL",
     },
     Object {
+      "canceled": true,
       "range": Array [
-        15,
+        27,
         95,
       ],
       "wheelType": "MOMENTUM_WHEEL",
@@ -34,13 +35,14 @@ Object {
     Object {
       "range": Array [
         0,
-        35,
+        45,
       ],
       "wheelType": "WHEEL",
     },
     Object {
+      "canceled": true,
       "range": Array [
-        35,
+        45,
         87,
       ],
       "wheelType": "MOMENTUM_WHEEL",
@@ -62,13 +64,14 @@ Object {
     Object {
       "range": Array [
         0,
-        15,
+        23,
       ],
       "wheelType": "WHEEL",
     },
     Object {
+      "canceled": true,
       "range": Array [
-        15,
+        23,
         100,
       ],
       "wheelType": "MOMENTUM_WHEEL",
@@ -90,13 +93,14 @@ Object {
     Object {
       "range": Array [
         0,
-        23,
+        33,
       ],
       "wheelType": "WHEEL",
     },
     Object {
+      "canceled": true,
       "range": Array [
-        23,
+        33,
         82,
       ],
       "wheelType": "MOMENTUM_WHEEL",
@@ -118,13 +122,14 @@ Object {
     Object {
       "range": Array [
         0,
-        27,
+        37,
       ],
       "wheelType": "WHEEL",
     },
     Object {
+      "canceled": true,
       "range": Array [
-        27,
+        37,
         96,
       ],
       "wheelType": "MOMENTUM_WHEEL",
@@ -146,13 +151,14 @@ Object {
     Object {
       "range": Array [
         0,
-        19,
+        29,
       ],
       "wheelType": "WHEEL",
     },
     Object {
+      "canceled": true,
       "range": Array [
-        19,
+        29,
         63,
       ],
       "wheelType": "MOMENTUM_WHEEL",
@@ -174,13 +180,14 @@ Object {
     Object {
       "range": Array [
         0,
-        17,
+        27,
       ],
       "wheelType": "WHEEL",
     },
     Object {
+      "canceled": true,
       "range": Array [
-        17,
+        27,
         98,
       ],
       "wheelType": "MOMENTUM_WHEEL",
@@ -202,13 +209,14 @@ Object {
     Object {
       "range": Array [
         0,
-        21,
+        33,
       ],
       "wheelType": "WHEEL",
     },
     Object {
+      "canceled": true,
       "range": Array [
-        21,
+        33,
         84,
       ],
       "wheelType": "MOMENTUM_WHEEL",

@@ -35,7 +35,10 @@
     "dist/**/*"
   ],
   "eslintConfig": {
-    "extends": "react-app"
+    "extends": "react-app",
+    "rules": {
+      "@typescript-eslint/explicit-member-accessibility": "error"
+    }
   },
   "devDependencies": {
     "@testing-library/react": "^9.0.1",

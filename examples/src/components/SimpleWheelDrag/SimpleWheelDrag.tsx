@@ -17,7 +17,7 @@ export default function SimpleWheelDrag() {
     { domTarget: elRef }
   )
 
-  const wheelDrag = useWheelDrag(
+  useWheelDrag(
     ({ down, delta }) => {
       set({ xy: down ? delta : [0, 0] })
     },
