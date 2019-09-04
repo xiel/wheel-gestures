@@ -19,11 +19,19 @@
   border-radius: 32px;
   color: #333;
   background: lightgray;
-  transition: 500ms;
+  transition: 200ms;
+  cursor: pointer;
+
+  &:focus,
+  &:hover {
+    opacity: 0.8;
+    color: white;
+    background: gray;
+    transform: scale(1.1);
+  }
 
   &.active {
     color: white;
     background: orangered;
-    transform: perspective(600px) rotateY(360deg);
   }
 }

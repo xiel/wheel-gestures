@@ -2,6 +2,8 @@ import { debounce } from 'throttle-debounce'
 
 const WHEELEVENTS_TO_MERGE = 2
 const WHEELEVENTS_TO_ANALAZE = 5
+const ACC_FACTOR_MIN = 0.6
+const ACC_FACTOR_MAX = 0.96
 
 interface ScrollPoint {
   currentDelta: number
@@ -29,6 +31,8 @@ export enum WheelPhase {
   'MOMENTUM_WHEEL_CANCEL' = 'MOMENTUM_WHEEL_CANCEL',
   'MOMENTUM_WHEEL_END' = 'MOMENTUM_WHEEL_END',
 }
+
+const console = window.console
 
 export type PhaseData = ReturnType<typeof WheelAnalyzer.prototype.getCurrentState>
 export type SubscribeFn = (type: WheelPhase, data: PhaseData) => void
@@ -58,11 +62,13 @@ export class WheelAnalyzer {
 
   private lastAbsDelta = Infinity
   private axisDeltas: number[] = [0, 0]
+  private axisVelocity: number[] = [0, 0]
+  private accelerationFactors: number[][] = []
   private deltaVelocity = 0 // px per second
   private deltaTotal = 0 // moved during this scroll interaction
 
   /**
-   * @ deprecated
+   * @description merged scrollPoints
    */
   private scrollPoints: ScrollPoint[] = []
   private scrollPointsToMerge: ScrollPoint[] = []
@@ -72,12 +78,12 @@ export class WheelAnalyzer {
   private targets: EventTarget[] = []
 
   private options: Options
-  private readonly willStop = this.didStop
+  private readonly willEnd = this.end
 
   public constructor(options?: Partial<Options>) {
-    this.willStop = debounce(99, () => {
+    this.willEnd = debounce(99, () => {
       console.log('willStop -> didStop!')
-      this.didStop()
+      this.end()
     })
     this.options = Object.assign(defaults, options)
   }
@@ -140,10 +146,8 @@ export class WheelAnalyzer {
     }
 
     if (!this.isStarted) {
-      this.didStart()
+      this.start()
     }
-
-    this.willStop()
 
     const currentDelta = Math.abs(e.deltaY) > Math.abs(e.deltaX) ? e.deltaY : e.deltaX
     const currentAbsDelta = Math.abs(currentDelta)
@@ -152,8 +156,8 @@ export class WheelAnalyzer {
     if (this.isMomentum && currentAbsDelta > this.lastAbsDelta) {
       console.log('was momentum - now faster! (currentAbsDelta > this.lastAbsDelta)')
       console.log('end / re-start WHEEL')
-      this.didStop()
-      this.didStart()
+      this.end()
+      this.start()
     }
 
     this.axisDeltas = this.axisDeltas.map((delta, i) => delta + e[deltaProp[axes[i]]])
@@ -171,14 +175,20 @@ export class WheelAnalyzer {
       const mergedScrollPoint = {
         currentDelta: this.scrollPointsToMerge.reduce((sum, b) => sum + b.currentDelta, 0) / WHEELEVENTS_TO_MERGE,
         currentAbsDelta: this.scrollPointsToMerge.reduce((sum, b) => sum + b.currentAbsDelta, 0) / WHEELEVENTS_TO_MERGE,
-        axisDelta: this.scrollPointsToMerge.reduce(([sumX, sumY], { axisDelta: [x, y] }) => [sumX + x, sumY + y], [
-          0,
-          0,
-        ]).map(sum => sum / WHEELEVENTS_TO_MERGE),
+        axisDelta: this.scrollPointsToMerge
+          .reduce(([sumX, sumY], { axisDelta: [x, y] }) => [sumX + x, sumY + y], [0, 0])
+          .map((sum) => sum / WHEELEVENTS_TO_MERGE),
         timestamp: this.scrollPointsToMerge.reduce((sum, b) => sum + b.timestamp, 0) / WHEELEVENTS_TO_MERGE,
       }
 
       this.scrollPoints.push(mergedScrollPoint)
+
+      // only update velo after a merged scrollpoint was generated
+      this.updateVelocityNew()
+
+      if (!this.isMomentum) {
+        this.detectMomentum()
+      }
 
       // reset merge array
       this.scrollPointsToMerge = []
@@ -187,18 +197,99 @@ export class WheelAnalyzer {
     this.publish(WheelPhase.ANY_WHEEL)
     this.publish(this.isMomentum ? WheelPhase.MOMENTUM_WHEEL : WheelPhase.WHEEL)
 
-    if (this.scrollPoints.length > WHEELEVENTS_TO_ANALAZE) {
-      this.updateVelocity()
+    // if (this.scrollPoints.length > WHEELEVENTS_TO_ANALAZE) {
+    //   this.updateVelocity()
+    //
+    //   // check if momentum can be recognized
+    //   if (!this.isMomentum && this.checkForMomentum()) {
+    //     console.log('MOMENTUM!')
+    //     this.publish(WheelPhase.WHEEL_END)
+    //     this.publish(WheelPhase.MOMENTUM_WHEEL_START)
+    //   } else if (this.isMomentum) {
+    //     this.checkForEnding()
+    //   }
+    // }
 
-      // check if momentum can be recognized
-      if (!this.isMomentum && this.checkForMomentum()) {
-        console.log('MOMENTUM!')
-        this.publish(WheelPhase.WHEEL_END)
-        this.publish(WheelPhase.MOMENTUM_WHEEL_START)
-      } else if (this.isMomentum) {
-        this.checkForEnding()
-      }
+    if (this.isMomentum) {
+      this.checkForEnding()
     }
+
+    // calc debounced end function, to recognize end of wheel event stream
+    this.willEnd()
+  }
+
+  private debugMessage(msg: string, level: keyof Console = 'log') {
+    if (!this.options.isDebug) return
+    console[level](msg)
+  }
+
+  private updateVelocityNew() {
+    // need to have two recent points to calc velocity
+    const [pA, pB] = this.scrollPoints.slice(-2)
+
+    if (!pA || !pB) {
+      return
+    }
+
+    // time delta
+    const deltaTime = pB.timestamp - pA.timestamp
+
+    if (deltaTime <= 0) {
+      this.debugMessage('invalid deltaTime')
+      return
+    }
+
+    // calc the velocity per axes
+    const velocity = pB.axisDelta.map((d) => d / deltaTime)
+
+    // calc the acceleration factor per axis
+    const accelerationFactor = velocity.map((v, i) => {
+      return v / (this.axisVelocity[i] || 1)
+    })
+
+    this.axisVelocity = velocity
+    this.accelerationFactors.push(accelerationFactor)
+  }
+
+  private accelerationFactorInMomentumRange(accFactor: number) {
+    // when main axis is the the other one and there is no movement/change on the current one
+    if (accFactor === 0) {
+      return true
+    } else if (accFactor <= ACC_FACTOR_MAX && accFactor >= ACC_FACTOR_MIN) {
+      return true
+    }
+    return false
+  }
+
+  private detectMomentum() {
+    const recentAccelerationFactors = this.accelerationFactors.slice(WHEELEVENTS_TO_ANALAZE * -1)
+
+    if (recentAccelerationFactors.length < WHEELEVENTS_TO_ANALAZE) {
+      return this.isMomentum
+    }
+
+    const detectedMomentum = recentAccelerationFactors.reduce((mightBeMomentum, accFac) => {
+      // all recent need to match, if any did not match -> short circuit
+      if(!mightBeMomentum) return false
+      // when both axis decelerate exactly in the same rate it is very likely caused by momentum
+      const sameAccFac = !!accFac.reduce((f1, f2) => f1 && f1 < 1 && f1 === f2 ? 1 : 0)
+      // check if acceleration factor is within momentum range
+      const bothAreInRangeOrZero = accFac.filter(this.accelerationFactorInMomentumRange).length === accFac.length
+      // any one of both requirements is fulfilled
+      const currentMatches = sameAccFac || bothAreInRangeOrZero
+
+      return mightBeMomentum && currentMatches
+    }, true)
+
+    this.accelerationFactors = recentAccelerationFactors
+
+    if (detectedMomentum && !this.isMomentum) {
+      this.isMomentum = true
+      this.publish(WheelPhase.WHEEL_END)
+      this.publish(WheelPhase.MOMENTUM_WHEEL_START)
+    }
+
+    return this.isMomentum
   }
 
   private getDebugState(): Partial<WheelAnalyzer> {
@@ -217,26 +308,29 @@ export class WheelAnalyzer {
       deltaVelocity: this.deltaVelocity,
       deltaTotal: this.deltaTotal,
       axisDeltas: this.axisDeltas,
+      axisVelocity: this.axisVelocity,
     }
   }
 
-  private didStart() {
+  private start() {
     this.isStarted = true
     this.willEndSoon = false
     this.isMomentum = false
     this.lastAbsDelta = Infinity
     this.axisDeltas = [0, 0]
+    this.axisVelocity = [0, 0]
     this.deltaVelocity = 0
     this.deltaTotal = 0
-    this.scrollPoints = []
-    this.overallDecreasing = []
     this.scrollPointsToMerge = []
+    this.scrollPoints = []
+    this.accelerationFactors = []
+    this.overallDecreasing = []
 
     this.publish(WheelPhase.ANY_WHEEL_START)
     this.publish(WheelPhase.WHEEL_START)
   }
 
-  private didStop() {
+  private end() {
     this.isStarted = false
 
     if (this.isMomentum) {
@@ -255,6 +349,7 @@ export class WheelAnalyzer {
   }
 
   private updateVelocity() {
+    return
     const scrollPointsToAnalyze = this.scrollPoints.slice(WHEELEVENTS_TO_ANALAZE * -1)
 
     const totalDelta = scrollPointsToAnalyze.reduce(function(a, b) {
@@ -268,17 +363,17 @@ export class WheelAnalyzer {
     const currentVelocity = (totalDelta / (timePassedInInterval || 1)) * 1000
     const velChange = currentVelocity / (this.deltaVelocity || Infinity)
 
-    console.log(velChange)
+    // console.log(velChange)
 
     this.deltaVelocity = currentVelocity
 
     // TODO: this needs to be happening few times in a row, need to get rid of the wrong 1s in between
-    if(!this.isMomentum && velChange >= 0.83 && velChange <= 0.85) {
-      this.isMomentum = true
-      this.publish(WheelPhase.WHEEL_END)
-      this.publish(WheelPhase.MOMENTUM_WHEEL_START)
-      console.log('MOOOOOOOMENT!!!!')
-    }
+    // if(!this.isMomentum && velChange >= 0.83 && velChange <= 0.85) {
+    //   this.isMomentum = true
+    //   this.publish(WheelPhase.WHEEL_END)
+    //   this.publish(WheelPhase.MOMENTUM_WHEEL_START)
+    //   console.log('MOOOOOOOMENT!!!!')
+    // }
   }
 
   private checkForMomentum() {
@@ -286,7 +381,7 @@ export class WheelAnalyzer {
       return this.isMomentum
     }
 
-    if(Math.abs(this.deltaVelocity) <= 300) {
+    if (Math.abs(this.deltaVelocity) <= 300) {
       return false
     }
 

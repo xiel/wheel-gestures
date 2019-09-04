@@ -28,8 +28,6 @@ export default function useWheelDrag(handler: WheelDragHandler, { domTarget }: O
     if (!wheelAnalyzer) return
 
     const unsubscribe = wheelAnalyzer.subscribe((type, data) => {
-      if(type.startsWith('ANY') || type.startsWith('MOMENTUM')) return
-
       switch (type) {
         case WheelPhase.WHEEL_START:
           dragState.current.down = true

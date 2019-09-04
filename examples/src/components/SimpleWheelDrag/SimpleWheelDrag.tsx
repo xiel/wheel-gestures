@@ -19,7 +19,7 @@ export default function SimpleWheelDrag() {
 
   useWheelDrag(
     ({ down, delta }) => {
-      set({ xy: down ? delta : [0, 0] })
+      set({ xy: down ? delta : [0, 0], immediate: down })
     },
     { domTarget: containerRef }
   )
