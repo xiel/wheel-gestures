@@ -2,6 +2,10 @@ import { debounce } from 'throttle-debounce'
 
 const WHEELEVENTS_TO_MERGE = 2
 const WHEELEVENTS_TO_ANALAZE = 5
+
+const SOON_ENDING_WHEEL_COUNT = 3
+const SOON_ENDING_THRESHOLD = 1.4
+
 const ACC_FACTOR_MIN = 0.6
 const ACC_FACTOR_MAX = 0.96
 
@@ -58,8 +62,6 @@ const defaults: Options = {
 export class WheelAnalyzer {
   private isStarted = false
   private isMomentum = false
-  private willEndSoon = false
-
   private lastAbsDelta = Infinity
   private axisDeltas: number[] = [0, 0]
   private axisVelocity: number[] = [0, 0]
@@ -72,7 +74,6 @@ export class WheelAnalyzer {
    */
   private scrollPoints: ScrollPoint[] = []
   private scrollPointsToMerge: ScrollPoint[] = []
-  private overallDecreasing: boolean[] = []
 
   private subscriptions: SubscribeFn[] = []
   private targets: EventTarget[] = []
@@ -195,10 +196,6 @@ export class WheelAnalyzer {
     this.publish(WheelPhase.ANY_WHEEL)
     this.publish(this.isMomentum ? WheelPhase.MOMENTUM_WHEEL : WheelPhase.WHEEL)
 
-    if (this.isMomentum) {
-      this.checkForEnding()
-    }
-
     // calc debounced end function, to recognize end of wheel event stream
     this.willEnd()
   }
@@ -236,7 +233,7 @@ export class WheelAnalyzer {
     this.accelerationFactors.push(accelerationFactor)
   }
 
-  private accelerationFactorInMomentumRange(accFactor: number) {
+  private static accelerationFactorInMomentumRange(accFactor: number) {
     // when main axis is the the other one and there is no movement/change on the current one
     if (accFactor === 0) return true
     return accFactor <= ACC_FACTOR_MAX && accFactor >= ACC_FACTOR_MIN
@@ -256,7 +253,7 @@ export class WheelAnalyzer {
       // when both axis decelerate exactly in the same rate it is very likely caused by momentum
       const sameAccFac = !!accFac.reduce((f1, f2) => (f1 && f1 < 1 && f1 === f2 ? 1 : 0))
       // check if acceleration factor is within momentum range
-      const bothAreInRangeOrZero = accFac.filter(this.accelerationFactorInMomentumRange).length === accFac.length
+      const bothAreInRangeOrZero = accFac.filter(WheelAnalyzer.accelerationFactorInMomentumRange).length === accFac.length
       // one the requirements must be fulfilled
       return sameAccFac || bothAreInRangeOrZero
     }, true)
@@ -265,8 +262,8 @@ export class WheelAnalyzer {
     this.accelerationFactors = recentAccelerationFactors
 
     if (detectedMomentum && !this.isMomentum) {
-      this.isMomentum = true
       this.publish(WheelPhase.WHEEL_END)
+      this.isMomentum = true
       this.publish(WheelPhase.MOMENTUM_WHEEL_START)
     }
 
@@ -284,7 +281,6 @@ export class WheelAnalyzer {
       type,
       debugData,
       willEndSoon: this.willEndSoon,
-      isStarted: this.isStarted,
       isMomentum: this.isMomentum,
       deltaVelocity: this.deltaVelocity,
       deltaTotal: this.deltaTotal,
@@ -295,7 +291,6 @@ export class WheelAnalyzer {
 
   private start() {
     this.isStarted = true
-    this.willEndSoon = false
     this.isMomentum = false
     this.lastAbsDelta = Infinity
     this.axisDeltas = [0, 0]
@@ -305,22 +300,18 @@ export class WheelAnalyzer {
     this.scrollPointsToMerge = []
     this.scrollPoints = []
     this.accelerationFactors = []
-    this.overallDecreasing = []
 
     this.publish(WheelPhase.ANY_WHEEL_START)
     this.publish(WheelPhase.WHEEL_START)
   }
 
   private end() {
-    this.isStarted = false
-
     if (this.isMomentum) {
       if (!this.willEndSoon) {
         this.publish(WheelPhase.MOMENTUM_WHEEL_CANCEL)
       } else {
         this.publish(WheelPhase.MOMENTUM_WHEEL_END)
       }
-      this.isMomentum = false
     } else {
       // in case of momentum, this event was already triggered when the momentum was detected so we do not trigger it here
       this.publish(WheelPhase.WHEEL_END)
@@ -328,18 +319,13 @@ export class WheelAnalyzer {
 
     this.publish(WheelPhase.ANY_WHEEL_END)
 
-    console.log('end')
+    this.isMomentum = false
+    this.isStarted = false
   }
 
-  // TODO: transform into getter
-  private checkForEnding() {
-    const absDeltas = this.scrollPoints.slice(-3).map(({ currentAbsDelta }) => currentAbsDelta)
-    const absDeltaAverage = absDeltas.reduce((a, b) => a + b) / absDeltas.length
-
-    if (absDeltaAverage <= 1.4) {
-      this.willEndSoon = true
-    }
-
-    return this.willEndSoon
+  private get willEndSoon() {
+    const absDeltas = this.scrollPoints.slice(SOON_ENDING_WHEEL_COUNT * -1).map(({ currentAbsDelta }) => currentAbsDelta)
+    const absDeltaAverage = absDeltas.reduce((a, b) => a + b, 0) / absDeltas.length
+    return absDeltaAverage <= SOON_ENDING_THRESHOLD
   }
 }

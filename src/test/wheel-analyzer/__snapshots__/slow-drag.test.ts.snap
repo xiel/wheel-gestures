@@ -17,9 +17,8 @@ Object {
         "deltaTotal": -1407,
         "deltaVelocity": 0,
         "isMomentum": false,
-        "isStarted": false,
         "type": "WHEEL_END",
-        "willEndSoon": false,
+        "willEndSoon": true,
       },
       "range": Array [
         0,
@@ -41,9 +40,8 @@ Object {
         "deltaTotal": -1407,
         "deltaVelocity": 0,
         "isMomentum": false,
-        "isStarted": false,
         "type": "ANY_WHEEL_END",
-        "willEndSoon": false,
+        "willEndSoon": true,
       },
       "range": Array [
         0,
