@@ -4,6 +4,23 @@ exports[`drag slow drag 1`] = `
 Object {
   "phases": Array [
     Object {
+      "lastData": Object {
+        "axisDeltas": Array [
+          -1407,
+          11,
+        ],
+        "axisVelocity": Array [
+          -0.0625,
+          0.03125,
+        ],
+        "debugData": null,
+        "deltaTotal": -1407,
+        "deltaVelocity": 0,
+        "isMomentum": false,
+        "isStarted": false,
+        "type": "WHEEL_END",
+        "willEndSoon": false,
+      },
       "range": Array [
         0,
         193,
@@ -11,6 +28,23 @@ Object {
       "wheelType": "WHEEL",
     },
     Object {
+      "lastData": Object {
+        "axisDeltas": Array [
+          -1407,
+          11,
+        ],
+        "axisVelocity": Array [
+          -0.0625,
+          0.03125,
+        ],
+        "debugData": null,
+        "deltaTotal": -1407,
+        "deltaVelocity": 0,
+        "isMomentum": false,
+        "isStarted": false,
+        "type": "ANY_WHEEL_END",
+        "willEndSoon": false,
+      },
       "range": Array [
         0,
         193,

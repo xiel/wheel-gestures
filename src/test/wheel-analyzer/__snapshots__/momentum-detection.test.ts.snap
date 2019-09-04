@@ -4,6 +4,23 @@ exports[`momentum detection recognizes double swipe right 1`] = `
 Object {
   "phases": Array [
     Object {
+      "lastData": Object {
+        "axisDeltas": Array [
+          -782,
+          8,
+        ],
+        "axisVelocity": Array [
+          -0.8457600709703869,
+          0,
+        ],
+        "debugData": null,
+        "deltaTotal": -782,
+        "deltaVelocity": 0,
+        "isMomentum": true,
+        "isStarted": true,
+        "type": "WHEEL_END",
+        "willEndSoon": false,
+      },
       "range": Array [
         0,
         21,
@@ -12,6 +29,23 @@ Object {
     },
     Object {
       "canceled": true,
+      "lastData": Object {
+        "axisDeltas": Array [
+          -952,
+          8,
+        ],
+        "axisVelocity": Array [
+          -0.3411703626905235,
+          0,
+        ],
+        "debugData": null,
+        "deltaTotal": -952,
+        "deltaVelocity": 0,
+        "isMomentum": true,
+        "isStarted": false,
+        "type": "MOMENTUM_WHEEL_CANCEL",
+        "willEndSoon": false,
+      },
       "range": Array [
         21,
         33,
@@ -19,6 +53,23 @@ Object {
       "wheelType": "MOMENTUM_WHEEL",
     },
     Object {
+      "lastData": Object {
+        "axisDeltas": Array [
+          -952,
+          8,
+        ],
+        "axisVelocity": Array [
+          -0.3411703626905235,
+          0,
+        ],
+        "debugData": null,
+        "deltaTotal": -952,
+        "deltaVelocity": 0,
+        "isMomentum": false,
+        "isStarted": false,
+        "type": "ANY_WHEEL_END",
+        "willEndSoon": false,
+      },
       "range": Array [
         0,
         33,
@@ -26,6 +77,23 @@ Object {
       "wheelType": "ANY_WHEEL",
     },
     Object {
+      "lastData": Object {
+        "axisDeltas": Array [
+          -1281,
+          -2,
+        ],
+        "axisVelocity": Array [
+          -1.3290999043459837,
+          0,
+        ],
+        "debugData": null,
+        "deltaTotal": -1281,
+        "deltaVelocity": 0,
+        "isMomentum": true,
+        "isStarted": true,
+        "type": "WHEEL_END",
+        "willEndSoon": false,
+      },
       "range": Array [
         33,
         56,
@@ -33,6 +101,23 @@ Object {
       "wheelType": "WHEEL",
     },
     Object {
+      "lastData": Object {
+        "axisDeltas": Array [
+          -1755,
+          -2,
+        ],
+        "axisVelocity": Array [
+          -0.019964064681865807,
+          0,
+        ],
+        "debugData": null,
+        "deltaTotal": -1755,
+        "deltaVelocity": 0,
+        "isMomentum": true,
+        "isStarted": false,
+        "type": "MOMENTUM_WHEEL_END",
+        "willEndSoon": true,
+      },
       "range": Array [
         56,
         102,
@@ -40,6 +125,23 @@ Object {
       "wheelType": "MOMENTUM_WHEEL",
     },
     Object {
+      "lastData": Object {
+        "axisDeltas": Array [
+          -1755,
+          -2,
+        ],
+        "axisVelocity": Array [
+          -0.019964064681865807,
+          0,
+        ],
+        "debugData": null,
+        "deltaTotal": -1755,
+        "deltaVelocity": 0,
+        "isMomentum": false,
+        "isStarted": false,
+        "type": "ANY_WHEEL_END",
+        "willEndSoon": true,
+      },
       "range": Array [
         33,
         102,
@@ -54,6 +156,23 @@ exports[`momentum detection recognizes swipe down - fast 1`] = `
 Object {
   "phases": Array [
     Object {
+      "lastData": Object {
+        "axisDeltas": Array [
+          -23,
+          -3575,
+        ],
+        "axisVelocity": Array [
+          0,
+          -5.617647058823529,
+        ],
+        "debugData": null,
+        "deltaTotal": -3575,
+        "deltaVelocity": 0,
+        "isMomentum": true,
+        "isStarted": true,
+        "type": "WHEEL_END",
+        "willEndSoon": false,
+      },
       "range": Array [
         0,
         19,
@@ -61,6 +180,23 @@ Object {
       "wheelType": "WHEEL",
     },
     Object {
+      "lastData": Object {
+        "axisDeltas": Array [
+          -23,
+          -7290,
+        ],
+        "axisVelocity": Array [
+          0,
+          -0.02040816326530612,
+        ],
+        "debugData": null,
+        "deltaTotal": -7290,
+        "deltaVelocity": 0,
+        "isMomentum": true,
+        "isStarted": false,
+        "type": "MOMENTUM_WHEEL_END",
+        "willEndSoon": true,
+      },
       "range": Array [
         19,
         95,
@@ -68,6 +204,23 @@ Object {
       "wheelType": "MOMENTUM_WHEEL",
     },
     Object {
+      "lastData": Object {
+        "axisDeltas": Array [
+          -23,
+          -7290,
+        ],
+        "axisVelocity": Array [
+          0,
+          -0.02040816326530612,
+        ],
+        "debugData": null,
+        "deltaTotal": -7290,
+        "deltaVelocity": 0,
+        "isMomentum": false,
+        "isStarted": false,
+        "type": "ANY_WHEEL_END",
+        "willEndSoon": true,
+      },
       "range": Array [
         0,
         95,
@@ -82,6 +235,23 @@ exports[`momentum detection recognizes swipe down 1`] = `
 Object {
   "phases": Array [
     Object {
+      "lastData": Object {
+        "axisDeltas": Array [
+          7,
+          -1643,
+        ],
+        "axisVelocity": Array [
+          0,
+          -1.4242424242424243,
+        ],
+        "debugData": null,
+        "deltaTotal": -1643,
+        "deltaVelocity": 0,
+        "isMomentum": true,
+        "isStarted": true,
+        "type": "WHEEL_END",
+        "willEndSoon": false,
+      },
       "range": Array [
         0,
         41,
@@ -89,6 +259,23 @@ Object {
       "wheelType": "WHEEL",
     },
     Object {
+      "lastData": Object {
+        "axisDeltas": Array [
+          7,
+          -2134,
+        ],
+        "axisVelocity": Array [
+          0,
+          -0.024390243902439025,
+        ],
+        "debugData": null,
+        "deltaTotal": -2134,
+        "deltaVelocity": 0,
+        "isMomentum": true,
+        "isStarted": false,
+        "type": "MOMENTUM_WHEEL_END",
+        "willEndSoon": true,
+      },
       "range": Array [
         41,
         87,
@@ -96,6 +283,23 @@ Object {
       "wheelType": "MOMENTUM_WHEEL",
     },
     Object {
+      "lastData": Object {
+        "axisDeltas": Array [
+          7,
+          -2134,
+        ],
+        "axisVelocity": Array [
+          0,
+          -0.024390243902439025,
+        ],
+        "debugData": null,
+        "deltaTotal": -2134,
+        "deltaVelocity": 0,
+        "isMomentum": false,
+        "isStarted": false,
+        "type": "ANY_WHEEL_END",
+        "willEndSoon": true,
+      },
       "range": Array [
         0,
         87,
@@ -110,6 +314,23 @@ exports[`momentum detection recognizes swipe left - fast 1`] = `
 Object {
   "phases": Array [
     Object {
+      "lastData": Object {
+        "axisDeltas": Array [
+          4720,
+          -8,
+        ],
+        "axisVelocity": Array [
+          7.029411764705882,
+          0,
+        ],
+        "debugData": null,
+        "deltaTotal": 4720,
+        "deltaVelocity": 0,
+        "isMomentum": true,
+        "isStarted": true,
+        "type": "WHEEL_END",
+        "willEndSoon": false,
+      },
       "range": Array [
         0,
         17,
@@ -117,6 +338,23 @@ Object {
       "wheelType": "WHEEL",
     },
     Object {
+      "lastData": Object {
+        "axisDeltas": Array [
+          9964,
+          -8,
+        ],
+        "axisVelocity": Array [
+          0.019801980198019802,
+          0,
+        ],
+        "debugData": null,
+        "deltaTotal": 9964,
+        "deltaVelocity": 0,
+        "isMomentum": true,
+        "isStarted": false,
+        "type": "MOMENTUM_WHEEL_END",
+        "willEndSoon": true,
+      },
       "range": Array [
         17,
         100,
@@ -124,6 +362,23 @@ Object {
       "wheelType": "MOMENTUM_WHEEL",
     },
     Object {
+      "lastData": Object {
+        "axisDeltas": Array [
+          9964,
+          -8,
+        ],
+        "axisVelocity": Array [
+          0.019801980198019802,
+          0,
+        ],
+        "debugData": null,
+        "deltaTotal": 9964,
+        "deltaVelocity": 0,
+        "isMomentum": false,
+        "isStarted": false,
+        "type": "ANY_WHEEL_END",
+        "willEndSoon": true,
+      },
       "range": Array [
         0,
         100,
@@ -138,6 +393,23 @@ exports[`momentum detection recognizes swipe left 1`] = `
 Object {
   "phases": Array [
     Object {
+      "lastData": Object {
+        "axisDeltas": Array [
+          2138,
+          -15,
+        ],
+        "axisVelocity": Array [
+          2.1911764705882355,
+          0,
+        ],
+        "debugData": null,
+        "deltaTotal": 2138,
+        "deltaVelocity": 0,
+        "isMomentum": true,
+        "isStarted": true,
+        "type": "WHEEL_END",
+        "willEndSoon": false,
+      },
       "range": Array [
         0,
         29,
@@ -145,6 +417,23 @@ Object {
       "wheelType": "WHEEL",
     },
     Object {
+      "lastData": Object {
+        "axisDeltas": Array [
+          3001,
+          -15,
+        ],
+        "axisVelocity": Array [
+          0.02,
+          0,
+        ],
+        "debugData": null,
+        "deltaTotal": 3001,
+        "deltaVelocity": 0,
+        "isMomentum": true,
+        "isStarted": false,
+        "type": "MOMENTUM_WHEEL_END",
+        "willEndSoon": true,
+      },
       "range": Array [
         29,
         82,
@@ -152,6 +441,23 @@ Object {
       "wheelType": "MOMENTUM_WHEEL",
     },
     Object {
+      "lastData": Object {
+        "axisDeltas": Array [
+          3001,
+          -15,
+        ],
+        "axisVelocity": Array [
+          0.02,
+          0,
+        ],
+        "debugData": null,
+        "deltaTotal": 3001,
+        "deltaVelocity": 0,
+        "isMomentum": false,
+        "isStarted": false,
+        "type": "ANY_WHEEL_END",
+        "willEndSoon": true,
+      },
       "range": Array [
         0,
         82,
@@ -166,6 +472,23 @@ exports[`momentum detection recognizes swipe right - fast 1`] = `
 Object {
   "phases": Array [
     Object {
+      "lastData": Object {
+        "axisDeltas": Array [
+          -8836,
+          0,
+        ],
+        "axisVelocity": Array [
+          -10.411881793655818,
+          0,
+        ],
+        "debugData": null,
+        "deltaTotal": -8836,
+        "deltaVelocity": 0,
+        "isMomentum": true,
+        "isStarted": true,
+        "type": "WHEEL_END",
+        "willEndSoon": false,
+      },
       "range": Array [
         0,
         33,
@@ -173,6 +496,23 @@ Object {
       "wheelType": "WHEEL",
     },
     Object {
+      "lastData": Object {
+        "axisDeltas": Array [
+          -12789,
+          0,
+        ],
+        "axisVelocity": Array [
+          -0.02000300045137455,
+          0,
+        ],
+        "debugData": null,
+        "deltaTotal": -12789,
+        "deltaVelocity": 0,
+        "isMomentum": true,
+        "isStarted": false,
+        "type": "MOMENTUM_WHEEL_END",
+        "willEndSoon": true,
+      },
       "range": Array [
         33,
         96,
@@ -180,6 +520,23 @@ Object {
       "wheelType": "MOMENTUM_WHEEL",
     },
     Object {
+      "lastData": Object {
+        "axisDeltas": Array [
+          -12789,
+          0,
+        ],
+        "axisVelocity": Array [
+          -0.02000300045137455,
+          0,
+        ],
+        "debugData": null,
+        "deltaTotal": -12789,
+        "deltaVelocity": 0,
+        "isMomentum": false,
+        "isStarted": false,
+        "type": "ANY_WHEEL_END",
+        "willEndSoon": true,
+      },
       "range": Array [
         0,
         96,
@@ -194,6 +551,23 @@ exports[`momentum detection recognizes swipe right 1`] = `
 Object {
   "phases": Array [
     Object {
+      "lastData": Object {
+        "axisDeltas": Array [
+          -1247,
+          0,
+        ],
+        "axisVelocity": Array [
+          -1.1851401654532354,
+          0,
+        ],
+        "debugData": null,
+        "deltaTotal": -1247,
+        "deltaVelocity": 0,
+        "isMomentum": true,
+        "isStarted": true,
+        "type": "WHEEL_END",
+        "willEndSoon": false,
+      },
       "range": Array [
         0,
         25,
@@ -201,6 +575,23 @@ Object {
       "wheelType": "WHEEL",
     },
     Object {
+      "lastData": Object {
+        "axisDeltas": Array [
+          -1634,
+          0,
+        ],
+        "axisVelocity": Array [
+          -0.01992925115792905,
+          0,
+        ],
+        "debugData": null,
+        "deltaTotal": -1634,
+        "deltaVelocity": 0,
+        "isMomentum": true,
+        "isStarted": false,
+        "type": "MOMENTUM_WHEEL_END",
+        "willEndSoon": true,
+      },
       "range": Array [
         25,
         63,
@@ -208,6 +599,23 @@ Object {
       "wheelType": "MOMENTUM_WHEEL",
     },
     Object {
+      "lastData": Object {
+        "axisDeltas": Array [
+          -1634,
+          0,
+        ],
+        "axisVelocity": Array [
+          -0.01992925115792905,
+          0,
+        ],
+        "debugData": null,
+        "deltaTotal": -1634,
+        "deltaVelocity": 0,
+        "isMomentum": false,
+        "isStarted": false,
+        "type": "ANY_WHEEL_END",
+        "willEndSoon": true,
+      },
       "range": Array [
         0,
         63,
@@ -222,6 +630,23 @@ exports[`momentum detection recognizes swipe up - fast 1`] = `
 Object {
   "phases": Array [
     Object {
+      "lastData": Object {
+        "axisDeltas": Array [
+          -38,
+          4124,
+        ],
+        "axisVelocity": Array [
+          0,
+          5.838235294117647,
+        ],
+        "debugData": null,
+        "deltaTotal": 4124,
+        "deltaVelocity": 0,
+        "isMomentum": true,
+        "isStarted": true,
+        "type": "WHEEL_END",
+        "willEndSoon": false,
+      },
       "range": Array [
         0,
         21,
@@ -229,6 +654,23 @@ Object {
       "wheelType": "WHEEL",
     },
     Object {
+      "lastData": Object {
+        "axisDeltas": Array [
+          -38,
+          8065,
+        ],
+        "axisVelocity": Array [
+          0,
+          0.0196078431372549,
+        ],
+        "debugData": null,
+        "deltaTotal": 8065,
+        "deltaVelocity": 0,
+        "isMomentum": true,
+        "isStarted": false,
+        "type": "MOMENTUM_WHEEL_END",
+        "willEndSoon": true,
+      },
       "range": Array [
         21,
         98,
@@ -236,6 +678,23 @@ Object {
       "wheelType": "MOMENTUM_WHEEL",
     },
     Object {
+      "lastData": Object {
+        "axisDeltas": Array [
+          -38,
+          8065,
+        ],
+        "axisVelocity": Array [
+          0,
+          0.0196078431372549,
+        ],
+        "debugData": null,
+        "deltaTotal": 8065,
+        "deltaVelocity": 0,
+        "isMomentum": false,
+        "isStarted": false,
+        "type": "ANY_WHEEL_END",
+        "willEndSoon": true,
+      },
       "range": Array [
         0,
         98,
@@ -250,6 +709,23 @@ exports[`momentum detection recognizes swipe up 1`] = `
 Object {
   "phases": Array [
     Object {
+      "lastData": Object {
+        "axisDeltas": Array [
+          -70,
+          2259,
+        ],
+        "axisVelocity": Array [
+          0,
+          3.3582089552238807,
+        ],
+        "debugData": null,
+        "deltaTotal": 2259,
+        "deltaVelocity": 0,
+        "isMomentum": true,
+        "isStarted": true,
+        "type": "WHEEL_END",
+        "willEndSoon": false,
+      },
       "range": Array [
         0,
         23,
@@ -257,6 +733,23 @@ Object {
       "wheelType": "WHEEL",
     },
     Object {
+      "lastData": Object {
+        "axisDeltas": Array [
+          -70,
+          3836,
+        ],
+        "axisVelocity": Array [
+          0,
+          0.02,
+        ],
+        "debugData": null,
+        "deltaTotal": 3836,
+        "deltaVelocity": 0,
+        "isMomentum": true,
+        "isStarted": false,
+        "type": "MOMENTUM_WHEEL_END",
+        "willEndSoon": true,
+      },
       "range": Array [
         23,
         84,
@@ -264,6 +757,23 @@ Object {
       "wheelType": "MOMENTUM_WHEEL",
     },
     Object {
+      "lastData": Object {
+        "axisDeltas": Array [
+          -70,
+          3836,
+        ],
+        "axisVelocity": Array [
+          0,
+          0.02,
+        ],
+        "debugData": null,
+        "deltaTotal": 3836,
+        "deltaVelocity": 0,
+        "isMomentum": false,
+        "isStarted": false,
+        "type": "ANY_WHEEL_END",
+        "willEndSoon": true,
+      },
       "range": Array [
         0,
         84,

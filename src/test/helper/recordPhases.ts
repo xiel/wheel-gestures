@@ -5,15 +5,15 @@ export type Range = [number, number]
 export interface PhaseRange {
   wheelType: WheelTypes
   range: Range
-  data?: PhaseData
   canceled?: boolean
+  lastData?: PhaseData
 }
 
 export function recordPhases(wheelEvents: WheelEventData[]) {
   // need to use fake timers, so we can run the debounced end function after feeding all events
   jest.useFakeTimers()
 
-  const wA = new WheelAnalyzer({ isDebug: true })
+  const wA = new WheelAnalyzer()
   const phases: PhaseRange[] = []
   const phaseRange: Record<WheelTypes, Range> = {
     WHEEL: [-1, -1],
@@ -44,6 +44,7 @@ export function recordPhases(wheelEvents: WheelEventData[]) {
           wheelType,
           range: phaseRange[wheelType],
           ...(isCancel ? { canceled: isCancel } : null),
+          lastData: data
         })
       }
 
