@@ -82,7 +82,6 @@ export class WheelAnalyzer {
 
   public constructor(options?: Partial<Options>) {
     this.willEnd = debounce(99, () => {
-      console.log('willStop -> didStop!')
       this.end()
     })
     this.options = Object.assign(defaults, options)
@@ -270,9 +269,9 @@ export class WheelAnalyzer {
 
     const detectedMomentum = recentAccelerationFactors.reduce((mightBeMomentum, accFac) => {
       // all recent need to match, if any did not match -> short circuit
-      if(!mightBeMomentum) return false
+      if (!mightBeMomentum) return false
       // when both axis decelerate exactly in the same rate it is very likely caused by momentum
-      const sameAccFac = !!accFac.reduce((f1, f2) => f1 && f1 < 1 && f1 === f2 ? 1 : 0)
+      const sameAccFac = !!accFac.reduce((f1, f2) => (f1 && f1 < 1 && f1 === f2 ? 1 : 0))
       // check if acceleration factor is within momentum range
       const bothAreInRangeOrZero = accFac.filter(this.accelerationFactorInMomentumRange).length === accFac.length
       // any one of both requirements is fulfilled
@@ -411,17 +410,12 @@ export class WheelAnalyzer {
     return this.isMomentum
   }
 
+  // TODO: transform into getter
   private checkForEnding() {
-    const scrollPointsToAnalize = this.scrollPoints.slice(WHEELEVENTS_TO_ANALAZE * -1)
-    const scrollPointsToAnalizeAbsDeltas = scrollPointsToAnalize.map(function(scrollPoint) {
-      return scrollPoint.currentAbsDelta
-    })
-    const absDeltaAvrg =
-      scrollPointsToAnalizeAbsDeltas.reduce(function(a, b) {
-        return a + b
-      }) / scrollPointsToAnalizeAbsDeltas.length
+    const absDeltas = this.scrollPoints.slice(-3).map(({ currentAbsDelta }) => currentAbsDelta)
+    const absDeltaAverage = absDeltas.reduce((a, b) => a + b) / absDeltas.length
 
-    if (absDeltaAvrg <= 1.34) {
+    if (absDeltaAverage <= 1.4) {
       this.willEndSoon = true
     }
 

@@ -6,57 +6,13 @@ Object {
     Object {
       "range": Array [
         0,
-        149,
-      ],
-      "wheelType": "WHEEL",
-    },
-    Object {
-      "canceled": true,
-      "range": Array [
-        149,
-        156,
-      ],
-      "wheelType": "MOMENTUM_WHEEL",
-    },
-    Object {
-      "range": Array [
-        0,
-        156,
-      ],
-      "wheelType": "ANY_WHEEL",
-    },
-    Object {
-      "range": Array [
-        156,
-        179,
-      ],
-      "wheelType": "WHEEL",
-    },
-    Object {
-      "canceled": true,
-      "range": Array [
-        179,
-        183,
-      ],
-      "wheelType": "MOMENTUM_WHEEL",
-    },
-    Object {
-      "range": Array [
-        156,
-        183,
-      ],
-      "wheelType": "ANY_WHEEL",
-    },
-    Object {
-      "range": Array [
-        183,
         193,
       ],
       "wheelType": "WHEEL",
     },
     Object {
       "range": Array [
-        183,
+        0,
         193,
       ],
       "wheelType": "ANY_WHEEL",

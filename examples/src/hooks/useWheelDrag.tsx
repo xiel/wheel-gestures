@@ -37,7 +37,6 @@ export default function useWheelDrag(handler: WheelDragHandler, { domTarget }: O
           break
         case WheelPhase.WHEEL_END:
           dragState.current.down = false
-          console.log(data.debugData)
           break
         default:
           return
