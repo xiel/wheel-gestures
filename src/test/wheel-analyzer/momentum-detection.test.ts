@@ -7,6 +7,7 @@ import swipeUp from '../fixtures/swipe-up-trackpad.json'
 import swipeUpFast from '../fixtures/swipe-up-fast-trackpad.json'
 import swipeDown from '../fixtures/swipe-down-trackpad.json'
 import swipeDownFast from '../fixtures/swipe-down-fast-trackpad.json'
+import doubleSwipeRight from '../fixtures/double-swipe-right.json'
 
 describe('momentum detection recognizes', () => {
   it('swipe right', () => {
@@ -39,5 +40,9 @@ describe('momentum detection recognizes', () => {
 
   it('swipe down - fast', () => {
     expect(recordPhases(swipeDownFast.wheelEvents)).toMatchSnapshot()
+  })
+
+  it('double swipe right', () => {
+    expect(recordPhases(doubleSwipeRight.wheelEvents)).toMatchSnapshot()
   })
 })

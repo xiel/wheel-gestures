@@ -1,5 +1,55 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`momentum detection recognizes double swipe right 1`] = `
+Object {
+  "phases": Array [
+    Object {
+      "range": Array [
+        0,
+        21,
+      ],
+      "wheelType": "WHEEL",
+    },
+    Object {
+      "canceled": true,
+      "range": Array [
+        21,
+        33,
+      ],
+      "wheelType": "MOMENTUM_WHEEL",
+    },
+    Object {
+      "range": Array [
+        0,
+        33,
+      ],
+      "wheelType": "ANY_WHEEL",
+    },
+    Object {
+      "range": Array [
+        33,
+        56,
+      ],
+      "wheelType": "WHEEL",
+    },
+    Object {
+      "range": Array [
+        56,
+        102,
+      ],
+      "wheelType": "MOMENTUM_WHEEL",
+    },
+    Object {
+      "range": Array [
+        33,
+        102,
+      ],
+      "wheelType": "ANY_WHEEL",
+    },
+  ],
+}
+`;
+
 exports[`momentum detection recognizes swipe down - fast 1`] = `
 Object {
   "phases": Array [
