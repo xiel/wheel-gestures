@@ -87,7 +87,6 @@ export class WheelAnalyzer {
     this.options = Object.assign(defaults, options)
   }
 
-  // TODO: improve with wheelIntent
   public observe = (target: EventTarget) => {
     target.addEventListener('wheel', this.feedWheel as EventListener, { passive: false })
     this.targets.push(target)
@@ -102,10 +101,6 @@ export class WheelAnalyzer {
   // stops watching all of its target elements for visibility changes.
   public disconnect = () => {
     this.targets.forEach(this.unobserve)
-  }
-
-  private publish = (phase: WheelPhase, data = this.getCurrentState(phase)) => {
-    this.subscriptions.forEach((fn) => fn(phase, data))
   }
 
   public subscribe = (callback: SubscribeFn) => {
@@ -129,6 +124,10 @@ export class WheelAnalyzer {
     } else {
       this.processWheelEventData(wheelEvents)
     }
+  }
+
+  private publish = (phase: WheelPhase, data = this.getCurrentState(phase)) => {
+    this.subscriptions.forEach((fn) => fn(phase, data))
   }
 
   private processWheelEventData(e: WheelEventData) {
@@ -196,19 +195,6 @@ export class WheelAnalyzer {
     this.publish(WheelPhase.ANY_WHEEL)
     this.publish(this.isMomentum ? WheelPhase.MOMENTUM_WHEEL : WheelPhase.WHEEL)
 
-    // if (this.scrollPoints.length > WHEELEVENTS_TO_ANALAZE) {
-    //   this.updateVelocity()
-    //
-    //   // check if momentum can be recognized
-    //   if (!this.isMomentum && this.checkForMomentum()) {
-    //     console.log('MOMENTUM!')
-    //     this.publish(WheelPhase.WHEEL_END)
-    //     this.publish(WheelPhase.MOMENTUM_WHEEL_START)
-    //   } else if (this.isMomentum) {
-    //     this.checkForEnding()
-    //   }
-    // }
-
     if (this.isMomentum) {
       this.checkForEnding()
     }
@@ -252,21 +238,18 @@ export class WheelAnalyzer {
 
   private accelerationFactorInMomentumRange(accFactor: number) {
     // when main axis is the the other one and there is no movement/change on the current one
-    if (accFactor === 0) {
-      return true
-    } else if (accFactor <= ACC_FACTOR_MAX && accFactor >= ACC_FACTOR_MIN) {
-      return true
-    }
-    return false
+    if (accFactor === 0) return true
+    return accFactor <= ACC_FACTOR_MAX && accFactor >= ACC_FACTOR_MIN
   }
 
   private detectMomentum() {
-    const recentAccelerationFactors = this.accelerationFactors.slice(WHEELEVENTS_TO_ANALAZE * -1)
-
-    if (recentAccelerationFactors.length < WHEELEVENTS_TO_ANALAZE) {
+    if (this.accelerationFactors.length < WHEELEVENTS_TO_ANALAZE) {
       return this.isMomentum
     }
 
+    const recentAccelerationFactors = this.accelerationFactors.slice(WHEELEVENTS_TO_ANALAZE * -1)
+
+    // check recent acceleration / deceleration factors
     const detectedMomentum = recentAccelerationFactors.reduce((mightBeMomentum, accFac) => {
       // all recent need to match, if any did not match -> short circuit
       if (!mightBeMomentum) return false
@@ -274,12 +257,11 @@ export class WheelAnalyzer {
       const sameAccFac = !!accFac.reduce((f1, f2) => (f1 && f1 < 1 && f1 === f2 ? 1 : 0))
       // check if acceleration factor is within momentum range
       const bothAreInRangeOrZero = accFac.filter(this.accelerationFactorInMomentumRange).length === accFac.length
-      // any one of both requirements is fulfilled
-      const currentMatches = sameAccFac || bothAreInRangeOrZero
-
-      return mightBeMomentum && currentMatches
+      // one the requirements must be fulfilled
+      return sameAccFac || bothAreInRangeOrZero
     }, true)
 
+    // only keep the most recent events
     this.accelerationFactors = recentAccelerationFactors
 
     if (detectedMomentum && !this.isMomentum) {
@@ -340,74 +322,13 @@ export class WheelAnalyzer {
       }
       this.isMomentum = false
     } else {
-      // in case of momentum, this event was triggered when the momentum was detected
+      // in case of momentum, this event was already triggered when the momentum was detected so we do not trigger it here
       this.publish(WheelPhase.WHEEL_END)
     }
 
     this.publish(WheelPhase.ANY_WHEEL_END)
-  }
 
-  private updateVelocity() {
-    return
-    const scrollPointsToAnalyze = this.scrollPoints.slice(WHEELEVENTS_TO_ANALAZE * -1)
-
-    const totalDelta = scrollPointsToAnalyze.reduce(function(a, b) {
-      return a + b.currentDelta
-    }, 0)
-
-    const timePassedInInterval = Math.abs(
-      scrollPointsToAnalyze[scrollPointsToAnalyze.length - 1].timestamp - scrollPointsToAnalyze[0].timestamp
-    )
-
-    const currentVelocity = (totalDelta / (timePassedInInterval || 1)) * 1000
-    const velChange = currentVelocity / (this.deltaVelocity || Infinity)
-
-    // console.log(velChange)
-
-    this.deltaVelocity = currentVelocity
-
-    // TODO: this needs to be happening few times in a row, need to get rid of the wrong 1s in between
-    // if(!this.isMomentum && velChange >= 0.83 && velChange <= 0.85) {
-    //   this.isMomentum = true
-    //   this.publish(WheelPhase.WHEEL_END)
-    //   this.publish(WheelPhase.MOMENTUM_WHEEL_START)
-    //   console.log('MOOOOOOOMENT!!!!')
-    // }
-  }
-
-  private checkForMomentum() {
-    if (this.isMomentum) {
-      return this.isMomentum
-    }
-
-    if (Math.abs(this.deltaVelocity) <= 300) {
-      return false
-    }
-
-    return false
-
-    // get the latest WHEELEVENTS_TO_ANALAZE
-    const scrollPointsToAnalize = this.scrollPoints.slice(WHEELEVENTS_TO_ANALAZE * -1)
-    const scrollPointsToAnalizeAbsDeltas = scrollPointsToAnalize.map(({ currentAbsDelta }) => currentAbsDelta)
-
-    if (scrollPointsToAnalize.length < WHEELEVENTS_TO_ANALAZE) {
-      return console.error('not enough points.')
-    }
-
-    // check if delta is all decreasing
-    const absDeltasMin = Math.min.apply(null, scrollPointsToAnalizeAbsDeltas)
-    const absDeltasMax = Math.max.apply(null, scrollPointsToAnalizeAbsDeltas)
-    const isOverallDecreasing =
-      absDeltasMin < absDeltasMax &&
-      absDeltasMin === scrollPointsToAnalizeAbsDeltas[scrollPointsToAnalizeAbsDeltas.length - 1]
-
-    this.overallDecreasing.push(isOverallDecreasing)
-
-    if (this.checkDecreases()) {
-      this.isMomentum = true
-    }
-
-    return this.isMomentum
+    console.log('end')
   }
 
   // TODO: transform into getter
@@ -420,16 +341,5 @@ export class WheelAnalyzer {
     }
 
     return this.willEndSoon
-  }
-
-  private checkDecreases() {
-    const decreaseBooleansToCheck = this.overallDecreasing.slice(-3)
-
-    if (decreaseBooleansToCheck.length < 3) {
-      return false
-    }
-    return decreaseBooleansToCheck.reduce(function(a, b) {
-      return a && b
-    })
   }
 }

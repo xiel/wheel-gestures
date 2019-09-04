@@ -1,6 +1,6 @@
 import React from 'react'
 import Graph from './components/Graph/Graph'
-import { BrowserRouter as Router, Link, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom'
 import SimpleWheelDrag from './components/SimpleWheelDrag/SimpleWheelDrag'
 
 const App: React.FC = () => {
@@ -13,8 +13,11 @@ const App: React.FC = () => {
         <Link to="/simple-wheel-drag">SimpleWheelDrag</Link>
       </nav>
 
-      <Route path="/graph" component={Graph} />
-      <Route path="/simple-wheel-drag" component={SimpleWheelDrag} />
+      <Switch>
+        <Route exact path="/" component={SimpleWheelDrag} />
+        <Route path="/graph" component={Graph} />
+        <Route path="/simple-wheel-drag" component={SimpleWheelDrag} />
+      </Switch>
     </Router>
   )
 }
