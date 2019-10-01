@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { animated, useSpring } from 'react-spring'
 import { useDrag } from 'react-use-gesture'
 import c from './SimpleWheelDrag.module.scss'
@@ -10,6 +10,7 @@ export default function SimpleWheelDrag() {
   const elRef = useRef<HTMLDivElement | null>(null)
   const [{ xy }, set] = useSpring(() => ({ xy: [0, 0] }))
   const [springMomentum, setSpringMomentum] = useSpring(() => ({ xy: [0, 0] }))
+  const [preventWheelAction, setPreventWheelAction] = useState<'all' | 'x' | 'y'>('all')
 
   const bind = useDrag(
     ({ down, delta }) => {
@@ -22,7 +23,7 @@ export default function SimpleWheelDrag() {
     ({ down, delta }) => {
       set({ xy: down ? delta : [0, 0] }) // immediate: down
     },
-    { domTarget: containerRef }
+    { domTarget: containerRef, preventWheelAction }
   )
 
   // update momentum spring
@@ -30,7 +31,7 @@ export default function SimpleWheelDrag() {
     ({ down, delta }) => {
       setSpringMomentum({ xy: down ? delta : [0, 0] }) // immediate: down
     },
-    { domTarget: containerRef, wheelReason: 'any' }
+    { domTarget: containerRef, preventWheelAction, wheelReason: 'any' }
   )
 
   const interpolate = (x: number, y: number) => `translate3D(${x}px, ${y}px, 0)`
@@ -41,6 +42,15 @@ export default function SimpleWheelDrag() {
   return (
     <div className={c.page}>
       <WheelRecorder domTarget={containerRef} />
+      <label>
+        preventWheelAction (axis):{' '}
+        <select onChange={e => setPreventWheelAction(e.target.value as any)}>
+          <option>all</option>
+          <option>x</option>
+          <option>y</option>
+        </select>
+      </label>
+
       <div className={c.container} ref={containerRef}>
         <animated.div
           className={c.box + ' ' + c.momentum}

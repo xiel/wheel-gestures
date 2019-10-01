@@ -92,3 +92,14 @@ describe('preventDefault should be called when drag is on defined axis', () => {
     expect(preventDefault).toBeCalledTimes(85)
   })
 })
+
+test('should warn about unsupported preventWheelAction in debug mode', () => {
+  const logWarn = spyOn(console, 'warn')
+
+  // @ts-ignore
+  testPreventWheelActionWithOptions(swipeUpTrackpad.wheelEvents, {
+    options: { preventWheelAction: 'xyz', isDebug: true },
+  })
+
+  expect(logWarn.calls.mostRecent().args[0]).toMatchInlineSnapshot(`"unsupported preventWheelAction value: xyz"`)
+})

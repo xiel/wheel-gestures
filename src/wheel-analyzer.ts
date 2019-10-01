@@ -83,11 +83,13 @@ export class WheelAnalyzer {
   private options: Options
   private readonly willEnd = this.end
 
-  public constructor(options?: Partial<Options>) {
-    this.willEnd = debounce(99, () => {
-      this.end()
-    })
-    this.options = { ...defaults, ...options }
+  public constructor(options: Partial<Options> = {}) {
+    this.willEnd = debounce(99, () => this.end())
+
+    // merge passed options with defaults (filter undefined option values)
+    this.options = Object.entries(options)
+      .filter(([, value]) => value !== undefined)
+      .reduce((o, [key, value]) => Object.assign(o, { [key]: value }), { ...defaults })
   }
 
   public observe = (target: EventTarget) => {
@@ -143,12 +145,14 @@ export class WheelAnalyzer {
       case 'y':
         return Math.abs(deltaY) >= Math.abs(deltaX)
     }
+
+    this.debugMessage('unsupported preventWheelAction value: ' + preventWheelAction, 'warn')
   }
 
   private processWheelEventData(e: WheelEventData) {
     if (e.deltaMode !== 0) {
       if (this.options.isDebug) {
-        console.warn('deltaMode is not 0')
+        this.debugMessage('deltaMode is not 0')
       }
       return
     }
