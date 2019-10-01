@@ -8,6 +8,7 @@
   "scripts": {
     "build": "rollup -c",
     "dev": "rollup -c -w",
+    "start": "yarn dev",
     "test": "react-scripts test"
   },
   "repository": {
@@ -34,17 +35,14 @@
   "files": [
     "dist/**/*"
   ],
-  "eslintConfig": {
-    "extends": "react-app",
-    "rules": {
-      "@typescript-eslint/explicit-member-accessibility": "error"
-    }
-  },
   "devDependencies": {
     "@testing-library/react": "^9.0.1",
     "@types/jest": "^24.0.11",
     "@types/throttle-debounce": "^2.1.0",
     "react-scripts": "^3.1.1",
+    "eslint-plugin-react-app": "*",
+    "eslint-plugin-prettier": "*",
+    "eslint-config-prettier": "*",
     "prettier": "^1.17.0",
     "rollup": "^1.19.3",
     "rollup-plugin-typescript2": "^0.24.0",

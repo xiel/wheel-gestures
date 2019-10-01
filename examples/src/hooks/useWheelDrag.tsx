@@ -31,7 +31,7 @@ export default function useWheelDrag(handler: WheelDragHandler, { domTarget, whe
     down: false,
     delta: [0, 0],
   })
-  const wheelAnalyzer = useMemo(() => new WheelAnalyzer(), [])
+  const wheelAnalyzer = useMemo(() => new WheelAnalyzer({ preventWheelAction: 'x' }), [])
 
   useEffect(() => {
     const element = domTarget && 'current' in domTarget ? domTarget.current : domTarget
@@ -48,7 +48,7 @@ export default function useWheelDrag(handler: WheelDragHandler, { domTarget, whe
         //   break
         case wheelType[wheelReason].wheel:
           dragState.current.down = true
-          dragState.current.delta = data.axisDeltas.map((d) => d * -1 / 2)
+          dragState.current.delta = data.axisDeltas.map((d) => (d * -1) / 2)
           break
         case wheelType[wheelReason].end:
           dragState.current.down = false

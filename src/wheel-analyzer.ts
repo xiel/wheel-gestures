@@ -40,7 +40,9 @@ const console = window.console
 
 export type PhaseData = ReturnType<typeof WheelAnalyzer.prototype.getCurrentState>
 export type SubscribeFn = (type: WheelPhase, data: PhaseData) => void
+export type Unsubscribe = () => void
 type DeltaProp = 'deltaX' | 'deltaY'
+type PreventWheelActionType = 'all' | 'x' | 'y'
 type Axis = 'x' | 'y'
 
 const axes: [Axis, Axis] = ['x', 'y']
@@ -49,13 +51,13 @@ const deltaProp: Record<Axis, DeltaProp> = {
   y: 'deltaY',
 }
 
-interface Options {
-  allowsAxis: Axis[]
+export interface Options {
+  preventWheelAction: PreventWheelActionType
   isDebug?: boolean
 }
 
 const defaults: Options = {
-  allowsAxis: ['x', 'y'],
+  preventWheelAction: 'all',
   isDebug: process.env.NODE_ENV === 'development',
 }
 
@@ -85,7 +87,7 @@ export class WheelAnalyzer {
     this.willEnd = debounce(99, () => {
       this.end()
     })
-    this.options = Object.assign(defaults, options)
+    this.options = { ...defaults, ...options }
   }
 
   public observe = (target: EventTarget) => {
@@ -104,16 +106,14 @@ export class WheelAnalyzer {
     this.targets.forEach(this.unobserve)
   }
 
-  public subscribe = (callback: SubscribeFn) => {
+  public subscribe = (callback: SubscribeFn): Unsubscribe => {
     this.subscriptions.push(callback)
     // return bound unsubscribe
     return this.unsubscribe.bind(this, callback)
   }
 
   public unsubscribe = (callback: SubscribeFn) => {
-    if (!callback) {
-      return console.warn('need to provide callback used to subscribe')
-    }
+    if (!callback) throw new Error('please pass the callback which was used to subscribe')
     this.subscriptions = this.subscriptions.filter((s) => s !== callback)
   }
 
@@ -131,6 +131,20 @@ export class WheelAnalyzer {
     this.subscriptions.forEach((fn) => fn(phase, data))
   }
 
+  private shouldPreventDefault(e: WheelEventData) {
+    const { preventWheelAction } = this.options
+    const { deltaX, deltaY } = e
+
+    switch (preventWheelAction) {
+      case 'all':
+        return true
+      case 'x':
+        return Math.abs(deltaX) >= Math.abs(deltaY)
+      case 'y':
+        return Math.abs(deltaY) >= Math.abs(deltaX)
+    }
+  }
+
   private processWheelEventData(e: WheelEventData) {
     if (e.deltaMode !== 0) {
       if (this.options.isDebug) {
@@ -139,8 +153,7 @@ export class WheelAnalyzer {
       return
     }
 
-    // TODO: only prevent when wheel event was in allowed dir (keep preventing for current series tho)
-    if (e.preventDefault) {
+    if (e.preventDefault && this.shouldPreventDefault(e)) {
       e.preventDefault()
     }
 
@@ -151,10 +164,7 @@ export class WheelAnalyzer {
     const currentDelta = Math.abs(e.deltaY) > Math.abs(e.deltaX) ? e.deltaY : e.deltaX
     const currentAbsDelta = Math.abs(currentDelta)
 
-    // TODO: added this.isMomentum here recently
     if (this.isMomentum && currentAbsDelta > this.lastAbsDelta) {
-      console.log('was momentum - now faster! (currentAbsDelta > this.lastAbsDelta)')
-      console.log('end / re-start WHEEL')
       this.end()
       this.start()
     }
@@ -253,7 +263,8 @@ export class WheelAnalyzer {
       // when both axis decelerate exactly in the same rate it is very likely caused by momentum
       const sameAccFac = !!accFac.reduce((f1, f2) => (f1 && f1 < 1 && f1 === f2 ? 1 : 0))
       // check if acceleration factor is within momentum range
-      const bothAreInRangeOrZero = accFac.filter(WheelAnalyzer.accelerationFactorInMomentumRange).length === accFac.length
+      const bothAreInRangeOrZero =
+        accFac.filter(WheelAnalyzer.accelerationFactorInMomentumRange).length === accFac.length
       // one the requirements must be fulfilled
       return sameAccFac || bothAreInRangeOrZero
     }, true)
@@ -324,7 +335,9 @@ export class WheelAnalyzer {
   }
 
   private get willEndSoon() {
-    const absDeltas = this.scrollPoints.slice(SOON_ENDING_WHEEL_COUNT * -1).map(({ currentAbsDelta }) => currentAbsDelta)
+    const absDeltas = this.scrollPoints
+      .slice(SOON_ENDING_WHEEL_COUNT * -1)
+      .map(({ currentAbsDelta }) => currentAbsDelta)
     const absDeltaAverage = absDeltas.reduce((a, b) => a + b, 0) / absDeltas.length
     return absDeltaAverage <= SOON_ENDING_THRESHOLD
   }

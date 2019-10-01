@@ -39,7 +39,7 @@ export default function SimpleWheelDrag() {
   useEffect(bind as any, [bind])
 
   return (
-    <div>
+    <div className={c.page}>
       <WheelRecorder domTarget={containerRef} />
       <div className={c.container} ref={containerRef}>
         <animated.div
