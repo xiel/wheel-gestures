@@ -1,4 +1,4 @@
-# [![wheel gestures](./WheelGestures.svg)](/)
+# ![wheel gestures](./WheelGestures.svg)]
 
 wheel gestures and momentum detection
 
