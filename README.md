@@ -1,3 +1,5 @@
+![wheel gestures](./WheelGestures.svg)
+
 # wheelAnalyzer
 wheel gestures and momentum detection
 
