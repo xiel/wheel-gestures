@@ -1,6 +1,5 @@
-![wheel gestures](./WheelGestures.svg)
+# ![wheel gestures](./WheelGestures.svg)
 
-# wheelAnalyzer
 wheel gestures and momentum detection
 
 [![npm (tag)](https://img.shields.io/npm/v/wheel-analyzer/latest.svg)](https://www.npmjs.com/package/use-location-state)
