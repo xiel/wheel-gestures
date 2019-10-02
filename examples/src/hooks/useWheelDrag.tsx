@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useRef } from 'react'
-import { WheelAnalyzer, WheelPhase } from 'wheel-analyzer'
+import { Options as WAOptions, WheelAnalyzer, WheelPhase } from 'wheel-analyzer'
 
 interface WheelDragState {
   down: boolean
@@ -21,17 +21,20 @@ const wheelType = {
   },
 }
 
-interface Options {
+interface Options extends Partial<WAOptions> {
   domTarget?: EventTarget | React.RefObject<EventTarget> | null
   wheelReason?: keyof typeof wheelType
 }
 
-export default function useWheelDrag(handler: WheelDragHandler, { domTarget, wheelReason = 'user' }: Options = {}) {
+export default function useWheelDrag(
+  handler: WheelDragHandler,
+  { domTarget, wheelReason = 'user', preventWheelAction }: Options = {}
+) {
   const dragState = useRef<WheelDragState>({
     down: false,
     delta: [0, 0],
   })
-  const wheelAnalyzer = useMemo(() => new WheelAnalyzer(), [])
+  const wheelAnalyzer = useMemo(() => new WheelAnalyzer({ preventWheelAction }), [preventWheelAction])
 
   useEffect(() => {
     const element = domTarget && 'current' in domTarget ? domTarget.current : domTarget
@@ -43,12 +46,9 @@ export default function useWheelDrag(handler: WheelDragHandler, { domTarget, whe
 
     const unsubscribe = wheelAnalyzer.subscribe((type, data) => {
       switch (type) {
-        // case wheelType[wheelReason].start:
-        //   dragState.current.down = true
-        //   break
         case wheelType[wheelReason].wheel:
           dragState.current.down = true
-          dragState.current.delta = data.axisDeltas.map((d) => d * -1 / 2)
+          dragState.current.delta = data.axisDeltas.map((d) => (d * -1) / 2)
           break
         case wheelType[wheelReason].end:
           dragState.current.down = false

@@ -52,3 +52,56 @@ Object {
   ],
 }
 `;
+
+exports[`drag square move - trackpad (tl -> tr -> br -> bl -> tl) 1`] = `
+Object {
+  "phases": Array [
+    Object {
+      "lastData": Object {
+        "axisDeltas": Array [
+          -408,
+          77,
+        ],
+        "axisVelocity": Array [
+          0.011363636363636364,
+          0,
+        ],
+        "debugData": null,
+        "deltaTotal": -397,
+        "deltaVelocity": 0,
+        "isMomentum": false,
+        "type": "WHEEL_END",
+        "willEndSoon": false,
+      },
+      "range": Array [
+        0,
+        206,
+      ],
+      "wheelType": "WHEEL",
+    },
+    Object {
+      "lastData": Object {
+        "axisDeltas": Array [
+          -408,
+          77,
+        ],
+        "axisVelocity": Array [
+          0.011363636363636364,
+          0,
+        ],
+        "debugData": null,
+        "deltaTotal": -397,
+        "deltaVelocity": 0,
+        "isMomentum": false,
+        "type": "ANY_WHEEL_END",
+        "willEndSoon": false,
+      },
+      "range": Array [
+        0,
+        206,
+      ],
+      "wheelType": "ANY_WHEEL",
+    },
+  ],
+}
+`;
