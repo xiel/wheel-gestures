@@ -41,15 +41,17 @@ export default function SimpleWheelDrag() {
 
   return (
     <div className={c.page}>
-      <WheelRecorder domTarget={containerRef} />
-      <label>
-        preventWheelAction (axis):{' '}
-        <select onChange={e => setPreventWheelAction(e.target.value as any)}>
-          <option>all</option>
-          <option>x</option>
-          <option>y</option>
-        </select>
-      </label>
+      <div className={c.options}>
+        <WheelRecorder domTarget={containerRef} />
+        <label>
+          preventWheelAction{' '}
+          <select onChange={(e) => setPreventWheelAction(e.target.value as any)}>
+            <option>all</option>
+            <option>x</option>
+            <option>y</option>
+          </select>
+        </label>
+      </div>
 
       <div className={c.container} ref={containerRef}>
         <animated.div

@@ -40,7 +40,7 @@ export default function WheelRecorder({ domTarget = document.body }: Props) {
 
   useEffect(() => {
     const handleKey = ({ key, metaKey }: KeyboardEvent) => {
-      if(key === 'e' && metaKey) {
+      if (key === 'e' && metaKey) {
         setRecording(!recording)
       }
     }
@@ -54,7 +54,7 @@ export default function WheelRecorder({ domTarget = document.body }: Props) {
       createDownloadHref.current()
       return
     }
-    if(!element) return
+    if (!element) return
     recordedEvents.current = []
     const stopWhenDone = debounce(2000, () => setRecording(false))
     const handler = (e: WheelEvent) => {
@@ -77,14 +77,18 @@ export default function WheelRecorder({ domTarget = document.body }: Props) {
         <span className={c.pauseButtonInner}>Rec</span>
       </button>
       <label>
-        <input type="checkbox" onChange={() => setAutoStop(!autoStop)} checked={autoStop} />
-        auto-stop
+        <input type="checkbox" onChange={() => setAutoStop(!autoStop)} checked={autoStop} />{' '}auto-stop
       </label>
       {downloadHref && (
         <>
           <label>
             Download name:
-            <input type="text" value={downloadName} onChange={(e) => setDownloadName(e.target.value)} placeholder={downloadFallbackName} />
+            <input
+              type="text"
+              value={downloadName}
+              onChange={(e) => setDownloadName(e.target.value)}
+              placeholder={downloadFallbackName}
+            />
           </label>
           <a href={downloadHref} download={`${downloadName || downloadFallbackName}.json`}>
             Download
