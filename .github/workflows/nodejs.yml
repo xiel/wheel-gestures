@@ -22,5 +22,8 @@ jobs:
         yarn
         yarn test
         yarn build
+    - name: release
+      run: |
+        yarn semantic-release
       env:
         CI: true
