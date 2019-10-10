@@ -9,7 +9,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [10.x]
+        node-version: [8.x, 12.x]
 
     steps:
     - uses: actions/checkout@v1
@@ -22,8 +22,5 @@ jobs:
         yarn
         yarn test
         yarn build
-    - name: release
-      run: |
-        yarn semantic-release
       env:
         CI: true
