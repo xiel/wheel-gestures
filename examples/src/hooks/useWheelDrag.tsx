@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useRef } from 'react'
-import { Options as WAOptions, WheelAnalyzer, WheelPhase } from 'wheel-analyzer'
+import { Options as WAOptions, WheelAnalyzer, WheelPhase } from 'wheel-gestures'
 
 interface WheelDragState {
   down: boolean

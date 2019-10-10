@@ -1,4 +1,5 @@
 import { WheelAnalyzer } from './wheel-analyzer'
+export * from './wheel-analyzer'
 import EventBus from './events/EventBus'
 
 interface Props {
@@ -9,14 +10,14 @@ const defaults: Props = {
   axis: 'all',
 }
 
-export default function WheelGestures({ axis }: Props = defaults) {
+export function WheelGestures({ axis }: Props = defaults) {
   const { feedWheel, subscribe, unsubscribe, observe, unobserve, disconnect } = new WheelAnalyzer({
     preventWheelAction: axis,
   })
 
-  const { on } = EventBus({ events: ['pan', 'pan-x', 'pan-y'] })
+  const { on } = EventBus({ events: ['wheelpan'] })
 
-  on('pan-x', () => undefined)
+  on('wheelpan', () => undefined)
 
   return Object.freeze({
     observe,
