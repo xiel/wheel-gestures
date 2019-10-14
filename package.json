@@ -61,5 +61,8 @@
       "!**/build/**",
       "!**/*.config.{js,jx,tsx,ts}"
     ]
+  },
+  "publishConfig": {
+    "access": "restricted"
   }
 }
