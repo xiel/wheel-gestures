@@ -41,6 +41,7 @@ const console = window.console
 export type PhaseData = ReturnType<typeof WheelAnalyzer.prototype.getCurrentState>
 export type SubscribeFn = (type: WheelPhase, data: PhaseData) => void
 export type Unsubscribe = () => void
+export type Unobserve = () => void
 type DeltaProp = 'deltaX' | 'deltaY'
 type PreventWheelActionType = 'all' | 'x' | 'y'
 type Axis = 'x' | 'y'
@@ -92,7 +93,7 @@ export class WheelAnalyzer {
       .reduce((o, [key, value]) => Object.assign(o, { [key]: value }), { ...defaults })
   }
 
-  public observe = (target: EventTarget) => {
+  public observe = (target: EventTarget): Unobserve => {
     target.addEventListener('wheel', this.feedWheel as EventListener, { passive: false })
     this.targets.push(target)
     return this.unobserve.bind(this, target)

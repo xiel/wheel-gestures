@@ -1,32 +1,43 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { animated, useSpring } from 'react-spring'
+import { useDrag } from 'react-use-gesture'
 import c from './SimpleWheelDrag.module.scss'
+import useWheelDragWA from '../../hooks/useWheelDragWA'
 import WheelRecorder from '../WheelRecorder/WheelRecorder'
-import useWheelDrag from '../../hooks/useWheelDrag'
 
-export default function SimpleWheelDrag() {
+export default function SimpleWheelDragWA() {
   const containerRef = useRef<HTMLDivElement | null>(null)
   const elRef = useRef<HTMLDivElement | null>(null)
   const [{ xy }, set] = useSpring(() => ({ xy: [0, 0] }))
   const [springMomentum, setSpringMomentum] = useSpring(() => ({ xy: [0, 0] }))
   const [preventWheelAction, setPreventWheelAction] = useState<'all' | 'x' | 'y'>('all')
 
-  useWheelDrag(
+  const bind = useDrag(
+    ({ down, delta }) => {
+      set({ xy: down ? delta : [0, 0] })
+    },
+    { domTarget: elRef }
+  )
+
+  useWheelDragWA(
     ({ down, delta }) => {
       set({ xy: down ? delta : [0, 0] }) // immediate: down
     },
-    { domTarget: containerRef, axis: preventWheelAction }
+    { domTarget: containerRef, preventWheelAction }
   )
 
   // update momentum spring
-  useWheelDrag(
+  useWheelDragWA(
     ({ down, delta }) => {
       setSpringMomentum({ xy: down ? delta : [0, 0] }) // immediate: down
     },
-    { domTarget: containerRef, axis: preventWheelAction, wheelReason: 'any' }
+    { domTarget: containerRef, preventWheelAction, wheelReason: 'any' }
   )
 
   const interpolate = (x: number, y: number) => `translate3D(${x}px, ${y}px, 0)`
+
+  // bind does not seem to be correctly typed...
+  useEffect(bind as any, [bind])
 
   return (
     <div className={c.page}>

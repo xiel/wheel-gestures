@@ -10445,9 +10445,9 @@ whatwg-url@^7.0.0:
     webidl-conversions "^4.0.2"
 
 wheel-gestures@*:
-  version "0.0.0-development"
-  resolved "https://registry.yarnpkg.com/wheel-gestures/-/wheel-gestures-0.0.0-development.tgz#e91c2ffce980ae16127dca3c140b03486866574c"
-  integrity sha512-T2r5SN1M5TsjjgEfQGHtxr0whypHhpUqOexI+XClaGAcrYAqR9o1x1K5tOYP1rg7IcXKVs3unRMHB8cUK9qrww==
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/wheel-gestures/-/wheel-gestures-1.0.1.tgz#abbb72c99fbfc36f71bd4ea24f725c816228fc0c"
+  integrity sha512-qhwPRvTmuUwpVnq0FA5MvWxbmZW5achy8hGu5ciAzH1Qd/MMVOjd7F8AybxuUTBN5ypjfqTk9w7e+8UipDI38Q==
   dependencies:
     throttle-debounce "^2.1.0"
 

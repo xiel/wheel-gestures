@@ -9,6 +9,7 @@ const App: React.FC = () => {
       <Header />
       <Switch>
         <Route exact path="/" component={SimpleWheelDrag} />
+        <Route exact path="/" component={SimpleWheelDrag} />
       </Switch>
     </Router>
   )

@@ -2,12 +2,13 @@ interface Props<T> {
   events: T[]
 }
 
-type EventListener = () => void
+type EventListener = (data?: unknown) => void
+type Off = () => void
 
 export default function EventBus<T extends string>({ events }: Props<T>) {
   const listeners = Object.fromEntries(events.map((eventName) => [eventName, new Array<EventListener>()] as const))
 
-  function on(type: T, listener: EventListener) {
+  function on(type: T, listener: EventListener): Off {
     listeners[type] = listeners[type].concat(listener)
     return off.bind(undefined, type, listener)
   }
@@ -16,8 +17,8 @@ export default function EventBus<T extends string>({ events }: Props<T>) {
     listeners[type] = listeners[type].filter((l) => l === listener)
   }
 
-  function dispatch(type: T) {
-    listeners[type].forEach((l) => l())
+  function dispatch(type: T, data?: unknown) {
+    listeners[type].forEach((l) => l(data))
   }
 
   return Object.freeze({
