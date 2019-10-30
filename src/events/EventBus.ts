@@ -1,32 +1,24 @@
-export interface Props<K> {
-  events: K[]
-}
+export interface Props {}
 
-export type EventMapEmpty = Record<string, any>
+export type EventMapEmpty = Record<string, unknown>
 export type EventListener<D = unknown> = (data: D) => void
 export type Off = () => void
 
-export default function EventBus<
-  EventMap extends Record<string | number | symbol, unknown> = EventMapEmpty,
-  K extends string | number | symbol = keyof EventMap
->({ events }: Props<K>) {
-  // TODO: add arrays on the fly
-  const listeners = Object.fromEntries(
-    events.map((eventName) => [eventName, new Array<EventListener<EventMap[K]>>()] as const)
-  )
+export default function EventBus<EventMap = EventMapEmpty>({  }: Props = {}) {
+  const listeners = {} as Record<keyof EventMap, EventListener<any>[]>
 
   function on<EK extends keyof EventMap>(type: EK, listener: EventListener<EventMap[EK]>): Off {
-    listeners[type] = (listeners[type] || []).concat(listener as any)
+    listeners[type] = (listeners[type] || []).concat(listener)
     return () => off(type, listener)
   }
 
   function off<EK extends keyof EventMap>(type: EK, listener: EventListener<EventMap[EK]>) {
-    listeners[type] = (listeners[type] || []).filter((l) => l === (listener as any))
+    listeners[type] = (listeners[type] || []).filter((l) => l === (listener))
   }
 
   function dispatch<EK extends keyof EventMap>(type: EK, data: EventMap[EK]) {
     if (!(type in listeners)) return
-    listeners[type].forEach((l) => l(data as any))
+    listeners[type].forEach((l) => l(data))
   }
 
   return Object.freeze({

@@ -27,7 +27,7 @@ const wheelType = {
 type WheelDragHandler = (state: WheelDragState) => void
 type WheelGesturesEventMap = {
   wheelpan: WheelDragState
-  wheelswipe: { dir: string }
+  // wheelswipe: { dir: string }
 }
 
 export function WheelGestures({ axis = 'all', wheelReason = 'user' }: Props = {}) {
@@ -40,10 +40,9 @@ export function WheelGestures({ axis = 'all', wheelReason = 'user' }: Props = {}
     preventWheelAction: axis,
   })
   const { observe, unobserve, disconnect } = wheelAnalyzer
-  const { on, off, dispatch } = EventBus<WheelGesturesEventMap>({ events: ['wheelpan'] })
+  const { on, off, dispatch } = EventBus<WheelGesturesEventMap>()
 
-  // TODO: subscribe on first on, unsubscribe on last off..?
-  unsubscribe = wheelAnalyzer.subscribe((type, data) => {
+  wheelAnalyzer.subscribe((type, data) => {
     switch (type) {
       case wheelType[wheelReason].wheel:
         dragState = {
@@ -62,11 +61,9 @@ export function WheelGestures({ axis = 'all', wheelReason = 'user' }: Props = {}
     }
 
     dispatch('wheelpan', dragState)
-    dispatch('wheelswipe', { dir: 'left' })
+    // dispatch('wheelswipe', { dir: 'left' })
     // dispatch('wheel-x', { x: 1 })
   })
-
-  document.addEventListener('scroll', (e) => console.log(e))
 
   return Object.freeze({
     observe,
