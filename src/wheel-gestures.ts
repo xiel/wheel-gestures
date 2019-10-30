@@ -1,7 +1,8 @@
 import { Unsubscribe, WheelAnalyzer, WheelPhase } from './wheel-analyzer'
-export * from './wheel-analyzer'
 import EventBus from './events/EventBus'
 import { WheelDragState } from './wheel-gestures.types'
+
+export * from './wheel-analyzer'
 
 export interface Props {
   axis?: 'x' | 'y' | 'all'
@@ -24,6 +25,10 @@ const wheelType = {
 }
 
 type WheelDragHandler = (state: WheelDragState) => void
+type WheelGesturesEventMap = {
+  wheelpan: WheelDragState
+  wheelswipe: { dir: string }
+}
 
 export function WheelGestures({ axis = 'all', wheelReason = 'user' }: Props = {}) {
   let unsubscribe: Unsubscribe | undefined
@@ -35,9 +40,9 @@ export function WheelGestures({ axis = 'all', wheelReason = 'user' }: Props = {}
     preventWheelAction: axis,
   })
   const { observe, unobserve, disconnect } = wheelAnalyzer
-  const { on, off, dispatch } = EventBus({ events: ['wheelpan'] })
+  const { on, off, dispatch } = EventBus<WheelGesturesEventMap>({ events: ['wheelpan'] })
 
-  // TODO: subscribe on first on, unsubscribe on last off...
+  // TODO: subscribe on first on, unsubscribe on last off..?
   unsubscribe = wheelAnalyzer.subscribe((type, data) => {
     switch (type) {
       case wheelType[wheelReason].wheel:
@@ -57,7 +62,11 @@ export function WheelGestures({ axis = 'all', wheelReason = 'user' }: Props = {}
     }
 
     dispatch('wheelpan', dragState)
+    dispatch('wheelswipe', { dir: 'left' })
+    // dispatch('wheel-x', { x: 1 })
   })
+
+  document.addEventListener('scroll', (e) => console.log(e))
 
   return Object.freeze({
     observe,
