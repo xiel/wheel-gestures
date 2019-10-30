@@ -16,16 +16,16 @@ export default function EventBus<
   )
 
   function on<EK extends keyof EventMap>(type: EK, listener: EventListener<EventMap[EK]>): Off {
-    listeners[type] = listeners[type].concat(listener as any)
-
-    return off.bind(undefined, type, listener)
+    listeners[type] = (listeners[type] || []).concat(listener as any)
+    return () => off(type, listener)
   }
 
   function off<EK extends keyof EventMap>(type: EK, listener: EventListener<EventMap[EK]>) {
-    listeners[type] = listeners[type].filter((l) => l === listener as any)
+    listeners[type] = (listeners[type] || []).filter((l) => l === (listener as any))
   }
 
   function dispatch<EK extends keyof EventMap>(type: EK, data: EventMap[EK]) {
+    if (!(type in listeners)) return
     listeners[type].forEach((l) => l(data as any))
   }
 

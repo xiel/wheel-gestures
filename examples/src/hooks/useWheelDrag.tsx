@@ -25,7 +25,7 @@ export default function useWheelDrag(
 
   useEffect(() => {
     if (!wheelGestures) return
-    return wheelGestures.on('wheelpan', data => console.log(data))
+    return wheelGestures.on('wheelpan', handler)
   }, [handler, wheelGestures, wheelReason])
 
   return null
