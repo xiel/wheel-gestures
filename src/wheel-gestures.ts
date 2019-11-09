@@ -1,6 +1,6 @@
-import { Unsubscribe, WheelAnalyzer, WheelPhase } from './wheel-analyzer'
+import { WheelAnalyzer, WheelPhase } from './wheel-analyzer'
 import EventBus from './events/EventBus'
-import { WheelDragState } from './wheel-gestures.types'
+import { WheelDragState, WheelGesturesEventMap, WheelReason } from './wheel-gestures.types'
 
 export * from './wheel-analyzer'
 
@@ -9,29 +9,20 @@ export interface Props {
   wheelReason?: WheelReason
 }
 
-export type WheelReason = keyof typeof wheelType
-
 const wheelType = {
-  user: {
+  [WheelReason.USER]: {
     start: WheelPhase.WHEEL_START,
     wheel: WheelPhase.WHEEL,
     end: WheelPhase.WHEEL_END,
   },
-  any: {
+  [WheelReason.ANY]: {
     start: WheelPhase.ANY_WHEEL_START,
     wheel: WheelPhase.ANY_WHEEL,
     end: WheelPhase.ANY_WHEEL_END,
   },
 }
 
-type WheelDragHandler = (state: WheelDragState) => void
-type WheelGesturesEventMap = {
-  wheelpan: WheelDragState
-  // wheelswipe: { dir: string }
-}
-
-export function WheelGestures({ axis = 'all', wheelReason = 'user' }: Props = {}) {
-  let unsubscribe: Unsubscribe | undefined
+export function WheelGestures({ axis = 'all', wheelReason = WheelReason.USER }: Props = {}) {
   let dragState: WheelDragState = {
     down: false,
     delta: [0, 0],
