@@ -3,6 +3,7 @@ import { animated, useSpring } from 'react-spring'
 import c from './SimpleWheelDrag.module.scss'
 import WheelRecorder from '../WheelRecorder/WheelRecorder'
 import useWheelDrag from '../../hooks/useWheelDrag'
+import { WheelReason } from 'wheel-gestures'
 
 export default function SimpleWheelDrag() {
   const containerRef = useRef<HTMLDivElement | null>(null)
@@ -23,7 +24,7 @@ export default function SimpleWheelDrag() {
     ({ down, delta }) => {
       setSpringMomentum({ xy: down ? delta : [0, 0] }) // immediate: down
     },
-    { domTarget: containerRef, axis: preventWheelAction, wheelReason: 'any' }
+    { domTarget: containerRef, axis: preventWheelAction, wheelReason: WheelReason.ANY }
   )
 
   const interpolate = (x: number, y: number) => `translate3D(${x}px, ${y}px, 0)`

@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo } from 'react'
-import { Props as WheelGesturesProps, WheelGestures } from 'wheel-gestures'
+import { Props as WheelGesturesProps, WheelGestures, WheelReason } from 'wheel-gestures'
 
 interface WheelDragState {
   down: boolean
@@ -14,7 +14,7 @@ interface Options extends WheelGesturesProps {
 
 export default function useWheelDrag(
   handler: WheelDragHandler,
-  { domTarget, wheelReason = 'user', axis }: Options = {}
+  { domTarget, wheelReason = WheelReason.USER, axis }: Options = {}
 ) {
   const wheelGestures = useMemo(() => WheelGestures({ wheelReason, axis }), [wheelReason, axis])
 
