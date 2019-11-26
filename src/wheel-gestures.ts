@@ -2,6 +2,7 @@ import { WheelAnalyzer, WheelPhase } from './wheel-analyzer'
 import EventBus from './events/EventBus'
 import { WheelDragState, WheelGesturesEventMap, WheelReason } from './wheel-gestures.types'
 
+export * from './wheel-gestures.types'
 export * from './wheel-analyzer'
 
 export interface Props {
@@ -26,6 +27,7 @@ export function WheelGestures({ axis = 'all', wheelReason = WheelReason.USER }: 
   let dragState: WheelDragState = {
     down: false,
     delta: [0, 0],
+    axisVelocity: [0, 0],
   }
   const wheelAnalyzer = new WheelAnalyzer({
     preventWheelAction: axis,
@@ -37,6 +39,7 @@ export function WheelGestures({ axis = 'all', wheelReason = WheelReason.USER }: 
     dragState = {
       down: true,
       delta: data.axisDeltas.map((d) => (d * -1) / 2),
+      axisVelocity: [data.axisVelocity[0], data.axisVelocity[1]]
     }
     switch (type) {
       case wheelType[wheelReason].start:
