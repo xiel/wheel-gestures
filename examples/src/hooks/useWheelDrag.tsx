@@ -1,10 +1,5 @@
 import React, { useEffect, useMemo } from 'react'
-import { Props as WheelGesturesProps, WheelGestures, WheelReason } from 'wheel-gestures'
-
-interface WheelDragState {
-  down: boolean
-  delta: number[]
-}
+import { Props as WheelGesturesProps, WheelDragState, WheelGestures, WheelReason } from 'wheel-gestures'
 
 type WheelDragHandler = (state: WheelDragState) => void
 

@@ -22,7 +22,7 @@ export default function Header(props: Props) {
       </h1>
 
       <nav className={c.nav}>
-        <Link to="/">Simple Wheel Drag</Link>
+        <Link to="/">Wheel Drag</Link>
         <Link to="/gallery">Gallery</Link>
       </nav>
     </header>
