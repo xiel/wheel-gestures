@@ -4,7 +4,7 @@ export type EventMapEmpty = Record<string, unknown>
 export type EventListener<D = unknown> = (data: D) => void
 export type Off = () => void
 
-export default function EventBus<EventMap = EventMapEmpty>({  }: Props = {}) {
+export default function EventBus<EventMap = EventMapEmpty>({}: Props = {}) {
   const listeners = {} as Record<keyof EventMap, EventListener<any>[]>
 
   function on<EK extends keyof EventMap>(type: EK, listener: EventListener<EventMap[EK]>): Off {
@@ -13,7 +13,7 @@ export default function EventBus<EventMap = EventMapEmpty>({  }: Props = {}) {
   }
 
   function off<EK extends keyof EventMap>(type: EK, listener: EventListener<EventMap[EK]>) {
-    listeners[type] = (listeners[type] || []).filter((l) => l === (listener))
+    listeners[type] = (listeners[type] || []).filter((l) => l !== listener)
   }
 
   function dispatch<EK extends keyof EventMap>(type: EK, data: EventMap[EK]) {
