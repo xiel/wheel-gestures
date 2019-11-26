@@ -15,6 +15,9 @@ const pages = [
   'https://images.pexels.com/photos/924675/pexels-photo-924675.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
 ]
 
+const DECELERATION_RATE = 0.998
+const projection = (startVelocityPxMs: number) => (startVelocityPxMs * DECELERATION_RATE) / (1 - DECELERATION_RATE)
+
 export default function Gallery() {
   const containerRef = useRef<HTMLDivElement | null>(null)
   const offsetX = useRef(0)
@@ -26,19 +29,24 @@ export default function Gallery() {
 
   useWheelDrag(
     ({ down, delta: [x], axisVelocity }) => {
-      if (!down) {
-        console.log('add to current', x)
-        offsetX.current += x
-      }
-      // const scale = down ? 1 - Math.abs(x) / window.innerWidth / 6 : 1
+      // const scale = down ? 1 - Math.abs(x) / window.innerWidth / 10 : 1
       const scale = 1
+      const [xVelo] = axisVelocity
+      const projectionX = projection(xVelo) * -1
 
-      console.log(x)
+      if (!down) {
+        offsetX.current += x
+        console.log(projectionX)
+      }
 
       set((i) => {
-        if (!down) return { scale }
+        if (!down) return { x: i * window.innerWidth + offsetX.current + projectionX, scale }
         return { x: down ? i * window.innerWidth + offsetX.current + x : 0, scale, immediate: down }
       })
+
+      if(!down) {
+        offsetX.current += projectionX
+      }
     },
     { domTarget: containerRef, axis: 'x', wheelReason: WheelReason.USER }
   )

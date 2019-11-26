@@ -58,7 +58,6 @@ export function WheelGestures({ axis = 'all', wheelReason = WheelReason.USER }: 
         dispatch('wheelmove', dragState)
         break
       case wheelType[wheelReason].end:
-        console.log(dragState)
         dragState = {
           ...dragState,
           down: false,
