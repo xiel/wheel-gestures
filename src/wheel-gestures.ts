@@ -34,26 +34,35 @@ export function WheelGestures({ axis = 'all', wheelReason = WheelReason.USER }: 
   const { on, off, dispatch } = EventBus<WheelGesturesEventMap>()
 
   wheelAnalyzer.subscribe((type, data) => {
+    dragState = {
+      down: true,
+      delta: data.axisDeltas.map((d) => (d * -1) / 2),
+    }
     switch (type) {
+      case wheelType[wheelReason].start:
+        dragState = {
+          ...dragState,
+          down: true,
+        }
+        dispatch('wheelstart', dragState)
+        break
       case wheelType[wheelReason].wheel:
         dragState = {
+          ...dragState,
           down: true,
-          delta: data.axisDeltas.map((d) => (d * -1) / 2),
         }
+        dispatch('wheelmove', dragState)
         break
       case wheelType[wheelReason].end:
         dragState = {
           ...dragState,
           down: false,
         }
+        dispatch('wheelend', dragState)
         break
       default:
         return
     }
-
-    dispatch('wheelpan', dragState)
-    // dispatch('wheelswipe', { dir: 'left' })
-    // dispatch('wheel-x', { x: 1 })
   })
 
   return Object.freeze({

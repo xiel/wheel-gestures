@@ -5,12 +5,11 @@ export interface WheelDragState {
 
 export enum WheelReason {
   USER = 'USER',
-  ANY = 'ANY'
+  ANY = 'ANY',
 }
 
-type WheelDragHandler = (state: WheelDragState) => void
-
 export type WheelGesturesEventMap = {
-  wheelpan: WheelDragState
-  // wheelswipe: { dir: string }
+  wheelstart: WheelDragState
+  wheelmove: WheelDragState
+  wheelend: WheelDragState
 }
