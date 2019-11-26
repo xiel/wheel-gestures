@@ -38,9 +38,10 @@ export function WheelGestures({ axis = 'all', wheelReason = WheelReason.USER }: 
   wheelAnalyzer.subscribe((type, data) => {
     dragState = {
       down: true,
-      delta: data.axisDeltas.map((d) => (d * -1) / 2),
-      axisVelocity: [data.axisVelocity[0], data.axisVelocity[1]]
+      delta: data.axisDeltas.map((d) => d * -1),
+      axisVelocity: [data.axisVelocity[0], data.axisVelocity[1]],
     }
+
     switch (type) {
       case wheelType[wheelReason].start:
         dragState = {
@@ -57,6 +58,7 @@ export function WheelGestures({ axis = 'all', wheelReason = WheelReason.USER }: 
         dispatch('wheelmove', dragState)
         break
       case wheelType[wheelReason].end:
+        console.log(dragState)
         dragState = {
           ...dragState,
           down: false,

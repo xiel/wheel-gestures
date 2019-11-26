@@ -27,10 +27,13 @@ export default function Gallery() {
   useWheelDrag(
     ({ down, delta: [x], axisVelocity }) => {
       if (!down) {
+        console.log('add to current', x)
         offsetX.current += x
       }
       // const scale = down ? 1 - Math.abs(x) / window.innerWidth / 6 : 1
       const scale = 1
+
+      console.log(x)
 
       set((i) => {
         if (!down) return { scale }
@@ -39,8 +42,6 @@ export default function Gallery() {
     },
     { domTarget: containerRef, axis: 'x', wheelReason: WheelReason.USER }
   )
-
-  console.log('render')
 
   return (
     <div ref={containerRef} className={c.gallery}>
