@@ -3,6 +3,7 @@ import { animated, useSprings } from 'react-spring'
 
 import c from './Gallery.module.scss'
 import useWheelDrag from '../../hooks/useWheelDrag'
+import { WheelReason } from 'wheel-gestures'
 
 interface Props {}
 
@@ -33,10 +34,10 @@ export default function Gallery() {
 
       set((i) => {
         if (!down) return { scale }
-        return { x: down ? i * window.innerWidth + offsetX.current + x : 0, scale }
+        return { x: down ? i * window.innerWidth + offsetX.current + x : 0, scale, immediate: down }
       })
     },
-    { domTarget: containerRef, axis: 'x' }
+    { domTarget: containerRef, axis: 'x', wheelReason: WheelReason.USER }
   )
 
   console.log('render')
