@@ -27,6 +27,8 @@ export default function Gallery() {
     config: springCfg.stiff,
   }))
 
+  const onFrame = (currentValue: { x?: number }) => (offsetX.current = (currentValue.x ?? offsetX.current))
+
   useWheelDrag(
     ({ down, delta: [x], axisVelocity }) => {
       const [xVelo] = axisVelocity
@@ -64,7 +66,7 @@ export default function Gallery() {
 
         offsetX.current = closestSnapPoint.closest
 
-        set({ x: closestSnapPoint.closest, config, onFrame: (currentValue) => (offsetX.current = currentValue.x || 0) })
+        set({ x: closestSnapPoint.closest, config, onFrame })
       }
     },
     { domTarget: containerRef, axis: 'x', wheelReason: WheelReason.USER }
@@ -75,7 +77,7 @@ export default function Gallery() {
       <animated.div style={{ x: spring.x }}>
         {pages.map((url, i) => (
           <div key={i}>
-            <img src={url} />
+            <img src={url} alt="" />
           </div>
         ))}
       </animated.div>
