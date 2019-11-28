@@ -1,5 +1,5 @@
 import React, { useRef } from 'react'
-import { animated, useSprings } from 'react-spring'
+import { animated, config as springCfg, useSpring } from 'react-spring'
 
 import c from './Gallery.module.scss'
 import useWheelDrag from '../../hooks/useWheelDrag'
@@ -8,11 +8,11 @@ import { WheelReason } from 'wheel-gestures'
 interface Props {}
 
 const pages = [
-  'https://images.pexels.com/photos/62689/pexels-photo-62689.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
-  'https://images.pexels.com/photos/296878/pexels-photo-296878.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
-  'https://images.pexels.com/photos/1509428/pexels-photo-1509428.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
-  'https://images.pexels.com/photos/351265/pexels-photo-351265.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
-  'https://images.pexels.com/photos/924675/pexels-photo-924675.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
+  'https://images.pexels.com/photos/62689/pexels-photo-62689.jpeg?auto=compress&cs=tinysrgb&dpr=1&h=600&w=1000',
+  'https://images.pexels.com/photos/296878/pexels-photo-296878.jpeg?auto=compress&cs=tinysrgb&dpr=1&h=600&w=1000',
+  'https://images.pexels.com/photos/1509428/pexels-photo-1509428.jpeg?auto=compress&cs=tinysrgb&dpr=1&h=600&w=1000',
+  'https://images.pexels.com/photos/351265/pexels-photo-351265.jpeg?auto=compress&cs=tinysrgb&dpr=1&h=600&w=1000',
+  'https://images.pexels.com/photos/924675/pexels-photo-924675.jpeg?auto=compress&cs=tinysrgb&dpr=1&h=600&w=1000',
 ]
 
 const DECELERATION_RATE = 0.998
@@ -21,43 +21,42 @@ const projection = (startVelocityPxMs: number) => (startVelocityPxMs * DECELERAT
 export default function Gallery() {
   const containerRef = useRef<HTMLDivElement | null>(null)
   const offsetX = useRef(0)
-  const [props, set] = useSprings(pages.length, (i) => ({
-    x: i * window.innerWidth,
-    scale: 1,
-    display: 'block',
+  const [spring, set] = useSpring(() => ({
+    x: 0,
+    config: springCfg.slow,
   }))
 
   useWheelDrag(
     ({ down, delta: [x], axisVelocity }) => {
-      // const scale = down ? 1 - Math.abs(x) / window.innerWidth / 10 : 1
-      const scale = 1
       const [xVelo] = axisVelocity
-      const projectionX = projection(xVelo) * -1
+      let projectionX = projection(xVelo) * -1
 
-      if (!down) {
+      console.log(x, xVelo)
+
+      if (down) {
+        set({ x: down ? offsetX.current + x : 0, immediate: down })
+      } else {
+        // projectionX = projectionX + (projectionX + offsetX.current) % window.innerWidth
+        const config = { velocity: xVelo * -1 }
+        // const config = undefined
         offsetX.current += x
-        console.log(projectionX)
-      }
-
-      set((i) => {
-        if (!down) return { x: i * window.innerWidth + offsetX.current + projectionX, scale }
-        return { x: down ? i * window.innerWidth + offsetX.current + x : 0, scale, immediate: down }
-      })
-
-      if(!down) {
+        set({ x: offsetX.current + projectionX, config })
         offsetX.current += projectionX
       }
+
     },
     { domTarget: containerRef, axis: 'x', wheelReason: WheelReason.USER }
   )
 
   return (
     <div ref={containerRef} className={c.gallery}>
-      {props.map(({ x, display, scale }, i) => (
-        <animated.div key={i} style={{ display, x, scale }}>
-          <div style={{ backgroundImage: `url(${pages[i]})` }} />
-        </animated.div>
-      ))}
+      <animated.div style={{ x: spring.x }}>
+        {pages.map((url, i) => (
+          <div key={i}>
+            <img src={url} />
+          </div>
+        ))}
+      </animated.div>
     </div>
   )
 }

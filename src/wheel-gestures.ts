@@ -39,6 +39,7 @@ export function WheelGestures({ axis = 'all', wheelReason = WheelReason.USER }: 
     dragState = {
       down: true,
       delta: data.axisDeltas.map((d) => d * -1),
+      // TODO: should also be multiplied by -1 (same as delta)
       axisVelocity: [data.axisVelocity[0], data.axisVelocity[1]],
     }
 
