@@ -49,7 +49,6 @@ export default function Gallery() {
 
       if (down) {
         const unrubberedX = offsetX.current + x
-        // const rubberedX = rubberbandClamp(-2000, 0, unrubberedX)
 
         set({ x: down ? unrubberedX : 0, immediate: down })
       } else {
