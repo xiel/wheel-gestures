@@ -6,3 +6,9 @@ wheel gestures and momentum detection in the browser
 ![GitHub top language](https://img.shields.io/github/languages/top/xiel/wheel-gestures.svg)
 
 you bring the wheel events, wheelAnalyzer returns wheel gestures & momentum information
+
+**OS & Browsers**
+
+- Mac OS (Chrome, Firefox, Safari, Brave)
+- Windows (testing needed)
+- Linux  (testing needed)
