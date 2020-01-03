@@ -5,6 +5,7 @@ import c from './Gallery.module.scss'
 import useWheelDrag from '../../hooks/useWheelDrag'
 import { WheelReason } from 'wheel-gestures'
 import { projection } from '../../utils/projection'
+import { rubberband } from '../../utils/rubberband'
 
 const pages = [
   'https://images.pexels.com/photos/414171/pexels-photo-414171.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
@@ -29,13 +30,14 @@ export default function Gallery() {
   useWheelDrag(
     ({ down, delta: [x], axisVelocity }) => {
       const [xVelo, yVelo] = axisVelocity
+      const width = containerRef.current!.offsetWidth
+      const minX = width * -1 * (pages.length - 1)
 
       if (down) {
         if (Math.abs(xVelo) > Math.abs(yVelo)) {
-          set({ x: offsetX.current + x, immediate: true })
+          set({ x: rubberband(minX, 0, offsetX.current + x), immediate: true })
         }
       } else {
-        const width = containerRef.current!.offsetWidth
         const config = { velocity: xVelo }
         const snapPoints = pages.map((_, i) => i * width * -1)
         const projectionX = projection(xVelo)

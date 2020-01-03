@@ -14,8 +14,9 @@ export default function WheelRecorder({ domTarget = document.body }: Props) {
   const [downloadHref, setDownloadHref] = useState('')
   const [downloadName, setDownloadName] = useState('')
   const [autoStop, setAutoStop] = useState(true)
+
   const createDownloadHref = useRefOfLatest(() => {
-    URL.revokeObjectURL(downloadHref)
+    URL.revokeObjectURL && URL.revokeObjectURL(downloadHref)
     if (recordedEvents.current.length) {
       const wheelEvents = recordedEvents.current
       const userAgent = navigator.userAgent

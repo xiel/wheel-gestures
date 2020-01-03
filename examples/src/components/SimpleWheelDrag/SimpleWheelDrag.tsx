@@ -47,14 +47,14 @@ export default function SimpleWheelDrag() {
         <animated.div
           className={c.box + ' ' + c.momentum}
           style={{
-            transform: springMomentum.xy.interpolate(interpolate as any),
+            transform: springMomentum.xy.to(interpolate),
           }}
         />
         <animated.div
           ref={elRef}
           className={c.box}
           style={{
-            transform: xy.interpolate(interpolate as any),
+            transform: xy.to(interpolate),
           }}
         />
       </div>
