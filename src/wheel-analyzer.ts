@@ -73,9 +73,6 @@ export class WheelAnalyzer {
   private deltaVelocity = 0 // px per second
   private deltaTotal = 0 // moved during this scroll interaction
 
-  /**
-   * @description merged scrollPoints
-   */
   private scrollPoints: ScrollPoint[] = []
   private scrollPointsToMerge: ScrollPoint[] = []
 

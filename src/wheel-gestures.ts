@@ -29,9 +29,11 @@ export function WheelGestures({ axis = 'all', wheelReason = WheelReason.USER }: 
     delta: [0, 0],
     axisVelocity: [0, 0],
   }
+
   const wheelAnalyzer = new WheelAnalyzer({
     preventWheelAction: axis,
   })
+
   const { observe, unobserve, disconnect } = wheelAnalyzer
   const { on, off, dispatch } = EventBus<WheelGesturesEventMap>()
 
@@ -39,8 +41,7 @@ export function WheelGestures({ axis = 'all', wheelReason = WheelReason.USER }: 
     dragState = {
       down: true,
       delta: data.axisDeltas.map((d) => d * -1),
-      // TODO: should also be multiplied by -1 (same as delta)
-      axisVelocity: [data.axisVelocity[0], data.axisVelocity[1]],
+      axisVelocity: [data.axisVelocity[0] * -1, data.axisVelocity[1] * -1],
     }
 
     switch (type) {
