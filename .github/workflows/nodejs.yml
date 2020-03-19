@@ -24,6 +24,7 @@ jobs:
         yarn build
         yarn semantic-release
     - name: examples
+      run: |
         yarn link-examples
         cd examples
         yarn
