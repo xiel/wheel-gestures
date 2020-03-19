@@ -10,5 +10,5 @@ you bring the wheel events, wheelAnalyzer returns wheel gestures & momentum info
 **OS & Browsers**
 
 - Mac OS (Chrome, Firefox, Safari, Brave)
-- Windows (testing needed)
-- Linux  (testing needed)
+- Windows (testing needed & help appreciated)
+- Linux  (testing needed & help appreciated)
