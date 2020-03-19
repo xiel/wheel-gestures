@@ -1,9 +1,9 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { animated, useSpring } from 'react-spring'
-import { useDrag } from 'react-use-gesture'
 import c from './SimpleWheelDrag.module.scss'
-import useWheelDrag from '../../hooks/useWheelDrag'
 import WheelRecorder from '../WheelRecorder/WheelRecorder'
+import useWheelDrag from '../../hooks/useWheelDrag'
+import { WheelReason } from 'wheel-gestures'
 
 export default function SimpleWheelDrag() {
   const containerRef = useRef<HTMLDivElement | null>(null)
@@ -12,18 +12,11 @@ export default function SimpleWheelDrag() {
   const [springMomentum, setSpringMomentum] = useSpring(() => ({ xy: [0, 0] }))
   const [preventWheelAction, setPreventWheelAction] = useState<'all' | 'x' | 'y'>('all')
 
-  const bind = useDrag(
-    ({ down, delta }) => {
-      set({ xy: down ? delta : [0, 0] })
-    },
-    { domTarget: elRef }
-  )
-
   useWheelDrag(
     ({ down, delta }) => {
       set({ xy: down ? delta : [0, 0] }) // immediate: down
     },
-    { domTarget: containerRef, preventWheelAction }
+    { domTarget: containerRef, axis: preventWheelAction }
   )
 
   // update momentum spring
@@ -31,13 +24,10 @@ export default function SimpleWheelDrag() {
     ({ down, delta }) => {
       setSpringMomentum({ xy: down ? delta : [0, 0] }) // immediate: down
     },
-    { domTarget: containerRef, preventWheelAction, wheelReason: 'any' }
+    { domTarget: containerRef, axis: preventWheelAction, wheelReason: WheelReason.ANY }
   )
 
   const interpolate = (x: number, y: number) => `translate3D(${x}px, ${y}px, 0)`
-
-  // bind does not seem to be correctly typed...
-  useEffect(bind as any, [bind])
 
   return (
     <div className={c.page}>
@@ -57,14 +47,14 @@ export default function SimpleWheelDrag() {
         <animated.div
           className={c.box + ' ' + c.momentum}
           style={{
-            transform: springMomentum.xy.interpolate(interpolate as any),
+            transform: springMomentum.xy.to(interpolate),
           }}
         />
         <animated.div
           ref={elRef}
           className={c.box}
           style={{
-            transform: xy.interpolate(interpolate as any),
+            transform: xy.to(interpolate),
           }}
         />
       </div>

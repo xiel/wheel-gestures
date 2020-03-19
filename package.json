@@ -39,19 +39,19 @@
     "!**/test/*"
   ],
   "devDependencies": {
-    "@testing-library/react": "^9.0.1",
-    "@types/jest": "^24.0.11",
+    "@testing-library/react": "^9.3.2",
+    "@types/jest": "^24.0.23",
     "@types/throttle-debounce": "^2.1.0",
-    "eslint-config-prettier": "*",
+    "eslint-config-prettier": "6.7.0",
     "eslint-plugin-prettier": "*",
     "eslint-plugin-react-app": "*",
-    "prettier": "^1.17.0",
-    "react-scripts": "^3.2.0",
-    "rollup": "^1.19.3",
-    "rollup-plugin-typescript2": "^0.24.0",
+    "prettier": "^1.19.1",
+    "react-scripts": "^3.3.0-next.62",
+    "rollup": "^1.27.5",
+    "rollup-plugin-typescript2": "^0.25.2",
+    "semantic-release": "^15.13.31",
     "tslib": "^1.9.3",
-    "typescript": "3.6.2",
-    "semantic-release": "^15.13.24"
+    "typescript": "3.7.2"
   },
   "jest": {
     "collectCoverageFrom": [
@@ -61,5 +61,8 @@
       "!**/build/**",
       "!**/*.config.{js,jx,tsx,ts}"
     ]
+  },
+  "publishConfig": {
+    "access": "restricted"
   }
 }

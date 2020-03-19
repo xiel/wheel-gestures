@@ -1,67 +1,26 @@
-import React, { useEffect, useMemo, useRef } from 'react'
-import { Options as WAOptions, WheelAnalyzer, WheelPhase } from 'wheel-gestures'
-
-interface WheelDragState {
-  down: boolean
-  delta: number[]
-}
+import React, { useEffect, useMemo } from 'react'
+import { Props as WheelGesturesProps, WheelDragState, WheelGestures, WheelReason } from 'wheel-gestures'
 
 type WheelDragHandler = (state: WheelDragState) => void
 
-const wheelType = {
-  user: {
-    start: WheelPhase.WHEEL_START,
-    wheel: WheelPhase.WHEEL,
-    end: WheelPhase.WHEEL_END,
-  },
-  any: {
-    start: WheelPhase.ANY_WHEEL_START,
-    wheel: WheelPhase.ANY_WHEEL,
-    end: WheelPhase.ANY_WHEEL_END,
-  },
-}
-
-interface Options extends Partial<WAOptions> {
+interface Options extends WheelGesturesProps {
   domTarget?: EventTarget | React.RefObject<EventTarget> | null
-  wheelReason?: keyof typeof wheelType
 }
 
 export default function useWheelDrag(
   handler: WheelDragHandler,
-  { domTarget, wheelReason = 'user', preventWheelAction }: Options = {}
+  { domTarget, wheelReason = WheelReason.USER, axis }: Options = {}
 ) {
-  const dragState = useRef<WheelDragState>({
-    down: false,
-    delta: [0, 0],
-  })
-  const wheelAnalyzer = useMemo(() => new WheelAnalyzer({ preventWheelAction }), [preventWheelAction])
+  const wheelGestures = useMemo(() => WheelGestures({ wheelReason, axis }), [wheelReason, axis])
 
   useEffect(() => {
     const element = domTarget && 'current' in domTarget ? domTarget.current : domTarget
-    return element ? wheelAnalyzer.observe(element) : undefined
+    return element ? wheelGestures.observe(element) : undefined
   })
 
   useEffect(() => {
-    if (!wheelAnalyzer) return
+    const offs = [wheelGestures.on('wheelmove', handler), wheelGestures.on('wheelend', handler)]
 
-    const unsubscribe = wheelAnalyzer.subscribe((type, data) => {
-      switch (type) {
-        case wheelType[wheelReason].wheel:
-          dragState.current.down = true
-          dragState.current.delta = data.axisDeltas.map((d) => (d * -1) / 2)
-          break
-        case wheelType[wheelReason].end:
-          dragState.current.down = false
-          break
-        default:
-          return
-      }
-
-      handler(dragState.current)
-    })
-
-    return () => unsubscribe()
-  }, [handler, wheelAnalyzer, wheelReason])
-
-  return null
+    return () => offs.forEach((off) => off())
+  }, [handler, wheelGestures, wheelReason])
 }

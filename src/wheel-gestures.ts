@@ -1,28 +1,81 @@
-import { WheelAnalyzer } from './wheel-analyzer'
-export * from './wheel-analyzer'
+import { WheelAnalyzer, WheelPhase } from './wheel-analyzer'
 import EventBus from './events/EventBus'
+import { WheelDragState, WheelGesturesEventMap, WheelReason } from './wheel-gestures.types'
 
-interface Props {
-  axis: 'x' | 'y' | 'all'
+export * from './wheel-gestures.types'
+export * from './wheel-analyzer'
+
+export interface Props {
+  axis?: 'x' | 'y' | 'all'
+  wheelReason?: WheelReason
 }
 
-const defaults: Props = {
-  axis: 'all',
+const wheelType = {
+  [WheelReason.USER]: {
+    start: WheelPhase.WHEEL_START,
+    wheel: WheelPhase.WHEEL,
+    end: WheelPhase.WHEEL_END,
+  },
+  [WheelReason.ANY]: {
+    start: WheelPhase.ANY_WHEEL_START,
+    wheel: WheelPhase.ANY_WHEEL,
+    end: WheelPhase.ANY_WHEEL_END,
+  },
 }
 
-export function WheelGestures({ axis }: Props = defaults) {
-  const { feedWheel, subscribe, unsubscribe, observe, unobserve, disconnect } = new WheelAnalyzer({
+export function WheelGestures({ axis = 'all', wheelReason = WheelReason.USER }: Props = {}) {
+  let dragState: WheelDragState = {
+    down: false,
+    delta: [0, 0],
+    axisVelocity: [0, 0],
+  }
+
+  const wheelAnalyzer = new WheelAnalyzer({
     preventWheelAction: axis,
   })
 
-  const { on } = EventBus({ events: ['wheelpan'] })
+  const { observe, unobserve, disconnect } = wheelAnalyzer
+  const { on, off, dispatch } = EventBus<WheelGesturesEventMap>()
 
-  on('wheelpan', () => undefined)
+  wheelAnalyzer.subscribe((type, data) => {
+    dragState = {
+      down: true,
+      delta: data.axisDeltas.map((d) => d * -1),
+      axisVelocity: [data.axisVelocity[0] * -1, data.axisVelocity[1] * -1],
+    }
+
+    switch (type) {
+      case wheelType[wheelReason].start:
+        dragState = {
+          ...dragState,
+          down: true,
+        }
+        dispatch('wheelstart', dragState)
+        break
+      case wheelType[wheelReason].wheel:
+        dragState = {
+          ...dragState,
+          down: true,
+        }
+        dispatch('wheelmove', dragState)
+        break
+      case wheelType[wheelReason].end:
+        dragState = {
+          ...dragState,
+          down: false,
+        }
+        dispatch('wheelend', dragState)
+        break
+      default:
+        return
+    }
+  })
 
   return Object.freeze({
     observe,
     unobserve,
     disconnect,
     on,
+    off,
   })
 }

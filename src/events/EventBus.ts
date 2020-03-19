@@ -1,23 +1,24 @@
-interface Props<T> {
-  events: T[]
-}
+export interface Props {}
 
-type EventListener = () => void
+export type EventMapEmpty = Record<string, unknown>
+export type EventListener<D = unknown> = (data: D) => void
+export type Off = () => void
 
-export default function EventBus<T extends string>({ events }: Props<T>) {
-  const listeners = Object.fromEntries(events.map((eventName) => [eventName, new Array<EventListener>()] as const))
+export default function EventBus<EventMap = EventMapEmpty>({}: Props = {}) {
+  const listeners = {} as Record<keyof EventMap, EventListener<any>[]>
 
-  function on(type: T, listener: EventListener) {
-    listeners[type] = listeners[type].concat(listener)
-    return off.bind(undefined, type, listener)
+  function on<EK extends keyof EventMap>(type: EK, listener: EventListener<EventMap[EK]>): Off {
+    listeners[type] = (listeners[type] || []).concat(listener)
+    return () => off(type, listener)
   }
 
-  function off(type: T, listener: EventListener) {
-    listeners[type] = listeners[type].filter((l) => l === listener)
+  function off<EK extends keyof EventMap>(type: EK, listener: EventListener<EventMap[EK]>) {
+    listeners[type] = (listeners[type] || []).filter((l) => l !== listener)
   }
 
-  function dispatch(type: T) {
-    listeners[type].forEach((l) => l())
+  function dispatch<EK extends keyof EventMap>(type: EK, data: EventMap[EK]) {
+    if (!(type in listeners)) return
+    listeners[type].forEach((l) => l(data))
   }
 
   return Object.freeze({

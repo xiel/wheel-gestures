@@ -1,6 +1,7 @@
 import React from 'react'
 import VisuallyHidden from '@reach/visually-hidden'
 import c from './Header.module.scss'
+import { Link } from 'react-router-dom'
 
 interface Props {
 }
@@ -20,9 +21,10 @@ export default function Header(props: Props) {
         </svg>
       </h1>
 
-      {/*<nav className={c.nav}>*/}
-      {/*  <Link to="/">Simple Wheel Drag</Link>*/}
-      {/*</nav>*/}
+      <nav className={c.nav}>
+        <Link to="/">Wheel Drag</Link>
+        <Link to="/gallery">Gallery</Link>
+      </nav>
     </header>
   )
 }

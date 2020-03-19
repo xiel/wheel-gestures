@@ -8,11 +8,12 @@ const SOON_ENDING_THRESHOLD = 1.4
 
 const ACC_FACTOR_MIN = 0.6
 const ACC_FACTOR_MAX = 0.96
+const DELTA_MAX_ABS = 150
 
 interface ScrollPoint {
   currentDelta: number
   currentAbsDelta: number
-  axisDelta: number[]
+  axisDeltaUnclampt: number[]
   timestamp: number
 }
 
@@ -41,6 +42,7 @@ const console = window.console
 export type PhaseData = ReturnType<typeof WheelAnalyzer.prototype.getCurrentState>
 export type SubscribeFn = (type: WheelPhase, data: PhaseData) => void
 export type Unsubscribe = () => void
+export type Unobserve = () => void
 type DeltaProp = 'deltaX' | 'deltaY'
 type PreventWheelActionType = 'all' | 'x' | 'y'
 type Axis = 'x' | 'y'
@@ -71,9 +73,6 @@ export class WheelAnalyzer {
   private deltaVelocity = 0 // px per second
   private deltaTotal = 0 // moved during this scroll interaction
 
-  /**
-   * @description merged scrollPoints
-   */
   private scrollPoints: ScrollPoint[] = []
   private scrollPointsToMerge: ScrollPoint[] = []
 
@@ -92,7 +91,7 @@ export class WheelAnalyzer {
       .reduce((o, [key, value]) => Object.assign(o, { [key]: value }), { ...defaults })
   }
 
-  public observe = (target: EventTarget) => {
+  public observe = (target: EventTarget): Unobserve => {
     target.addEventListener('wheel', this.feedWheel as EventListener, { passive: false })
     this.targets.push(target)
     return this.unobserve.bind(this, target)
@@ -149,6 +148,10 @@ export class WheelAnalyzer {
     this.debugMessage('unsupported preventWheelAction value: ' + preventWheelAction, 'warn')
   }
 
+  private clampDelta(delta: number) {
+    return Math.min(DELTA_MAX_ABS, Math.max(-DELTA_MAX_ABS, delta))
+  }
+
   private processWheelEventData(e: WheelEventData) {
     if (e.deltaMode !== 0) {
       if (this.options.isDebug) {
@@ -165,7 +168,7 @@ export class WheelAnalyzer {
       this.start()
     }
 
-    const currentDelta = Math.abs(e.deltaY) > Math.abs(e.deltaX) ? e.deltaY : e.deltaX
+    const currentDelta = this.clampDelta(Math.abs(e.deltaY) > Math.abs(e.deltaX) ? e.deltaY : e.deltaX)
     const currentAbsDelta = Math.abs(currentDelta)
 
     if (this.isMomentum && currentAbsDelta > this.lastAbsDelta) {
@@ -173,23 +176,23 @@ export class WheelAnalyzer {
       this.start()
     }
 
-    this.axisDeltas = this.axisDeltas.map((delta, i) => delta + e[deltaProp[axes[i]]])
+    this.axisDeltas = this.axisDeltas.map((delta, i) => delta + this.clampDelta(e[deltaProp[axes[i]]]))
     this.deltaTotal = this.deltaTotal + currentDelta
     this.lastAbsDelta = currentAbsDelta
 
     this.scrollPointsToMerge.push({
       currentDelta: currentDelta,
       currentAbsDelta: currentAbsDelta,
-      axisDelta: [e.deltaX, e.deltaY],
+      axisDeltaUnclampt: [e.deltaX, e.deltaY],
       timestamp: e.timeStamp || Date.now(),
     })
 
     if (this.scrollPointsToMerge.length === WHEELEVENTS_TO_MERGE) {
-      const mergedScrollPoint = {
+      const mergedScrollPoint: ScrollPoint = {
         currentDelta: this.scrollPointsToMerge.reduce((sum, b) => sum + b.currentDelta, 0) / WHEELEVENTS_TO_MERGE,
         currentAbsDelta: this.scrollPointsToMerge.reduce((sum, b) => sum + b.currentAbsDelta, 0) / WHEELEVENTS_TO_MERGE,
-        axisDelta: this.scrollPointsToMerge
-          .reduce(([sumX, sumY], { axisDelta: [x, y] }) => [sumX + x, sumY + y], [0, 0])
+        axisDeltaUnclampt: this.scrollPointsToMerge
+          .reduce(([sumX, sumY], { axisDeltaUnclampt: [x, y] }) => [sumX + x, sumY + y], [0, 0])
           .map((sum) => sum / WHEELEVENTS_TO_MERGE),
         timestamp: this.scrollPointsToMerge.reduce((sum, b) => sum + b.timestamp, 0) / WHEELEVENTS_TO_MERGE,
       }
@@ -236,7 +239,7 @@ export class WheelAnalyzer {
     }
 
     // calc the velocity per axes
-    const velocity = pB.axisDelta.map((d) => d / deltaTime)
+    const velocity = pB.axisDeltaUnclampt.map((d) => d / deltaTime)
 
     // calc the acceleration factor per axis
     const accelerationFactor = velocity.map((v, i) => {
