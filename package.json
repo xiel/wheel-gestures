@@ -46,7 +46,7 @@
     "eslint-plugin-prettier": "*",
     "eslint-plugin-react-app": "*",
     "prettier": "^1.19.1",
-    "react-scripts": "3.3.0-next.62",
+    "react-scripts": "3.4.0",
     "rollup": "^2.1.0",
     "rollup-plugin-typescript2": "^0.25.2",
     "semantic-release": "^17.0.4",
