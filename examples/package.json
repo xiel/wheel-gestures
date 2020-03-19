@@ -5,7 +5,7 @@
   "dependencies": {
     "@reach/visually-hidden": "^0.1.4",
     "@types/jest": "25.1.4",
-    "@types/node": "12.7.3",
+    "@types/node": "13.9.2",
     "@types/reach__visually-hidden": "0.2.0",
     "@types/react": "16.9.2",
     "@types/react-dom": "16.9.0",
