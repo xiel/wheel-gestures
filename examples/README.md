@@ -1,4 +1,4 @@
-# Examples
+# Examples for `wheel-gestures`
 
 In the project directory, you can run:
 
