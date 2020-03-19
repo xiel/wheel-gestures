@@ -48,7 +48,7 @@
     "prettier": "^1.19.1",
     "react-scripts": "3.4.0",
     "rollup": "^2.1.0",
-    "rollup-plugin-typescript2": "^0.25.2",
+    "rollup-plugin-typescript2": "^0.26.0",
     "semantic-release": "^17.0.4",
     "tslib": "^1.9.3",
     "typescript": "^3.8.3"
