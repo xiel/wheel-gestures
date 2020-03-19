@@ -40,7 +40,7 @@
   ],
   "devDependencies": {
     "@testing-library/react": "^9.3.2",
-    "@types/jest": "^24.0.23",
+    "@types/jest": "^25.1.4",
     "@types/throttle-debounce": "^2.1.0",
     "eslint-config-prettier": "6.10.0",
     "eslint-plugin-prettier": "*",
