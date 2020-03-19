@@ -11,7 +11,7 @@
     "start": "yarn dev",
     "test": "react-scripts test",
     "semantic-release": "semantic-release",
-    "link-examples": "yarn unlink; yarn link; cd examples; yarn link wheel-gestures;"
+    "link-examples": "yarn unlink; yarn link; cd examples; yarn link wheel-gestures; cd .."
   },
   "repository": {
     "type": "git",

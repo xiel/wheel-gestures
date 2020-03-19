@@ -23,6 +23,8 @@ jobs:
         yarn test
         yarn build
         yarn semantic-release
+    - name: examples
+        yarn link-examples
         cd examples
         yarn
         yarn test
