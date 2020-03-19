@@ -23,6 +23,10 @@ jobs:
         yarn test
         yarn build
         yarn semantic-release
+        cd examples
+        yarn
+        yarn test
+        yarn build
       env:
         CI: true
         GH_TOKEN: ${{ secrets.GH_TOKEN }}
