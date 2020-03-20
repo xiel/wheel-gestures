@@ -5339,7 +5339,7 @@ eslint-config-prettier@6.10.0:
   dependencies:
     get-stdin "^6.0.0"
 
-eslint-config-react-app@^5.0.2, eslint-config-react-app@^5.2.0:
+eslint-config-react-app@^5.2.0:
   version "5.2.0"
   resolved "https://registry.yarnpkg.com/eslint-config-react-app/-/eslint-config-react-app-5.2.0.tgz#135110ba56a9e378f7acfe5f36e2ae76a2317899"
   integrity sha512-WrHjoGpKr1kLLiWDD81tme9jMM0hk5cMxasLSdyno6DdPt+IfLOrDJBVo6jN7tn4y1nzhs43TmUaZWO6Sf0blw==
@@ -5428,14 +5428,14 @@ eslint-plugin-prettier@*:
     prettier-linter-helpers "^1.0.0"
 
 eslint-plugin-react-app@*:
-  version "6.0.3"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-react-app/-/eslint-plugin-react-app-6.0.3.tgz#96ddd0c884d7556e9ce24e5cd8959f7574f9cf9c"
-  integrity sha512-g/q4QmzUbrg+Q0ZShQbQy58ZBkVDhPRBP17Xu39qePcsmS/mUasiR4pqhWLwEfhAUXHMiWEB/olWaa/vpRli+g==
+  version "6.2.1"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-react-app/-/eslint-plugin-react-app-6.2.1.tgz#c84c7603b706f5c27767068a962fdc27d50ed442"
+  integrity sha512-zqZiDBz5YLGLO0bCP3Y9pnyEU0/hG63oQRdhXgk5p9iCbjoy6akSipFza4wPjy8+6fA0jiKCrsaa9lAIf26JjQ==
   dependencies:
     "@typescript-eslint/eslint-plugin" "2.x"
     "@typescript-eslint/parser" "2.x"
     babel-eslint "10.x"
-    eslint-config-react-app "^5.0.2"
+    eslint-config-react-app "^5.2.0"
     eslint-plugin-flowtype "3.x"
     eslint-plugin-import "2.x"
     eslint-plugin-jsx-a11y "6.x"
