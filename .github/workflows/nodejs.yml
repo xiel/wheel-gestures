@@ -11,9 +11,9 @@ jobs:
         node-version: [12.x]
 
     env:
-        CI: true
-        GH_TOKEN: ${{ secrets.GH_TOKEN }}
-        NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+      CI: true
+      GH_TOKEN: ${{ secrets.GH_TOKEN }}
+      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
     steps:
       - uses: actions/checkout@v1
       - name: Use Node.js ${{ matrix.node-version }}
@@ -26,11 +26,8 @@ jobs:
           yarn test
           yarn build
           yarn semantic-release
-      - name: examples
+      - name: docs (install, build, and test)
         run: |
-          yarn link-examples
-          cd docs
+          cd gatsby-docs
           yarn
-          yarn test
           yarn build
-
