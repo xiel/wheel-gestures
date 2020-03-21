@@ -9,7 +9,7 @@ jobs:
     strategy:
       matrix:
         node-version: [12.x]
-    
+
     env:
         CI: true
         GH_TOKEN: ${{ secrets.GH_TOKEN }}
@@ -29,8 +29,8 @@ jobs:
       - name: examples
         run: |
           yarn link-examples
-          cd examples
+          cd docs
           yarn
           yarn test
           yarn build
-      
+

@@ -37,8 +37,6 @@ export enum WheelPhase {
   'MOMENTUM_WHEEL_END' = 'MOMENTUM_WHEEL_END',
 }
 
-const console = window.console
-
 export type PhaseData = ReturnType<typeof WheelAnalyzer.prototype.getCurrentState>
 export type SubscribeFn = (type: WheelPhase, data: PhaseData) => void
 export type Unsubscribe = () => void
