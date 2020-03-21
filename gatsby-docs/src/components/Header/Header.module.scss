@@ -1,0 +1,16 @@
+.header {
+  margin: 0 0 3rem;
+  padding: 2rem;
+}
+
+.logo {
+  margin: auto;
+  max-width: 400px;
+}
+
+.nav {
+  display: inline-grid;
+  grid-auto-flow: column;
+  grid-gap: 1em;
+  margin: 1em 0;
+}

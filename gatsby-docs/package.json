@@ -10,13 +10,17 @@
     "gatsby-plugin-manifest": "^2.2.48",
     "gatsby-plugin-offline": "^3.0.41",
     "gatsby-plugin-react-helmet": "^3.1.24",
+    "gatsby-plugin-sass": "^2.2.0",
     "gatsby-plugin-sharp": "^2.4.13",
+    "gatsby-plugin-typescript": "^2.3.0",
     "gatsby-source-filesystem": "^2.1.56",
     "gatsby-transformer-sharp": "^2.3.19",
+    "node-sass": "^4.13.1",
     "prop-types": "^15.7.2",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-helmet": "^5.2.1",
+    "react-spring": "^9.0.0-beta.34",
     "wheel-gestures": "*"
   },
   "devDependencies": {
@@ -36,7 +40,7 @@
     "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1",
     "prebuild": "yarn link-package",
     "predevelop": "yarn link-package",
-    "link-package": "cd ..; echo 'test test test'; yarn unlink; yarn link; cd gatsby-docs; yarn link wheel-gestures;"
+    "link-package": "cd ..; yarn unlink; yarn link; cd gatsby-docs; yarn link wheel-gestures;"
   },
   "repository": {
     "type": "git",
