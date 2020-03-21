@@ -1,9 +1,9 @@
 import React, { useRef, useState } from 'react'
 import { animated, useSpring } from 'react-spring'
-import c from './SimpleWheelDrag.module.scss'
 import WheelRecorder from '../WheelRecorder/WheelRecorder'
 import useWheelDrag from '../../hooks/useWheelDrag'
 import { WheelReason } from 'wheel-gestures'
+import c from './SimpleWheelDrag.module.scss'
 
 export default function SimpleWheelDrag() {
   const containerRef = useRef<HTMLDivElement | null>(null)
@@ -34,7 +34,7 @@ export default function SimpleWheelDrag() {
   const interpolate = (x: number, y: number) => `translate3D(${x}px, ${y}px, 0)`
 
   return (
-    <div className={c.page}>
+    <div>
       <div className={c.options}>
         <WheelRecorder domTarget={containerRef} />
         <label>
