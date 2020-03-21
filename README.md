@@ -7,6 +7,8 @@ wheel gestures and momentum detection in the browser
 
 you bring the wheel events, wheelAnalyzer returns wheel gestures & momentum information
 
+test
+
 **OS & Browsers**
 
 - Mac OS (Chrome, Firefox, Safari, Brave, Edge)
