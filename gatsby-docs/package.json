@@ -16,7 +16,8 @@
     "prop-types": "^15.7.2",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
-    "react-helmet": "^5.2.1"
+    "react-helmet": "^5.2.1",
+    "wheel-gestures": "*"
   },
   "devDependencies": {
     "prettier": "^1.19.1"
@@ -32,7 +33,10 @@
     "start": "npm run develop",
     "serve": "gatsby serve",
     "clean": "gatsby clean",
-    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1"
+    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1",
+    "prebuild": "yarn link-package",
+    "predevelop": "yarn link-package",
+    "link-package": "cd ..; echo 'test test test'; yarn unlink; yarn link; cd gatsby-docs; yarn link wheel-gestures;"
   },
   "repository": {
     "type": "git",
