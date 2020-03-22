@@ -10,7 +10,7 @@ export default function SimpleWheelDrag() {
   const elRef = useRef<HTMLDivElement | null>(null)
   const [{ xy }, set] = useSpring(() => ({ xy: [0, 0] }))
   const [springMomentum, setSpringMomentum] = useSpring(() => ({ xy: [0, 0] }))
-  const [preventWheelAction, setPreventWheelAction] = useState<'all' | 'x' | 'y'>('all')
+  const [preventWheelAction, setPreventWheelAction] = useState<'all' | 'x' | 'y'>('x')
 
   useWheelDrag(
     ({ down, delta }) => {
@@ -39,7 +39,7 @@ export default function SimpleWheelDrag() {
         <WheelRecorder domTarget={containerRef} />
         <label>
           preventWheelAction{' '}
-          <select onChange={(e) => setPreventWheelAction(e.target.value as any)}>
+          <select value={preventWheelAction} onChange={(e) => setPreventWheelAction(e.target.value as any)}>
             <option>all</option>
             <option>x</option>
             <option>y</option>

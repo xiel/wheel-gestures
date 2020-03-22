@@ -78,7 +78,7 @@ export default function WheelRecorder({ domTarget = document.body }: Props) {
         <span className={c.pauseButtonInner}>Rec</span>
       </button>
       <label>
-        <input type="checkbox" onChange={() => setAutoStop(!autoStop)} checked={autoStop} />{' '}auto-stop
+        <input type="checkbox" onChange={() => setAutoStop(!autoStop)} checked={autoStop} /> auto-stop
       </label>
       {downloadHref && (
         <>
