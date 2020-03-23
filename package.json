@@ -45,7 +45,7 @@
     "eslint-config-prettier": "6.10.0",
     "eslint-plugin-prettier": "*",
     "eslint-plugin-react-app": "*",
-    "prettier": "^1.19.1",
+    "prettier": "^2.0.1",
     "react-scripts": "3.4.0",
     "rollup": "^2.1.0",
     "rollup-plugin-typescript2": "^0.26.0",
