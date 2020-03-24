@@ -1,6 +1,7 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 import Prism from 'prismjs'
-import 'prism-themes/themes/prism-xonokai.css'
+import './prism-atom-dark.css'
+import c from './CodeArea.module.scss'
 
 interface Props {
   code?: string
@@ -8,13 +9,17 @@ interface Props {
 }
 
 export default function CodeArea({ code, children }: Props) {
-  useEffect(() => Prism.highlightAll())
+  const ref = useRef<HTMLElement | null>(null)
+
+  useEffect(() => Prism.highlightElement(ref.current!))
 
   return (
-    <section>
-      <pre className="raw-code">
-        <code className="language-tsx">{code || children}</code>
+    <figure className={c.codeWrapper}>
+      <pre className="raw-code raw-code language-tsx">
+        <code ref={ref} className="language-tsx">
+          {code || children}
+        </code>
       </pre>
-    </section>
+    </figure>
   )
 }

@@ -20,7 +20,8 @@ const IndexPage = () => (
       illo ipsa maiores mollitia neque nisi non nostrum placeat possimus recusandae, sequi soluta, sunt vero!
     </p>
     <CodeArea>{CodeAreaCode}</CodeArea>
-    <CodeArea>{`
+    <CodeArea>
+      {`
 class ListOfWords extends React.PureComponent {
   render() {
     return <div>{this.props.words.join(',')}</div>;
@@ -52,7 +53,8 @@ class WordAdder extends React.Component {
     );
   }
 }
-    `}</CodeArea>
+    `.trim()}
+    </CodeArea>
     <h3>Example</h3>
     <p>
       Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus beatae debitis dicta dolor fuga labore
