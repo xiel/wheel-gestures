@@ -10,7 +10,7 @@
     "@types/react-helmet": "^5.0.15",
     "gatsby": "^2.20.3",
     "gatsby-image": "^2.2.44",
-    "gatsby-plugin-manifest": "^2.2.48",
+    "gatsby-plugin-manifest": "^2.3.2",
     "gatsby-plugin-offline": "^3.1.1",
     "gatsby-plugin-react-helmet": "^3.2.1",
     "gatsby-plugin-sass": "^2.2.0",
