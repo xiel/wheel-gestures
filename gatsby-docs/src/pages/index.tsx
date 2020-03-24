@@ -19,7 +19,6 @@ const IndexPage = () => (
       Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus accusantium adipisci, debitis enim est facere
       illo ipsa maiores mollitia neque nisi non nostrum placeat possimus recusandae, sequi soluta, sunt vero!
     </p>
-    test
     <CodeArea>{CodeAreaCode}</CodeArea>
     <CodeArea>{`
 class ListOfWords extends React.PureComponent {
