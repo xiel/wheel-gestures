@@ -53,7 +53,7 @@
     "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1",
     "prebuild": "yarn link-package",
     "predevelop": "yarn link-package",
-    "link-package": "cd ..; yarn unlink; yarn link; cd gatsby-docs; yarn link wheel-gestures;"
+    "link-package": "cd ..; yarn unlink; yarn link; cd docs; yarn link wheel-gestures;"
   },
   "repository": {
     "type": "git",

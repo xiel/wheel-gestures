@@ -28,6 +28,6 @@ jobs:
           yarn semantic-release
       - name: docs (install, build, and test)
         run: |
-          cd gatsby-docs
+          cd docs
           yarn
           yarn build
