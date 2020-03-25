@@ -17,44 +17,17 @@ const IndexPage = () => (
     <h3>Installation</h3>
     <p>
       Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus accusantium adipisci, debitis enim est facere
-      illo ipsa maiores mollitia neque nisi non nostrum placeat possimus recusandae, sequi soluta, sunt vero!
+      illo ipsa maiores mollitia neque nisi non nostrum placeat possimus recusandae, sequi soluta, sunt vero!{' '}
+    </p>
+    <h3>Compatibility</h3>
+    <p>
+      Tested with
+      <ul>
+        <li>all Browsers macOS</li>
+        <li> Windows with Precision Touchpads (PTP)</li>
+      </ul>
     </p>
     <CodeArea>{CodeAreaCode}</CodeArea>
-    <CodeArea>
-      {`
-class ListOfWords extends React.PureComponent {
-  render() {
-    return <div>{this.props.words.join(',')}</div>;
-  }
-}
-
-class WordAdder extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      words: ['marklar']
-    };
-    this.handleClick = this.handleClick.bind(this);
-  }
-
-  handleClick() {
-    // This section is bad style and causes a bug
-    const words = this.state.words;
-    words.push('marklar');
-    this.setState({words: words});
-  }
-
-  render() {
-    return (
-      <div>
-        <button onClick={this.handleClick} />
-        <ListOfWords words={this.state.words} />
-      </div>
-    );
-  }
-}
-    `.trim()}
-    </CodeArea>
     <h3>Example</h3>
     <p>
       Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus beatae debitis dicta dolor fuga labore

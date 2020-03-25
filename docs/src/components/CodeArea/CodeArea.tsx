@@ -17,7 +17,8 @@ export default function CodeArea({ code, children }: Props) {
     <figure className={c.codeWrapper}>
       <pre className="raw-code raw-code language-tsx">
         <code ref={ref} className="language-tsx">
-          {code || children}
+          {code}
+          {children}
         </code>
       </pre>
     </figure>

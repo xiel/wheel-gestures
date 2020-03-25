@@ -1,14 +1,12 @@
 .container {
-  display: inline-grid;
-  grid-auto-flow: column;
-  grid-gap: 0.5em;
+  display: flex;
+  align-items: center;
   padding: 1em;
   border-radius: 32px;
   border: 2px solid lightgray;
 
-  > * {
-    display: flex;
-    align-items: center;
+  label {
+    margin-left: 1em;
   }
 }
 
@@ -22,6 +20,7 @@
   background: lightgray;
   transition: 200ms;
   cursor: pointer;
+  text-align: center;
 
   &:focus,
   &:hover {

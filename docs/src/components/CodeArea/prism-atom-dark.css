@@ -5,8 +5,6 @@
 
 code[class*="language-"],
 pre[class*="language-"] {
-    color: #c5c8c6;
-    text-shadow: 0 1px rgba(0, 0, 0, 0.3);
     font-family: Inconsolata, Monaco, Consolas, 'Courier New', Courier, monospace;
     direction: ltr;
     text-align: left;
@@ -30,12 +28,14 @@ pre[class*="language-"] {
     padding: 1em;
     margin: .5em 0;
     overflow: auto;
-    border-radius: 0.3em;
+    border-radius: .3em;
 }
 
 :not(pre) > code[class*="language-"],
 pre[class*="language-"] {
+    color: #c5c8c6;
     background: #1d1f21;
+    background: #291414;
 }
 
 /* Inline code */
