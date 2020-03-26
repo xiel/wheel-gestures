@@ -5,6 +5,7 @@
 
 .logo {
   margin: auto;
+  width: 90%;
   max-width: 400px;
 }
 
@@ -13,4 +14,13 @@
   grid-auto-flow: column;
   grid-gap: 1em;
   margin: 1em 0;
+}
+
+.navLink {
+  padding: .5em 0;
+  border-bottom: 2px solid transparent;
+
+  &[aria-current="page"] {
+    border-color: red;
+  }
 }

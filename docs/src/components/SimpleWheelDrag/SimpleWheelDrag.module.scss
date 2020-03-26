@@ -11,7 +11,6 @@
 
 .container {
   position: relative;
-  overflow: hidden;
   height: 50vh;
   background: whitesmoke;
 
@@ -31,6 +30,7 @@
   height: 80px;
   background: #FF4949;
   border-radius: 25%;
+  will-change: transform;
 
   &.momentum {
     opacity: 0.5;

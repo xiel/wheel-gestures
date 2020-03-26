@@ -35,7 +35,7 @@ const IndexPage = () => (
       voluptatem!
     </p>
     <SimpleWheelDrag />
-    <Link to="/gallery/">Go to page 2</Link>
+    <Link to="/gallery">Go to page 2</Link>
   </Skeleton>
 )
 

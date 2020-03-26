@@ -29,11 +29,7 @@ const Skeleton = ({ children }: { children: ReactNode }) => {
       <Header siteTitle={data.site.siteMetadata.title} />
       <Content>
         <main>{children}</main>
-        <footer>
-          © {new Date().getFullYear()}, Built with
-          {` `}
-          <a href="https://www.gatsbyjs.org">Gatsby</a>
-        </footer>
+        <footer>Felix Leupold © {new Date().getFullYear()}, made in Berlin 🐻</footer>
       </Content>
     </>
   )
