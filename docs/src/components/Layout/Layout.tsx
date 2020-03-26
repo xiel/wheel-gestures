@@ -1,8 +1,8 @@
-import React from 'react'
+import React, { FunctionComponent } from 'react'
+import c from './Layout.module.scss'
 
-interface Props {
-}
+interface Props {}
 
 export function Content(props: Props) {
-  return ()
+  return <div className={c.content} {...props} />
 }

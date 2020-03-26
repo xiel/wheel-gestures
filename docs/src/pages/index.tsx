@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'gatsby'
 
-import Layout from '../components/layout'
+import Skeleton from '../components/Layout/Skeleton'
 import SEO from '../components/seo'
 import SimpleWheelDrag from '../components/SimpleWheelDrag/SimpleWheelDrag'
 import CodeArea from '../components/CodeArea/CodeArea'
@@ -10,7 +10,7 @@ import CodeArea from '../components/CodeArea/CodeArea'
 import CodeAreaCode from '!!raw-loader!../components/CodeArea/CodeArea'
 
 const IndexPage = () => (
-  <Layout>
+  <Skeleton>
     <SEO title="Home" />
     <h1>Add wheel gestures to your web app</h1>
     <p>Allow users to interact with your website like on a touch device</p>
@@ -19,12 +19,12 @@ const IndexPage = () => (
       Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus accusantium adipisci, debitis enim est facere
       illo ipsa maiores mollitia neque nisi non nostrum placeat possimus recusandae, sequi soluta, sunt vero!{' '}
     </p>
-    <h3>Compatibility</h3>
+    <h3>momentum detection - Compatibility</h3>
     <p>
-      Tested with
+      momentum detection tested with
       <ul>
-        <li>all Browsers macOS</li>
-        <li> Windows with Precision Touchpads (PTP)</li>
+        <li>macOS (Magic Mouse & Magic Trackpad)</li>
+        <li>Windows with Precision Touchpads (PTP)</li>
       </ul>
     </p>
     <CodeArea>{CodeAreaCode}</CodeArea>
@@ -36,7 +36,7 @@ const IndexPage = () => (
     </p>
     <SimpleWheelDrag />
     <Link to="/gallery/">Go to page 2</Link>
-  </Layout>
+  </Skeleton>
 )
 
 export default IndexPage
