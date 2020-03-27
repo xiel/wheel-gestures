@@ -11,8 +11,9 @@
 
 .container {
   position: relative;
-  height: 50vh;
+  height: 150px;
   background: whitesmoke;
+  border-radius: 20px;
 
   @media (prefers-color-scheme: dark) {
     background: #111;

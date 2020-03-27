@@ -154,8 +154,9 @@ export class WheelAnalyzer {
     if (e.deltaMode !== 0) {
       if (this.options.isDebug) {
         this.debugMessage('deltaMode is not 0')
+        console.log('d mode', e.deltaMode)
       }
-      return
+      // return
     }
 
     if (e.preventDefault && this.shouldPreventDefault(e)) {

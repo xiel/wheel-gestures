@@ -1,5 +1,5 @@
 :root {
-  --primary-color: #FF4949;
+  --primary-color: #ff4949;
 }
 
 * {
@@ -46,12 +46,4 @@ img {
 pre,
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
-}
-
-h1, h2, h3, h4 {
-  margin: 2em 0 1em;
-
-  &:first-child {
-    margin-top: 0;
-  }
 }

@@ -1,0 +1,21 @@
+.richtext {
+
+  p {
+    margin: 1em 0;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    margin: 2em 0 1em;
+
+    &:first-child {
+      margin-top: 0;
+    }
+  }
+
+  ul, ol {
+    list-style: initial;
+  }
+}
