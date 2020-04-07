@@ -11,8 +11,7 @@ export type WheelEventDataRequiredFields = 'deltaMode' | 'deltaX' | 'deltaY'
 
 export interface WheelEventData
   extends Pick<WheelEvent, WheelEventDataRequiredFields>,
-    Partial<Omit<WheelEvent, WheelEventDataRequiredFields>> {
-}
+    Partial<Omit<WheelEvent, WheelEventDataRequiredFields>> {}
 
 export type WheelTypes = 'WHEEL' | 'ANY_WHEEL' | 'MOMENTUM_WHEEL'
 

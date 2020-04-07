@@ -1,4 +1,4 @@
-import { WheelAnalyzer} from './wheel-analyzer'
+import { WheelAnalyzer } from './wheel-analyzer'
 import EventBus from './events/EventBus'
 import { WheelDragState, WheelGesturesEventMap, WheelReason } from './wheel-gestures.types'
 import { WheelPhase } from './wheel-analyzer.types'
@@ -46,14 +46,15 @@ export function WheelGestures({ axis = 'all', wheelReason = WheelReason.USER }: 
       axisVelocity: [data.axisVelocity[0] * -1, data.axisVelocity[1] * -1],
     }
 
+
     switch (type) {
       case wheelType[wheelReason].start:
         dragState = {
           ...dragState,
           down: true,
         }
+        console.log(type)
         dispatch('wheelstart', dragState)
-        console.log('start')
         break
       case wheelType[wheelReason].wheel:
         dragState = {
@@ -62,13 +63,18 @@ export function WheelGestures({ axis = 'all', wheelReason = WheelReason.USER }: 
         }
         dispatch('wheelmove', dragState)
         break
+      case WheelPhase.MOMENTUM_WHEEL_START:
+        console.log('MOMENTUM_WHEEL_START!!!!', type)
+        break
+      case WheelPhase.MOMENTUM_WHEEL_CANCEL:
+        console.log('CANCELLL!!!!', type)
+        break
       case wheelType[wheelReason].end:
         dragState = {
           ...dragState,
           down: false,
         }
         dispatch('wheelend', dragState)
-        console.log('end')
         break
       default:
         return

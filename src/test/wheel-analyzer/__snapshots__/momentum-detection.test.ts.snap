@@ -456,7 +456,53 @@ Object {
     Object {
       "lastData": Object {
         "axisDeltas": Array [
-          -3206,
+          -15,
+          0,
+        ],
+        "axisVelocity": Array [
+          -0.01981865926716738,
+          0,
+        ],
+        "debugData": null,
+        "deltaTotal": -15,
+        "deltaVelocity": 0,
+        "isMomentum": false,
+        "type": "WHEEL_END",
+        "willEndSoon": true,
+      },
+      "range": Array [
+        0,
+        9,
+      ],
+      "wheelType": "WHEEL",
+    },
+    Object {
+      "lastData": Object {
+        "axisDeltas": Array [
+          -15,
+          0,
+        ],
+        "axisVelocity": Array [
+          -0.01981865926716738,
+          0,
+        ],
+        "debugData": null,
+        "deltaTotal": -15,
+        "deltaVelocity": 0,
+        "isMomentum": false,
+        "type": "ANY_WHEEL_END",
+        "willEndSoon": true,
+      },
+      "range": Array [
+        0,
+        9,
+      ],
+      "wheelType": "ANY_WHEEL",
+    },
+    Object {
+      "lastData": Object {
+        "axisDeltas": Array [
+          -3191,
           0,
         ],
         "axisVelocity": Array [
@@ -464,14 +510,14 @@ Object {
           0,
         ],
         "debugData": null,
-        "deltaTotal": -3206,
+        "deltaTotal": -3191,
         "deltaVelocity": 0,
         "isMomentum": false,
         "type": "WHEEL_END",
         "willEndSoon": false,
       },
       "range": Array [
-        0,
+        10,
         33,
       ],
       "wheelType": "WHEEL",
@@ -479,7 +525,7 @@ Object {
     Object {
       "lastData": Object {
         "axisDeltas": Array [
-          -6351,
+          -6336,
           0,
         ],
         "axisVelocity": Array [
@@ -487,7 +533,7 @@ Object {
           0,
         ],
         "debugData": null,
-        "deltaTotal": -6351,
+        "deltaTotal": -6336,
         "deltaVelocity": 0,
         "isMomentum": true,
         "type": "MOMENTUM_WHEEL_END",
@@ -502,7 +548,7 @@ Object {
     Object {
       "lastData": Object {
         "axisDeltas": Array [
-          -6351,
+          -6336,
           0,
         ],
         "axisVelocity": Array [
@@ -510,14 +556,14 @@ Object {
           0,
         ],
         "debugData": null,
-        "deltaTotal": -6351,
+        "deltaTotal": -6336,
         "deltaVelocity": 0,
         "isMomentum": true,
         "type": "ANY_WHEEL_END",
         "willEndSoon": true,
       },
       "range": Array [
-        0,
+        10,
         96,
       ],
       "wheelType": "ANY_WHEEL",
