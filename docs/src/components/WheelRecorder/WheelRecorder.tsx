@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react'
 import c from './WheelRecorder.module.scss'
-import { WheelEventData } from '../../../../src/wheel-analyzer'
 import useRefOfLatest from '../../hooks/useRefOfLatest'
 import { debounce } from 'throttle-debounce'
+import { WheelEventData } from '../../../../src/wheel-analyzer.types'
 
 interface Props {
   domTarget?: EventTarget | React.RefObject<EventTarget> | null

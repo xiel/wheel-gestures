@@ -1,5 +1,4 @@
 .richtext {
-
   p {
     margin: 1em 0;
   }
@@ -15,7 +14,15 @@
     }
   }
 
-  ul, ol {
+  ul,
+  ol {
     list-style: initial;
+    padding-left: 1em;
   }
+
+  th, td {
+    padding: .25em;
+    text-align: center;
+  }
+
 }

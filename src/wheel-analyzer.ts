@@ -1,4 +1,16 @@
 import { debounce } from 'throttle-debounce'
+import {
+  Axis,
+  DeltaProp,
+  PreventWheelActionType,
+  ScrollPoint,
+  SubscribeFn,
+  Unobserve,
+  Unsubscribe,
+  WheelEventData,
+  WheelPhase,
+} from './wheel-analyzer.types'
+import { normalizeWheel } from './normalizer/wheel-normalizer'
 
 const WHEELEVENTS_TO_MERGE = 2
 const WHEELEVENTS_TO_ANALAZE = 5
@@ -9,41 +21,6 @@ const SOON_ENDING_THRESHOLD = 1.4
 const ACC_FACTOR_MIN = 0.6
 const ACC_FACTOR_MAX = 0.96
 const DELTA_MAX_ABS = 150
-
-interface ScrollPoint {
-  currentDelta: number
-  currentAbsDelta: number
-  axisDeltaUnclampt: number[]
-  timestamp: number
-}
-
-type WheelEventDataRequiredFields = 'deltaMode' | 'deltaX' | 'deltaY'
-export interface WheelEventData
-  extends Pick<WheelEvent, WheelEventDataRequiredFields>,
-    Partial<Omit<WheelEvent, WheelEventDataRequiredFields>> {}
-
-export type WheelTypes = 'WHEEL' | 'ANY_WHEEL' | 'MOMENTUM_WHEEL'
-
-export enum WheelPhase {
-  'ANY_WHEEL_START' = 'ANY_WHEEL_START',
-  'ANY_WHEEL' = 'ANY_WHEEL',
-  'ANY_WHEEL_END' = 'ANY_WHEEL_END',
-  'WHEEL_START' = 'WHEEL_START',
-  'WHEEL' = 'WHEEL',
-  'WHEEL_END' = 'WHEEL_END',
-  'MOMENTUM_WHEEL_START' = 'MOMENTUM_WHEEL_START',
-  'MOMENTUM_WHEEL' = 'MOMENTUM_WHEEL',
-  'MOMENTUM_WHEEL_CANCEL' = 'MOMENTUM_WHEEL_CANCEL',
-  'MOMENTUM_WHEEL_END' = 'MOMENTUM_WHEEL_END',
-}
-
-export type PhaseData = ReturnType<typeof WheelAnalyzer.prototype.getCurrentState>
-export type SubscribeFn = (type: WheelPhase, data: PhaseData) => void
-export type Unsubscribe = () => void
-export type Unobserve = () => void
-type DeltaProp = 'deltaX' | 'deltaY'
-type PreventWheelActionType = 'all' | 'x' | 'y'
-type Axis = 'x' | 'y'
 
 const axes: [Axis, Axis] = ['x', 'y']
 const deltaProp: Record<Axis, DeltaProp> = {
@@ -150,24 +127,26 @@ export class WheelAnalyzer {
     return Math.min(DELTA_MAX_ABS, Math.max(-DELTA_MAX_ABS, delta))
   }
 
-  private processWheelEventData(e: WheelEventData) {
-    if (e.deltaMode !== 0) {
-      if (this.options.isDebug) {
-        this.debugMessage('deltaMode is not 0')
-        console.log('d mode', e.deltaMode)
-      }
-      // return
-    }
+  private processWheelEventData(wheelEvent: WheelEventData) {
+    // const { deltaX, deltaY, deltaZ, deltaMode } = wheelEvent
+    const normalizedWheel = normalizeWheel(wheelEvent)
 
-    if (e.preventDefault && this.shouldPreventDefault(e)) {
-      e.preventDefault()
+    // console.log('prev', { deltaX, deltaY, deltaZ, deltaMode })
+    // console.log('normalizedWheel', normalizedWheel)
+
+    if (wheelEvent.preventDefault && this.shouldPreventDefault(wheelEvent)) {
+      wheelEvent.preventDefault()
     }
 
     if (!this.isStarted) {
       this.start()
     }
 
-    const currentDelta = this.clampDelta(Math.abs(e.deltaY) > Math.abs(e.deltaX) ? e.deltaY : e.deltaX)
+    const currentDelta = this.clampDelta(
+      Math.abs(normalizedWheel.deltaY) > Math.abs(normalizedWheel.deltaX)
+        ? normalizedWheel.deltaY
+        : normalizedWheel.deltaX
+    )
     const currentAbsDelta = Math.abs(currentDelta)
 
     if (this.isMomentum && currentAbsDelta > this.lastAbsDelta) {
@@ -175,15 +154,15 @@ export class WheelAnalyzer {
       this.start()
     }
 
-    this.axisDeltas = this.axisDeltas.map((delta, i) => delta + this.clampDelta(e[deltaProp[axes[i]]]))
+    this.axisDeltas = this.axisDeltas.map((prevDelta, i) => prevDelta + this.clampDelta(normalizedWheel[deltaProp[axes[i]]]))
     this.deltaTotal = this.deltaTotal + currentDelta
     this.lastAbsDelta = currentAbsDelta
 
     this.scrollPointsToMerge.push({
       currentDelta: currentDelta,
       currentAbsDelta: currentAbsDelta,
-      axisDeltaUnclampt: [e.deltaX, e.deltaY],
-      timestamp: e.timeStamp || Date.now(),
+      axisDeltaUnclampt: [normalizedWheel.deltaX, normalizedWheel.deltaY],
+      timestamp: wheelEvent.timeStamp || Date.now(),
     })
 
     if (this.scrollPointsToMerge.length === WHEELEVENTS_TO_MERGE) {

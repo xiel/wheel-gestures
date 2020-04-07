@@ -1,8 +1,10 @@
-import { WheelAnalyzer, WheelPhase } from './wheel-analyzer'
+import { WheelAnalyzer} from './wheel-analyzer'
 import EventBus from './events/EventBus'
 import { WheelDragState, WheelGesturesEventMap, WheelReason } from './wheel-gestures.types'
+import { WheelPhase } from './wheel-analyzer.types'
 
 export * from './wheel-gestures.types'
+export * from './wheel-analyzer.types'
 export * from './wheel-analyzer'
 
 export interface Props {
@@ -51,6 +53,7 @@ export function WheelGestures({ axis = 'all', wheelReason = WheelReason.USER }: 
           down: true,
         }
         dispatch('wheelstart', dragState)
+        console.log('start')
         break
       case wheelType[wheelReason].wheel:
         dragState = {
@@ -65,6 +68,7 @@ export function WheelGestures({ axis = 'all', wheelReason = WheelReason.USER }: 
           down: false,
         }
         dispatch('wheelend', dragState)
+        console.log('end')
         break
       default:
         return
