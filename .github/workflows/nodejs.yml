@@ -31,3 +31,5 @@ jobs:
           cd docs
           yarn
           yarn build
+      - name: bundlewatch
+        run: yarn run bundlewatch
