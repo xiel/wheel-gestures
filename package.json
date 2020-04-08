@@ -39,6 +39,7 @@
   "devDependencies": {
     "@testing-library/react": "^10.0.1",
     "@types/jest": "^25.1.4",
+    "bundlewatch": "^0.2.6",
     "eslint-config-prettier": "6.10.1",
     "eslint-plugin-prettier": "*",
     "eslint-plugin-react-app": "*",
@@ -61,5 +62,13 @@
   },
   "publishConfig": {
     "access": "restricted"
+  },
+  "bundlewatch": {
+    "files": [
+      {
+        "path": "dist/*.js",
+        "maxSize": "5kB"
+      }
+    ]
   }
 }
