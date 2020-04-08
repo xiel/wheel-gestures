@@ -236,7 +236,6 @@ export class WheelAnalyzer {
     this.updateWillEndTimeout(deltaTime)
   }
 
-  // TODO: longer timeout when delta is low & no momentum detected (slow)
   private updateWillEndTimeout(deltaTime: number) {
     // use current time between events rounded up and increased by a bit as timeout
     let newTimeout = Math.ceil(deltaTime / 10) * 10 * 1.2
@@ -246,13 +245,7 @@ export class WheelAnalyzer {
       newTimeout = Math.max(100, newTimeout * 2)
     }
 
-    newTimeout = Math.min(1000, newTimeout)
-
-    if (newTimeout !== this.willEndTimeout) {
-      // console.log('newTimeout', newTimeout)
-    }
-
-    this.willEndTimeout = newTimeout
+    this.willEndTimeout = Math.min(1000, Math.round(newTimeout))
   }
 
   private static accelerationFactorInMomentumRange(accFactor: number) {
