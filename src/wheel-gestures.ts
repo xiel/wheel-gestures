@@ -46,7 +46,6 @@ export function WheelGestures({ axis = 'all', wheelReason = WheelReason.USER }: 
       axisVelocity: [data.axisVelocity[0] * -1, data.axisVelocity[1] * -1],
     }
 
-
     switch (type) {
       case wheelType[wheelReason].start:
         dragState = {

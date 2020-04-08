@@ -8,6 +8,8 @@
     "@reach/visually-hidden": "^0.9.0",
     "@types/prismjs": "^1.16.0",
     "@types/react-helmet": "^5.0.15",
+    "@types/throttle-debounce": "^2.1.0",
+    "throttle-debounce": "^2.1.0",
     "gatsby": "^2.20.10",
     "gatsby-image": "^2.3.1",
     "gatsby-plugin-manifest": "^2.3.3",

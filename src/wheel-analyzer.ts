@@ -1,4 +1,3 @@
-import { debounce } from 'throttle-debounce'
 import {
   Axis,
   DeltaProp,
@@ -21,6 +20,10 @@ const SOON_ENDING_THRESHOLD = 1.4
 const ACC_FACTOR_MIN = 0.6
 const ACC_FACTOR_MAX = 0.96
 const DELTA_MAX_ABS = 150
+
+// the initial timeout period is pretty long, so even old mouses, which emit wheel events less often, can produce a continuous gesture
+// the timeout is automatically adjusted during a gesture
+const WILL_END_TIMEOUT_DEFAULT = 400
 
 const axes: [Axis, Axis] = ['x', 'y']
 const deltaProp: Record<Axis, DeltaProp> = {
@@ -55,11 +58,17 @@ export class WheelAnalyzer {
   private targets: EventTarget[] = []
 
   private options: Options
-  private readonly willEnd = this.end
+  private willEndTimeout = WILL_END_TIMEOUT_DEFAULT
+
+  private willEnd = (() => {
+    let willEndId = setTimeout(() => {}, this.willEndTimeout)
+    return () => {
+      clearTimeout(willEndId)
+      willEndId = setTimeout(this.end, this.willEndTimeout)
+    }
+  })()
 
   public constructor(options: Partial<Options> = {}) {
-    this.willEnd = debounce(99, () => this.end())
-
     // merge passed options with defaults (filter undefined option values)
     this.options = Object.entries(options)
       .filter(([, value]) => value !== undefined)
@@ -128,11 +137,7 @@ export class WheelAnalyzer {
   }
 
   private processWheelEventData(wheelEvent: WheelEventData) {
-    // const { deltaX, deltaY, deltaZ, deltaMode } = wheelEvent
     const normalizedWheel = normalizeWheel(wheelEvent)
-
-    // console.log('prev', { deltaX, deltaY, deltaZ, deltaMode })
-    // console.log('normalizedWheel', normalizedWheel)
 
     if (wheelEvent.preventDefault && this.shouldPreventDefault(wheelEvent)) {
       wheelEvent.preventDefault()
@@ -154,7 +159,9 @@ export class WheelAnalyzer {
       this.start()
     }
 
-    this.axisDeltas = this.axisDeltas.map((prevDelta, i) => prevDelta + this.clampDelta(normalizedWheel[deltaProp[axes[i]]]))
+    this.axisDeltas = this.axisDeltas.map(
+      (prevDelta, i) => prevDelta + this.clampDelta(normalizedWheel[deltaProp[axes[i]]])
+    )
     this.deltaTotal = this.deltaTotal + currentDelta
     this.lastAbsDelta = currentAbsDelta
 
@@ -226,6 +233,26 @@ export class WheelAnalyzer {
 
     this.axisVelocity = velocity
     this.accelerationFactors.push(accelerationFactor)
+    this.updateWillEndTimeout(deltaTime)
+  }
+
+  // TODO: longer timeout when delta is low & no momentum detected (slow)
+  private updateWillEndTimeout(deltaTime: number) {
+    // use current time between events rounded up and increased by a bit as timeout
+    let newTimeout = Math.ceil(deltaTime / 10) * 10 * 1.2
+
+    // double the timeout, when momentum was not detected yet
+    if (!this.isMomentum) {
+      newTimeout = Math.max(100, newTimeout * 2)
+    }
+
+    newTimeout = Math.min(1000, newTimeout)
+
+    if (newTimeout !== this.willEndTimeout) {
+      // console.log('newTimeout', newTimeout)
+    }
+
+    this.willEndTimeout = newTimeout
   }
 
   private static accelerationFactorInMomentumRange(accFactor: number) {
@@ -296,12 +323,15 @@ export class WheelAnalyzer {
     this.scrollPointsToMerge = []
     this.scrollPoints = []
     this.accelerationFactors = []
+    this.willEndTimeout = WILL_END_TIMEOUT_DEFAULT
 
     this.publish(WheelPhase.ANY_WHEEL_START)
     this.publish(WheelPhase.WHEEL_START)
   }
 
-  private end() {
+  private end = () => {
+    if (!this.isStarted) return
+
     if (this.isMomentum) {
       if (!this.willEndSoon) {
         this.publish(WheelPhase.MOMENTUM_WHEEL_CANCEL)

@@ -1,6 +1,165 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`continuous-horizontal-wheel-right Windows - Chrome 1`] = `
+exports[`simple mouse - continuous horizontal wheel Mac Chrome 1`] = `
+Object {
+  "phases": Array [
+    Object {
+      "lastData": Object {
+        "axisDeltas": Array [
+          -713.4722900390625,
+          0,
+        ],
+        "axisVelocity": Array [
+          -0.9774230849381212,
+          0,
+        ],
+        "debugData": null,
+        "deltaTotal": -713.4722900390625,
+        "deltaVelocity": 0,
+        "isMomentum": false,
+        "type": "WHEEL_END",
+        "willEndSoon": false,
+      },
+      "range": Array [
+        0,
+        8,
+      ],
+      "wheelType": "WHEEL",
+    },
+    Object {
+      "lastData": Object {
+        "axisDeltas": Array [
+          -713.4722900390625,
+          0,
+        ],
+        "axisVelocity": Array [
+          -0.9774230849381212,
+          0,
+        ],
+        "debugData": null,
+        "deltaTotal": -713.4722900390625,
+        "deltaVelocity": 0,
+        "isMomentum": false,
+        "type": "ANY_WHEEL_END",
+        "willEndSoon": false,
+      },
+      "range": Array [
+        0,
+        8,
+      ],
+      "wheelType": "ANY_WHEEL",
+    },
+  ],
+}
+`;
+
+exports[`simple mouse - continuous horizontal wheel Mac FF 1`] = `
+Object {
+  "phases": Array [
+    Object {
+      "lastData": Object {
+        "axisDeltas": Array [
+          -468,
+          0,
+        ],
+        "axisVelocity": Array [
+          -0.4488778054862843,
+          0,
+        ],
+        "debugData": null,
+        "deltaTotal": -468,
+        "deltaVelocity": 0,
+        "isMomentum": false,
+        "type": "WHEEL_END",
+        "willEndSoon": false,
+      },
+      "range": Array [
+        0,
+        8,
+      ],
+      "wheelType": "WHEEL",
+    },
+    Object {
+      "lastData": Object {
+        "axisDeltas": Array [
+          -468,
+          0,
+        ],
+        "axisVelocity": Array [
+          -0.4488778054862843,
+          0,
+        ],
+        "debugData": null,
+        "deltaTotal": -468,
+        "deltaVelocity": 0,
+        "isMomentum": false,
+        "type": "ANY_WHEEL_END",
+        "willEndSoon": false,
+      },
+      "range": Array [
+        0,
+        8,
+      ],
+      "wheelType": "ANY_WHEEL",
+    },
+  ],
+}
+`;
+
+exports[`simple mouse - continuous horizontal wheel Mac Safari 1`] = `
+Object {
+  "phases": Array [
+    Object {
+      "lastData": Object {
+        "axisDeltas": Array [
+          -713.28125,
+          0,
+        ],
+        "axisVelocity": Array [
+          -0.9767013549804687,
+          0,
+        ],
+        "debugData": null,
+        "deltaTotal": -713.28125,
+        "deltaVelocity": 0,
+        "isMomentum": false,
+        "type": "WHEEL_END",
+        "willEndSoon": false,
+      },
+      "range": Array [
+        0,
+        8,
+      ],
+      "wheelType": "WHEEL",
+    },
+    Object {
+      "lastData": Object {
+        "axisDeltas": Array [
+          -713.28125,
+          0,
+        ],
+        "axisVelocity": Array [
+          -0.9767013549804687,
+          0,
+        ],
+        "debugData": null,
+        "deltaTotal": -713.28125,
+        "deltaVelocity": 0,
+        "isMomentum": false,
+        "type": "ANY_WHEEL_END",
+        "willEndSoon": false,
+      },
+      "range": Array [
+        0,
+        8,
+      ],
+      "wheelType": "ANY_WHEEL",
+    },
+  ],
+}
+`;
+
+exports[`simple mouse - continuous horizontal wheel Windows Chrome 1`] = `
 Object {
   "phases": Array [
     Object {
@@ -53,60 +212,7 @@ Object {
 }
 `;
 
-exports[`continuous-horizontal-wheel-right Windows - Chrome New 1`] = `
-Object {
-  "phases": Array [
-    Object {
-      "lastData": Object {
-        "axisDeltas": Array [
-          -3300,
-          0,
-        ],
-        "axisVelocity": Array [
-          -0.7501406515262076,
-          0,
-        ],
-        "debugData": null,
-        "deltaTotal": -3300,
-        "deltaVelocity": 0,
-        "isMomentum": false,
-        "type": "WHEEL_END",
-        "willEndSoon": false,
-      },
-      "range": Array [
-        0,
-        21,
-      ],
-      "wheelType": "WHEEL",
-    },
-    Object {
-      "lastData": Object {
-        "axisDeltas": Array [
-          -3300,
-          0,
-        ],
-        "axisVelocity": Array [
-          -0.7501406515262076,
-          0,
-        ],
-        "debugData": null,
-        "deltaTotal": -3300,
-        "deltaVelocity": 0,
-        "isMomentum": false,
-        "type": "ANY_WHEEL_END",
-        "willEndSoon": false,
-      },
-      "range": Array [
-        0,
-        21,
-      ],
-      "wheelType": "ANY_WHEEL",
-    },
-  ],
-}
-`;
-
-exports[`continuous-horizontal-wheel-right Windows - Edge 1`] = `
+exports[`simple mouse - continuous horizontal wheel Windows Edge 1`] = `
 Object {
   "phases": Array [
     Object {
@@ -159,21 +265,21 @@ Object {
 }
 `;
 
-exports[`continuous-horizontal-wheel-right mac - chrome 1`] = `
+exports[`simple mouse - continuous horizontal wheel Windows FF 1`] = `
 Object {
   "phases": Array [
     Object {
       "lastData": Object {
         "axisDeltas": Array [
-          -2821.7535400390625,
+          -54,
           0,
         ],
         "axisVelocity": Array [
-          -0.9577288117430209,
+          0,
           0,
         ],
         "debugData": null,
-        "deltaTotal": -2821.7535400390625,
+        "deltaTotal": -54,
         "deltaVelocity": 0,
         "isMomentum": false,
         "type": "WHEEL_END",
@@ -181,22 +287,22 @@ Object {
       },
       "range": Array [
         0,
-        22,
+        0,
       ],
       "wheelType": "WHEEL",
     },
     Object {
       "lastData": Object {
         "axisDeltas": Array [
-          -2821.7535400390625,
+          -54,
           0,
         ],
         "axisVelocity": Array [
-          -0.9577288117430209,
+          0,
           0,
         ],
         "debugData": null,
-        "deltaTotal": -2821.7535400390625,
+        "deltaTotal": -54,
         "deltaVelocity": 0,
         "isMomentum": false,
         "type": "ANY_WHEEL_END",
@@ -204,21 +310,14 @@ Object {
       },
       "range": Array [
         0,
-        22,
+        0,
       ],
       "wheelType": "ANY_WHEEL",
     },
-  ],
-}
-`;
-
-exports[`continuous-horizontal-wheel-right win - FF 1`] = `
-Object {
-  "phases": Array [
     Object {
       "lastData": Object {
         "axisDeltas": Array [
-          -1350,
+          -1296,
           0,
         ],
         "axisVelocity": Array [
@@ -226,14 +325,14 @@ Object {
           0,
         ],
         "debugData": null,
-        "deltaTotal": -1350,
+        "deltaTotal": -1296,
         "deltaVelocity": 0,
         "isMomentum": false,
         "type": "WHEEL_END",
         "willEndSoon": false,
       },
       "range": Array [
-        0,
+        1,
         24,
       ],
       "wheelType": "WHEEL",
@@ -241,7 +340,7 @@ Object {
     Object {
       "lastData": Object {
         "axisDeltas": Array [
-          -1350,
+          -1296,
           0,
         ],
         "axisVelocity": Array [
@@ -249,14 +348,14 @@ Object {
           0,
         ],
         "debugData": null,
-        "deltaTotal": -1350,
+        "deltaTotal": -1296,
         "deltaVelocity": 0,
         "isMomentum": false,
         "type": "ANY_WHEEL_END",
         "willEndSoon": false,
       },
       "range": Array [
-        0,
+        1,
         24,
       ],
       "wheelType": "ANY_WHEEL",
