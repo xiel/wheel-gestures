@@ -52,7 +52,6 @@ export function WheelGestures({ axis = 'all', wheelReason = WheelReason.USER }: 
           ...dragState,
           down: true,
         }
-        console.log(type)
         dispatch('wheelstart', dragState)
         break
       case wheelType[wheelReason].wheel:
@@ -61,12 +60,6 @@ export function WheelGestures({ axis = 'all', wheelReason = WheelReason.USER }: 
           down: true,
         }
         dispatch('wheelmove', dragState)
-        break
-      case WheelPhase.MOMENTUM_WHEEL_START:
-        console.log('MOMENTUM_WHEEL_START!!!!', type)
-        break
-      case WheelPhase.MOMENTUM_WHEEL_CANCEL:
-        console.log('CANCELLL!!!!', type)
         break
       case wheelType[wheelReason].end:
         dragState = {
