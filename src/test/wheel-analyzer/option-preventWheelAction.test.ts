@@ -1,7 +1,8 @@
 import slowDragRight from '../fixtures/slow-drag-right.json'
 import squareMoveTrackpad from '../fixtures/square-move-trackpad.json'
 import swipeUpTrackpad from '../fixtures/swipe-up-trackpad.json'
-import { Options, SubscribeFn, WheelAnalyzer, WheelEventData } from '../../wheel-analyzer'
+import { Options, WheelAnalyzer} from '../../wheel-analyzer'
+import { SubscribeFn, WheelEventData } from '../../wheel-analyzer.types'
 
 interface Opts {
   callback?: SubscribeFn

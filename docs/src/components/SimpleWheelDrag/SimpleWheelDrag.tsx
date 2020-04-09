@@ -10,7 +10,7 @@ export default function SimpleWheelDrag() {
   const elRef = useRef<HTMLDivElement | null>(null)
   const [{ xy }, set] = useSpring(() => ({ xy: [0, 0] }))
   const [springMomentum, setSpringMomentum] = useSpring(() => ({ xy: [0, 0] }))
-  const [preventWheelAction, setPreventWheelAction] = useState<'all' | 'x' | 'y'>('x')
+  const [preventWheelAction, setPreventWheelAction] = useState<'all' | 'x' | 'y'>('all')
 
   useWheelDrag(
     ({ down, delta }) => {

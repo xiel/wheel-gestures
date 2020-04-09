@@ -7,6 +7,7 @@
   ],
   "rules": {
     "react/self-closing-comp": ["error", { "component": true, "html": true }],
-    "react/jsx-boolean-value": "error"
+    "react/jsx-boolean-value": "error",
+    "@typescript-eslint/explicit-member-accessibility": "error"
   }
 }

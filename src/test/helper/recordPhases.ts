@@ -1,4 +1,5 @@
-import { PhaseData, WheelAnalyzer, WheelEventData, WheelTypes } from '../../wheel-analyzer'
+import { WheelAnalyzer } from '../../wheel-analyzer'
+import { PhaseData, WheelEventData, WheelTypes } from '../../wheel-analyzer.types'
 
 export type Range = [number, number]
 
@@ -27,10 +28,9 @@ export function recordPhases(wheelEvents: WheelEventData[]) {
     const isStart = type.endsWith('_START')
     const isEnd = type.endsWith('_END')
     const isCancel = type.endsWith('_CANCEL')
-    const wheelType = type
-      .replace('_START', '')
-      .replace('_END', '')
-      .replace('_CANCEL', '') as WheelTypes
+    const wheelType = type.replace('_START', '').replace('_END', '').replace('_CANCEL', '') as WheelTypes
+
+    // console.log(type)
 
     // keep track of start and end indices for each phase
     if (isStart) {
@@ -44,7 +44,7 @@ export function recordPhases(wheelEvents: WheelEventData[]) {
           wheelType,
           range: phaseRange[wheelType],
           ...(isCancel ? { canceled: isCancel } : null),
-          lastData: data
+          lastData: data,
         })
       }
 
@@ -53,10 +53,19 @@ export function recordPhases(wheelEvents: WheelEventData[]) {
     }
   })
 
+
+  let prevTimeStamp = 0
   // feed test wheel events and update index which is used to keep track of the ranges
   wheelEvents.forEach((e, i) => {
+    // move time forward
+    if (prevTimeStamp) {
+      jest.advanceTimersByTime(e.timeStamp! - prevTimeStamp)
+    }
+
     eventIndex = i
     wA.feedWheel(e)
+
+    prevTimeStamp = e.timeStamp!
   })
 
   // fast forward and exhaust currently pending timers, this will trigger the *_END events
