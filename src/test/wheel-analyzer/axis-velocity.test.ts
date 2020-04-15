@@ -25,8 +25,6 @@ function generateEvents({ deltaTotal, durationMs, eventEveryMs = 1000 / 60, delt
     })
   }
 
-  console.log({ eventEveryMs })
-
   return { wheelEvents }
 }
 

@@ -181,6 +181,7 @@ export class WheelAnalyzer {
           ([sumX, sumY], { axisDeltaUnclampt: [x, y] }) => [sumX + x, sumY + y],
           [0, 0]
         ),
+        // TODO: should one devide here or not?!
         //.map((sum) => sum / WHEELEVENTS_TO_MERGE),
         timestamp: this.scrollPointsToMerge.reduce((sum, b) => sum + b.timestamp, 0) / WHEELEVENTS_TO_MERGE,
       }

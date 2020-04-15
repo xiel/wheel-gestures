@@ -10,8 +10,8 @@ Object {
           11,
         ],
         "axisVelocity": Array [
-          -0.0625,
-          0.03125,
+          -0.125,
+          0.0625,
         ],
         "debugData": null,
         "deltaTotal": -1407,
@@ -33,8 +33,8 @@ Object {
           11,
         ],
         "axisVelocity": Array [
-          -0.0625,
-          0.03125,
+          -0.125,
+          0.0625,
         ],
         "debugData": null,
         "deltaTotal": -1407,
@@ -63,7 +63,7 @@ Object {
           77,
         ],
         "axisVelocity": Array [
-          0.011363636363636364,
+          0.022727272727272728,
           0,
         ],
         "debugData": null,
@@ -86,7 +86,7 @@ Object {
           77,
         ],
         "axisVelocity": Array [
-          0.011363636363636364,
+          0.022727272727272728,
           0,
         ],
         "debugData": null,
