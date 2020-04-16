@@ -1,4 +1,4 @@
-name: Node CI
+name: Node
 
 on: [push]
 
@@ -26,7 +26,6 @@ jobs:
           yarn
           yarn test
           yarn build
-          yarn semantic-release
       - name: docs (install, build, and test)
         run: |
           cd docs
@@ -34,3 +33,6 @@ jobs:
           yarn build
       - name: bundlewatch
         run: yarn run bundlewatch
+      - name: release
+        run: |
+          yarn semantic-release

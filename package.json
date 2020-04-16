@@ -6,8 +6,7 @@
   "module": "dist/wheel-gestures.esm.js",
   "typings": "dist/index.d.ts",
   "files": [
-    "dist",
-    "src"
+    "dist"
   ],
   "engines": {
     "node": ">=10"
@@ -50,10 +49,10 @@
     "@types/jest": "^25.2.1",
     "bundlewatch": "^0.2.6",
     "husky": "^4.2.5",
-    "semantic-release": "^17.0.4",
     "tsdx": "^0.13.2",
     "tslib": "^1.11.1",
-    "typescript": "^3.8.3"
+    "typescript": "^3.8.3",
+    "semantic-release": "^17.0.4"
   },
   "jest": {
     "collectCoverageFrom": [
@@ -63,9 +62,6 @@
       "!**/build/**",
       "!**/*.config.{js,jx,tsx,ts}"
     ]
-  },
-  "publishConfig": {
-    "access": "restricted"
   },
   "bundlewatch": {
     "files": [
