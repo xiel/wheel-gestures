@@ -1,9 +1,13 @@
-name: Node CI
-
-on: [push]
+name: Release
+on:
+  push:
+    branches:
+      - master
+      - beta
+      - alpha
 
 jobs:
-  build:
+  release:
     runs-on: ubuntu-latest
 
     strategy:
@@ -14,23 +18,13 @@ jobs:
       CI: true
       GH_TOKEN: ${{ secrets.GH_TOKEN }}
       NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-      BUNDLEWATCH_GITHUB_TOKEN: ${{ secrets.BUNDLEWATCH_GITHUB_TOKEN }}
+
     steps:
       - uses: actions/checkout@v1
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-      - name: yarn install, build, and test
+      - name: release
         run: |
-          yarn
-          yarn test
-          yarn build
           yarn semantic-release
-      - name: docs (install, build, and test)
-        run: |
-          cd docs
-          yarn
-          yarn build
-      - name: bundlewatch
-        run: yarn run bundlewatch
