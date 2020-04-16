@@ -1,5 +1,6 @@
 import { subscribeAndFeedWheelEvents } from '../helper/recordPhases'
 import { PhaseData, WheelEventData } from '../../wheel-analyzer.types'
+import { lastOf } from '../../utils/utils'
 
 interface GenerateEventsProps {
   deltaTotal: number[]
@@ -13,7 +14,7 @@ function generateEvents({ deltaTotal, durationMs, eventEveryMs = 1000 / 60, delt
   const [deltaX, deltaY, deltaZ] = deltaTotal.map((d) => (d / durationMs) * eventEveryMs)
 
   let timeStamp = 0
-  while (timeStamp < durationMs && timeStamp + eventEveryMs < durationMs) {
+  while (timeStamp < durationMs && Math.round(timeStamp + eventEveryMs) <= durationMs) {
     timeStamp += eventEveryMs
 
     wheelEvents.push({
@@ -60,7 +61,7 @@ describe('velocity', () => {
     expect(averageVelocity[1]).toBeCloseTo(0.5)
   })
 
-  it('check average velocity 2', () => {
+  it('check average velocity - different total delta', () => {
     const { allPhaseData } = subscribeAndFeedWheelEvents(generateEvents({ deltaTotal: [0, 1000], durationMs: 1000 }))
     const averageVelocity = calcAverageVelocity(allPhaseData)
 
@@ -68,7 +69,7 @@ describe('velocity', () => {
     expect(averageVelocity[1]).toBeCloseTo(1)
   })
 
-  it('check average velocity 3', () => {
+  it('velocity & axisDeltas - different event rate', () => {
     const { allPhaseData } = subscribeAndFeedWheelEvents(
       generateEvents({ deltaTotal: [0, 1000], durationMs: 1000, eventEveryMs: 1000 / 30 })
     )
@@ -76,5 +77,25 @@ describe('velocity', () => {
 
     expect(averageVelocity[0]).toBeCloseTo(0)
     expect(averageVelocity[1]).toBeCloseTo(1)
+
+    const [deltaX, deltaY] = lastOf(allPhaseData).axisDeltas
+
+    expect(deltaX).toBeCloseTo(0)
+    expect(deltaY).toBeCloseTo(1000)
+  })
+
+  it('velocity & axisDeltas - x & y axis', () => {
+    const { allPhaseData } = subscribeAndFeedWheelEvents(
+      generateEvents({ deltaTotal: [2000, 2000], durationMs: 1000, eventEveryMs: 1000 / 30 })
+    )
+    const averageVelocity = calcAverageVelocity(allPhaseData)
+
+    expect(averageVelocity[0]).toBeCloseTo(2)
+    expect(averageVelocity[1]).toBeCloseTo(2)
+
+    const [deltaX, deltaY] = lastOf(allPhaseData).axisDeltas
+
+    expect(deltaX).toBeCloseTo(2000)
+    expect(deltaY).toBeCloseTo(2000)
   })
 })
