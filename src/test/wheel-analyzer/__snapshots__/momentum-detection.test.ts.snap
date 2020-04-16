@@ -298,6 +298,82 @@ Object {
 }
 `;
 
+exports[`momentum detection recognizes swipe left (mouse) - Firefox 1`] = `
+Object {
+  "phases": Array [
+    Object {
+      "lastData": Object {
+        "axisDeltas": Array [
+          610,
+          0,
+        ],
+        "axisVelocity": Array [
+          0.835820895522388,
+          0,
+        ],
+        "debugData": null,
+        "deltaTotal": 610,
+        "deltaVelocity": 0,
+        "isMomentum": false,
+        "type": "WHEEL_END",
+        "willEndSoon": false,
+      },
+      "range": Array [
+        0,
+        27,
+      ],
+      "wheelType": "WHEEL",
+    },
+    Object {
+      "lastData": Object {
+        "axisDeltas": Array [
+          740,
+          0,
+        ],
+        "axisVelocity": Array [
+          0.04,
+          0,
+        ],
+        "debugData": null,
+        "deltaTotal": 740,
+        "deltaVelocity": 0,
+        "isMomentum": true,
+        "type": "MOMENTUM_WHEEL_END",
+        "willEndSoon": true,
+      },
+      "range": Array [
+        27,
+        54,
+      ],
+      "wheelType": "MOMENTUM_WHEEL",
+    },
+    Object {
+      "lastData": Object {
+        "axisDeltas": Array [
+          740,
+          0,
+        ],
+        "axisVelocity": Array [
+          0.04,
+          0,
+        ],
+        "debugData": null,
+        "deltaTotal": 740,
+        "deltaVelocity": 0,
+        "isMomentum": true,
+        "type": "ANY_WHEEL_END",
+        "willEndSoon": true,
+      },
+      "range": Array [
+        0,
+        54,
+      ],
+      "wheelType": "ANY_WHEEL",
+    },
+  ],
+}
+`;
+
 exports[`momentum detection recognizes swipe left - fast 1`] = `
 Object {
   "phases": Array [

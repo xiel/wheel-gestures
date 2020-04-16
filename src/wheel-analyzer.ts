@@ -319,8 +319,8 @@ export class WheelAnalyzer {
       debugData,
       willEndSoon: this.willEndSoon,
       isMomentum: this.isMomentum,
-      deltaVelocity: this.deltaVelocity,
-      deltaTotal: this.deltaTotal,
+      deltaVelocity: this.deltaVelocity, // TODO: deprecate
+      deltaTotal: this.deltaTotal, // TODO: deprecate
       axisDeltas: this.axisDeltas,
       axisVelocity: this.axisVelocity,
     }
