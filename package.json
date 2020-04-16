@@ -6,8 +6,7 @@
   "module": "dist/wheel-gestures.esm.js",
   "typings": "dist/index.d.ts",
   "files": [
-    "dist",
-    "src"
+    "dist"
   ],
   "engines": {
     "node": ">=10"
@@ -63,9 +62,6 @@
       "!**/build/**",
       "!**/*.config.{js,jx,tsx,ts}"
     ]
-  },
-  "publishConfig": {
-    "access": "restricted"
   },
   "bundlewatch": {
     "files": [
