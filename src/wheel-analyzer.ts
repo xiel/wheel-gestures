@@ -49,7 +49,6 @@ export class WheelAnalyzer {
   private axisDeltas: number[] = [0, 0]
   private axisVelocity: number[] = [0, 0]
   private accelerationFactors: number[][] = []
-  private deltaTotal = 0 // moved during this scroll interaction
 
   private scrollPoints: ScrollPoint[] = []
   private scrollPointsToMerge: ScrollPoint[] = []
@@ -162,7 +161,6 @@ export class WheelAnalyzer {
     this.axisDeltas = this.axisDeltas.map(
       (prevDelta, i) => prevDelta + this.clampDelta(normalizedWheel[deltaProp[axes[i]]])
     )
-    this.deltaTotal = this.deltaTotal + currentDelta
     this.lastAbsDelta = currentAbsDelta
 
     this.scrollPointsToMerge.push({
@@ -318,7 +316,6 @@ export class WheelAnalyzer {
       debugData,
       willEndSoon: this.willEndSoon,
       isMomentum: this.isMomentum,
-      deltaTotal: this.deltaTotal, // TODO: deprecate
       axisDeltas: this.axisDeltas,
       axisVelocity: this.axisVelocity,
     }
@@ -331,7 +328,6 @@ export class WheelAnalyzer {
     this.lastAbsDelta = Infinity
     this.axisDeltas = [0, 0]
     this.axisVelocity = [0, 0]
-    this.deltaTotal = 0
     this.scrollPointsToMerge = []
     this.scrollPoints = []
     this.accelerationFactors = []
