@@ -10,10 +10,6 @@ jobs:
   release:
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [12.x]
-
     env:
       CI: true
       GH_TOKEN: ${{ secrets.GH_TOKEN }}
@@ -24,7 +20,8 @@ jobs:
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: 12.x
       - name: release
         run: |
+          yarn
           yarn semantic-release
