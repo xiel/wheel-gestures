@@ -14,7 +14,7 @@ const IndexPage = () => (
   <Skeleton>
     <SEO title="Home" />
     <Richtext>
-      <h1>Add wheel gestures to your web app</h1>
+      <h1>test now! Add wheel gestures to your web app</h1>
       <p>Allow users to interact with your website like on a touch device</p>
       <h3>Demo</h3>
       <SimpleWheelDrag />
