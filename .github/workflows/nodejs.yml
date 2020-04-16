@@ -33,3 +33,6 @@ jobs:
           yarn build
       - name: bundlewatch
         run: yarn run bundlewatch
+      - name: release
+        run: |
+          yarn semantic-release
