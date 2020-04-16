@@ -28,7 +28,7 @@ export default function Gallery() {
   }
 
   useWheelDrag(
-    ({ down, delta: [x], axisVelocity }) => {
+    ({ down, delta: [x, y], axisVelocity }) => {
       const [xVelo, yVelo] = axisVelocity
       const width = containerRef.current!.offsetWidth
       const minX = width * -1 * (pages.length - 1)

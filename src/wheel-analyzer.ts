@@ -43,6 +43,7 @@ const defaults: Options = {
 
 export class WheelAnalyzer {
   private isStarted = false
+  private isStartPublished = false
   private isMomentum = false
   private lastAbsDelta = Infinity
   private axisDeltas: number[] = [0, 0]
@@ -176,16 +177,19 @@ export class WheelAnalyzer {
       const mergedScrollPoint: ScrollPoint = {
         currentDelta: this.scrollPointsToMerge.reduce((sum, b) => sum + b.currentDelta, 0) / WHEELEVENTS_TO_MERGE,
         currentAbsDelta: this.scrollPointsToMerge.reduce((sum, b) => sum + b.currentAbsDelta, 0) / WHEELEVENTS_TO_MERGE,
-        axisDeltaUnclampt: this.scrollPointsToMerge
-          .reduce(([sumX, sumY], { axisDeltaUnclampt: [x, y] }) => [sumX + x, sumY + y], [0, 0])
-          .map((sum) => sum / WHEELEVENTS_TO_MERGE),
+        axisDeltaUnclampt: this.scrollPointsToMerge.reduce(
+          ([sumX, sumY], { axisDeltaUnclampt: [x, y] }) => [sumX + x, sumY + y],
+          [0, 0]
+        ),
+        // TODO: should one devide here or not?!
+        //.map((sum) => sum / WHEELEVENTS_TO_MERGE),
         timestamp: this.scrollPointsToMerge.reduce((sum, b) => sum + b.timestamp, 0) / WHEELEVENTS_TO_MERGE,
       }
 
       this.scrollPoints.push(mergedScrollPoint)
 
-      // only update velo after a merged scrollpoint was generated
-      this.updateVelocityNew()
+      // only update velocity after a merged scrollpoint was generated
+      this.updateVelocity()
 
       if (!this.isMomentum) {
         this.detectMomentum()
@@ -193,6 +197,18 @@ export class WheelAnalyzer {
 
       // reset merge array
       this.scrollPointsToMerge = []
+    }
+
+    if (!this.scrollPoints.length) {
+      this.updateStartVelocity()
+    }
+
+    // publish start after all data points have been updated
+    // TODO: check momentum afterwards
+    if (!this.isStartPublished) {
+      this.publish(WheelPhase.ANY_WHEEL_START)
+      this.publish(WheelPhase.WHEEL_START)
+      this.isStartPublished = true
     }
 
     this.publish(WheelPhase.ANY_WHEEL)
@@ -207,7 +223,12 @@ export class WheelAnalyzer {
     console[level](msg)
   }
 
-  private updateVelocityNew() {
+  private updateStartVelocity() {
+    const latestScrollPoint = this.scrollPointsToMerge[this.scrollPointsToMerge.length - 1]
+    this.axisVelocity = latestScrollPoint.axisDeltaUnclampt.map((d) => d / WILL_END_TIMEOUT_DEFAULT)
+  }
+
+  private updateVelocity() {
     // need to have two recent points to calc velocity
     const [pA, pB] = this.scrollPoints.slice(-2)
 
@@ -298,8 +319,8 @@ export class WheelAnalyzer {
       debugData,
       willEndSoon: this.willEndSoon,
       isMomentum: this.isMomentum,
-      deltaVelocity: this.deltaVelocity,
-      deltaTotal: this.deltaTotal,
+      deltaVelocity: this.deltaVelocity, // TODO: deprecate
+      deltaTotal: this.deltaTotal, // TODO: deprecate
       axisDeltas: this.axisDeltas,
       axisVelocity: this.axisVelocity,
     }
@@ -307,6 +328,7 @@ export class WheelAnalyzer {
 
   private start() {
     this.isStarted = true
+    this.isStartPublished = false
     this.isMomentum = false
     this.lastAbsDelta = Infinity
     this.axisDeltas = [0, 0]
@@ -317,9 +339,6 @@ export class WheelAnalyzer {
     this.scrollPoints = []
     this.accelerationFactors = []
     this.willEndTimeout = WILL_END_TIMEOUT_DEFAULT
-
-    this.publish(WheelPhase.ANY_WHEEL_START)
-    this.publish(WheelPhase.WHEEL_START)
   }
 
   private end = () => {

@@ -2,6 +2,7 @@ import { recordPhases } from '../helper/recordPhases'
 import swipeRight from '../fixtures/swipe-right.json'
 import swipeRightFast from '../fixtures/swipe-right-fast.json'
 import swipeLeft from '../fixtures/swipe-left-trackpad.json'
+import swipeLeftMouseFF from '../fixtures/swipe-left-mouse-FF.json'
 import swipeLeftFast from '../fixtures/swipe-left-fast-trackpad.json'
 import swipeUp from '../fixtures/swipe-up-trackpad.json'
 import swipeUpFast from '../fixtures/swipe-up-fast-trackpad.json'
@@ -20,6 +21,10 @@ describe('momentum detection recognizes', () => {
 
   it('swipe left', () => {
     expect(recordPhases(swipeLeft.wheelEvents)).toMatchSnapshot()
+  })
+
+  it('swipe left (mouse) - Firefox', () => {
+    expect(recordPhases(swipeLeftMouseFF.wheelEvents)).toMatchSnapshot()
   })
 
   it('swipe left - fast', () => {

@@ -60,6 +60,7 @@ export default function WheelRecorder({ domTarget = document.body }: Props) {
     const stopWhenDone = debounce(2000, () => setRecording(false))
     const handler = (e: WheelEvent) => {
       const { deltaMode, deltaX, deltaY, timeStamp } = e
+
       recordedEvents.current.push({ deltaMode, deltaX, deltaY, timeStamp })
       if (autoStop) {
         stopWhenDone()

@@ -1,7 +1,7 @@
 import slowDragRight from '../fixtures/slow-drag-right.json'
 import squareMoveTrackpad from '../fixtures/square-move-trackpad.json'
 import swipeUpTrackpad from '../fixtures/swipe-up-trackpad.json'
-import { Options, WheelAnalyzer} from '../../wheel-analyzer'
+import { Options, WheelAnalyzer } from '../../wheel-analyzer'
 import { SubscribeFn, WheelEventData } from '../../wheel-analyzer.types'
 
 interface Opts {
@@ -50,10 +50,10 @@ describe('preventDefault should be called when drag is on defined axis', () => {
   })
 
   it('x - slowDragRight', () => {
-    const { wheelEventsWithPreventDefault, preventDefault } = testPreventWheelActionWithOptions(
-      slowDragRight.wheelEvents,
-      { options: { preventWheelAction: 'x' } }
-    )
+    const {
+      wheelEventsWithPreventDefault,
+      preventDefault,
+    } = testPreventWheelActionWithOptions(slowDragRight.wheelEvents, { options: { preventWheelAction: 'x' } })
 
     expect(wheelEventsWithPreventDefault.length).toBe(194)
     // gets called a few times when deltas are equal
@@ -61,10 +61,10 @@ describe('preventDefault should be called when drag is on defined axis', () => {
   })
 
   it('y - slowDragRight', () => {
-    const { wheelEventsWithPreventDefault, preventDefault } = testPreventWheelActionWithOptions(
-      slowDragRight.wheelEvents,
-      { options: { preventWheelAction: 'y' } }
-    )
+    const {
+      wheelEventsWithPreventDefault,
+      preventDefault,
+    } = testPreventWheelActionWithOptions(slowDragRight.wheelEvents, { options: { preventWheelAction: 'y' } })
 
     expect(wheelEventsWithPreventDefault.length).toBe(194)
     // gets called a few times when deltas are equal
@@ -72,10 +72,10 @@ describe('preventDefault should be called when drag is on defined axis', () => {
   })
 
   it('x - swipeUpTrackpad', () => {
-    const { wheelEventsWithPreventDefault, preventDefault } = testPreventWheelActionWithOptions(
-      swipeUpTrackpad.wheelEvents,
-      { options: { preventWheelAction: 'x' } }
-    )
+    const {
+      wheelEventsWithPreventDefault,
+      preventDefault,
+    } = testPreventWheelActionWithOptions(swipeUpTrackpad.wheelEvents, { options: { preventWheelAction: 'x' } })
 
     expect(wheelEventsWithPreventDefault.length).toBe(85)
     // gets called a few times when deltas are equal
@@ -83,10 +83,10 @@ describe('preventDefault should be called when drag is on defined axis', () => {
   })
 
   it('y - swipeUpTrackpad', () => {
-    const { wheelEventsWithPreventDefault, preventDefault } = testPreventWheelActionWithOptions(
-      swipeUpTrackpad.wheelEvents,
-      { options: { preventWheelAction: 'y' } }
-    )
+    const {
+      wheelEventsWithPreventDefault,
+      preventDefault,
+    } = testPreventWheelActionWithOptions(swipeUpTrackpad.wheelEvents, { options: { preventWheelAction: 'y' } })
 
     expect(wheelEventsWithPreventDefault.length).toBe(85)
     // gets called a few times when deltas are equal
@@ -97,8 +97,8 @@ describe('preventDefault should be called when drag is on defined axis', () => {
 test('should warn about unsupported preventWheelAction in debug mode', () => {
   const logWarn = spyOn(console, 'warn')
 
-  // @ts-ignore
   testPreventWheelActionWithOptions(swipeUpTrackpad.wheelEvents, {
+    // @ts-ignore
     options: { preventWheelAction: 'xyz', isDebug: true },
   })
 
