@@ -1,7 +1,6 @@
 import { WheelAnalyzer } from './wheel-analyzer'
 
 export interface ScrollPoint {
-  currentDelta: number
   currentAbsDelta: number
   axisDeltaUnclampt: number[]
   timestamp: number

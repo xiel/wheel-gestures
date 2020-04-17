@@ -154,7 +154,6 @@ export class WheelAnalyzer {
     this.lastAbsDelta = currentAbsDelta
 
     this.scrollPointsToMerge.push({
-      currentDelta: currentDelta,
       currentAbsDelta: currentAbsDelta,
       axisDeltaUnclampt: [normalizedWheel.deltaX, normalizedWheel.deltaY],
       timestamp: wheelEvent.timeStamp,
@@ -162,7 +161,6 @@ export class WheelAnalyzer {
 
     if (this.scrollPointsToMerge.length === WHEELEVENTS_TO_MERGE) {
       const mergedScrollPoint: ScrollPoint = {
-        currentDelta: this.scrollPointsToMerge.reduce((sum, b) => sum + b.currentDelta, 0) / WHEELEVENTS_TO_MERGE,
         currentAbsDelta: this.scrollPointsToMerge.reduce((sum, b) => sum + b.currentAbsDelta, 0) / WHEELEVENTS_TO_MERGE,
         axisDeltaUnclampt: this.scrollPointsToMerge.reduce(
           ([sumX, sumY], { axisDeltaUnclampt: [x, y] }) => [sumX + x, sumY + y],
