@@ -11,6 +11,7 @@ import {
 } from './wheel-analyzer.types'
 import { normalizeWheel } from './normalizer/wheel-normalizer'
 
+const isDev = process.env.NODE_ENV !== 'production'
 const WHEELEVENTS_TO_MERGE = 2
 const WHEELEVENTS_TO_ANALAZE = 5
 
@@ -33,12 +34,10 @@ const deltaProp: Record<Axis, DeltaProp> = {
 
 export interface Options {
   preventWheelAction: PreventWheelActionType
-  isDebug?: boolean
 }
 
 const defaults: Options = {
   preventWheelAction: 'all',
-  isDebug: false,
 }
 
 export class WheelAnalyzer {
@@ -129,8 +128,7 @@ export class WheelAnalyzer {
         return Math.abs(deltaY) >= Math.abs(deltaX)
     }
 
-    // TODO: use __DEV__
-    this.debugMessage('unsupported preventWheelAction value: ' + preventWheelAction, 'warn')
+    isDev && console.warn('unsupported preventWheelAction value: ' + preventWheelAction, 'warn')
   }
 
   private clampDelta(delta: number) {
@@ -215,11 +213,6 @@ export class WheelAnalyzer {
     this.willEnd()
   }
 
-  private debugMessage(msg: string, level: keyof Console = 'log') {
-    if (!this.options.isDebug) return
-    console[level](msg)
-  }
-
   private updateStartVelocity() {
     const latestScrollPoint = this.scrollPointsToMerge[this.scrollPointsToMerge.length - 1]
     this.axisVelocity = latestScrollPoint.axisDeltaUnclampt.map((d) => d / WILL_END_TIMEOUT_DEFAULT)
@@ -237,7 +230,7 @@ export class WheelAnalyzer {
     const deltaTime = pB.timestamp - pA.timestamp
 
     if (deltaTime <= 0) {
-      this.debugMessage('invalid deltaTime')
+      isDev && console.warn('invalid deltaTime')
       return
     }
 
@@ -304,16 +297,9 @@ export class WheelAnalyzer {
     return this.isMomentum
   }
 
-  private getDebugState(): Partial<WheelAnalyzer> {
-    const { ...props } = this
-    return props
-  }
-
   public getCurrentState(type: WheelPhase) {
-    const debugData = this.options.isDebug ? this.getDebugState() : null
     return {
       type,
-      debugData,
       willEndSoon: this.willEndSoon,
       isMomentum: this.isMomentum,
       axisMovement: this.axisMovement,

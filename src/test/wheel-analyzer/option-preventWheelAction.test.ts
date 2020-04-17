@@ -99,7 +99,7 @@ test('should warn about unsupported preventWheelAction in debug mode', () => {
 
   testPreventWheelActionWithOptions(swipeUpTrackpad.wheelEvents, {
     // @ts-ignore
-    options: { preventWheelAction: 'xyz', isDebug: true },
+    options: { preventWheelAction: 'xyz' },
   })
 
   expect(logWarn.calls.mostRecent().args[0]).toMatchInlineSnapshot(`"unsupported preventWheelAction value: xyz"`)
