@@ -75,6 +75,7 @@ export class WheelAnalyzer {
   }
 
   public observe = (target: EventTarget): Unobserve => {
+    // TODO: need to test if passive supported? might throw error otherwise in older browsers?
     target.addEventListener('wheel', this.feedWheel as EventListener, { passive: false })
     this.targets.push(target)
     return this.unobserve.bind(this, target)
