@@ -31,6 +31,7 @@ export enum WheelPhase {
 export type PhaseData = ReturnType<typeof WheelAnalyzer.prototype.getCurrentState>
 export type SubscribeFn = (type: WheelPhase, data: PhaseData) => void
 export type Unsubscribe = () => void
+
 export type Unobserve = () => void
 export type DeltaProp = 'deltaX' | 'deltaY'
 export type PreventWheelActionType = 'all' | 'x' | 'y'

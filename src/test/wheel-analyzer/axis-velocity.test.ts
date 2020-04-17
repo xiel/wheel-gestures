@@ -1,6 +1,6 @@
-import { subscribeAndFeedWheelEvents } from '../helper/recordPhases'
-import { PhaseData, WheelEventData } from '../../wheel-analyzer.types'
 import { lastOf } from '../../utils/utils'
+import { PhaseData, WheelEventData } from '../../wheel-analyzer/wheel-analyzer-types'
+import { subscribeAndFeedWheelEvents } from '../helper/recordPhases'
 
 interface GenerateEventsProps {
   deltaTotal: number[]

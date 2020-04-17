@@ -1,7 +1,7 @@
-import { WheelAnalyzer } from './wheel-analyzer'
-import EventBus from './events/EventBus'
-import { WheelDragState, WheelGesturesEventMap, WheelReason } from './wheel-gestures.types'
-import { WheelPhase } from './wheel-analyzer.types'
+import EventBus from '../events/EventBus'
+import { WheelAnalyzer } from '../wheel-analyzer/wheel-analyzer'
+import { WheelPhase } from '../wheel-analyzer/wheel-analyzer-types'
+import { WheelDragState, WheelGesturesEventMap, WheelReason } from './wheel-gestures-types'
 
 export interface Props {
   axis?: 'x' | 'y' | 'all'

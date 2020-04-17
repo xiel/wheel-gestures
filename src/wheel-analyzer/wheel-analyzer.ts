@@ -1,6 +1,18 @@
+import { normalizeWheel } from '../wheel-normalizer/wheel-normalizer'
 import {
-  Axis,
-  DeltaProp,
+  ACC_FACTOR_MAX,
+  ACC_FACTOR_MIN,
+  axes,
+  DELTA_MAX_ABS,
+  deltaProp,
+  isDev,
+  SOON_ENDING_THRESHOLD,
+  SOON_ENDING_WHEEL_COUNT,
+  WHEELEVENTS_TO_ANALAZE,
+  WHEELEVENTS_TO_MERGE,
+  WILL_END_TIMEOUT_DEFAULT,
+} from './constants'
+import {
   PreventWheelActionType,
   ScrollPoint,
   SubscribeFn,
@@ -8,29 +20,7 @@ import {
   Unsubscribe,
   WheelEventData,
   WheelPhase,
-} from './wheel-analyzer.types'
-import { normalizeWheel } from './normalizer/wheel-normalizer'
-
-const isDev = process.env.NODE_ENV !== 'production'
-const WHEELEVENTS_TO_MERGE = 2
-const WHEELEVENTS_TO_ANALAZE = 5
-
-const SOON_ENDING_WHEEL_COUNT = 3
-const SOON_ENDING_THRESHOLD = 1.4
-
-const ACC_FACTOR_MIN = 0.6
-const ACC_FACTOR_MAX = 0.96
-const DELTA_MAX_ABS = 150
-
-// the initial timeout period is pretty long, so even old mouses, which emit wheel events less often, can produce a continuous gesture
-// the timeout is automatically adjusted during a gesture
-const WILL_END_TIMEOUT_DEFAULT = 400
-
-const axes: [Axis, Axis] = ['x', 'y']
-const deltaProp: Record<Axis, DeltaProp> = {
-  x: 'deltaX',
-  y: 'deltaY',
-}
+} from './wheel-analyzer-types'
 
 export interface Options {
   preventWheelAction: PreventWheelActionType
