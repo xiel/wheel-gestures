@@ -46,7 +46,7 @@ export class WheelAnalyzer {
   private isStartPublished = false
   private isMomentum = false
   private lastAbsDelta = Infinity
-  private axisDeltas: number[] = [0, 0]
+  private axisMovement: number[] = [0, 0]
   private axisVelocity: number[] = [0, 0]
   private accelerationFactors: number[][] = []
 
@@ -158,7 +158,7 @@ export class WheelAnalyzer {
       this.start()
     }
 
-    this.axisDeltas = this.axisDeltas.map(
+    this.axisMovement = this.axisMovement.map(
       (prevDelta, i) => prevDelta + this.clampDelta(normalizedWheel[deltaProp[axes[i]]])
     )
     this.lastAbsDelta = currentAbsDelta
@@ -167,7 +167,7 @@ export class WheelAnalyzer {
       currentDelta: currentDelta,
       currentAbsDelta: currentAbsDelta,
       axisDeltaUnclampt: [normalizedWheel.deltaX, normalizedWheel.deltaY],
-      timestamp: wheelEvent.timeStamp || Date.now(),
+      timestamp: wheelEvent.timeStamp,
     })
 
     if (this.scrollPointsToMerge.length === WHEELEVENTS_TO_MERGE) {
@@ -178,8 +178,6 @@ export class WheelAnalyzer {
           ([sumX, sumY], { axisDeltaUnclampt: [x, y] }) => [sumX + x, sumY + y],
           [0, 0]
         ),
-        // TODO: should one devide here or not?!
-        //.map((sum) => sum / WHEELEVENTS_TO_MERGE),
         timestamp: this.scrollPointsToMerge.reduce((sum, b) => sum + b.timestamp, 0) / WHEELEVENTS_TO_MERGE,
       }
 
@@ -316,7 +314,7 @@ export class WheelAnalyzer {
       debugData,
       willEndSoon: this.willEndSoon,
       isMomentum: this.isMomentum,
-      axisDeltas: this.axisDeltas,
+      axisMovement: this.axisMovement,
       axisVelocity: this.axisVelocity,
     }
   }
@@ -326,7 +324,7 @@ export class WheelAnalyzer {
     this.isStartPublished = false
     this.isMomentum = false
     this.lastAbsDelta = Infinity
-    this.axisDeltas = [0, 0]
+    this.axisMovement = [0, 0]
     this.axisVelocity = [0, 0]
     this.scrollPointsToMerge = []
     this.scrollPoints = []

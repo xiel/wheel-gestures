@@ -39,7 +39,7 @@ export function WheelGestures({ axis = 'all', wheelReason = WheelReason.USER }: 
     dragState = {
       down: true,
       // TODO: why * -1, should this not better be in analyzer or when used?
-      delta: data.axisDeltas.map((d) => d * -1),
+      delta: data.axisMovement.map((d) => d * -1),
       axisVelocity: [data.axisVelocity[0] * -1, data.axisVelocity[1] * -1],
     }
 

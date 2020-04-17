@@ -5,7 +5,7 @@ Object {
   "phases": Array [
     Object {
       "lastData": Object {
-        "axisDeltas": Array [
+        "axisMovement": Array [
           -1407,
           11,
         ],
@@ -26,7 +26,7 @@ Object {
     },
     Object {
       "lastData": Object {
-        "axisDeltas": Array [
+        "axisMovement": Array [
           -1407,
           11,
         ],
@@ -54,7 +54,7 @@ Object {
   "phases": Array [
     Object {
       "lastData": Object {
-        "axisDeltas": Array [
+        "axisMovement": Array [
           -408,
           77,
         ],
@@ -75,7 +75,7 @@ Object {
     },
     Object {
       "lastData": Object {
-        "axisDeltas": Array [
+        "axisMovement": Array [
           -408,
           77,
         ],

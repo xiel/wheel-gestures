@@ -7,7 +7,7 @@ export interface ScrollPoint {
   timestamp: number
 }
 
-export type WheelEventDataRequiredFields = 'deltaMode' | 'deltaX' | 'deltaY'
+export type WheelEventDataRequiredFields = 'deltaMode' | 'deltaX' | 'deltaY' | 'timeStamp'
 
 export interface WheelEventData
   extends Pick<WheelEvent, WheelEventDataRequiredFields>,
