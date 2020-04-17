@@ -13,7 +13,7 @@ export function normalizeWheel(e: WheelEventData) {
     deltaX,
     deltaY,
     deltaZ,
-    deltaMode: 0,
+    deltaMode: 0 as const,
     timestamp: e.timeStamp,
   }
 }

@@ -13,16 +13,16 @@ export default function SimpleWheelDrag() {
   const [preventWheelAction, setPreventWheelAction] = useState<'all' | 'x' | 'y'>('all')
 
   useWheelDrag(
-    ({ down, delta }) => {
-      set({ xy: down ? delta : [0, 0] }) // immediate: down
+    ({ down, axisMovement }) => {
+      set({ xy: down ? axisMovement : [0, 0] }) // immediate: down
     },
     { domTarget: containerRef, axis: preventWheelAction }
   )
 
   // update momentum spring
   useWheelDrag(
-    ({ down, delta }) => {
-      setSpringMomentum({ xy: down ? delta : [0, 0] }) // immediate: down
+    ({ down, axisMovement }) => {
+      setSpringMomentum({ xy: down ? axisMovement : [0, 0] }) // immediate: down
     },
     {
       domTarget: containerRef,

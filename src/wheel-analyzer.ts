@@ -38,7 +38,7 @@ export interface Options {
 
 const defaults: Options = {
   preventWheelAction: 'all',
-  isDebug: process.env.NODE_ENV === 'development',
+  isDebug: false,
 }
 
 export class WheelAnalyzer {
@@ -128,6 +128,7 @@ export class WheelAnalyzer {
         return Math.abs(deltaY) >= Math.abs(deltaX)
     }
 
+    // TODO: use __DEV__
     this.debugMessage('unsupported preventWheelAction value: ' + preventWheelAction, 'warn')
   }
 

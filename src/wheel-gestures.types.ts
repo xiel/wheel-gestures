@@ -1,6 +1,6 @@
 export interface WheelDragState {
   down: boolean
-  delta: number[]
+  axisMovement: number[]
   axisVelocity: [number, number]
 }
 

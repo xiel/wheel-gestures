@@ -24,7 +24,7 @@ const wheelType = {
 export function WheelGestures({ axis = 'all', wheelReason = WheelReason.USER }: Props = {}) {
   let dragState: WheelDragState = {
     down: false,
-    delta: [0, 0],
+    axisMovement: [0, 0],
     axisVelocity: [0, 0],
   }
 
@@ -39,7 +39,7 @@ export function WheelGestures({ axis = 'all', wheelReason = WheelReason.USER }: 
     dragState = {
       down: true,
       // TODO: why * -1, should this not better be in analyzer or when used?
-      delta: data.axisMovement.map((d) => d * -1),
+      axisMovement: data.axisMovement.map((d) => d * -1),
       axisVelocity: [data.axisVelocity[0] * -1, data.axisVelocity[1] * -1],
     }
 
