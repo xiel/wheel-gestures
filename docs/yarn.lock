@@ -1288,10 +1288,10 @@
     prop-types "^15.6.1"
     react-lifecycles-compat "^3.0.4"
 
-"@reach/visually-hidden@^0.9.0":
-  version "0.9.0"
-  resolved "https://registry.yarnpkg.com/@reach/visually-hidden/-/visually-hidden-0.9.0.tgz#1099d9be28f41cb9829c4ba4887c233e75035e4a"
-  integrity sha512-aiPss8hQMOz/NV3L9yl3r2brLMpYV76yB2HhqbhB0EstbNMb6a2eDUBo+mOVFhOdKDxlNJmqHdwz/aiBh8GP6Q==
+"@reach/visually-hidden@^0.10.0":
+  version "0.10.0"
+  resolved "https://registry.yarnpkg.com/@reach/visually-hidden/-/visually-hidden-0.10.0.tgz#a2d697cfe67a8d25da882889e1d102163e5a2e76"
+  integrity sha512-hhaIpcTNqYKomhVaUNb/CY7fgdC8P8aatfzU1nh2wQfeEOvoEtf8ReQzAvs8/CoknRdJVuo85qGXjkApsKzHow==
   dependencies:
     tslib "^1.10.0"
 
