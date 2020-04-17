@@ -3,10 +3,6 @@ import EventBus from './events/EventBus'
 import { WheelDragState, WheelGesturesEventMap, WheelReason } from './wheel-gestures.types'
 import { WheelPhase } from './wheel-analyzer.types'
 
-export * from './wheel-gestures.types'
-export * from './wheel-analyzer.types'
-export * from './wheel-analyzer'
-
 export interface Props {
   axis?: 'x' | 'y' | 'all'
   wheelReason?: WheelReason

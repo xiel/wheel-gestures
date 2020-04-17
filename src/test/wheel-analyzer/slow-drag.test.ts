@@ -4,7 +4,6 @@ import slowDragRight from '../fixtures/slow-drag-right.json'
 import squareMove from '../fixtures/square-move-trackpad.json'
 
 describe('drag', () => {
-
   it('slow drag', () => {
     expect(recordPhases(slowDragRight.wheelEvents)).toMatchSnapshot()
   })
