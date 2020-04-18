@@ -144,6 +144,7 @@ export class WheelAnalyzer {
     this.state.axisMovement = this.state.axisMovement.map(
       (prevDelta, i) => prevDelta + this.clampDelta(normalizedWheel[deltaProp[axes[i]]])
     )
+
     this.state.lastAbsDelta = currentAbsDelta
 
     this.state.scrollPointsToMerge.push({

@@ -1,4 +1,3 @@
-// TODO: [number, number, number]
 export type Vector3D = number[]
 
 export interface WheelAnalyzerState {
