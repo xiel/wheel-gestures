@@ -1,4 +1,4 @@
-import { WheelEventData } from '../wheel-analyzer.types'
+import { WheelEventData } from '../wheel-analyzer/wheel-analyzer-types'
 
 const LINE_HEIGHT = 16 * 1.125
 const PAGE_HEIGHT = (typeof window !== 'undefined' && window.innerHeight) || 800
@@ -13,7 +13,7 @@ export function normalizeWheel(e: WheelEventData) {
     deltaX,
     deltaY,
     deltaZ,
-    deltaMode: 0,
+    deltaMode: 0 as const,
     timestamp: e.timeStamp,
   }
 }

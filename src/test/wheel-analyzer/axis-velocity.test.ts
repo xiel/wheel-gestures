@@ -1,6 +1,6 @@
-import { subscribeAndFeedWheelEvents } from '../helper/recordPhases'
-import { PhaseData, WheelEventData } from '../../wheel-analyzer.types'
 import { lastOf } from '../../utils/utils'
+import { PhaseData, WheelEventData } from '../../wheel-analyzer/wheel-analyzer-types'
+import { subscribeAndFeedWheelEvents } from '../helper/recordPhases'
 
 interface GenerateEventsProps {
   deltaTotal: number[]
@@ -43,7 +43,7 @@ function calcAverageVelocity(phases: PhaseData[]) {
 describe('velocity', () => {
   it('should have velocity in first (and only) event - x', () => {
     const { allPhaseData } = subscribeAndFeedWheelEvents({
-      wheelEvents: [{ deltaX: 0, deltaY: 20, deltaMode: 0 }],
+      wheelEvents: [{ deltaX: 0, deltaY: 20, deltaMode: 0, timeStamp: Date.now() }],
     })
     const [xVelo, yVelo] = allPhaseData[1].axisVelocity
 
@@ -78,7 +78,7 @@ describe('velocity', () => {
     expect(averageVelocity[0]).toBeCloseTo(0)
     expect(averageVelocity[1]).toBeCloseTo(1)
 
-    const [deltaX, deltaY] = lastOf(allPhaseData).axisDeltas
+    const [deltaX, deltaY] = lastOf(allPhaseData).axisMovement
 
     expect(deltaX).toBeCloseTo(0)
     expect(deltaY).toBeCloseTo(1000)
@@ -93,7 +93,7 @@ describe('velocity', () => {
     expect(averageVelocity[0]).toBeCloseTo(2)
     expect(averageVelocity[1]).toBeCloseTo(2)
 
-    const [deltaX, deltaY] = lastOf(allPhaseData).axisDeltas
+    const [deltaX, deltaY] = lastOf(allPhaseData).axisMovement
 
     expect(deltaX).toBeCloseTo(2000)
     expect(deltaY).toBeCloseTo(2000)

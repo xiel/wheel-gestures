@@ -3,7 +3,7 @@
 exports[`velocity should have velocity in first (and only) event - x 1`] = `
 Array [
   Object {
-    "axisDeltas": Array [
+    "axisMovement": Array [
       0,
       20,
     ],
@@ -11,13 +11,12 @@ Array [
       0,
       0.05,
     ],
-    "debugData": null,
     "isMomentum": false,
     "type": "ANY_WHEEL_START",
     "willEndSoon": false,
   },
   Object {
-    "axisDeltas": Array [
+    "axisMovement": Array [
       0,
       20,
     ],
@@ -25,13 +24,12 @@ Array [
       0,
       0.05,
     ],
-    "debugData": null,
     "isMomentum": false,
     "type": "WHEEL_START",
     "willEndSoon": false,
   },
   Object {
-    "axisDeltas": Array [
+    "axisMovement": Array [
       0,
       20,
     ],
@@ -39,13 +37,12 @@ Array [
       0,
       0.05,
     ],
-    "debugData": null,
     "isMomentum": false,
     "type": "ANY_WHEEL",
     "willEndSoon": false,
   },
   Object {
-    "axisDeltas": Array [
+    "axisMovement": Array [
       0,
       20,
     ],
@@ -53,13 +50,12 @@ Array [
       0,
       0.05,
     ],
-    "debugData": null,
     "isMomentum": false,
     "type": "WHEEL",
     "willEndSoon": false,
   },
   Object {
-    "axisDeltas": Array [
+    "axisMovement": Array [
       0,
       20,
     ],
@@ -67,13 +63,12 @@ Array [
       0,
       0.05,
     ],
-    "debugData": null,
     "isMomentum": false,
     "type": "WHEEL_END",
     "willEndSoon": false,
   },
   Object {
-    "axisDeltas": Array [
+    "axisMovement": Array [
       0,
       20,
     ],
@@ -81,7 +76,6 @@ Array [
       0,
       0.05,
     ],
-    "debugData": null,
     "isMomentum": false,
     "type": "ANY_WHEEL_END",
     "willEndSoon": false,

@@ -1,8 +1,8 @@
+import { Options, WheelAnalyzer } from '../../wheel-analyzer/wheel-analyzer'
+import { SubscribeFn, WheelEventData } from '../../wheel-analyzer/wheel-analyzer-types'
 import slowDragRight from '../fixtures/slow-drag-right.json'
 import squareMoveTrackpad from '../fixtures/square-move-trackpad.json'
 import swipeUpTrackpad from '../fixtures/swipe-up-trackpad.json'
-import { Options, WheelAnalyzer } from '../../wheel-analyzer'
-import { SubscribeFn, WheelEventData } from '../../wheel-analyzer.types'
 
 interface Opts {
   callback?: SubscribeFn
@@ -99,7 +99,7 @@ test('should warn about unsupported preventWheelAction in debug mode', () => {
 
   testPreventWheelActionWithOptions(swipeUpTrackpad.wheelEvents, {
     // @ts-ignore
-    options: { preventWheelAction: 'xyz', isDebug: true },
+    options: { preventWheelAction: 'xyz' },
   })
 
   expect(logWarn.calls.mostRecent().args[0]).toMatchInlineSnapshot(`"unsupported preventWheelAction value: xyz"`)

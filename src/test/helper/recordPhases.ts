@@ -1,5 +1,5 @@
-import { WheelAnalyzer } from '../../wheel-analyzer'
-import { PhaseData, SubscribeFn, WheelEventData, WheelTypes } from '../../wheel-analyzer.types'
+import { WheelAnalyzer } from '../../wheel-analyzer/wheel-analyzer'
+import { PhaseData, SubscribeFn, WheelEventData, WheelTypes } from '../../wheel-analyzer/wheel-analyzer-types'
 
 export type Range = [number, number]
 

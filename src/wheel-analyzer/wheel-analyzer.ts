@@ -1,3 +1,4 @@
+import { normalizeWheel } from '../wheel-normalizer/wheel-normalizer'
 import {
   Axis,
   DeltaProp,
@@ -8,21 +9,17 @@ import {
   Unsubscribe,
   WheelEventData,
   WheelPhase,
-} from './wheel-analyzer.types'
-import { normalizeWheel } from './normalizer/wheel-normalizer'
+} from './wheel-analyzer-types'
 
-const WHEELEVENTS_TO_MERGE = 2
-const WHEELEVENTS_TO_ANALAZE = 5
-
-const SOON_ENDING_WHEEL_COUNT = 3
 const SOON_ENDING_THRESHOLD = 1.4
-
 const ACC_FACTOR_MIN = 0.6
 const ACC_FACTOR_MAX = 0.96
 const DELTA_MAX_ABS = 150
 
-// the initial timeout period is pretty long, so even old mouses, which emit wheel events less often, can produce a continuous gesture
-// the timeout is automatically adjusted during a gesture
+/**
+ * the timeout is automatically adjusted during a gesture
+ * the initial timeout period is pretty long, so even old mouses, which emit wheel events less often, can produce a continuous gesture
+ */
 const WILL_END_TIMEOUT_DEFAULT = 400
 
 const axes: [Axis, Axis] = ['x', 'y']
@@ -31,14 +28,17 @@ const deltaProp: Record<Axis, DeltaProp> = {
   y: 'deltaY',
 }
 
+const isDev = process.env.NODE_ENV !== 'production'
+const WHEELEVENTS_TO_MERGE = 2
+const WHEELEVENTS_TO_ANALAZE = 5
+const SOON_ENDING_WHEEL_COUNT = 3
+
 export interface Options {
   preventWheelAction: PreventWheelActionType
-  isDebug?: boolean
 }
 
 const defaults: Options = {
   preventWheelAction: 'all',
-  isDebug: process.env.NODE_ENV === 'development',
 }
 
 export class WheelAnalyzer {
@@ -46,7 +46,7 @@ export class WheelAnalyzer {
   private isStartPublished = false
   private isMomentum = false
   private lastAbsDelta = Infinity
-  private axisDeltas: number[] = [0, 0]
+  private axisMovement: number[] = [0, 0]
   private axisVelocity: number[] = [0, 0]
   private accelerationFactors: number[][] = []
 
@@ -59,14 +59,6 @@ export class WheelAnalyzer {
   private options: Options
   private willEndTimeout = WILL_END_TIMEOUT_DEFAULT
 
-  private willEnd = (() => {
-    let willEndId = setTimeout(() => {}, this.willEndTimeout)
-    return () => {
-      clearTimeout(willEndId)
-      willEndId = setTimeout(this.end, this.willEndTimeout)
-    }
-  })()
-
   public constructor(options: Partial<Options> = {}) {
     // merge passed options with defaults (filter undefined option values)
     this.options = Object.entries(options)
@@ -75,6 +67,7 @@ export class WheelAnalyzer {
   }
 
   public observe = (target: EventTarget): Unobserve => {
+    // TODO: need to test if passive supported? might throw error otherwise in older browsers?
     target.addEventListener('wheel', this.feedWheel as EventListener, { passive: false })
     this.targets.push(target)
     return this.unobserve.bind(this, target)
@@ -101,18 +94,16 @@ export class WheelAnalyzer {
     this.subscriptions = this.subscriptions.filter((s) => s !== callback)
   }
 
-  public feedWheel = (wheelEvents: WheelEventData | WheelEventData[]) => {
-    if (!wheelEvents) return
+  private publish = (phase: WheelPhase, data = this.getCurrentState(phase)) => {
+    this.subscriptions.forEach((fn) => fn(phase, data))
+  }
 
+  public feedWheel = (wheelEvents: WheelEventData | WheelEventData[]) => {
     if (Array.isArray(wheelEvents)) {
       wheelEvents.forEach((wheelEvent) => this.processWheelEventData(wheelEvent))
     } else {
       this.processWheelEventData(wheelEvents)
     }
-  }
-
-  private publish = (phase: WheelPhase, data = this.getCurrentState(phase)) => {
-    this.subscriptions.forEach((fn) => fn(phase, data))
   }
 
   private shouldPreventDefault(e: WheelEventData) {
@@ -128,7 +119,7 @@ export class WheelAnalyzer {
         return Math.abs(deltaY) >= Math.abs(deltaX)
     }
 
-    this.debugMessage('unsupported preventWheelAction value: ' + preventWheelAction, 'warn')
+    isDev && console.warn('unsupported preventWheelAction value: ' + preventWheelAction, 'warn')
   }
 
   private clampDelta(delta: number) {
@@ -158,28 +149,24 @@ export class WheelAnalyzer {
       this.start()
     }
 
-    this.axisDeltas = this.axisDeltas.map(
+    this.axisMovement = this.axisMovement.map(
       (prevDelta, i) => prevDelta + this.clampDelta(normalizedWheel[deltaProp[axes[i]]])
     )
     this.lastAbsDelta = currentAbsDelta
 
     this.scrollPointsToMerge.push({
-      currentDelta: currentDelta,
       currentAbsDelta: currentAbsDelta,
       axisDeltaUnclampt: [normalizedWheel.deltaX, normalizedWheel.deltaY],
-      timestamp: wheelEvent.timeStamp || Date.now(),
+      timestamp: wheelEvent.timeStamp,
     })
 
     if (this.scrollPointsToMerge.length === WHEELEVENTS_TO_MERGE) {
       const mergedScrollPoint: ScrollPoint = {
-        currentDelta: this.scrollPointsToMerge.reduce((sum, b) => sum + b.currentDelta, 0) / WHEELEVENTS_TO_MERGE,
         currentAbsDelta: this.scrollPointsToMerge.reduce((sum, b) => sum + b.currentAbsDelta, 0) / WHEELEVENTS_TO_MERGE,
         axisDeltaUnclampt: this.scrollPointsToMerge.reduce(
           ([sumX, sumY], { axisDeltaUnclampt: [x, y] }) => [sumX + x, sumY + y],
           [0, 0]
         ),
-        // TODO: should one devide here or not?!
-        //.map((sum) => sum / WHEELEVENTS_TO_MERGE),
         timestamp: this.scrollPointsToMerge.reduce((sum, b) => sum + b.timestamp, 0) / WHEELEVENTS_TO_MERGE,
       }
 
@@ -200,8 +187,7 @@ export class WheelAnalyzer {
       this.updateStartVelocity()
     }
 
-    // publish start after all data points have been updated
-    // TODO: check momentum afterwards
+    // publish start after velocity etc. have been updated
     if (!this.isStartPublished) {
       this.publish(WheelPhase.ANY_WHEEL_START)
       this.publish(WheelPhase.WHEEL_START)
@@ -213,11 +199,6 @@ export class WheelAnalyzer {
 
     // calc debounced end function, to recognize end of wheel event stream
     this.willEnd()
-  }
-
-  private debugMessage(msg: string, level: keyof Console = 'log') {
-    if (!this.options.isDebug) return
-    console[level](msg)
   }
 
   private updateStartVelocity() {
@@ -237,7 +218,7 @@ export class WheelAnalyzer {
     const deltaTime = pB.timestamp - pA.timestamp
 
     if (deltaTime <= 0) {
-      this.debugMessage('invalid deltaTime')
+      isDev && console.warn('invalid deltaTime')
       return
     }
 
@@ -304,19 +285,12 @@ export class WheelAnalyzer {
     return this.isMomentum
   }
 
-  private getDebugState(): Partial<WheelAnalyzer> {
-    const { ...props } = this
-    return props
-  }
-
   public getCurrentState(type: WheelPhase) {
-    const debugData = this.options.isDebug ? this.getDebugState() : null
     return {
       type,
-      debugData,
       willEndSoon: this.willEndSoon,
       isMomentum: this.isMomentum,
-      axisDeltas: this.axisDeltas,
+      axisMovement: this.axisMovement,
       axisVelocity: this.axisVelocity,
     }
   }
@@ -326,13 +300,21 @@ export class WheelAnalyzer {
     this.isStartPublished = false
     this.isMomentum = false
     this.lastAbsDelta = Infinity
-    this.axisDeltas = [0, 0]
+    this.axisMovement = [0, 0]
     this.axisVelocity = [0, 0]
     this.scrollPointsToMerge = []
     this.scrollPoints = []
     this.accelerationFactors = []
     this.willEndTimeout = WILL_END_TIMEOUT_DEFAULT
   }
+
+  private willEnd = (() => {
+    let willEndId: NodeJS.Timeout
+    return () => {
+      clearTimeout(willEndId)
+      willEndId = setTimeout(this.end, this.willEndTimeout)
+    }
+  })()
 
   private end = () => {
     if (!this.isStarted) return
@@ -358,6 +340,7 @@ export class WheelAnalyzer {
     const absDeltas = this.scrollPoints
       .slice(SOON_ENDING_WHEEL_COUNT * -1)
       .map(({ currentAbsDelta }) => currentAbsDelta)
+
     const absDeltaAverage = absDeltas.reduce((a, b) => a + b, 0) / absDeltas.length
     return absDeltaAverage <= SOON_ENDING_THRESHOLD
   }

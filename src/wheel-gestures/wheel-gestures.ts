@@ -1,7 +1,7 @@
-import { WheelAnalyzer } from './wheel-analyzer'
-import EventBus from './events/EventBus'
-import { WheelDragState, WheelGesturesEventMap, WheelReason } from './wheel-gestures.types'
-import { WheelPhase } from './wheel-analyzer.types'
+import EventBus from '../events/EventBus'
+import { WheelAnalyzer } from '../wheel-analyzer/wheel-analyzer'
+import { WheelPhase } from '../wheel-analyzer/wheel-analyzer-types'
+import { WheelDragState, WheelGesturesEventMap, WheelReason } from './wheel-gestures-types'
 
 export interface Props {
   axis?: 'x' | 'y' | 'all'
@@ -24,7 +24,7 @@ const wheelType = {
 export function WheelGestures({ axis = 'all', wheelReason = WheelReason.USER }: Props = {}) {
   let dragState: WheelDragState = {
     down: false,
-    delta: [0, 0],
+    axisMovement: [0, 0],
     axisVelocity: [0, 0],
   }
 
@@ -39,7 +39,7 @@ export function WheelGestures({ axis = 'all', wheelReason = WheelReason.USER }: 
     dragState = {
       down: true,
       // TODO: why * -1, should this not better be in analyzer or when used?
-      delta: data.axisDeltas.map((d) => d * -1),
+      axisMovement: data.axisMovement.map((d) => d * -1),
       axisVelocity: [data.axisVelocity[0] * -1, data.axisVelocity[1] * -1],
     }
 
