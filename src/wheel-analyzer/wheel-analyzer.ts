@@ -16,6 +16,8 @@ const ACC_FACTOR_MIN = 0.6
 const ACC_FACTOR_MAX = 0.96
 const DELTA_MAX_ABS = 150
 
+// TODO: test next release
+
 /**
  * the timeout is automatically adjusted during a gesture
  * the initial timeout period is pretty long, so even old mouses, which emit wheel events less often, can produce a continuous gesture
