@@ -1,18 +1,7 @@
 import { normalizeWheel } from '../wheel-normalizer/wheel-normalizer'
 import {
-  ACC_FACTOR_MAX,
-  ACC_FACTOR_MIN,
-  axes,
-  DELTA_MAX_ABS,
-  deltaProp,
-  isDev,
-  SOON_ENDING_THRESHOLD,
-  SOON_ENDING_WHEEL_COUNT,
-  WHEELEVENTS_TO_ANALAZE,
-  WHEELEVENTS_TO_MERGE,
-  WILL_END_TIMEOUT_DEFAULT,
-} from './constants'
-import {
+  Axis,
+  DeltaProp,
   PreventWheelActionType,
   ScrollPoint,
   SubscribeFn,
@@ -21,6 +10,28 @@ import {
   WheelEventData,
   WheelPhase,
 } from './wheel-analyzer-types'
+
+const SOON_ENDING_THRESHOLD = 1.4
+const ACC_FACTOR_MIN = 0.6
+const ACC_FACTOR_MAX = 0.96
+const DELTA_MAX_ABS = 150
+
+/**
+ * the timeout is automatically adjusted during a gesture
+ * the initial timeout period is pretty long, so even old mouses, which emit wheel events less often, can produce a continuous gesture
+ */
+const WILL_END_TIMEOUT_DEFAULT = 400
+
+const axes: [Axis, Axis] = ['x', 'y']
+const deltaProp: Record<Axis, DeltaProp> = {
+  x: 'deltaX',
+  y: 'deltaY',
+}
+
+const isDev = process.env.NODE_ENV !== 'production'
+const WHEELEVENTS_TO_MERGE = 2
+const WHEELEVENTS_TO_ANALAZE = 5
+const SOON_ENDING_WHEEL_COUNT = 3
 
 export interface Options {
   preventWheelAction: PreventWheelActionType
@@ -47,14 +58,6 @@ export class WheelAnalyzer {
 
   private options: Options
   private willEndTimeout = WILL_END_TIMEOUT_DEFAULT
-
-  private willEnd = (() => {
-    let willEndId = setTimeout(() => {}, this.willEndTimeout)
-    return () => {
-      clearTimeout(willEndId)
-      willEndId = setTimeout(this.end, this.willEndTimeout)
-    }
-  })()
 
   public constructor(options: Partial<Options> = {}) {
     // merge passed options with defaults (filter undefined option values)
@@ -91,18 +94,16 @@ export class WheelAnalyzer {
     this.subscriptions = this.subscriptions.filter((s) => s !== callback)
   }
 
-  public feedWheel = (wheelEvents: WheelEventData | WheelEventData[]) => {
-    if (!wheelEvents) return
+  private publish = (phase: WheelPhase, data = this.getCurrentState(phase)) => {
+    this.subscriptions.forEach((fn) => fn(phase, data))
+  }
 
+  public feedWheel = (wheelEvents: WheelEventData | WheelEventData[]) => {
     if (Array.isArray(wheelEvents)) {
       wheelEvents.forEach((wheelEvent) => this.processWheelEventData(wheelEvent))
     } else {
       this.processWheelEventData(wheelEvents)
     }
-  }
-
-  private publish = (phase: WheelPhase, data = this.getCurrentState(phase)) => {
-    this.subscriptions.forEach((fn) => fn(phase, data))
   }
 
   private shouldPreventDefault(e: WheelEventData) {
@@ -186,8 +187,7 @@ export class WheelAnalyzer {
       this.updateStartVelocity()
     }
 
-    // publish start after all data points have been updated
-    // TODO: check momentum afterwards
+    // publish start after velocity etc. have been updated
     if (!this.isStartPublished) {
       this.publish(WheelPhase.ANY_WHEEL_START)
       this.publish(WheelPhase.WHEEL_START)
@@ -308,6 +308,14 @@ export class WheelAnalyzer {
     this.willEndTimeout = WILL_END_TIMEOUT_DEFAULT
   }
 
+  private willEnd = (() => {
+    let willEndId: NodeJS.Timeout
+    return () => {
+      clearTimeout(willEndId)
+      willEndId = setTimeout(this.end, this.willEndTimeout)
+    }
+  })()
+
   private end = () => {
     if (!this.isStarted) return
 
@@ -332,6 +340,7 @@ export class WheelAnalyzer {
     const absDeltas = this.scrollPoints
       .slice(SOON_ENDING_WHEEL_COUNT * -1)
       .map(({ currentAbsDelta }) => currentAbsDelta)
+
     const absDeltaAverage = absDeltas.reduce((a, b) => a + b, 0) / absDeltas.length
     return absDeltaAverage <= SOON_ENDING_THRESHOLD
   }
