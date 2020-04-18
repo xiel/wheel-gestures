@@ -38,68 +38,66 @@ const defaults: Options = {
   preventWheelAction: 'all',
 }
 
-export class WheelAnalyzer {
-  private state = createWheelAnalyzerState()
-  private subscriptions: SubscribeFn[] = []
-  private targets: EventTarget[] = []
-  private readonly options: Options
+export function WheelAnalyzer(optionsParam: Partial<Options> = {}) {
+  let state = createWheelAnalyzerState()
+  let subscriptions: SubscribeFn[] = []
+  let targets: EventTarget[] = []
 
-  public constructor(options: Partial<Options> = {}) {
-    // merge passed options with defaults (filter undefined option values)
-    this.options = Object.entries(options)
-      .filter(([, value]) => value !== undefined)
-      .reduce((o, [key, value]) => Object.assign(o, { [key]: value }), { ...defaults })
-  }
+  // merge passed options with defaults (filter undefined option values)
+  const options: Options = Object.entries(optionsParam)
+    .filter(([, value]) => value !== undefined)
+    .reduce((o, [key, value]) => Object.assign(o, { [key]: value }), { ...defaults })
 
-  public observe = (target: EventTarget): Unobserve => {
+  const observe = (target: EventTarget): Unobserve => {
     // TODO: need to test if passive supported? might throw error otherwise in older browsers?
-    target.addEventListener('wheel', this.feedWheel as EventListener, { passive: false })
-    this.targets.push(target)
-    return this.unobserve.bind(this, target)
+    target.addEventListener('wheel', feedWheel as EventListener, { passive: false })
+    targets.push(target)
+
+    return () => unobserve(target)
   }
 
-  public unobserve = (target: EventTarget) => {
-    target.removeEventListener('wheel', this.feedWheel as EventListener)
-    this.targets = this.targets.filter((t) => t !== target)
+  const unobserve = (target: EventTarget) => {
+    target.removeEventListener('wheel', feedWheel as EventListener)
+    targets = targets.filter((t) => t !== target)
   }
 
   // stops watching all of its target elements for visibility changes.
-  public disconnect = () => {
-    this.targets.forEach(this.unobserve)
+  const disconnect = () => {
+    targets.forEach(unobserve)
   }
 
-  public subscribe = (callback: SubscribeFn): Unsubscribe => {
-    this.subscriptions.push(callback)
+  const subscribe = (callback: SubscribeFn): Unsubscribe => {
+    subscriptions.push(callback)
     // return bound unsubscribe
-    return this.unsubscribe.bind(this, callback)
+    return () => unsubscribe(callback)
   }
 
-  public unsubscribe = (callback: SubscribeFn) => {
+  const unsubscribe = (callback: SubscribeFn) => {
     if (!callback) throw new Error('please pass the callback which was used to subscribe')
-    this.subscriptions = this.subscriptions.filter((s) => s !== callback)
+    subscriptions = subscriptions.filter((s) => s !== callback)
   }
 
-  private publish = (type: WheelPhase) => {
+  const publish = (type: WheelPhase) => {
     const data: PhaseData = {
       type,
-      willEndSoon: this.willEndSoon,
-      isMomentum: this.state.isMomentum,
-      axisMovement: this.state.axisMovement,
-      axisVelocity: this.state.axisVelocity,
+      willEndSoon: willEndSoon(),
+      isMomentum: state.isMomentum,
+      axisMovement: state.axisMovement,
+      axisVelocity: state.axisVelocity,
     }
-    this.subscriptions.forEach((fn) => fn(type, data))
+    subscriptions.forEach((fn) => fn(type, data))
   }
 
-  public feedWheel = (wheelEvents: WheelEventData | WheelEventData[]) => {
+  const feedWheel = (wheelEvents: WheelEventData | WheelEventData[]) => {
     if (Array.isArray(wheelEvents)) {
-      wheelEvents.forEach((wheelEvent) => this.processWheelEventData(wheelEvent))
+      wheelEvents.forEach((wheelEvent) => processWheelEventData(wheelEvent))
     } else {
-      this.processWheelEventData(wheelEvents)
+      processWheelEventData(wheelEvents)
     }
   }
 
-  private shouldPreventDefault(e: WheelEventData) {
-    const { preventWheelAction } = this.options
+  const shouldPreventDefault = (e: WheelEventData) => {
+    const { preventWheelAction } = options
     const { deltaX, deltaY } = e
 
     switch (preventWheelAction) {
@@ -114,47 +112,47 @@ export class WheelAnalyzer {
     isDev && console.warn('unsupported preventWheelAction value: ' + preventWheelAction, 'warn')
   }
 
-  private clampDelta(delta: number) {
+  const clampDelta = (delta: number) => {
     return Math.min(DELTA_MAX_ABS, Math.max(-DELTA_MAX_ABS, delta))
   }
 
-  private processWheelEventData(wheelEvent: WheelEventData) {
+  const processWheelEventData = (wheelEvent: WheelEventData) => {
     const normalizedWheel = normalizeWheel(wheelEvent)
 
-    if (wheelEvent.preventDefault && this.shouldPreventDefault(wheelEvent)) {
+    if (wheelEvent.preventDefault && shouldPreventDefault(wheelEvent)) {
       wheelEvent.preventDefault()
     }
 
-    if (!this.state.isStarted) {
-      this.start()
+    if (!state.isStarted) {
+      start()
     }
 
-    const currentDelta = this.clampDelta(
+    const currentDelta = clampDelta(
       Math.abs(normalizedWheel.deltaY) > Math.abs(normalizedWheel.deltaX)
         ? normalizedWheel.deltaY
         : normalizedWheel.deltaX
     )
     const currentAbsDelta = Math.abs(currentDelta)
 
-    if (this.state.isMomentum && currentAbsDelta > this.state.lastAbsDelta) {
-      this.end()
-      this.start()
+    if (state.isMomentum && currentAbsDelta > state.lastAbsDelta) {
+      end()
+      start()
     }
 
-    this.state.axisMovement = this.state.axisMovement.map(
-      (prevDelta, i) => prevDelta + this.clampDelta(normalizedWheel[deltaProp[axes[i]]])
+    state.axisMovement = state.axisMovement.map(
+      (prevDelta, i) => prevDelta + clampDelta(normalizedWheel[deltaProp[axes[i]]])
     )
 
-    this.state.lastAbsDelta = currentAbsDelta
+    state.lastAbsDelta = currentAbsDelta
 
-    this.state.scrollPointsToMerge.push({
+    state.scrollPointsToMerge.push({
       currentAbsDelta: currentAbsDelta,
       axisDeltaUnclampt: [normalizedWheel.deltaX, normalizedWheel.deltaY],
       timestamp: wheelEvent.timeStamp,
     })
 
-    if (this.state.scrollPointsToMerge.length === WHEELEVENTS_TO_MERGE) {
-      const { scrollPointsToMerge } = this.state
+    if (state.scrollPointsToMerge.length === WHEELEVENTS_TO_MERGE) {
+      const { scrollPointsToMerge } = state
       const mergedScrollPoint: ScrollPoint = {
         currentAbsDelta: average(scrollPointsToMerge.map((b) => b.currentAbsDelta)),
         axisDeltaUnclampt: scrollPointsToMerge.reduce(
@@ -164,45 +162,45 @@ export class WheelAnalyzer {
         timestamp: average(scrollPointsToMerge.map((b) => b.timestamp)),
       }
 
-      this.state.scrollPoints.push(mergedScrollPoint)
+      state.scrollPoints.push(mergedScrollPoint)
 
       // only update velocity after a merged scrollpoint was generated
-      this.updateVelocity()
+      updateVelocity()
 
-      if (!this.state.isMomentum) {
-        this.detectMomentum()
+      if (!state.isMomentum) {
+        detectMomentum()
       }
 
       // reset merge array
-      this.state.scrollPointsToMerge = []
+      state.scrollPointsToMerge = []
     }
 
-    if (!this.state.scrollPoints.length) {
-      this.updateStartVelocity()
+    if (!state.scrollPoints.length) {
+      updateStartVelocity()
     }
 
     // publish start after velocity etc. have been updated
-    if (!this.state.isStartPublished) {
-      this.publish(WheelPhase.ANY_WHEEL_START)
-      this.publish(WheelPhase.WHEEL_START)
-      this.state.isStartPublished = true
+    if (!state.isStartPublished) {
+      publish(WheelPhase.ANY_WHEEL_START)
+      publish(WheelPhase.WHEEL_START)
+      state.isStartPublished = true
     }
 
-    this.publish(WheelPhase.ANY_WHEEL)
-    this.publish(this.state.isMomentum ? WheelPhase.MOMENTUM_WHEEL : WheelPhase.WHEEL)
+    publish(WheelPhase.ANY_WHEEL)
+    publish(state.isMomentum ? WheelPhase.MOMENTUM_WHEEL : WheelPhase.WHEEL)
 
     // calc debounced end function, to recognize end of wheel event stream
-    this.willEnd()
+    willEnd()
   }
 
-  private updateStartVelocity() {
-    const latestScrollPoint = this.state.scrollPointsToMerge[this.state.scrollPointsToMerge.length - 1]
-    this.state.axisVelocity = latestScrollPoint.axisDeltaUnclampt.map((d) => d / this.state.willEndTimeout)
+  const updateStartVelocity = () => {
+    const latestScrollPoint = state.scrollPointsToMerge[state.scrollPointsToMerge.length - 1]
+    state.axisVelocity = latestScrollPoint.axisDeltaUnclampt.map((d) => d / state.willEndTimeout)
   }
 
-  private updateVelocity() {
+  const updateVelocity = () => {
     // need to have two recent points to calc velocity
-    const [pA, pB] = this.state.scrollPoints.slice(-2)
+    const [pA, pB] = state.scrollPoints.slice(-2)
 
     if (!pA || !pB) {
       return
@@ -221,38 +219,38 @@ export class WheelAnalyzer {
 
     // calc the acceleration factor per axis
     const accelerationFactor = velocity.map((v, i) => {
-      return v / (this.state.axisVelocity[i] || 1)
+      return v / (state.axisVelocity[i] || 1)
     })
 
-    this.state.axisVelocity = velocity
-    this.state.accelerationFactors.push(accelerationFactor)
-    this.updateWillEndTimeout(deltaTime)
+    state.axisVelocity = velocity
+    state.accelerationFactors.push(accelerationFactor)
+    updateWillEndTimeout(deltaTime)
   }
 
-  private updateWillEndTimeout(deltaTime: number) {
+  const updateWillEndTimeout = (deltaTime: number) => {
     // use current time between events rounded up and increased by a bit as timeout
     let newTimeout = Math.ceil(deltaTime / 10) * 10 * 1.2
 
     // double the timeout, when momentum was not detected yet
-    if (!this.state.isMomentum) {
+    if (!state.isMomentum) {
       newTimeout = Math.max(100, newTimeout * 2)
     }
 
-    this.state.willEndTimeout = Math.min(1000, Math.round(newTimeout))
+    state.willEndTimeout = Math.min(1000, Math.round(newTimeout))
   }
 
-  private static accelerationFactorInMomentumRange(accFactor: number) {
+  const accelerationFactorInMomentumRange = (accFactor: number) => {
     // when main axis is the the other one and there is no movement/change on the current one
     if (accFactor === 0) return true
     return accFactor <= ACC_FACTOR_MAX && accFactor >= ACC_FACTOR_MIN
   }
 
-  private detectMomentum() {
-    if (this.state.accelerationFactors.length < WHEELEVENTS_TO_ANALAZE) {
-      return this.state.isMomentum
+  const detectMomentum = () => {
+    if (state.accelerationFactors.length < WHEELEVENTS_TO_ANALAZE) {
+      return state.isMomentum
     }
 
-    const recentAccelerationFactors = this.state.accelerationFactors.slice(WHEELEVENTS_TO_ANALAZE * -1)
+    const recentAccelerationFactors = state.accelerationFactors.slice(WHEELEVENTS_TO_ANALAZE * -1)
 
     // check recent acceleration / deceleration factors
     const detectedMomentum = recentAccelerationFactors.reduce((mightBeMomentum, accFac) => {
@@ -261,63 +259,71 @@ export class WheelAnalyzer {
       // when both axis decelerate exactly in the same rate it is very likely caused by momentum
       const sameAccFac = !!accFac.reduce((f1, f2) => (f1 && f1 < 1 && f1 === f2 ? 1 : 0))
       // check if acceleration factor is within momentum range
-      const bothAreInRangeOrZero =
-        accFac.filter(WheelAnalyzer.accelerationFactorInMomentumRange).length === accFac.length
+      const bothAreInRangeOrZero = accFac.filter(accelerationFactorInMomentumRange).length === accFac.length
       // one the requirements must be fulfilled
       return sameAccFac || bothAreInRangeOrZero
     }, true)
 
     // only keep the most recent events
-    this.state.accelerationFactors = recentAccelerationFactors
+    state.accelerationFactors = recentAccelerationFactors
 
-    if (detectedMomentum && !this.state.isMomentum) {
-      this.publish(WheelPhase.WHEEL_END)
-      this.state.isMomentum = true
-      this.publish(WheelPhase.MOMENTUM_WHEEL_START)
+    if (detectedMomentum && !state.isMomentum) {
+      publish(WheelPhase.WHEEL_END)
+      state.isMomentum = true
+      publish(WheelPhase.MOMENTUM_WHEEL_START)
     }
 
-    return this.state.isMomentum
+    return state.isMomentum
   }
 
-  private start() {
-    this.state = createWheelAnalyzerState()
-    this.state.isStarted = true
+  const start = () => {
+    state = createWheelAnalyzerState()
+    state.isStarted = true
   }
 
-  private willEnd = (() => {
+  const willEnd = (() => {
     let willEndId: NodeJS.Timeout
     return () => {
       clearTimeout(willEndId)
-      willEndId = setTimeout(this.end, this.state.willEndTimeout)
+      willEndId = setTimeout(end, state.willEndTimeout)
     }
   })()
 
-  private end = () => {
-    if (!this.state.isStarted) return
+  const end = () => {
+    if (!state.isStarted) return
 
-    if (this.state.isMomentum) {
-      if (!this.willEndSoon) {
-        this.publish(WheelPhase.MOMENTUM_WHEEL_CANCEL)
+    if (state.isMomentum) {
+      if (!willEndSoon()) {
+        publish(WheelPhase.MOMENTUM_WHEEL_CANCEL)
       } else {
-        this.publish(WheelPhase.MOMENTUM_WHEEL_END)
+        publish(WheelPhase.MOMENTUM_WHEEL_END)
       }
     } else {
       // in case of momentum, this event was already triggered when the momentum was detected so we do not trigger it here
-      this.publish(WheelPhase.WHEEL_END)
+      publish(WheelPhase.WHEEL_END)
     }
 
-    this.publish(WheelPhase.ANY_WHEEL_END)
+    publish(WheelPhase.ANY_WHEEL_END)
 
-    this.state.isMomentum = false
-    this.state.isStarted = false
+    state.isMomentum = false
+    state.isStarted = false
   }
 
-  private get willEndSoon() {
-    const absDeltas = this.state.scrollPoints
+  const willEndSoon = () => {
+    const absDeltas = state.scrollPoints
       .slice(SOON_ENDING_WHEEL_COUNT * -1)
       .map(({ currentAbsDelta }) => currentAbsDelta)
 
     const absDeltaAverage = absDeltas.reduce((a, b) => a + b, 0) / absDeltas.length
     return absDeltaAverage <= SOON_ENDING_THRESHOLD
   }
+
+  return Object.freeze({
+    observe,
+    unobserve,
+    disconnect,
+    subscribe,
+    unsubscribe,
+    feedWheel,
+  })
 }
