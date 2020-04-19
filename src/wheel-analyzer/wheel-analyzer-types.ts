@@ -1,4 +1,27 @@
-import { WheelAnalyzer } from './wheel-analyzer'
+// TODO: [number, number, number]
+export type Vector3D = number[]
+
+export interface WheelAnalyzerState {
+  isStarted: boolean
+  isStartPublished: boolean
+  isMomentum: boolean
+
+  lastAbsDelta: number
+  axisMovement: Vector3D
+  axisVelocity: Vector3D
+  accelerationFactors: number[][]
+  scrollPoints: ScrollPoint[]
+  scrollPointsToMerge: ScrollPoint[]
+  willEndTimeout: number
+}
+
+export interface PhaseData {
+  type: WheelPhase
+  isMomentum: boolean
+  willEndSoon: boolean
+  axisMovement: Vector3D
+  axisVelocity: Vector3D
+}
 
 export interface ScrollPoint {
   currentAbsDelta: number
@@ -27,7 +50,6 @@ export enum WheelPhase {
   'MOMENTUM_WHEEL_END' = 'MOMENTUM_WHEEL_END',
 }
 
-export type PhaseData = ReturnType<typeof WheelAnalyzer.prototype.getCurrentState>
 export type SubscribeFn = (type: WheelPhase, data: PhaseData) => void
 export type Unsubscribe = () => void
 
