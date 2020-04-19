@@ -49,7 +49,6 @@ export function WheelAnalyzer(optionsParam: Partial<Options> = {}) {
     .reduce((o, [key, value]) => Object.assign(o, { [key]: value }), { ...defaults })
 
   const observe = (target: EventTarget): Unobserve => {
-    // TODO: need to test if passive supported? might throw error otherwise in older browsers?
     target.addEventListener('wheel', feedWheel as EventListener, { passive: false })
     targets.push(target)
 
