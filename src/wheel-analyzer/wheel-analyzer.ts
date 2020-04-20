@@ -42,6 +42,7 @@ export function WheelAnalyzer(optionsParam: Partial<Options> = {}) {
   let state = createWheelAnalyzerState()
   let subscriptions: SubscribeFn[] = []
   let targets: EventTarget[] = []
+  let currentEvent: WheelEventData
 
   // merge passed options with defaults (filter undefined option values)
   const options: Options = Object.entries(optionsParam)
@@ -76,13 +77,15 @@ export function WheelAnalyzer(optionsParam: Partial<Options> = {}) {
     subscriptions = subscriptions.filter((s) => s !== callback)
   }
 
-  const publish = (type: WheelPhase) => {
+  const publish = (type: WheelPhase, additionalData?: Partial<PhaseData>) => {
     const data: PhaseData = {
       type,
       willEndSoon: willEndSoon(),
       isMomentum: state.isMomentum,
       axisMovement: state.axisMovement,
       axisVelocity: state.axisVelocity,
+      event: currentEvent,
+      ...additionalData,
     }
     subscriptions.forEach((fn) => fn(type, data))
   }
@@ -138,6 +141,7 @@ export function WheelAnalyzer(optionsParam: Partial<Options> = {}) {
       start()
     }
 
+    currentEvent = wheelEvent
     state.axisMovement = state.axisMovement.map(
       (prevDelta, i) => prevDelta + clampDelta(normalizedWheel[deltaProp[axes[i]]])
     )

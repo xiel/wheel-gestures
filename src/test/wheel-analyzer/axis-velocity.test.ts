@@ -43,7 +43,7 @@ function calcAverageVelocity(phases: PhaseData[]) {
 describe('velocity', () => {
   it('should have velocity in first (and only) event - x', () => {
     const { allPhaseData } = subscribeAndFeedWheelEvents({
-      wheelEvents: [{ deltaX: 0, deltaY: 20, deltaMode: 0, timeStamp: Date.now() }],
+      wheelEvents: [{ deltaX: 0, deltaY: 20, deltaMode: 0, timeStamp: 0 }],
     })
     const [xVelo, yVelo] = allPhaseData[1].axisVelocity
 
