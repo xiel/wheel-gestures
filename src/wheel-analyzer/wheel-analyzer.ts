@@ -80,7 +80,7 @@ export function WheelAnalyzer(optionsParam: Partial<Options> = {}) {
   const publish = (type: WheelPhase, additionalData?: Partial<PhaseData>) => {
     const data: PhaseData = {
       type,
-      willEndSoon: willEndSoon(),
+      isEndingSoon: willEndSoon(),
       isMomentum: state.isMomentum,
       axisMovement: state.axisMovement,
       axisVelocity: state.axisVelocity,

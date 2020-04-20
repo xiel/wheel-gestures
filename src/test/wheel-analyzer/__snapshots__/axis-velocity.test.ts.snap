@@ -19,7 +19,7 @@ Array [
     },
     "isMomentum": false,
     "type": "ANY_WHEEL_START",
-    "willEndSoon": false,
+    "isEndingSoon": false,
   },
   Object {
     "axisMovement": Array [
@@ -38,7 +38,7 @@ Array [
     },
     "isMomentum": false,
     "type": "WHEEL_START",
-    "willEndSoon": false,
+    "isEndingSoon": false,
   },
   Object {
     "axisMovement": Array [
@@ -57,7 +57,7 @@ Array [
     },
     "isMomentum": false,
     "type": "ANY_WHEEL",
-    "willEndSoon": false,
+    "isEndingSoon": false,
   },
   Object {
     "axisMovement": Array [
@@ -76,7 +76,7 @@ Array [
     },
     "isMomentum": false,
     "type": "WHEEL",
-    "willEndSoon": false,
+    "isEndingSoon": false,
   },
   Object {
     "axisMovement": Array [
@@ -95,7 +95,7 @@ Array [
     },
     "isMomentum": false,
     "type": "WHEEL_END",
-    "willEndSoon": false,
+    "isEndingSoon": false,
   },
   Object {
     "axisMovement": Array [
@@ -114,7 +114,7 @@ Array [
     },
     "isMomentum": false,
     "type": "ANY_WHEEL_END",
-    "willEndSoon": false,
+    "isEndingSoon": false,
   },
 ]
 `;

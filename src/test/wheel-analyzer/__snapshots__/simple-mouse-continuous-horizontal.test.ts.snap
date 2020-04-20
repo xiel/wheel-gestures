@@ -21,7 +21,7 @@ Object {
         },
         "isMomentum": false,
         "type": "WHEEL_END",
-        "willEndSoon": false,
+        "isEndingSoon": false,
       },
       "range": Array [
         0,
@@ -47,7 +47,7 @@ Object {
         },
         "isMomentum": false,
         "type": "ANY_WHEEL_END",
-        "willEndSoon": false,
+        "isEndingSoon": false,
       },
       "range": Array [
         0,
@@ -80,7 +80,7 @@ Object {
         },
         "isMomentum": false,
         "type": "WHEEL_END",
-        "willEndSoon": false,
+        "isEndingSoon": false,
       },
       "range": Array [
         0,
@@ -106,7 +106,7 @@ Object {
         },
         "isMomentum": false,
         "type": "ANY_WHEEL_END",
-        "willEndSoon": false,
+        "isEndingSoon": false,
       },
       "range": Array [
         0,
@@ -139,7 +139,7 @@ Object {
         },
         "isMomentum": false,
         "type": "WHEEL_END",
-        "willEndSoon": false,
+        "isEndingSoon": false,
       },
       "range": Array [
         0,
@@ -165,7 +165,7 @@ Object {
         },
         "isMomentum": false,
         "type": "ANY_WHEEL_END",
-        "willEndSoon": false,
+        "isEndingSoon": false,
       },
       "range": Array [
         0,
@@ -198,7 +198,7 @@ Object {
         },
         "isMomentum": false,
         "type": "WHEEL_END",
-        "willEndSoon": false,
+        "isEndingSoon": false,
       },
       "range": Array [
         0,
@@ -224,7 +224,7 @@ Object {
         },
         "isMomentum": false,
         "type": "ANY_WHEEL_END",
-        "willEndSoon": false,
+        "isEndingSoon": false,
       },
       "range": Array [
         0,
@@ -257,7 +257,7 @@ Object {
         },
         "isMomentum": false,
         "type": "WHEEL_END",
-        "willEndSoon": false,
+        "isEndingSoon": false,
       },
       "range": Array [
         0,
@@ -283,7 +283,7 @@ Object {
         },
         "isMomentum": false,
         "type": "ANY_WHEEL_END",
-        "willEndSoon": false,
+        "isEndingSoon": false,
       },
       "range": Array [
         0,
@@ -316,7 +316,7 @@ Object {
         },
         "isMomentum": false,
         "type": "WHEEL_END",
-        "willEndSoon": false,
+        "isEndingSoon": false,
       },
       "range": Array [
         0,
@@ -342,7 +342,7 @@ Object {
         },
         "isMomentum": false,
         "type": "ANY_WHEEL_END",
-        "willEndSoon": false,
+        "isEndingSoon": false,
       },
       "range": Array [
         0,
@@ -368,7 +368,7 @@ Object {
         },
         "isMomentum": false,
         "type": "WHEEL_END",
-        "willEndSoon": false,
+        "isEndingSoon": false,
       },
       "range": Array [
         1,
@@ -394,7 +394,7 @@ Object {
         },
         "isMomentum": false,
         "type": "ANY_WHEEL_END",
-        "willEndSoon": false,
+        "isEndingSoon": false,
       },
       "range": Array [
         1,
