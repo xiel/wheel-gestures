@@ -20,6 +20,7 @@ export interface PhaseData {
   willEndSoon: boolean
   axisMovement: Vector3D
   axisVelocity: Vector3D
+  event: WheelEvent | WheelEventData
 }
 
 export interface ScrollPoint {
