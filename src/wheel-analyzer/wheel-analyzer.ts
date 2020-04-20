@@ -142,6 +142,7 @@ export function WheelAnalyzer(optionsParam: Partial<Options> = {}) {
     }
 
     currentEvent = wheelEvent
+
     state.axisMovement = state.axisMovement.map(
       (prevDelta, i) => prevDelta + clampDelta(normalizedWheel[deltaProp[axes[i]]])
     )
