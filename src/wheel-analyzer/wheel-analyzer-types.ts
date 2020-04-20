@@ -20,6 +20,7 @@ export interface PhaseData {
   isEndingSoon: boolean
   axisMovement: Vector3D
   axisVelocity: Vector3D
+  axisDelta: Vector3D
   event: WheelEvent | WheelEventData
 }
 

@@ -19,9 +19,9 @@ Object {
           "deltaY": 0,
           "timeStamp": 4367,
         },
+        "isEndingSoon": true,
         "isMomentum": false,
         "type": "WHEEL_END",
-        "isEndingSoon": true,
       },
       "range": Array [
         0,
@@ -45,9 +45,9 @@ Object {
           "deltaY": 0,
           "timeStamp": 4367,
         },
+        "isEndingSoon": true,
         "isMomentum": false,
         "type": "ANY_WHEEL_END",
-        "isEndingSoon": true,
       },
       "range": Array [
         0,
@@ -78,9 +78,9 @@ Object {
           "deltaY": -3,
           "timeStamp": 49225,
         },
+        "isEndingSoon": false,
         "isMomentum": false,
         "type": "WHEEL_END",
-        "isEndingSoon": false,
       },
       "range": Array [
         0,
@@ -104,9 +104,9 @@ Object {
           "deltaY": -3,
           "timeStamp": 49225,
         },
+        "isEndingSoon": false,
         "isMomentum": false,
         "type": "ANY_WHEEL_END",
-        "isEndingSoon": false,
       },
       "range": Array [
         0,

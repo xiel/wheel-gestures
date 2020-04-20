@@ -17,9 +17,9 @@ Array [
       "deltaY": 20,
       "timeStamp": 0,
     },
+    "isEndingSoon": false,
     "isMomentum": false,
     "type": "ANY_WHEEL_START",
-    "isEndingSoon": false,
   },
   Object {
     "axisMovement": Array [
@@ -36,9 +36,9 @@ Array [
       "deltaY": 20,
       "timeStamp": 0,
     },
+    "isEndingSoon": false,
     "isMomentum": false,
     "type": "WHEEL_START",
-    "isEndingSoon": false,
   },
   Object {
     "axisMovement": Array [
@@ -55,9 +55,9 @@ Array [
       "deltaY": 20,
       "timeStamp": 0,
     },
+    "isEndingSoon": false,
     "isMomentum": false,
     "type": "ANY_WHEEL",
-    "isEndingSoon": false,
   },
   Object {
     "axisMovement": Array [
@@ -74,9 +74,9 @@ Array [
       "deltaY": 20,
       "timeStamp": 0,
     },
+    "isEndingSoon": false,
     "isMomentum": false,
     "type": "WHEEL",
-    "isEndingSoon": false,
   },
   Object {
     "axisMovement": Array [
@@ -93,9 +93,9 @@ Array [
       "deltaY": 20,
       "timeStamp": 0,
     },
+    "isEndingSoon": false,
     "isMomentum": false,
     "type": "WHEEL_END",
-    "isEndingSoon": false,
   },
   Object {
     "axisMovement": Array [
@@ -112,9 +112,9 @@ Array [
       "deltaY": 20,
       "timeStamp": 0,
     },
+    "isEndingSoon": false,
     "isMomentum": false,
     "type": "ANY_WHEEL_END",
-    "isEndingSoon": false,
   },
 ]
 `;
