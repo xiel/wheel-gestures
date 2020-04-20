@@ -28,7 +28,7 @@ export function WheelGestures({ axis = 'all', wheelReason = WheelReason.USER }: 
     axisVelocity: [0, 0],
   }
 
-  const wheelAnalyzer = new WheelAnalyzer({
+  const wheelAnalyzer = WheelAnalyzer({
     preventWheelAction: axis,
   })
 

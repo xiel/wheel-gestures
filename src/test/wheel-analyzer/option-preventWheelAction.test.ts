@@ -12,7 +12,7 @@ interface Opts {
 function feedWheelEvents(wheelEvents: WheelEventData[], { callback = () => undefined, options }: Opts = {}) {
   // need to use fake timers, so we can run the debounced end function after feeding all events
   jest.useFakeTimers()
-  const wA = new WheelAnalyzer(options)
+  const wA = WheelAnalyzer(options)
   const unsubscribe = wA.subscribe(callback)
   wA.feedWheel(wheelEvents)
   // fast forward and exhaust currently pending timers
