@@ -1,33 +1,7 @@
 import { lastOf } from '../../utils/utils'
-import { PhaseData, WheelEventData } from '../../wheel-analyzer/wheel-analyzer-types'
+import { PhaseData } from '../../wheel-analyzer/wheel-analyzer-types'
+import { generateEvents } from '../helper/generateEvents'
 import { subscribeAndFeedWheelEvents } from '../helper/recordPhases'
-
-interface GenerateEventsProps {
-  deltaTotal: number[]
-  durationMs: number
-  eventEveryMs?: number
-  deltaMode?: number
-}
-
-function generateEvents({ deltaTotal, durationMs, eventEveryMs = 1000 / 60, deltaMode = 0 }: GenerateEventsProps) {
-  const wheelEvents: WheelEventData[] = []
-  const [deltaX, deltaY, deltaZ] = deltaTotal.map((d) => (d / durationMs) * eventEveryMs)
-
-  let timeStamp = 0
-  while (timeStamp < durationMs && Math.round(timeStamp + eventEveryMs) <= durationMs) {
-    timeStamp += eventEveryMs
-
-    wheelEvents.push({
-      deltaX,
-      deltaY,
-      deltaZ,
-      deltaMode,
-      timeStamp,
-    })
-  }
-
-  return { wheelEvents }
-}
 
 function calcAverageVelocity(phases: PhaseData[]) {
   return phases.reduce(

@@ -5,6 +5,11 @@ Object {
   "phases": Array [
     Object {
       "lastData": Object {
+        "axisDelta": Array [
+          0,
+          0,
+          0,
+        ],
         "axisMovement": Array [
           -1407,
           11,
@@ -31,6 +36,11 @@ Object {
     },
     Object {
       "lastData": Object {
+        "axisDelta": Array [
+          0,
+          0,
+          0,
+        ],
         "axisMovement": Array [
           -1407,
           11,
@@ -64,6 +74,11 @@ Object {
   "phases": Array [
     Object {
       "lastData": Object {
+        "axisDelta": Array [
+          0,
+          0,
+          0,
+        ],
         "axisMovement": Array [
           -408,
           77,
@@ -90,6 +105,11 @@ Object {
     },
     Object {
       "lastData": Object {
+        "axisDelta": Array [
+          0,
+          0,
+          0,
+        ],
         "axisMovement": Array [
           -408,
           77,

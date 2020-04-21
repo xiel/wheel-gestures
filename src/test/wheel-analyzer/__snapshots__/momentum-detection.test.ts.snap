@@ -5,6 +5,11 @@ Object {
   "phases": Array [
     Object {
       "lastData": Object {
+        "axisDelta": Array [
+          0,
+          0,
+          0,
+        ],
         "axisMovement": Array [
           -782,
           8,
@@ -32,6 +37,11 @@ Object {
     Object {
       "canceled": true,
       "lastData": Object {
+        "axisDelta": Array [
+          0,
+          0,
+          0,
+        ],
         "axisMovement": Array [
           -952,
           8,
@@ -58,6 +68,11 @@ Object {
     },
     Object {
       "lastData": Object {
+        "axisDelta": Array [
+          0,
+          0,
+          0,
+        ],
         "axisMovement": Array [
           -952,
           8,
@@ -84,6 +99,11 @@ Object {
     },
     Object {
       "lastData": Object {
+        "axisDelta": Array [
+          0,
+          0,
+          0,
+        ],
         "axisMovement": Array [
           -1281,
           -2,
@@ -110,6 +130,11 @@ Object {
     },
     Object {
       "lastData": Object {
+        "axisDelta": Array [
+          0,
+          0,
+          0,
+        ],
         "axisMovement": Array [
           -1755,
           -2,
@@ -136,6 +161,11 @@ Object {
     },
     Object {
       "lastData": Object {
+        "axisDelta": Array [
+          0,
+          0,
+          0,
+        ],
         "axisMovement": Array [
           -1755,
           -2,
@@ -169,6 +199,11 @@ Object {
   "phases": Array [
     Object {
       "lastData": Object {
+        "axisDelta": Array [
+          0,
+          0,
+          0,
+        ],
         "axisMovement": Array [
           -23,
           -2342,
@@ -195,6 +230,11 @@ Object {
     },
     Object {
       "lastData": Object {
+        "axisDelta": Array [
+          0,
+          0,
+          0,
+        ],
         "axisMovement": Array [
           -23,
           -5953,
@@ -221,6 +261,11 @@ Object {
     },
     Object {
       "lastData": Object {
+        "axisDelta": Array [
+          0,
+          0,
+          0,
+        ],
         "axisMovement": Array [
           -23,
           -5953,
@@ -254,6 +299,11 @@ Object {
   "phases": Array [
     Object {
       "lastData": Object {
+        "axisDelta": Array [
+          0,
+          0,
+          0,
+        ],
         "axisMovement": Array [
           7,
           -1643,
@@ -280,6 +330,11 @@ Object {
     },
     Object {
       "lastData": Object {
+        "axisDelta": Array [
+          0,
+          0,
+          0,
+        ],
         "axisMovement": Array [
           7,
           -2134,
@@ -306,6 +361,11 @@ Object {
     },
     Object {
       "lastData": Object {
+        "axisDelta": Array [
+          0,
+          0,
+          0,
+        ],
         "axisMovement": Array [
           7,
           -2134,
@@ -339,6 +399,11 @@ Object {
   "phases": Array [
     Object {
       "lastData": Object {
+        "axisDelta": Array [
+          0,
+          0,
+          0,
+        ],
         "axisMovement": Array [
           610,
           0,
@@ -365,6 +430,11 @@ Object {
     },
     Object {
       "lastData": Object {
+        "axisDelta": Array [
+          0,
+          0,
+          0,
+        ],
         "axisMovement": Array [
           740,
           0,
@@ -391,6 +461,11 @@ Object {
     },
     Object {
       "lastData": Object {
+        "axisDelta": Array [
+          0,
+          0,
+          0,
+        ],
         "axisMovement": Array [
           740,
           0,
@@ -424,6 +499,11 @@ Object {
   "phases": Array [
     Object {
       "lastData": Object {
+        "axisDelta": Array [
+          0,
+          0,
+          0,
+        ],
         "axisMovement": Array [
           2524,
           -8,
@@ -450,6 +530,11 @@ Object {
     },
     Object {
       "lastData": Object {
+        "axisDelta": Array [
+          0,
+          0,
+          0,
+        ],
         "axisMovement": Array [
           7237,
           -8,
@@ -476,6 +561,11 @@ Object {
     },
     Object {
       "lastData": Object {
+        "axisDelta": Array [
+          0,
+          0,
+          0,
+        ],
         "axisMovement": Array [
           7237,
           -8,
@@ -509,6 +599,11 @@ Object {
   "phases": Array [
     Object {
       "lastData": Object {
+        "axisDelta": Array [
+          0,
+          0,
+          0,
+        ],
         "axisMovement": Array [
           2138,
           -15,
@@ -535,6 +630,11 @@ Object {
     },
     Object {
       "lastData": Object {
+        "axisDelta": Array [
+          0,
+          0,
+          0,
+        ],
         "axisMovement": Array [
           3001,
           -15,
@@ -561,6 +661,11 @@ Object {
     },
     Object {
       "lastData": Object {
+        "axisDelta": Array [
+          0,
+          0,
+          0,
+        ],
         "axisMovement": Array [
           3001,
           -15,
@@ -594,6 +699,11 @@ Object {
   "phases": Array [
     Object {
       "lastData": Object {
+        "axisDelta": Array [
+          0,
+          0,
+          0,
+        ],
         "axisMovement": Array [
           -15,
           0,
@@ -620,6 +730,11 @@ Object {
     },
     Object {
       "lastData": Object {
+        "axisDelta": Array [
+          0,
+          0,
+          0,
+        ],
         "axisMovement": Array [
           -15,
           0,
@@ -646,6 +761,11 @@ Object {
     },
     Object {
       "lastData": Object {
+        "axisDelta": Array [
+          0,
+          0,
+          0,
+        ],
         "axisMovement": Array [
           -3191,
           0,
@@ -672,6 +792,11 @@ Object {
     },
     Object {
       "lastData": Object {
+        "axisDelta": Array [
+          0,
+          0,
+          0,
+        ],
         "axisMovement": Array [
           -6336,
           0,
@@ -698,6 +823,11 @@ Object {
     },
     Object {
       "lastData": Object {
+        "axisDelta": Array [
+          0,
+          0,
+          0,
+        ],
         "axisMovement": Array [
           -6336,
           0,
@@ -731,6 +861,11 @@ Object {
   "phases": Array [
     Object {
       "lastData": Object {
+        "axisDelta": Array [
+          0,
+          0,
+          0,
+        ],
         "axisMovement": Array [
           -1247,
           0,
@@ -757,6 +892,11 @@ Object {
     },
     Object {
       "lastData": Object {
+        "axisDelta": Array [
+          0,
+          0,
+          0,
+        ],
         "axisMovement": Array [
           -1634,
           0,
@@ -783,6 +923,11 @@ Object {
     },
     Object {
       "lastData": Object {
+        "axisDelta": Array [
+          0,
+          0,
+          0,
+        ],
         "axisMovement": Array [
           -1634,
           0,
@@ -816,6 +961,11 @@ Object {
   "phases": Array [
     Object {
       "lastData": Object {
+        "axisDelta": Array [
+          0,
+          0,
+          0,
+        ],
         "axisMovement": Array [
           -38,
           2735,
@@ -842,6 +992,11 @@ Object {
     },
     Object {
       "lastData": Object {
+        "axisDelta": Array [
+          0,
+          0,
+          0,
+        ],
         "axisMovement": Array [
           -38,
           6526,
@@ -868,6 +1023,11 @@ Object {
     },
     Object {
       "lastData": Object {
+        "axisDelta": Array [
+          0,
+          0,
+          0,
+        ],
         "axisMovement": Array [
           -38,
           6526,
@@ -901,6 +1061,11 @@ Object {
   "phases": Array [
     Object {
       "lastData": Object {
+        "axisDelta": Array [
+          0,
+          0,
+          0,
+        ],
         "axisMovement": Array [
           -70,
           2197,
@@ -927,6 +1092,11 @@ Object {
     },
     Object {
       "lastData": Object {
+        "axisDelta": Array [
+          0,
+          0,
+          0,
+        ],
         "axisMovement": Array [
           -70,
           3774,
@@ -953,6 +1123,11 @@ Object {
     },
     Object {
       "lastData": Object {
+        "axisDelta": Array [
+          0,
+          0,
+          0,
+        ],
         "axisMovement": Array [
           -70,
           3774,

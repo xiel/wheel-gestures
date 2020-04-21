@@ -55,6 +55,4 @@ export type SubscribeFn = (type: WheelPhase, data: PhaseData) => void
 export type Unsubscribe = () => void
 
 export type Unobserve = () => void
-export type DeltaProp = 'deltaX' | 'deltaY'
 export type PreventWheelActionType = 'all' | 'x' | 'y'
-export type Axis = 'x' | 'y'

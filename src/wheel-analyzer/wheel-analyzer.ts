@@ -2,8 +2,6 @@ import { average } from '../utils/utils'
 import { normalizeWheel } from '../wheel-normalizer/wheel-normalizer'
 import { createWheelAnalyzerState } from './state'
 import {
-  Axis,
-  DeltaProp,
   PhaseData,
   PreventWheelActionType,
   ScrollPoint,
@@ -14,18 +12,11 @@ import {
   WheelPhase,
 } from './wheel-analyzer-types'
 
+const isDev = process.env.NODE_ENV !== 'production'
 const SOON_ENDING_THRESHOLD = 1.4
 const ACC_FACTOR_MIN = 0.6
 const ACC_FACTOR_MAX = 0.96
 const DELTA_MAX_ABS = 150
-
-const axes: [Axis, Axis] = ['x', 'y']
-const deltaProp: Record<Axis, DeltaProp> = {
-  x: 'deltaX',
-  y: 'deltaY',
-}
-
-const isDev = process.env.NODE_ENV !== 'production'
 const WHEELEVENTS_TO_MERGE = 2
 const WHEELEVENTS_TO_ANALAZE = 5
 const SOON_ENDING_WHEEL_COUNT = 3
@@ -84,6 +75,7 @@ export function WheelAnalyzer(optionsParam: Partial<Options> = {}) {
       isMomentum: state.isMomentum,
       axisMovement: state.axisMovement,
       axisVelocity: state.axisVelocity,
+      axisDelta: [0, 0, 0],
       event: currentEvent,
       ...additionalData,
     }
@@ -119,7 +111,7 @@ export function WheelAnalyzer(optionsParam: Partial<Options> = {}) {
   }
 
   const processWheelEventData = (wheelEvent: WheelEventData) => {
-    const normalizedWheel = normalizeWheel(wheelEvent)
+    const { deltaX, deltaY, deltaZ } = normalizeWheel(wheelEvent)
 
     if (wheelEvent.preventDefault && shouldPreventDefault(wheelEvent)) {
       wheelEvent.preventDefault()
@@ -129,12 +121,9 @@ export function WheelAnalyzer(optionsParam: Partial<Options> = {}) {
       start()
     }
 
-    const currentDelta = clampDelta(
-      Math.abs(normalizedWheel.deltaY) > Math.abs(normalizedWheel.deltaX)
-        ? normalizedWheel.deltaY
-        : normalizedWheel.deltaX
-    )
+    const currentDelta = clampDelta(Math.abs(deltaY) > Math.abs(deltaX) ? deltaY : deltaX)
     const currentAbsDelta = Math.abs(currentDelta)
+    const axisDelta = [deltaX, deltaY, deltaZ]
 
     if (state.isMomentum && currentAbsDelta > state.lastAbsDelta) {
       end()
@@ -143,15 +132,12 @@ export function WheelAnalyzer(optionsParam: Partial<Options> = {}) {
 
     currentEvent = wheelEvent
 
-    state.axisMovement = state.axisMovement.map(
-      (prevDelta, i) => prevDelta + clampDelta(normalizedWheel[deltaProp[axes[i]]])
-    )
-
+    state.axisMovement = state.axisMovement.map((prevDelta, i) => prevDelta + clampDelta(axisDelta[i]))
     state.lastAbsDelta = currentAbsDelta
 
     state.scrollPointsToMerge.push({
       currentAbsDelta: currentAbsDelta,
-      axisDeltaUnclampt: [normalizedWheel.deltaX, normalizedWheel.deltaY],
+      axisDeltaUnclampt: [deltaX, deltaY],
       timestamp: wheelEvent.timeStamp,
     })
 
@@ -190,8 +176,9 @@ export function WheelAnalyzer(optionsParam: Partial<Options> = {}) {
       state.isStartPublished = true
     }
 
-    publish(WheelPhase.ANY_WHEEL)
-    publish(state.isMomentum ? WheelPhase.MOMENTUM_WHEEL : WheelPhase.WHEEL)
+    // only wheel event (move) and not start/end get the delta values
+    publish(WheelPhase.ANY_WHEEL, { axisDelta })
+    publish(state.isMomentum ? WheelPhase.MOMENTUM_WHEEL : WheelPhase.WHEEL, { axisDelta })
 
     // calc debounced end function, to recognize end of wheel event stream
     willEnd()
