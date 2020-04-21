@@ -5,6 +5,11 @@ Object {
   "phases": Array [
     Object {
       "lastData": Object {
+        "axisDelta": Array [
+          0,
+          0,
+          0,
+        ],
         "axisMovement": Array [
           -1407,
           11,
@@ -19,9 +24,9 @@ Object {
           "deltaY": 0,
           "timeStamp": 4367,
         },
+        "isEndingSoon": true,
         "isMomentum": false,
         "type": "WHEEL_END",
-        "willEndSoon": true,
       },
       "range": Array [
         0,
@@ -31,6 +36,11 @@ Object {
     },
     Object {
       "lastData": Object {
+        "axisDelta": Array [
+          0,
+          0,
+          0,
+        ],
         "axisMovement": Array [
           -1407,
           11,
@@ -45,9 +55,9 @@ Object {
           "deltaY": 0,
           "timeStamp": 4367,
         },
+        "isEndingSoon": true,
         "isMomentum": false,
         "type": "ANY_WHEEL_END",
-        "willEndSoon": true,
       },
       "range": Array [
         0,
@@ -64,6 +74,11 @@ Object {
   "phases": Array [
     Object {
       "lastData": Object {
+        "axisDelta": Array [
+          0,
+          0,
+          0,
+        ],
         "axisMovement": Array [
           -408,
           77,
@@ -78,9 +93,9 @@ Object {
           "deltaY": -3,
           "timeStamp": 49225,
         },
+        "isEndingSoon": false,
         "isMomentum": false,
         "type": "WHEEL_END",
-        "willEndSoon": false,
       },
       "range": Array [
         0,
@@ -90,6 +105,11 @@ Object {
     },
     Object {
       "lastData": Object {
+        "axisDelta": Array [
+          0,
+          0,
+          0,
+        ],
         "axisMovement": Array [
           -408,
           77,
@@ -104,9 +124,9 @@ Object {
           "deltaY": -3,
           "timeStamp": 49225,
         },
+        "isEndingSoon": false,
         "isMomentum": false,
         "type": "ANY_WHEEL_END",
-        "willEndSoon": false,
       },
       "range": Array [
         0,

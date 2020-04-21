@@ -5,6 +5,11 @@ Object {
   "phases": Array [
     Object {
       "lastData": Object {
+        "axisDelta": Array [
+          0,
+          0,
+          0,
+        ],
         "axisMovement": Array [
           -782,
           8,
@@ -19,9 +24,9 @@ Object {
           "deltaY": 0,
           "timeStamp": 3111.6450000263285,
         },
+        "isEndingSoon": false,
         "isMomentum": false,
         "type": "WHEEL_END",
-        "willEndSoon": false,
       },
       "range": Array [
         0,
@@ -32,6 +37,11 @@ Object {
     Object {
       "canceled": true,
       "lastData": Object {
+        "axisDelta": Array [
+          0,
+          0,
+          0,
+        ],
         "axisMovement": Array [
           -952,
           8,
@@ -46,9 +56,9 @@ Object {
           "deltaY": 0,
           "timeStamp": 3317.0500000123866,
         },
+        "isEndingSoon": false,
         "isMomentum": true,
         "type": "MOMENTUM_WHEEL_CANCEL",
-        "willEndSoon": false,
       },
       "range": Array [
         21,
@@ -58,6 +68,11 @@ Object {
     },
     Object {
       "lastData": Object {
+        "axisDelta": Array [
+          0,
+          0,
+          0,
+        ],
         "axisMovement": Array [
           -952,
           8,
@@ -72,9 +87,9 @@ Object {
           "deltaY": 0,
           "timeStamp": 3317.0500000123866,
         },
+        "isEndingSoon": false,
         "isMomentum": true,
         "type": "ANY_WHEEL_END",
-        "willEndSoon": false,
       },
       "range": Array [
         0,
@@ -84,6 +99,11 @@ Object {
     },
     Object {
       "lastData": Object {
+        "axisDelta": Array [
+          0,
+          0,
+          0,
+        ],
         "axisMovement": Array [
           -1281,
           -2,
@@ -98,9 +118,9 @@ Object {
           "deltaY": 0,
           "timeStamp": 3678.780000016559,
         },
+        "isEndingSoon": false,
         "isMomentum": false,
         "type": "WHEEL_END",
-        "willEndSoon": false,
       },
       "range": Array [
         33,
@@ -110,6 +130,11 @@ Object {
     },
     Object {
       "lastData": Object {
+        "axisDelta": Array [
+          0,
+          0,
+          0,
+        ],
         "axisMovement": Array [
           -1755,
           -2,
@@ -124,9 +149,9 @@ Object {
           "deltaY": 0,
           "timeStamp": 4477.8150000202,
         },
+        "isEndingSoon": true,
         "isMomentum": true,
         "type": "MOMENTUM_WHEEL_END",
-        "willEndSoon": true,
       },
       "range": Array [
         56,
@@ -136,6 +161,11 @@ Object {
     },
     Object {
       "lastData": Object {
+        "axisDelta": Array [
+          0,
+          0,
+          0,
+        ],
         "axisMovement": Array [
           -1755,
           -2,
@@ -150,9 +180,9 @@ Object {
           "deltaY": 0,
           "timeStamp": 4477.8150000202,
         },
+        "isEndingSoon": true,
         "isMomentum": true,
         "type": "ANY_WHEEL_END",
-        "willEndSoon": true,
       },
       "range": Array [
         33,
@@ -169,6 +199,11 @@ Object {
   "phases": Array [
     Object {
       "lastData": Object {
+        "axisDelta": Array [
+          0,
+          0,
+          0,
+        ],
         "axisMovement": Array [
           -23,
           -2342,
@@ -183,9 +218,9 @@ Object {
           "deltaY": -188,
           "timeStamp": 29003,
         },
+        "isEndingSoon": false,
         "isMomentum": false,
         "type": "WHEEL_END",
-        "willEndSoon": false,
       },
       "range": Array [
         0,
@@ -195,6 +230,11 @@ Object {
     },
     Object {
       "lastData": Object {
+        "axisDelta": Array [
+          0,
+          0,
+          0,
+        ],
         "axisMovement": Array [
           -23,
           -5953,
@@ -209,9 +249,9 @@ Object {
           "deltaY": -1,
           "timeStamp": 30302,
         },
+        "isEndingSoon": true,
         "isMomentum": true,
         "type": "MOMENTUM_WHEEL_END",
-        "willEndSoon": true,
       },
       "range": Array [
         19,
@@ -221,6 +261,11 @@ Object {
     },
     Object {
       "lastData": Object {
+        "axisDelta": Array [
+          0,
+          0,
+          0,
+        ],
         "axisMovement": Array [
           -23,
           -5953,
@@ -235,9 +280,9 @@ Object {
           "deltaY": -1,
           "timeStamp": 30302,
         },
+        "isEndingSoon": true,
         "isMomentum": true,
         "type": "ANY_WHEEL_END",
-        "willEndSoon": true,
       },
       "range": Array [
         0,
@@ -254,6 +299,11 @@ Object {
   "phases": Array [
     Object {
       "lastData": Object {
+        "axisDelta": Array [
+          0,
+          0,
+          0,
+        ],
         "axisMovement": Array [
           7,
           -1643,
@@ -268,9 +318,9 @@ Object {
           "deltaY": -45,
           "timeStamp": 6926,
         },
+        "isEndingSoon": false,
         "isMomentum": false,
         "type": "WHEEL_END",
-        "willEndSoon": false,
       },
       "range": Array [
         0,
@@ -280,6 +330,11 @@ Object {
     },
     Object {
       "lastData": Object {
+        "axisDelta": Array [
+          0,
+          0,
+          0,
+        ],
         "axisMovement": Array [
           7,
           -2134,
@@ -294,9 +349,9 @@ Object {
           "deltaY": -1,
           "timeStamp": 7709.000000000001,
         },
+        "isEndingSoon": true,
         "isMomentum": true,
         "type": "MOMENTUM_WHEEL_END",
-        "willEndSoon": true,
       },
       "range": Array [
         41,
@@ -306,6 +361,11 @@ Object {
     },
     Object {
       "lastData": Object {
+        "axisDelta": Array [
+          0,
+          0,
+          0,
+        ],
         "axisMovement": Array [
           7,
           -2134,
@@ -320,9 +380,9 @@ Object {
           "deltaY": -1,
           "timeStamp": 7709.000000000001,
         },
+        "isEndingSoon": true,
         "isMomentum": true,
         "type": "ANY_WHEEL_END",
-        "willEndSoon": true,
       },
       "range": Array [
         0,
@@ -339,6 +399,11 @@ Object {
   "phases": Array [
     Object {
       "lastData": Object {
+        "axisDelta": Array [
+          0,
+          0,
+          0,
+        ],
         "axisMovement": Array [
           610,
           0,
@@ -353,9 +418,9 @@ Object {
           "deltaY": 0,
           "timeStamp": 21542,
         },
+        "isEndingSoon": false,
         "isMomentum": false,
         "type": "WHEEL_END",
-        "willEndSoon": false,
       },
       "range": Array [
         0,
@@ -365,6 +430,11 @@ Object {
     },
     Object {
       "lastData": Object {
+        "axisDelta": Array [
+          0,
+          0,
+          0,
+        ],
         "axisMovement": Array [
           740,
           0,
@@ -379,9 +449,9 @@ Object {
           "deltaY": 0,
           "timeStamp": 22026,
         },
+        "isEndingSoon": true,
         "isMomentum": true,
         "type": "MOMENTUM_WHEEL_END",
-        "willEndSoon": true,
       },
       "range": Array [
         27,
@@ -391,6 +461,11 @@ Object {
     },
     Object {
       "lastData": Object {
+        "axisDelta": Array [
+          0,
+          0,
+          0,
+        ],
         "axisMovement": Array [
           740,
           0,
@@ -405,9 +480,9 @@ Object {
           "deltaY": 0,
           "timeStamp": 22026,
         },
+        "isEndingSoon": true,
         "isMomentum": true,
         "type": "ANY_WHEEL_END",
-        "willEndSoon": true,
       },
       "range": Array [
         0,
@@ -424,6 +499,11 @@ Object {
   "phases": Array [
     Object {
       "lastData": Object {
+        "axisDelta": Array [
+          0,
+          0,
+          0,
+        ],
         "axisMovement": Array [
           2524,
           -8,
@@ -438,9 +518,9 @@ Object {
           "deltaY": 0,
           "timeStamp": 146329,
         },
+        "isEndingSoon": false,
         "isMomentum": false,
         "type": "WHEEL_END",
-        "willEndSoon": false,
       },
       "range": Array [
         0,
@@ -450,6 +530,11 @@ Object {
     },
     Object {
       "lastData": Object {
+        "axisDelta": Array [
+          0,
+          0,
+          0,
+        ],
         "axisMovement": Array [
           7237,
           -8,
@@ -464,9 +549,9 @@ Object {
           "deltaY": 0,
           "timeStamp": 147746,
         },
+        "isEndingSoon": true,
         "isMomentum": true,
         "type": "MOMENTUM_WHEEL_END",
-        "willEndSoon": true,
       },
       "range": Array [
         17,
@@ -476,6 +561,11 @@ Object {
     },
     Object {
       "lastData": Object {
+        "axisDelta": Array [
+          0,
+          0,
+          0,
+        ],
         "axisMovement": Array [
           7237,
           -8,
@@ -490,9 +580,9 @@ Object {
           "deltaY": 0,
           "timeStamp": 147746,
         },
+        "isEndingSoon": true,
         "isMomentum": true,
         "type": "ANY_WHEEL_END",
-        "willEndSoon": true,
       },
       "range": Array [
         0,
@@ -509,6 +599,11 @@ Object {
   "phases": Array [
     Object {
       "lastData": Object {
+        "axisDelta": Array [
+          0,
+          0,
+          0,
+        ],
         "axisMovement": Array [
           2138,
           -15,
@@ -523,9 +618,9 @@ Object {
           "deltaY": 0,
           "timeStamp": 2009,
         },
+        "isEndingSoon": false,
         "isMomentum": false,
         "type": "WHEEL_END",
-        "willEndSoon": false,
       },
       "range": Array [
         0,
@@ -535,6 +630,11 @@ Object {
     },
     Object {
       "lastData": Object {
+        "axisDelta": Array [
+          0,
+          0,
+          0,
+        ],
         "axisMovement": Array [
           3001,
           -15,
@@ -549,9 +649,9 @@ Object {
           "deltaY": 0,
           "timeStamp": 2925.0000000000005,
         },
+        "isEndingSoon": true,
         "isMomentum": true,
         "type": "MOMENTUM_WHEEL_END",
-        "willEndSoon": true,
       },
       "range": Array [
         29,
@@ -561,6 +661,11 @@ Object {
     },
     Object {
       "lastData": Object {
+        "axisDelta": Array [
+          0,
+          0,
+          0,
+        ],
         "axisMovement": Array [
           3001,
           -15,
@@ -575,9 +680,9 @@ Object {
           "deltaY": 0,
           "timeStamp": 2925.0000000000005,
         },
+        "isEndingSoon": true,
         "isMomentum": true,
         "type": "ANY_WHEEL_END",
-        "willEndSoon": true,
       },
       "range": Array [
         0,
@@ -594,6 +699,11 @@ Object {
   "phases": Array [
     Object {
       "lastData": Object {
+        "axisDelta": Array [
+          0,
+          0,
+          0,
+        ],
         "axisMovement": Array [
           -15,
           0,
@@ -608,9 +718,9 @@ Object {
           "deltaY": 0,
           "timeStamp": 64035.86500001256,
         },
+        "isEndingSoon": true,
         "isMomentum": false,
         "type": "WHEEL_END",
-        "willEndSoon": true,
       },
       "range": Array [
         0,
@@ -620,6 +730,11 @@ Object {
     },
     Object {
       "lastData": Object {
+        "axisDelta": Array [
+          0,
+          0,
+          0,
+        ],
         "axisMovement": Array [
           -15,
           0,
@@ -634,9 +749,9 @@ Object {
           "deltaY": 0,
           "timeStamp": 64035.86500001256,
         },
+        "isEndingSoon": true,
         "isMomentum": false,
         "type": "ANY_WHEEL_END",
-        "willEndSoon": true,
       },
       "range": Array [
         0,
@@ -646,6 +761,11 @@ Object {
     },
     Object {
       "lastData": Object {
+        "axisDelta": Array [
+          0,
+          0,
+          0,
+        ],
         "axisMovement": Array [
           -3191,
           0,
@@ -660,9 +780,9 @@ Object {
           "deltaY": 0,
           "timeStamp": 64845.06500000134,
         },
+        "isEndingSoon": false,
         "isMomentum": false,
         "type": "WHEEL_END",
-        "willEndSoon": false,
       },
       "range": Array [
         10,
@@ -672,6 +792,11 @@ Object {
     },
     Object {
       "lastData": Object {
+        "axisDelta": Array [
+          0,
+          0,
+          0,
+        ],
         "axisMovement": Array [
           -6336,
           0,
@@ -686,9 +811,9 @@ Object {
           "deltaY": 0,
           "timeStamp": 65929.5800000109,
         },
+        "isEndingSoon": true,
         "isMomentum": true,
         "type": "MOMENTUM_WHEEL_END",
-        "willEndSoon": true,
       },
       "range": Array [
         33,
@@ -698,6 +823,11 @@ Object {
     },
     Object {
       "lastData": Object {
+        "axisDelta": Array [
+          0,
+          0,
+          0,
+        ],
         "axisMovement": Array [
           -6336,
           0,
@@ -712,9 +842,9 @@ Object {
           "deltaY": 0,
           "timeStamp": 65929.5800000109,
         },
+        "isEndingSoon": true,
         "isMomentum": true,
         "type": "ANY_WHEEL_END",
-        "willEndSoon": true,
       },
       "range": Array [
         10,
@@ -731,6 +861,11 @@ Object {
   "phases": Array [
     Object {
       "lastData": Object {
+        "axisDelta": Array [
+          0,
+          0,
+          0,
+        ],
         "axisMovement": Array [
           -1247,
           0,
@@ -745,9 +880,9 @@ Object {
           "deltaY": 0,
           "timeStamp": 1792.395000011311,
         },
+        "isEndingSoon": false,
         "isMomentum": false,
         "type": "WHEEL_END",
-        "willEndSoon": false,
       },
       "range": Array [
         0,
@@ -757,6 +892,11 @@ Object {
     },
     Object {
       "lastData": Object {
+        "axisDelta": Array [
+          0,
+          0,
+          0,
+        ],
         "axisMovement": Array [
           -1634,
           0,
@@ -771,9 +911,9 @@ Object {
           "deltaY": 0,
           "timeStamp": 2458.8000000076136,
         },
+        "isEndingSoon": true,
         "isMomentum": true,
         "type": "MOMENTUM_WHEEL_END",
-        "willEndSoon": true,
       },
       "range": Array [
         25,
@@ -783,6 +923,11 @@ Object {
     },
     Object {
       "lastData": Object {
+        "axisDelta": Array [
+          0,
+          0,
+          0,
+        ],
         "axisMovement": Array [
           -1634,
           0,
@@ -797,9 +942,9 @@ Object {
           "deltaY": 0,
           "timeStamp": 2458.8000000076136,
         },
+        "isEndingSoon": true,
         "isMomentum": true,
         "type": "ANY_WHEEL_END",
-        "willEndSoon": true,
       },
       "range": Array [
         0,
@@ -816,6 +961,11 @@ Object {
   "phases": Array [
     Object {
       "lastData": Object {
+        "axisDelta": Array [
+          0,
+          0,
+          0,
+        ],
         "axisMovement": Array [
           -38,
           2735,
@@ -830,9 +980,9 @@ Object {
           "deltaY": 195,
           "timeStamp": 101790,
         },
+        "isEndingSoon": false,
         "isMomentum": false,
         "type": "WHEEL_END",
-        "willEndSoon": false,
       },
       "range": Array [
         0,
@@ -842,6 +992,11 @@ Object {
     },
     Object {
       "lastData": Object {
+        "axisDelta": Array [
+          0,
+          0,
+          0,
+        ],
         "axisMovement": Array [
           -38,
           6526,
@@ -856,9 +1011,9 @@ Object {
           "deltaY": 1,
           "timeStamp": 103107,
         },
+        "isEndingSoon": true,
         "isMomentum": true,
         "type": "MOMENTUM_WHEEL_END",
-        "willEndSoon": true,
       },
       "range": Array [
         21,
@@ -868,6 +1023,11 @@ Object {
     },
     Object {
       "lastData": Object {
+        "axisDelta": Array [
+          0,
+          0,
+          0,
+        ],
         "axisMovement": Array [
           -38,
           6526,
@@ -882,9 +1042,9 @@ Object {
           "deltaY": 1,
           "timeStamp": 103107,
         },
+        "isEndingSoon": true,
         "isMomentum": true,
         "type": "ANY_WHEEL_END",
-        "willEndSoon": true,
       },
       "range": Array [
         0,
@@ -901,6 +1061,11 @@ Object {
   "phases": Array [
     Object {
       "lastData": Object {
+        "axisDelta": Array [
+          0,
+          0,
+          0,
+        ],
         "axisMovement": Array [
           -70,
           2197,
@@ -915,9 +1080,9 @@ Object {
           "deltaY": 110,
           "timeStamp": 86430,
         },
+        "isEndingSoon": false,
         "isMomentum": false,
         "type": "WHEEL_END",
-        "willEndSoon": false,
       },
       "range": Array [
         0,
@@ -927,6 +1092,11 @@ Object {
     },
     Object {
       "lastData": Object {
+        "axisDelta": Array [
+          0,
+          0,
+          0,
+        ],
         "axisMovement": Array [
           -70,
           3774,
@@ -941,9 +1111,9 @@ Object {
           "deltaY": 1,
           "timeStamp": 87480,
         },
+        "isEndingSoon": true,
         "isMomentum": true,
         "type": "MOMENTUM_WHEEL_END",
-        "willEndSoon": true,
       },
       "range": Array [
         23,
@@ -953,6 +1123,11 @@ Object {
     },
     Object {
       "lastData": Object {
+        "axisDelta": Array [
+          0,
+          0,
+          0,
+        ],
         "axisMovement": Array [
           -70,
           3774,
@@ -967,9 +1142,9 @@ Object {
           "deltaY": 1,
           "timeStamp": 87480,
         },
+        "isEndingSoon": true,
         "isMomentum": true,
         "type": "ANY_WHEEL_END",
-        "willEndSoon": true,
       },
       "range": Array [
         0,

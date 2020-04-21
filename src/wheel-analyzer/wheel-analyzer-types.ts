@@ -17,9 +17,10 @@ export interface WheelAnalyzerState {
 export interface PhaseData {
   type: WheelPhase
   isMomentum: boolean
-  willEndSoon: boolean
+  isEndingSoon: boolean
   axisMovement: Vector3D
   axisVelocity: Vector3D
+  axisDelta: Vector3D
   event: WheelEvent | WheelEventData
 }
 
@@ -54,6 +55,4 @@ export type SubscribeFn = (type: WheelPhase, data: PhaseData) => void
 export type Unsubscribe = () => void
 
 export type Unobserve = () => void
-export type DeltaProp = 'deltaX' | 'deltaY'
 export type PreventWheelActionType = 'all' | 'x' | 'y'
-export type Axis = 'x' | 'y'

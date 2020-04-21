@@ -21,8 +21,11 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "tsdx lint"
+      "pre-commit": "lint-staged"
     }
+  },
+  "lint-staged": {
+    "*.{ts,tsx,js}": "tsdx lint --fix"
   },
   "repository": {
     "type": "git",
@@ -51,10 +54,11 @@
     "eslint-plugin-import": "^2.19.1",
     "eslint-plugin-simple-import-sort": "^5.0.0",
     "husky": "^4.2.5",
+    "lint-staged": "^10.1.6",
+    "semantic-release": "^17.0.4",
     "tsdx": "^0.13.2",
     "tslib": "^1.11.1",
-    "typescript": "^3.8.3",
-    "semantic-release": "^17.0.4"
+    "typescript": "^3.8.3"
   },
   "jest": {
     "collectCoverageFrom": [
