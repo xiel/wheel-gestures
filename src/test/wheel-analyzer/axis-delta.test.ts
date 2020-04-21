@@ -1,6 +1,6 @@
-import { subscribeAndFeedWheelEvents } from '../helper/recordPhases'
-import { createWheelEvent } from '../helper/generateEvents'
 import { WheelPhase } from '../..'
+import { createWheelEvent } from '../helper/generateEvents'
+import { subscribeAndFeedWheelEvents } from '../helper/recordPhases'
 
 describe('axisDelta', () => {
   it('only wheel events should have delta', () => {
