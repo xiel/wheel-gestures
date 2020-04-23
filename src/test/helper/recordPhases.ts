@@ -1,24 +1,13 @@
 import { WheelAnalyzer } from '../../wheel-analyzer/wheel-analyzer'
 import { PhaseData, SubscribeFn, WheelEventData, WheelTypes } from '../../wheel-analyzer/wheel-analyzer-types'
 
-export type Range = [number, number]
-
-export interface PhaseRange {
-  wheelType: WheelTypes
-  range: Range
-  canceled?: boolean
-  lastData?: PhaseData
-}
-
-export function subscribeAndFeedWheelEvents({
-  beforeFeed,
-  callback,
-  wheelEvents,
-}: {
+interface SubAndFeedProps {
   beforeFeed?: (e: WheelEventData, i: number) => void
   callback?: SubscribeFn
-  wheelEvents: WheelEventData[]
-}) {
+  wheelEvents?: WheelEventData[]
+}
+
+export function subscribeAndFeedWheelEvents({ beforeFeed, callback, wheelEvents = [] }: SubAndFeedProps = {}) {
   const allPhaseData: PhaseData[] = []
 
   // need to use fake timers, so we can run the debounced end function after feeding all events
@@ -30,23 +19,36 @@ export function subscribeAndFeedWheelEvents({
   wheelAnalyzer.subscribe((_, data) => allPhaseData.push(data))
 
   let prevTimeStamp = 0
-  // feed test wheel events and update index which is used to keep track of the ranges
-  wheelEvents.forEach((e, i) => {
-    // move time forward (triggers eg. timeouts with end continues gesture)
-    if (prevTimeStamp) {
-      jest.advanceTimersByTime(e.timeStamp! - prevTimeStamp)
-    }
 
-    beforeFeed && beforeFeed(e, i)
-    wheelAnalyzer.feedWheel(e)
+  function feedEvents(eventsToFeed: WheelEventData[]) {
+    eventsToFeed.forEach((e, i) => {
+      // move time forward (triggers eg. timeouts with end continues gesture)
+      if (prevTimeStamp) {
+        jest.advanceTimersByTime(e.timeStamp! - prevTimeStamp)
+      }
 
-    prevTimeStamp = e.timeStamp!
-  })
+      beforeFeed && beforeFeed(e, i)
+      wheelAnalyzer.feedWheel(e)
 
-  // fast forward and exhaust currently pending timers, this will trigger the *_END events
-  jest.runOnlyPendingTimers()
+      prevTimeStamp = e.timeStamp!
+    })
 
-  return { wheelAnalyzer, allPhaseData }
+    // fast forward and exhaust currently pending timers, this will trigger the *_END events
+    jest.runOnlyPendingTimers()
+  }
+
+  feedEvents(wheelEvents)
+
+  return { wheelAnalyzer, allPhaseData, feedEvents }
+}
+
+export type Range = [number, number]
+
+export interface PhaseRange {
+  wheelType: WheelTypes
+  range: Range
+  canceled?: boolean
+  lastData?: PhaseData
 }
 
 export function recordPhases(wheelEvents: WheelEventData[]) {
@@ -60,6 +62,7 @@ export function recordPhases(wheelEvents: WheelEventData[]) {
 
   // record phases
   subscribeAndFeedWheelEvents({
+    // update index which is used to keep track of the ranges
     beforeFeed: (_, i) => (eventIndex = i),
     callback: (type, data) => {
       const isStart = type.endsWith('_START')

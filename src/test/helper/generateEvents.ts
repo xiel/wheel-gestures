@@ -13,13 +13,15 @@ export function createWheelEvent({
   deltaZ = 0,
   deltaMode = 0,
   timeStamp = 0,
-} = {}): WheelEventData {
+  ...rest
+}: Partial<WheelEventData> = {}): WheelEventData {
   return {
     deltaX,
     deltaY,
     deltaZ,
     deltaMode,
     timeStamp,
+    ...rest,
   }
 }
 
