@@ -25,20 +25,12 @@ export interface Options {
   preventWheelAction: PreventWheelActionType
 }
 
-const defaults: Options = {
-  preventWheelAction: 'all',
-}
-
 export function WheelAnalyzer(optionsParam: Partial<Options> = {}) {
+  let options: Options
   let state = createWheelAnalyzerState()
   let subscriptions: SubscribeFn[] = []
   let targets: EventTarget[] = []
   let currentEvent: WheelEventData
-
-  // merge passed options with defaults (filter undefined option values)
-  const options: Options = Object.entries(optionsParam)
-    .filter(([, value]) => value !== undefined)
-    .reduce((o, [key, value]) => Object.assign(o, { [key]: value }), { ...defaults })
 
   const observe = (target: EventTarget): Unobserve => {
     target.addEventListener('wheel', feedWheel as EventListener, { passive: false })
@@ -88,6 +80,12 @@ export function WheelAnalyzer(optionsParam: Partial<Options> = {}) {
     } else {
       processWheelEventData(wheelEvents)
     }
+  }
+
+  const updateOptions = (newOptions: Partial<Options> = {}) => {
+    const { preventWheelAction = 'all', ...otherOptions } = newOptions
+    options = { preventWheelAction, ...otherOptions }
+    return options
   }
 
   const shouldPreventDefault = (e: WheelEventData) => {
@@ -309,6 +307,8 @@ export function WheelAnalyzer(optionsParam: Partial<Options> = {}) {
     return absDeltaAverage <= SOON_ENDING_THRESHOLD
   }
 
+  updateOptions(optionsParam)
+
   return Object.freeze({
     observe,
     unobserve,
@@ -316,5 +316,6 @@ export function WheelAnalyzer(optionsParam: Partial<Options> = {}) {
     subscribe,
     unsubscribe,
     feedWheel,
+    updateOptions,
   })
 }
