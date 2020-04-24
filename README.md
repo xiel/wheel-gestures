@@ -16,7 +16,7 @@ you bring the wheel events, wheelAnalyzer returns wheel gestures & momentum info
 - Windows (testing needed & help appreciated), Microsoft Precision Touchpads
 - Linux (testing needed & help appreciated)
 
-### Prior Art
+#### Prior Art
 
 There were people before me who also thought that it might be helpful for some interactions to be able to distinguish between user initiated wheel events and the ones that are triggered by inertia scroll, but none of the other known libraries delivered results in the precision I needed, so I developed my own solution. Honourable mentions:
 
