@@ -12,8 +12,8 @@ you bring the wheel events, wheelAnalyzer returns wheel gestures & momentum info
 
 **OS & Browsers**
 
-- Mac OS (Chrome, Firefox, Safari, Brave, Edge), Magic Mouse, Magic Trackpad
-- Windows (testing needed & help appreciated), Microsoft Precision Touchpads
+- Mac OS (Chrome, Firefox, Safari, Edge), Magic Mouse, Magic Trackpad
+- Windows (Chrome, Firefox, Edge), Microsoft Precision Touchpads
 - Linux (testing needed & help appreciated)
 
 #### Prior Art
