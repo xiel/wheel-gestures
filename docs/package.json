@@ -20,7 +20,7 @@
     "gatsby-plugin-typescript": "^2.3.1",
     "gatsby-source-filesystem": "^2.2.2",
     "gatsby-transformer-sharp": "^2.4.4",
-    "node-sass": "^4.13.1",
+    "node-sass": "^4.14.0",
     "prism-themes": "^1.4.0",
     "prismjs": "^1.20.0",
     "prop-types": "^15.7.2",
