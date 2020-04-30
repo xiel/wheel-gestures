@@ -139,7 +139,7 @@ export function WheelAnalyzer(optionsParam: Partial<Options> = {}) {
 
     state.scrollPointsToMerge.push({
       currentAbsDelta: currentAbsDelta,
-      axisDeltaUnclampt: [deltaX, deltaY, deltaZ],
+      axisDeltaUnclampt: axisDelta,
       timestamp: wheelEvent.timeStamp,
     })
 
@@ -147,6 +147,7 @@ export function WheelAnalyzer(optionsParam: Partial<Options> = {}) {
       const { scrollPointsToMerge } = state
       const mergedScrollPoint: ScrollPoint = {
         currentAbsDelta: average(scrollPointsToMerge.map((b) => b.currentAbsDelta)),
+        // TODO z axis missing
         axisDeltaUnclampt: scrollPointsToMerge.reduce(
           ([sumX, sumY], { axisDeltaUnclampt: [x, y] }) => [sumX + x, sumY + y],
           [0, 0]

@@ -32,10 +32,8 @@ export function WheelGestures({ axis = 'all', wheelReason = WheelReason.USER }: 
   wheelAnalyzer.subscribe((type, data) => {
     let dragState: WheelDragState = {
       ...data,
+      // TODO: move into analyzer
       down: true,
-      // TODO: why * -1, should this not better be in analyzer or when used?
-      // axisMovement: data.axisMovement.map((d) => d * -1),
-      // axisVelocity: [data.axisVelocity[0] * -1, data.axisVelocity[1] * -1],
     }
 
     switch (type) {

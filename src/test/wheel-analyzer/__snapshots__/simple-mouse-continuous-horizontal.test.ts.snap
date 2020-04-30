@@ -13,6 +13,7 @@ Object {
         "axisMovement": Array [
           -713.4722900390625,
           0,
+          0,
         ],
         "axisVelocity": Array [
           -1.9548461698762425,
@@ -43,6 +44,7 @@ Object {
         ],
         "axisMovement": Array [
           -713.4722900390625,
+          0,
           0,
         ],
         "axisVelocity": Array [
@@ -82,6 +84,7 @@ Object {
         "axisMovement": Array [
           -468,
           0,
+          0,
         ],
         "axisVelocity": Array [
           -0.8977556109725686,
@@ -112,6 +115,7 @@ Object {
         ],
         "axisMovement": Array [
           -468,
+          0,
           0,
         ],
         "axisVelocity": Array [
@@ -151,6 +155,7 @@ Object {
         "axisMovement": Array [
           -713.28125,
           0,
+          0,
         ],
         "axisVelocity": Array [
           -1.9534027099609375,
@@ -181,6 +186,7 @@ Object {
         ],
         "axisMovement": Array [
           -713.28125,
+          0,
           0,
         ],
         "axisVelocity": Array [
@@ -220,6 +226,7 @@ Object {
         "axisMovement": Array [
           -900,
           0,
+          0,
         ],
         "axisVelocity": Array [
           -1.4989881830374567,
@@ -250,6 +257,7 @@ Object {
         ],
         "axisMovement": Array [
           -900,
+          0,
           0,
         ],
         "axisVelocity": Array [
@@ -289,6 +297,7 @@ Object {
         "axisMovement": Array [
           -1050,
           0,
+          0,
         ],
         "axisVelocity": Array [
           -3.282129479414435,
@@ -319,6 +328,7 @@ Object {
         ],
         "axisMovement": Array [
           -1050,
+          0,
           0,
         ],
         "axisVelocity": Array [
@@ -358,6 +368,7 @@ Object {
         "axisMovement": Array [
           -54,
           0,
+          0,
         ],
         "axisVelocity": Array [
           -0.135,
@@ -389,6 +400,7 @@ Object {
         ],
         "axisMovement": Array [
           -54,
+          0,
           0,
         ],
         "axisVelocity": Array [
@@ -422,6 +434,7 @@ Object {
         "axisMovement": Array [
           -1296,
           0,
+          0,
         ],
         "axisVelocity": Array [
           -0.5524296675191815,
@@ -452,6 +465,7 @@ Object {
         ],
         "axisMovement": Array [
           -1296,
+          0,
           0,
         ],
         "axisVelocity": Array [

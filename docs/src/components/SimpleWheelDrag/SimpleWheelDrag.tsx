@@ -9,13 +9,13 @@ import c from './SimpleWheelDrag.module.scss'
 export default function SimpleWheelDrag() {
   const containerRef = useRef<HTMLDivElement | null>(null)
   const elRef = useRef<HTMLDivElement | null>(null)
-  const [{ xy }, set] = useSpring(() => ({ xy: [0, 0] }))
-  const [springMomentum, setSpringMomentum] = useSpring(() => ({ xy: [0, 0] }))
+  const [{ xyz }, set] = useSpring(() => ({ xyz: [0, 0, 0] }))
+  const [springMomentum, setSpringMomentum] = useSpring(() => ({ xyz: [0, 0, 0] }))
   const [preventWheelAction, setPreventWheelAction] = useState<'all' | 'x' | 'y'>('all')
 
   useWheelDrag(
     ({ down, axisMovement }) => {
-      set({ xy: down ? axisMovement : [0, 0], immediate: down }) // immediate: down
+      set({ xyz: down ? axisMovement : [0, 0, 0], immediate: down }) // immediate: down
     },
     { domTarget: containerRef, axis: preventWheelAction }
   )
@@ -23,7 +23,7 @@ export default function SimpleWheelDrag() {
   // update momentum spring
   useWheelDrag(
     ({ down, axisMovement, axisDelta, isMomentum, isEndingSoon }) => {
-      setSpringMomentum({ xy: down ? axisMovement : [0, 0], immediate: down }) // immediate: down
+      setSpringMomentum({ xyz: down ? axisMovement : [0, 0, 0], immediate: down }) // immediate: down
     },
     {
       domTarget: containerRef,
@@ -35,8 +35,8 @@ export default function SimpleWheelDrag() {
   const bind = useDrag(
     ({ movement, dragging, event }) => {
       event?.preventDefault()
-      set({ xy: dragging ? movement : [0, 0], immediate: dragging })
-      setSpringMomentum({ xy: dragging ? movement : [0, 0], immediate: dragging })
+      set({ xyz: dragging ? movement : [0, 0, 0], immediate: dragging })
+      setSpringMomentum({ xyz: dragging ? movement : [0, 0, 0], immediate: dragging })
     },
     { domTarget: containerRef, eventOptions: { passive: false } }
   )
@@ -64,14 +64,14 @@ export default function SimpleWheelDrag() {
         <animated.div
           className={c.box + ' ' + c.momentum}
           style={{
-            transform: springMomentum.xy.to(interpolate),
+            transform: springMomentum.xyz.to(interpolate),
           }}
         />
         <animated.div
           ref={elRef}
           className={c.box}
           style={{
-            transform: xy.to(interpolate),
+            transform: xyz.to(interpolate),
           }}
         />
       </div>
