@@ -13,7 +13,7 @@ export function subscribeAndFeedWheelEvents({ beforeFeed, callback, wheelEvents 
   // need to use fake timers, so we can run the debounced end function after feeding all events
   jest.useFakeTimers()
 
-  const wheelAnalyzer = WheelAnalyzer()
+  const wheelAnalyzer = WheelAnalyzer({ reverseSign: false })
 
   callback && wheelAnalyzer.subscribe(callback)
   wheelAnalyzer.subscribe((_, data) => allPhaseData.push(data))

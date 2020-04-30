@@ -1,8 +1,9 @@
-import React, { useRef, useState } from 'react'
+import React, { useRef, useState, useEffect } from 'react'
 import { animated, useSpring } from 'react-spring'
 import WheelRecorder from '../WheelRecorder/WheelRecorder'
 import useWheelDrag from '../../hooks/useWheelDrag'
 import { WheelReason } from 'wheel-gestures'
+import { useDrag } from 'react-use-gesture'
 import c from './SimpleWheelDrag.module.scss'
 
 export default function SimpleWheelDrag() {
@@ -14,15 +15,15 @@ export default function SimpleWheelDrag() {
 
   useWheelDrag(
     ({ down, axisMovement }) => {
-      set({ xy: down ? axisMovement : [0, 0] }) // immediate: down
+      set({ xy: down ? axisMovement : [0, 0], immediate: down }) // immediate: down
     },
     { domTarget: containerRef, axis: preventWheelAction }
   )
 
   // update momentum spring
   useWheelDrag(
-    ({ down, axisMovement }) => {
-      setSpringMomentum({ xy: down ? axisMovement : [0, 0] }) // immediate: down
+    ({ down, axisMovement, axisDelta, isMomentum, isEndingSoon }) => {
+      setSpringMomentum({ xy: down ? axisMovement : [0, 0], immediate: down }) // immediate: down
     },
     {
       domTarget: containerRef,
@@ -30,6 +31,18 @@ export default function SimpleWheelDrag() {
       wheelReason: WheelReason.ANY,
     }
   )
+
+  const bind = useDrag(
+    ({ movement, dragging, event }) => {
+      event?.preventDefault()
+      set({ xy: dragging ? movement : [0, 0], immediate: dragging })
+      setSpringMomentum({ xy: dragging ? movement : [0, 0], immediate: dragging })
+    },
+    { domTarget: containerRef, eventOptions: { passive: false } }
+  )
+
+  // @ts-ignore
+  useEffect(bind, [bind])
 
   const interpolate = (x: number, y: number) => `translate3D(${x}px, ${y}px, 0)`
 

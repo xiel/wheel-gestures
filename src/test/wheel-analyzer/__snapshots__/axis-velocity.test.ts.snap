@@ -15,6 +15,7 @@ Array [
     "axisVelocity": Array [
       0,
       0.05,
+      0,
     ],
     "event": Object {
       "deltaMode": 0,
@@ -39,6 +40,7 @@ Array [
     "axisVelocity": Array [
       0,
       0.05,
+      0,
     ],
     "event": Object {
       "deltaMode": 0,
@@ -63,6 +65,7 @@ Array [
     "axisVelocity": Array [
       0,
       0.05,
+      0,
     ],
     "event": Object {
       "deltaMode": 0,
@@ -87,6 +90,7 @@ Array [
     "axisVelocity": Array [
       0,
       0.05,
+      0,
     ],
     "event": Object {
       "deltaMode": 0,
@@ -111,6 +115,7 @@ Array [
     "axisVelocity": Array [
       0,
       0.05,
+      0,
     ],
     "event": Object {
       "deltaMode": 0,
@@ -135,6 +140,7 @@ Array [
     "axisVelocity": Array [
       0,
       0.05,
+      0,
     ],
     "event": Object {
       "deltaMode": 0,

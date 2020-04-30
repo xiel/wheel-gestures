@@ -22,12 +22,6 @@ const wheelType = {
 }
 
 export function WheelGestures({ axis = 'all', wheelReason = WheelReason.USER }: Props = {}) {
-  let dragState: WheelDragState = {
-    down: false,
-    axisMovement: [0, 0],
-    axisVelocity: [0, 0],
-  }
-
   const wheelAnalyzer = WheelAnalyzer({
     preventWheelAction: axis,
   })
@@ -36,11 +30,12 @@ export function WheelGestures({ axis = 'all', wheelReason = WheelReason.USER }: 
   const { on, off, dispatch } = EventBus<WheelGesturesEventMap>()
 
   wheelAnalyzer.subscribe((type, data) => {
-    dragState = {
+    let dragState: WheelDragState = {
+      ...data,
       down: true,
       // TODO: why * -1, should this not better be in analyzer or when used?
-      axisMovement: data.axisMovement.map((d) => d * -1),
-      axisVelocity: [data.axisVelocity[0] * -1, data.axisVelocity[1] * -1],
+      // axisMovement: data.axisMovement.map((d) => d * -1),
+      // axisVelocity: [data.axisVelocity[0] * -1, data.axisVelocity[1] * -1],
     }
 
     switch (type) {
