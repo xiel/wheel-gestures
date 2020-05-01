@@ -60,7 +60,10 @@ export function WheelAnalyzer(optionsParam: Partial<Options> = {}) {
   }
 
   const unsubscribe = (callback: SubscribeFn) => {
-    if (!callback) throw new Error('please pass the callback which was used to subscribe')
+    if (!callback) {
+      if (isDev) throw new Error('please pass the callback used to subscribe')
+      return
+    }
     subscriptions = subscriptions.filter((s) => s !== callback)
   }
 
