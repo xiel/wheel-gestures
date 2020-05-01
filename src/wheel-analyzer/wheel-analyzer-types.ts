@@ -27,7 +27,7 @@ export interface PhaseData {
 
 export interface ScrollPoint {
   currentAbsDelta: number
-  axisDeltaUnclampt: number[]
+  axisDeltaUnclampt: VectorXYZ
   timestamp: number
 }
 

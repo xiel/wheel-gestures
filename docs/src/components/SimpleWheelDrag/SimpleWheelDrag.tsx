@@ -2,28 +2,39 @@ import React, { useRef, useState, useEffect } from 'react'
 import { animated, useSpring } from 'react-spring'
 import WheelRecorder from '../WheelRecorder/WheelRecorder'
 import useWheelDrag from '../../hooks/useWheelDrag'
-import { WheelReason } from 'wheel-gestures'
+import { WheelReason, addVectors } from 'wheel-gestures'
 import { useDrag } from 'react-use-gesture'
 import c from './SimpleWheelDrag.module.scss'
 
 export default function SimpleWheelDrag() {
   const containerRef = useRef<HTMLDivElement | null>(null)
   const elRef = useRef<HTMLDivElement | null>(null)
+  const movementFromRef = useRef([0, 0, 0])
   const [{ xyz }, set] = useSpring(() => ({ xyz: [0, 0, 0] }))
   const [springMomentum, setSpringMomentum] = useSpring(() => ({ xyz: [0, 0, 0] }))
   const [preventWheelAction, setPreventWheelAction] = useState<'all' | 'x' | 'y'>('all')
 
   useWheelDrag(
-    ({ down, axisMovement }) => {
-      set({ xyz: down ? axisMovement : [0, 0, 0], immediate: down }) // immediate: down
+    ({ start, down, axisMovement }) => {
+      if (start) {
+        movementFromRef.current = xyz.get()
+      }
+
+      set({
+        xyz: down ? addVectors(axisMovement, movementFromRef.current) : [0, 0, 0],
+        immediate: down,
+      })
     },
     { domTarget: containerRef, axis: preventWheelAction }
   )
 
   // update momentum spring
   useWheelDrag(
-    ({ down, axisMovement, axisDelta, isMomentum, isEndingSoon }) => {
-      setSpringMomentum({ xyz: down ? axisMovement : [0, 0, 0], immediate: down }) // immediate: down
+    ({ down, axisMovement }) => {
+      setSpringMomentum({
+        xyz: down ? addVectors(axisMovement, movementFromRef.current) : [0, 0, 0],
+        immediate: down,
+      })
     },
     {
       domTarget: containerRef,
@@ -35,13 +46,12 @@ export default function SimpleWheelDrag() {
   const bind = useDrag(
     ({ movement, dragging, event }) => {
       event?.preventDefault()
-      set({ xyz: dragging ? movement : [0, 0, 0], immediate: dragging })
-      setSpringMomentum({ xyz: dragging ? movement : [0, 0, 0], immediate: dragging })
+      set({ xyz: dragging ? [...movement, 0] : [0, 0, 0], immediate: dragging })
+      setSpringMomentum({ xyz: dragging ? [...movement, 0] : [0, 0, 0], immediate: dragging })
     },
     { domTarget: containerRef, eventOptions: { passive: false } }
   )
 
-  // @ts-ignore
   useEffect(bind, [bind])
 
   const interpolate = (x: number, y: number) => `translate3D(${x}px, ${y}px, 0)`

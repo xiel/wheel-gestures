@@ -1,4 +1,4 @@
-import { average } from '../utils/utils'
+import { addVectors, average } from '../utils'
 import { normalizeWheel, reverseSign } from '../wheel-normalizer/wheel-normalizer'
 import { createWheelAnalyzerState } from './state'
 import {
@@ -134,6 +134,7 @@ export function WheelAnalyzer(optionsParam: Partial<Options> = {}) {
 
     currentEvent = wheelEvent
 
+    // TODO: clampDelta like reverseSign
     state.axisMovement = state.axisMovement.map((prevDelta, i) => prevDelta + clampDelta(axisDelta[i])) as VectorXYZ
     state.lastAbsDelta = currentAbsDelta
 
@@ -147,11 +148,7 @@ export function WheelAnalyzer(optionsParam: Partial<Options> = {}) {
       const { scrollPointsToMerge } = state
       const mergedScrollPoint: ScrollPoint = {
         currentAbsDelta: average(scrollPointsToMerge.map((b) => b.currentAbsDelta)),
-        // TODO z axis missing
-        axisDeltaUnclampt: scrollPointsToMerge.reduce(
-          ([sumX, sumY], { axisDeltaUnclampt: [x, y] }) => [sumX + x, sumY + y],
-          [0, 0]
-        ),
+        axisDeltaUnclampt: scrollPointsToMerge.map((b) => b.axisDeltaUnclampt).reduce(addVectors),
         timestamp: average(scrollPointsToMerge.map((b) => b.timestamp)),
       }
 

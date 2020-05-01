@@ -34,6 +34,7 @@ export function WheelGestures({ axis = 'all', wheelReason = WheelReason.USER }: 
       ...data,
       // TODO: move into analyzer
       down: true,
+      start: false,
     }
 
     switch (type) {
@@ -41,6 +42,7 @@ export function WheelGestures({ axis = 'all', wheelReason = WheelReason.USER }: 
         dragState = {
           ...dragState,
           down: true,
+          start: true,
         }
         dispatch('wheelstart', dragState)
         break

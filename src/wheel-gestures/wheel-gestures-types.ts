@@ -2,6 +2,7 @@ import { PhaseData } from '..'
 
 export interface WheelDragState extends PhaseData {
   down: boolean
+  start: boolean
 }
 
 export enum WheelReason {
