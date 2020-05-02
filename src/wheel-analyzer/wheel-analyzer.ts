@@ -130,15 +130,12 @@ export function WheelAnalyzer(optionsParam: Partial<Options> = {}) {
     }
 
     // TODO: deltaZ
-    // const currentDelta = clampDelta(Math.abs(deltaY) > Math.abs(deltaX) ? deltaY : deltaX)
-
     // TODO: would be better done on averaged deltas !
     const currentDelta = Math.abs(deltaY) > Math.abs(deltaX) ? deltaY : deltaX
     const currentAbsDelta = Math.abs(currentDelta)
 
     if (state.isMomentum && currentAbsDelta > state.lastAbsDelta) {
       end()
-      console.log('RESTART!!!!', currentAbsDelta, state.lastAbsDelta)
       start()
     }
 
