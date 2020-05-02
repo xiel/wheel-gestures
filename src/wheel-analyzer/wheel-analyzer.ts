@@ -15,12 +15,10 @@ import {
 } from './wheel-analyzer-types'
 
 const isDev = process.env.NODE_ENV !== 'production'
-const SOON_ENDING_THRESHOLD = 1.4
 const ACC_FACTOR_MIN = 0.6
 const ACC_FACTOR_MAX = 0.96
 const WHEELEVENTS_TO_MERGE = 2
 const WHEELEVENTS_TO_ANALAZE = 5
-const SOON_ENDING_WHEEL_COUNT = 3
 const reverseSignDefault: ReverseSign = [true, true, false]
 
 export interface Options {
@@ -69,7 +67,6 @@ export function WheelAnalyzer(optionsParam: Partial<Options> = {}) {
   const publish = (type: WheelPhase, additionalData?: Partial<PhaseData>) => {
     const data: PhaseData = {
       type,
-      isEndingSoon: willEndSoon(),
       isMomentum: state.isMomentum,
       axisMovement: state.axisMovement,
       axisVelocity: state.axisVelocity,
@@ -112,14 +109,6 @@ export function WheelAnalyzer(optionsParam: Partial<Options> = {}) {
 
   const processWheelEventData = (wheelEvent: WheelEventData) => {
     const { axisDelta, timeStamp } = clampDelta(reverseSign(normalizeWheel(wheelEvent), options.reverseSign))
-    const [deltaX, deltaY] = axisDelta // TODO: deltaZ
-
-    if (
-      wheelEvent.deltaMode === 0 &&
-      (Math.abs(deltaX) != Math.abs(wheelEvent.deltaX) || Math.abs(deltaY) != Math.abs(wheelEvent.deltaY))
-    ) {
-      console.log(axisDelta, [wheelEvent.deltaX, wheelEvent.deltaY], wheelEvent)
-    }
 
     if (wheelEvent.preventDefault && shouldPreventDefault(wheelEvent)) {
       wheelEvent.preventDefault()
@@ -129,13 +118,10 @@ export function WheelAnalyzer(optionsParam: Partial<Options> = {}) {
       start()
     }
 
-    // TODO: deltaZ
-    // TODO: would be better done on averaged deltas !
     const deltaMaxAbs = Math.max(...axisDelta.map(Math.abs))
 
     if (state.isMomentum && deltaMaxAbs > state.lastAbsDelta) {
-      // TODO: call cancel instead of end
-      end()
+      end(true)
       start()
     }
 
@@ -279,18 +265,18 @@ export function WheelAnalyzer(optionsParam: Partial<Options> = {}) {
   }
 
   const willEnd = (() => {
-    let willEndId: NodeJS.Timeout
+    let willEndId: number
     return () => {
       clearTimeout(willEndId)
       willEndId = setTimeout(end, state.willEndTimeout)
     }
   })()
 
-  const end = () => {
+  const end = (isMomentumCancel = false) => {
     if (!state.isStarted) return
 
     if (state.isMomentum) {
-      if (!willEndSoon()) {
+      if (isMomentumCancel) {
         publish(WheelPhase.MOMENTUM_WHEEL_CANCEL)
       } else {
         publish(WheelPhase.MOMENTUM_WHEEL_END)
@@ -304,13 +290,6 @@ export function WheelAnalyzer(optionsParam: Partial<Options> = {}) {
 
     state.isMomentum = false
     state.isStarted = false
-  }
-
-  const willEndSoon = () => {
-    const absDeltas = state.scrollPoints.slice(SOON_ENDING_WHEEL_COUNT * -1).map(({ deltaMaxAbs }) => deltaMaxAbs)
-    const absDeltaAverage = absDeltas.reduce((a, b) => a + b, 0) / absDeltas.length
-
-    return absDeltaAverage <= SOON_ENDING_THRESHOLD
   }
 
   updateOptions(optionsParam)

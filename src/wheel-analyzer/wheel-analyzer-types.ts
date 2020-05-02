@@ -18,7 +18,6 @@ export interface WheelAnalyzerState {
 export interface PhaseData {
   type: WheelPhase
   isMomentum: boolean
-  isEndingSoon: boolean
   axisMovement: VectorXYZ
   axisVelocity: VectorXYZ
   axisDelta: VectorXYZ
