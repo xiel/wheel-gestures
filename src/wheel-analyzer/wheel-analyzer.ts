@@ -109,6 +109,7 @@ export function WheelAnalyzer(optionsParam: Partial<Options> = {}) {
 
   const processWheelEventData = (wheelEvent: WheelEventData) => {
     const { axisDelta, timeStamp } = clampDelta(reverseSign(normalizeWheel(wheelEvent), options.reverseSign))
+    const deltaMaxAbs = Math.max(...axisDelta.map(Math.abs))
 
     if (wheelEvent.preventDefault && shouldPreventDefault(wheelEvent)) {
       wheelEvent.preventDefault()
@@ -117,8 +118,6 @@ export function WheelAnalyzer(optionsParam: Partial<Options> = {}) {
     if (!state.isStarted) {
       start()
     }
-
-    const deltaMaxAbs = Math.max(...axisDelta.map(Math.abs))
 
     if (state.isMomentum && deltaMaxAbs > state.lastAbsDelta) {
       end(true)
