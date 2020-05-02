@@ -116,7 +116,8 @@ export function WheelAnalyzer(optionsParam: Partial<Options> = {}) {
   }
 
   const processWheelEventData = (wheelEvent: WheelEventData) => {
-    const { deltaX, deltaY, deltaZ } = reverseSign(normalizeWheel(wheelEvent), options.reverseSign)
+    const { axisDelta } = reverseSign(normalizeWheel(wheelEvent), options.reverseSign)
+    const [deltaX, deltaY] = axisDelta // TODO: deltaZ
 
     if (wheelEvent.preventDefault && shouldPreventDefault(wheelEvent)) {
       wheelEvent.preventDefault()
@@ -126,9 +127,9 @@ export function WheelAnalyzer(optionsParam: Partial<Options> = {}) {
       start()
     }
 
+    // TODO: deltaZ
     const currentDelta = clampDelta(Math.abs(deltaY) > Math.abs(deltaX) ? deltaY : deltaX)
     const currentAbsDelta = Math.abs(currentDelta)
-    const axisDelta: VectorXYZ = [deltaX, deltaY, deltaZ]
 
     if (state.isMomentum && currentAbsDelta > state.lastAbsDelta) {
       end()
