@@ -1,5 +1,5 @@
 import { addVectors, average } from '../utils'
-import { normalizeWheel, reverseSign } from '../wheel-normalizer/wheel-normalizer'
+import { clampDelta, normalizeWheel, reverseSign } from '../wheel-normalizer/wheel-normalizer'
 import { createWheelAnalyzerState } from './state'
 import {
   PhaseData,
@@ -18,7 +18,6 @@ const isDev = process.env.NODE_ENV !== 'production'
 const SOON_ENDING_THRESHOLD = 1.4
 const ACC_FACTOR_MIN = 0.6
 const ACC_FACTOR_MAX = 0.96
-const DELTA_MAX_ABS = 150
 const WHEELEVENTS_TO_MERGE = 2
 const WHEELEVENTS_TO_ANALAZE = 5
 const SOON_ENDING_WHEEL_COUNT = 3
@@ -111,13 +110,16 @@ export function WheelAnalyzer(optionsParam: Partial<Options> = {}) {
     isDev && console.warn('unsupported preventWheelAction value: ' + preventWheelAction, 'warn')
   }
 
-  const clampDelta = (delta: number) => {
-    return Math.min(DELTA_MAX_ABS, Math.max(-DELTA_MAX_ABS, delta))
-  }
-
   const processWheelEventData = (wheelEvent: WheelEventData) => {
-    const { axisDelta } = reverseSign(normalizeWheel(wheelEvent), options.reverseSign)
+    const { axisDelta } = clampDelta(reverseSign(normalizeWheel(wheelEvent), options.reverseSign))
     const [deltaX, deltaY] = axisDelta // TODO: deltaZ
+
+    if (
+      wheelEvent.deltaMode === 0 &&
+      (Math.abs(deltaX) != Math.abs(wheelEvent.deltaX) || Math.abs(deltaY) != Math.abs(wheelEvent.deltaY))
+    ) {
+      console.log(axisDelta, [wheelEvent.deltaX, wheelEvent.deltaY], wheelEvent)
+    }
 
     if (wheelEvent.preventDefault && shouldPreventDefault(wheelEvent)) {
       wheelEvent.preventDefault()
@@ -128,22 +130,27 @@ export function WheelAnalyzer(optionsParam: Partial<Options> = {}) {
     }
 
     // TODO: deltaZ
-    const currentDelta = clampDelta(Math.abs(deltaY) > Math.abs(deltaX) ? deltaY : deltaX)
+    // const currentDelta = clampDelta(Math.abs(deltaY) > Math.abs(deltaX) ? deltaY : deltaX)
+
+    // TODO: would be better done on averaged deltas !
+    const currentDelta = Math.abs(deltaY) > Math.abs(deltaX) ? deltaY : deltaX
     const currentAbsDelta = Math.abs(currentDelta)
 
     if (state.isMomentum && currentAbsDelta > state.lastAbsDelta) {
       end()
+      console.log('RESTART!!!!', currentAbsDelta, state.lastAbsDelta)
       start()
     }
 
     currentEvent = wheelEvent
 
     // TODO: clampDelta like reverseSign
-    state.axisMovement = state.axisMovement.map((prevDelta, i) => prevDelta + clampDelta(axisDelta[i])) as VectorXYZ
+    state.axisMovement = addVectors(state.axisMovement, axisDelta)
     state.lastAbsDelta = currentAbsDelta
 
     state.scrollPointsToMerge.push({
       currentAbsDelta: currentAbsDelta,
+      // TODO: there is no unclampt anymore
       axisDeltaUnclampt: axisDelta,
       timestamp: wheelEvent.timeStamp,
     })
@@ -274,6 +281,7 @@ export function WheelAnalyzer(optionsParam: Partial<Options> = {}) {
   const start = () => {
     state = createWheelAnalyzerState()
     state.isStarted = true
+    state.startTime = Date.now()
   }
 
   const willEnd = (() => {

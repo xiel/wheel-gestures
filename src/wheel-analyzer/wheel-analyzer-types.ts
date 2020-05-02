@@ -5,7 +5,7 @@ export interface WheelAnalyzerState {
   isStarted: boolean
   isStartPublished: boolean
   isMomentum: boolean
-
+  startTime: number
   lastAbsDelta: number
   axisMovement: VectorXYZ
   axisVelocity: VectorXYZ
