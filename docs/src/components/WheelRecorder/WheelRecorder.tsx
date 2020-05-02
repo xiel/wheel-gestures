@@ -8,7 +8,7 @@ interface Props {
   domTarget?: EventTarget | React.RefObject<EventTarget> | null
 }
 
-export default function WheelRecorder({ domTarget = document.body }: Props) {
+export default function WheelRecorder({ domTarget = document?.body }: Props) {
   const [recording, setRecording] = useState(false)
   const recordedEvents = useRef<WheelEventData[]>([])
   const [downloadHref, setDownloadHref] = useState('')
