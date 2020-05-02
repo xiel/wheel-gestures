@@ -1,0 +1,297 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ignores double bounce Mac - Safari 1`] = `
+Object {
+  "phases": Array [
+    Object {
+      "lastData": Object {
+        "axisDelta": Array [
+          0,
+          0,
+          0,
+        ],
+        "axisMovement": Array [
+          2558,
+          0,
+          0,
+        ],
+        "axisVelocity": Array [
+          3.606060606060606,
+          0,
+          0,
+        ],
+        "event": Object {
+          "deltaMode": 0,
+          "deltaX": 57,
+          "deltaY": 0,
+          "timeStamp": 47900,
+        },
+        "isMomentum": false,
+        "type": "WHEEL_END",
+      },
+      "range": Array [
+        0,
+        23,
+      ],
+      "wheelType": "WHEEL",
+    },
+    Object {
+      "lastData": Object {
+        "axisDelta": Array [
+          0,
+          0,
+          0,
+        ],
+        "axisMovement": Array [
+          3148,
+          0,
+          0,
+        ],
+        "axisVelocity": Array [
+          0.04,
+          0,
+          0,
+        ],
+        "event": Object {
+          "deltaMode": 0,
+          "deltaX": 1,
+          "deltaY": 0,
+          "timeStamp": 48634,
+        },
+        "isMomentum": true,
+        "type": "MOMENTUM_WHEEL_END",
+      },
+      "range": Array [
+        23,
+        65,
+      ],
+      "wheelType": "MOMENTUM_WHEEL",
+    },
+    Object {
+      "lastData": Object {
+        "axisDelta": Array [
+          0,
+          0,
+          0,
+        ],
+        "axisMovement": Array [
+          3148,
+          0,
+          0,
+        ],
+        "axisVelocity": Array [
+          0.04,
+          0,
+          0,
+        ],
+        "event": Object {
+          "deltaMode": 0,
+          "deltaX": 1,
+          "deltaY": 0,
+          "timeStamp": 48634,
+        },
+        "isMomentum": true,
+        "type": "ANY_WHEEL_END",
+      },
+      "range": Array [
+        0,
+        65,
+      ],
+      "wheelType": "ANY_WHEEL",
+    },
+    Object {
+      "lastData": Object {
+        "axisDelta": Array [
+          0,
+          0,
+          0,
+        ],
+        "axisMovement": Array [
+          -9222,
+          0,
+          0,
+        ],
+        "axisVelocity": Array [
+          -26.393939393939394,
+          0,
+          0,
+        ],
+        "event": Object {
+          "deltaMode": 0,
+          "deltaX": -425,
+          "deltaY": 0,
+          "timeStamp": 49110,
+        },
+        "isMomentum": false,
+        "type": "WHEEL_END",
+      },
+      "range": Array [
+        66,
+        85,
+      ],
+      "wheelType": "WHEEL",
+    },
+    Object {
+      "canceled": true,
+      "lastData": Object {
+        "axisDelta": Array [
+          0,
+          0,
+          0,
+        ],
+        "axisMovement": Array [
+          -12421,
+          0,
+          0,
+        ],
+        "axisVelocity": Array [
+          -14.666666666666666,
+          0,
+          0,
+        ],
+        "event": Object {
+          "deltaMode": 0,
+          "deltaX": -232,
+          "deltaY": 0,
+          "timeStamp": 49277,
+        },
+        "isMomentum": true,
+        "type": "MOMENTUM_WHEEL_CANCEL",
+      },
+      "range": Array [
+        85,
+        96,
+      ],
+      "wheelType": "MOMENTUM_WHEEL",
+    },
+    Object {
+      "lastData": Object {
+        "axisDelta": Array [
+          0,
+          0,
+          0,
+        ],
+        "axisMovement": Array [
+          -12421,
+          0,
+          0,
+        ],
+        "axisVelocity": Array [
+          -14.666666666666666,
+          0,
+          0,
+        ],
+        "event": Object {
+          "deltaMode": 0,
+          "deltaX": -232,
+          "deltaY": 0,
+          "timeStamp": 49277,
+        },
+        "isMomentum": true,
+        "type": "ANY_WHEEL_END",
+      },
+      "range": Array [
+        66,
+        96,
+      ],
+      "wheelType": "ANY_WHEEL",
+    },
+    Object {
+      "lastData": Object {
+        "axisDelta": Array [
+          0,
+          0,
+          0,
+        ],
+        "axisMovement": Array [
+          -1930,
+          0,
+          0,
+        ],
+        "axisVelocity": Array [
+          -3.8805970149253732,
+          0,
+          0,
+        ],
+        "event": Object {
+          "deltaMode": 0,
+          "deltaX": -62,
+          "deltaY": 0,
+          "timeStamp": 49527,
+        },
+        "isMomentum": false,
+        "type": "WHEEL_END",
+      },
+      "range": Array [
+        96,
+        109,
+      ],
+      "wheelType": "WHEEL",
+    },
+    Object {
+      "lastData": Object {
+        "axisDelta": Array [
+          0,
+          0,
+          0,
+        ],
+        "axisMovement": Array [
+          -2577,
+          0,
+          0,
+        ],
+        "axisVelocity": Array [
+          -0.04081632653061224,
+          0,
+          0,
+        ],
+        "event": Object {
+          "deltaMode": 0,
+          "deltaX": -1,
+          "deltaY": 0,
+          "timeStamp": 50277,
+        },
+        "isMomentum": true,
+        "type": "MOMENTUM_WHEEL_END",
+      },
+      "range": Array [
+        109,
+        152,
+      ],
+      "wheelType": "MOMENTUM_WHEEL",
+    },
+    Object {
+      "lastData": Object {
+        "axisDelta": Array [
+          0,
+          0,
+          0,
+        ],
+        "axisMovement": Array [
+          -2577,
+          0,
+          0,
+        ],
+        "axisVelocity": Array [
+          -0.04081632653061224,
+          0,
+          0,
+        ],
+        "event": Object {
+          "deltaMode": 0,
+          "deltaX": -1,
+          "deltaY": 0,
+          "timeStamp": 50277,
+        },
+        "isMomentum": true,
+        "type": "ANY_WHEEL_END",
+      },
+      "range": Array [
+        96,
+        152,
+      ],
+      "wheelType": "ANY_WHEEL",
+    },
+  ],
+}
+`;
