@@ -26,9 +26,9 @@ export interface PhaseData {
 }
 
 export interface ScrollPoint {
-  currentAbsDelta: number
-  axisDeltaUnclampt: VectorXYZ
-  timestamp: number
+  deltaMaxAbs: number
+  axisDelta: VectorXYZ
+  timeStamp: number
 }
 
 export type WheelEventDataRequiredFields = 'deltaMode' | 'deltaX' | 'deltaY' | 'timeStamp'
