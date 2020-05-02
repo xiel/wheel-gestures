@@ -13,7 +13,7 @@ export function subscribeAndFeedWheelEvents({ beforeFeed, callback, wheelEvents 
   // need to use fake timers, so we can run the debounced end function after feeding all events
   jest.useFakeTimers()
 
-  const wheelAnalyzer = WheelAnalyzer()
+  const wheelAnalyzer = WheelAnalyzer({ reverseSign: false })
 
   callback && wheelAnalyzer.subscribe(callback)
   wheelAnalyzer.subscribe((_, data) => allPhaseData.push(data))
@@ -24,13 +24,13 @@ export function subscribeAndFeedWheelEvents({ beforeFeed, callback, wheelEvents 
     eventsToFeed.forEach((e, i) => {
       // move time forward (triggers eg. timeouts with end continues gesture)
       if (prevTimeStamp) {
-        jest.advanceTimersByTime(e.timeStamp! - prevTimeStamp)
+        jest.advanceTimersByTime(e.timeStamp - prevTimeStamp)
       }
 
       beforeFeed && beforeFeed(e, i)
       wheelAnalyzer.feedWheel(e)
 
-      prevTimeStamp = e.timeStamp!
+      prevTimeStamp = e.timeStamp
     })
 
     // fast forward and exhaust currently pending timers, this will trigger the *_END events

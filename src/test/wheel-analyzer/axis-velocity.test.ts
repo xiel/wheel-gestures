@@ -1,4 +1,4 @@
-import { lastOf } from '../../utils/utils'
+import { lastOf } from '../../utils'
 import { PhaseData } from '../../wheel-analyzer/wheel-analyzer-types'
 import { generateEvents } from '../helper/generateEvents'
 import { subscribeAndFeedWheelEvents } from '../helper/recordPhases'

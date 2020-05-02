@@ -24,8 +24,12 @@ export default function Header({ siteTitle }: Props) {
           </h1>
         </Link>
         <nav className={c.nav}>
-          <Link className={c.navLink} to="/">Wheel Drag</Link>
-          <Link className={c.navLink} to="/gallery">Gallery</Link>
+          <Link className={c.navLink} to="/">
+            Wheel Drag
+          </Link>
+          <Link className={c.navLink} to="/gallery/">
+            Gallery
+          </Link>
         </nav>
       </Content>
     </header>

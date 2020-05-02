@@ -1,13 +1,15 @@
-import { average } from '../utils/utils'
-import { normalizeWheel } from '../wheel-normalizer/wheel-normalizer'
+import { addVectors, average } from '../utils'
+import { normalizeWheel, reverseSign } from '../wheel-normalizer/wheel-normalizer'
 import { createWheelAnalyzerState } from './state'
 import {
   PhaseData,
   PreventWheelActionType,
+  ReverseSign,
   ScrollPoint,
   SubscribeFn,
   Unobserve,
   Unsubscribe,
+  VectorXYZ,
   WheelEventData,
   WheelPhase,
 } from './wheel-analyzer-types'
@@ -20,9 +22,11 @@ const DELTA_MAX_ABS = 150
 const WHEELEVENTS_TO_MERGE = 2
 const WHEELEVENTS_TO_ANALAZE = 5
 const SOON_ENDING_WHEEL_COUNT = 3
+const reverseSignDefault: ReverseSign = [true, true, false]
 
 export interface Options {
   preventWheelAction: PreventWheelActionType
+  reverseSign: ReverseSign
 }
 
 export function WheelAnalyzer(optionsParam: Partial<Options> = {}) {
@@ -56,7 +60,10 @@ export function WheelAnalyzer(optionsParam: Partial<Options> = {}) {
   }
 
   const unsubscribe = (callback: SubscribeFn) => {
-    if (!callback) throw new Error('please pass the callback which was used to subscribe')
+    if (!callback) {
+      if (isDev) throw new Error('please pass the callback used to subscribe')
+      return
+    }
     subscriptions = subscriptions.filter((s) => s !== callback)
   }
 
@@ -82,9 +89,9 @@ export function WheelAnalyzer(optionsParam: Partial<Options> = {}) {
     }
   }
 
-  const updateOptions = (newOptions: Partial<Options> = {}) => {
-    const { preventWheelAction = 'all', ...otherOptions } = newOptions
-    options = { preventWheelAction, ...otherOptions }
+  const updateOptions = (newOptions: Partial<Options> = {}): Options => {
+    const { preventWheelAction = 'all', reverseSign = reverseSignDefault, ...otherOptions } = newOptions
+    options = { preventWheelAction, reverseSign, ...otherOptions }
     return options
   }
 
@@ -109,7 +116,8 @@ export function WheelAnalyzer(optionsParam: Partial<Options> = {}) {
   }
 
   const processWheelEventData = (wheelEvent: WheelEventData) => {
-    const { deltaX, deltaY, deltaZ } = normalizeWheel(wheelEvent)
+    const { axisDelta } = reverseSign(normalizeWheel(wheelEvent), options.reverseSign)
+    const [deltaX, deltaY] = axisDelta // TODO: deltaZ
 
     if (wheelEvent.preventDefault && shouldPreventDefault(wheelEvent)) {
       wheelEvent.preventDefault()
@@ -119,9 +127,9 @@ export function WheelAnalyzer(optionsParam: Partial<Options> = {}) {
       start()
     }
 
+    // TODO: deltaZ
     const currentDelta = clampDelta(Math.abs(deltaY) > Math.abs(deltaX) ? deltaY : deltaX)
     const currentAbsDelta = Math.abs(currentDelta)
-    const axisDelta = [deltaX, deltaY, deltaZ]
 
     if (state.isMomentum && currentAbsDelta > state.lastAbsDelta) {
       end()
@@ -130,12 +138,13 @@ export function WheelAnalyzer(optionsParam: Partial<Options> = {}) {
 
     currentEvent = wheelEvent
 
-    state.axisMovement = state.axisMovement.map((prevDelta, i) => prevDelta + clampDelta(axisDelta[i]))
+    // TODO: clampDelta like reverseSign
+    state.axisMovement = state.axisMovement.map((prevDelta, i) => prevDelta + clampDelta(axisDelta[i])) as VectorXYZ
     state.lastAbsDelta = currentAbsDelta
 
     state.scrollPointsToMerge.push({
       currentAbsDelta: currentAbsDelta,
-      axisDeltaUnclampt: [deltaX, deltaY],
+      axisDeltaUnclampt: axisDelta,
       timestamp: wheelEvent.timeStamp,
     })
 
@@ -143,10 +152,7 @@ export function WheelAnalyzer(optionsParam: Partial<Options> = {}) {
       const { scrollPointsToMerge } = state
       const mergedScrollPoint: ScrollPoint = {
         currentAbsDelta: average(scrollPointsToMerge.map((b) => b.currentAbsDelta)),
-        axisDeltaUnclampt: scrollPointsToMerge.reduce(
-          ([sumX, sumY], { axisDeltaUnclampt: [x, y] }) => [sumX + x, sumY + y],
-          [0, 0]
-        ),
+        axisDeltaUnclampt: scrollPointsToMerge.map((b) => b.axisDeltaUnclampt).reduce(addVectors),
         timestamp: average(scrollPointsToMerge.map((b) => b.timestamp)),
       }
 
@@ -184,7 +190,7 @@ export function WheelAnalyzer(optionsParam: Partial<Options> = {}) {
 
   const updateStartVelocity = () => {
     const latestScrollPoint = state.scrollPointsToMerge[state.scrollPointsToMerge.length - 1]
-    state.axisVelocity = latestScrollPoint.axisDeltaUnclampt.map((d) => d / state.willEndTimeout)
+    state.axisVelocity = latestScrollPoint.axisDeltaUnclampt.map((d) => d / state.willEndTimeout) as VectorXYZ
   }
 
   const updateVelocity = () => {
@@ -204,7 +210,7 @@ export function WheelAnalyzer(optionsParam: Partial<Options> = {}) {
     }
 
     // calc the velocity per axes
-    const velocity = pB.axisDeltaUnclampt.map((d) => d / deltaTime)
+    const velocity = pB.axisDeltaUnclampt.map((d) => d / deltaTime) as VectorXYZ
 
     // calc the acceleration factor per axis
     const accelerationFactor = velocity.map((v, i) => {

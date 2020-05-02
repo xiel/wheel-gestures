@@ -19,7 +19,11 @@ export default function useWheelDrag(
   })
 
   useEffect(() => {
-    const offs = [wheelGestures.on('wheelmove', handler), wheelGestures.on('wheelend', handler)]
+    const offs = [
+      wheelGestures.on('wheelstart', handler),
+      wheelGestures.on('wheelmove', handler),
+      wheelGestures.on('wheelend', handler),
+    ]
 
     return () => offs.forEach((off) => off())
   }, [handler, wheelGestures, wheelReason])

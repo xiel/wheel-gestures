@@ -1,4 +1,5 @@
-export type Vector3D = number[]
+export type VectorXYZ = [number, number, number]
+export type BooleanXYZ = [boolean, boolean, boolean]
 
 export interface WheelAnalyzerState {
   isStarted: boolean
@@ -6,8 +7,8 @@ export interface WheelAnalyzerState {
   isMomentum: boolean
 
   lastAbsDelta: number
-  axisMovement: Vector3D
-  axisVelocity: Vector3D
+  axisMovement: VectorXYZ
+  axisVelocity: VectorXYZ
   accelerationFactors: number[][]
   scrollPoints: ScrollPoint[]
   scrollPointsToMerge: ScrollPoint[]
@@ -18,15 +19,15 @@ export interface PhaseData {
   type: WheelPhase
   isMomentum: boolean
   isEndingSoon: boolean
-  axisMovement: Vector3D
-  axisVelocity: Vector3D
-  axisDelta: Vector3D
+  axisMovement: VectorXYZ
+  axisVelocity: VectorXYZ
+  axisDelta: VectorXYZ
   event: WheelEvent | WheelEventData
 }
 
 export interface ScrollPoint {
   currentAbsDelta: number
-  axisDeltaUnclampt: number[]
+  axisDeltaUnclampt: VectorXYZ
   timestamp: number
 }
 
@@ -56,3 +57,4 @@ export type Unsubscribe = () => void
 
 export type Unobserve = () => void
 export type PreventWheelActionType = 'all' | 'x' | 'y'
+export type ReverseSign = BooleanXYZ | boolean

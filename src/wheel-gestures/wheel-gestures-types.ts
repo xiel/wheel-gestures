@@ -1,7 +1,8 @@
-export interface WheelDragState {
+import { PhaseData } from '..'
+
+export interface WheelDragState extends PhaseData {
   down: boolean
-  axisMovement: number[]
-  axisVelocity: [number, number]
+  start: boolean
 }
 
 export enum WheelReason {
