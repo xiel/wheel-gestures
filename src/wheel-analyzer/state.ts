@@ -11,6 +11,7 @@ export function createWheelAnalyzerState(): WheelAnalyzerState {
     isStarted: false,
     isStartPublished: false,
     isMomentum: false,
+    startTime: 0,
     lastAbsDelta: Infinity,
     axisMovement: [0, 0, 0],
     axisVelocity: [0, 0, 0],

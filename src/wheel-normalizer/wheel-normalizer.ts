@@ -15,8 +15,8 @@ export function normalizeWheel(e: WheelEventData): NormalizedWheel {
   const deltaZ = (e.deltaZ || 0) * DELTA_MODE_UNIT[e.deltaMode]
 
   return {
-    axisDelta: [deltaX, deltaY, deltaZ],
     timeStamp: e.timeStamp,
+    axisDelta: [deltaX, deltaY, deltaZ],
   }
 }
 
@@ -32,5 +32,16 @@ export function reverseSign<T extends Pick<NormalizedWheel, 'axisDelta'>>(wheel:
   return {
     ...wheel,
     axisDelta: wheel.axisDelta.map((delta, i) => delta * multipliers[i]),
+  }
+}
+
+export const clamp = (value: number, min: number, max: number) => Math.min(Math.max(min, value), max)
+
+const DELTA_MAX_ABS = 700
+
+export const clampDelta = <T extends Pick<NormalizedWheel, 'axisDelta'>>(wheel: T) => {
+  return {
+    ...wheel,
+    axisDelta: wheel.axisDelta.map((delta) => clamp(delta, -DELTA_MAX_ABS, DELTA_MAX_ABS)),
   }
 }

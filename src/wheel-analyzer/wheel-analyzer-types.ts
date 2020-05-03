@@ -5,7 +5,7 @@ export interface WheelAnalyzerState {
   isStarted: boolean
   isStartPublished: boolean
   isMomentum: boolean
-
+  startTime: number
   lastAbsDelta: number
   axisMovement: VectorXYZ
   axisVelocity: VectorXYZ
@@ -18,7 +18,6 @@ export interface WheelAnalyzerState {
 export interface PhaseData {
   type: WheelPhase
   isMomentum: boolean
-  isEndingSoon: boolean
   axisMovement: VectorXYZ
   axisVelocity: VectorXYZ
   axisDelta: VectorXYZ
@@ -26,9 +25,9 @@ export interface PhaseData {
 }
 
 export interface ScrollPoint {
-  currentAbsDelta: number
-  axisDeltaUnclampt: VectorXYZ
-  timestamp: number
+  deltaMaxAbs: number
+  axisDelta: VectorXYZ
+  timeStamp: number
 }
 
 export type WheelEventDataRequiredFields = 'deltaMode' | 'deltaX' | 'deltaY' | 'timeStamp'

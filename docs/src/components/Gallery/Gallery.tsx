@@ -6,6 +6,7 @@ import useWheelDrag from '../../hooks/useWheelDrag'
 import { WheelReason } from 'wheel-gestures'
 import { projection } from '../../utils/projection'
 import { rubberband } from '../../utils/rubberband'
+import WheelRecorder from '../WheelRecorder/WheelRecorder'
 
 const pages = [
   'https://images.pexels.com/photos/414171/pexels-photo-414171.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
