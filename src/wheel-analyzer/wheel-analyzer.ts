@@ -1,4 +1,4 @@
-import { addVectors, average } from '../utils'
+import { addVectors, average, lastOf } from '../utils'
 import { clampDelta, normalizeWheel, reverseSign } from '../wheel-normalizer/wheel-normalizer'
 import { createWheelAnalyzerState } from './state'
 import {
@@ -128,7 +128,6 @@ export function WheelAnalyzer(optionsParam: Partial<Options> = {}) {
     currentEvent = wheelEvent
     state.axisMovement = addVectors(state.axisMovement, axisDelta)
     state.lastAbsDelta = deltaMaxAbs
-
     state.scrollPointsToMerge.push({
       deltaMaxAbs,
       axisDelta,
@@ -148,12 +147,12 @@ export function WheelAnalyzer(optionsParam: Partial<Options> = {}) {
       // only update velocity after a merged scrollpoint was generated
       updateVelocity()
 
+      // reset merge array
+      state.scrollPointsToMerge = []
+
       if (!state.isMomentum) {
         detectMomentum()
       }
-
-      // reset merge array
-      state.scrollPointsToMerge = []
     }
 
     if (!state.scrollPoints.length) {
@@ -176,8 +175,7 @@ export function WheelAnalyzer(optionsParam: Partial<Options> = {}) {
   }
 
   const updateStartVelocity = () => {
-    const latestScrollPoint = state.scrollPointsToMerge[state.scrollPointsToMerge.length - 1]
-    state.axisVelocity = latestScrollPoint.axisDelta.map((d) => d / state.willEndTimeout) as VectorXYZ
+    state.axisVelocity = lastOf(state.scrollPointsToMerge).axisDelta.map((d) => d / state.willEndTimeout) as VectorXYZ
   }
 
   const updateVelocity = () => {
@@ -228,34 +226,36 @@ export function WheelAnalyzer(optionsParam: Partial<Options> = {}) {
   }
 
   const detectMomentum = () => {
-    if (state.accelerationFactors.length < WHEELEVENTS_TO_ANALAZE) {
-      return state.isMomentum
+    if (state.accelerationFactors.length >= WHEELEVENTS_TO_ANALAZE) {
+      const recentAccelerationFactors = state.accelerationFactors.slice(WHEELEVENTS_TO_ANALAZE * -1)
+
+      // check recent acceleration / deceleration factors
+      const detectedMomentum = recentAccelerationFactors.reduce((mightBeMomentum: boolean, accFac) => {
+        // all recent need to match, if any did not match -> short circuit
+        if (!mightBeMomentum) return false
+        // when both axis decelerate exactly in the same rate it is very likely caused by momentum
+        const sameAccFac = !!accFac.reduce((f1, f2) => (f1 && f1 < 1 && f1 === f2 ? 1 : 0))
+        // check if acceleration factor is within momentum range
+        const bothAreInRangeOrZero = accFac.filter(accelerationFactorInMomentumRange).length === accFac.length
+        // one the requirements must be fulfilled
+        return sameAccFac || bothAreInRangeOrZero
+      }, true)
+
+      // only keep the most recent events
+      state.accelerationFactors = recentAccelerationFactors
+
+      if (detectedMomentum) {
+        recognizedMomentum()
+      }
     }
+  }
 
-    const recentAccelerationFactors = state.accelerationFactors.slice(WHEELEVENTS_TO_ANALAZE * -1)
-
-    // check recent acceleration / deceleration factors
-    const detectedMomentum = recentAccelerationFactors.reduce((mightBeMomentum, accFac) => {
-      // all recent need to match, if any did not match -> short circuit
-      if (!mightBeMomentum) return false
-      // when both axis decelerate exactly in the same rate it is very likely caused by momentum
-      const sameAccFac = !!accFac.reduce((f1, f2) => (f1 && f1 < 1 && f1 === f2 ? 1 : 0))
-      // check if acceleration factor is within momentum range
-      const bothAreInRangeOrZero = accFac.filter(accelerationFactorInMomentumRange).length === accFac.length
-      // one the requirements must be fulfilled
-      return sameAccFac || bothAreInRangeOrZero
-    }, true)
-
-    // only keep the most recent events
-    state.accelerationFactors = recentAccelerationFactors
-
-    if (detectedMomentum && !state.isMomentum) {
+  const recognizedMomentum = () => {
+    if (!state.isMomentum) {
       publish(WheelPhase.WHEEL_END)
       state.isMomentum = true
       publish(WheelPhase.MOMENTUM_WHEEL_START)
     }
-
-    return state.isMomentum
   }
 
   const start = () => {
