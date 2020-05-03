@@ -94,9 +94,9 @@ export default function SimpleWheelDrag() {
             transform: xyz.to(interpolate),
           }}
         />
+        <Plot data={plotData} />
       </div>
       {momentumScroll ? 'momentum scroll' : 'user scroll'}
-      <Plot data={plotData} />
     </div>
   )
 }

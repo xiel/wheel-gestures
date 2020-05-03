@@ -119,7 +119,8 @@ export function WheelAnalyzer(optionsParam: Partial<Options> = {}) {
       start()
     }
 
-    if (state.isMomentum && deltaMaxAbs > state.lastAbsDelta) {
+    // check if user started scrolling again -> cancel
+    if (state.isMomentum && deltaMaxAbs > Math.max(2, state.lastAbsDelta * 2)) {
       end(true)
       start()
     }

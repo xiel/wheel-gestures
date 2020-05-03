@@ -18,25 +18,27 @@ interface DrawProps {
 function draw({ canvas, data }: DrawProps) {
   const ctx = canvas.getContext('2d')!
   const { width, height } = canvas
-  const middleY = height / 2
+  const halfHeight = height / 2
 
   // clean up
   ctx.clearRect(0, 0, width, height)
 
   // axis line
-  ctx.fillStyle = 'rgba(0, 0, 0, 0.33)'
-  ctx.fillRect(0, middleY, width, 1)
+  ctx.fillStyle = 'rgba(0, 0, 0, 0.2)'
+  ctx.fillRect(0, halfHeight, width, 1)
 
+  const maxDelta = Math.max(1, ...data.map((d) => Math.max(...d.axisDelta.map(Math.abs))))
   const widthPerEvent = clamp(width / data.length, 0.25, 5)
+  const heightPerDelta = Math.min(1, halfHeight / maxDelta)
 
   data.forEach(({ axisDelta: [deltaX, deltaY], isMomentum }, i) => {
     ctx.fillStyle = isMomentum ? 'rgba(255, 73, 73, 0.45)' : 'rgba(255, 73, 73, 1)'
-    ctx.fillRect(widthPerEvent * i, middleY, widthPerEvent, deltaX)
-    ctx.fillRect(widthPerEvent * i, middleY, widthPerEvent, deltaY)
+    ctx.fillRect(widthPerEvent * i, halfHeight, widthPerEvent, deltaX * heightPerDelta)
+    ctx.fillRect(widthPerEvent * i, halfHeight, widthPerEvent, deltaY * heightPerDelta)
   })
 }
 
-export function Plot({ width = 1000, height = 600, data }: Props) {
+export function Plot({ width = 1000, height = 300, data }: Props) {
   const ctxRef = useRef<HTMLCanvasElement>(null)
 
   useEffect(() => {

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ignores double bounce Mac - Safari 1`] = `
+exports[`no cancel slight increase in delta should not trigger momentum cancel Mac - Safari 1`] = `
 Object {
   "phases": Array [
     Object {
@@ -132,7 +132,6 @@ Object {
       "wheelType": "WHEEL",
     },
     Object {
-      "canceled": true,
       "lastData": Object {
         "axisDelta": Array [
           0,
@@ -140,103 +139,7 @@ Object {
           0,
         ],
         "axisMovement": Array [
-          -12421,
-          0,
-          0,
-        ],
-        "axisVelocity": Array [
-          -14.666666666666666,
-          0,
-          0,
-        ],
-        "event": Object {
-          "deltaMode": 0,
-          "deltaX": -232,
-          "deltaY": 0,
-          "timeStamp": 49277,
-        },
-        "isMomentum": true,
-        "type": "MOMENTUM_WHEEL_CANCEL",
-      },
-      "range": Array [
-        85,
-        96,
-      ],
-      "wheelType": "MOMENTUM_WHEEL",
-    },
-    Object {
-      "lastData": Object {
-        "axisDelta": Array [
-          0,
-          0,
-          0,
-        ],
-        "axisMovement": Array [
-          -12421,
-          0,
-          0,
-        ],
-        "axisVelocity": Array [
-          -14.666666666666666,
-          0,
-          0,
-        ],
-        "event": Object {
-          "deltaMode": 0,
-          "deltaX": -232,
-          "deltaY": 0,
-          "timeStamp": 49277,
-        },
-        "isMomentum": true,
-        "type": "ANY_WHEEL_END",
-      },
-      "range": Array [
-        66,
-        96,
-      ],
-      "wheelType": "ANY_WHEEL",
-    },
-    Object {
-      "lastData": Object {
-        "axisDelta": Array [
-          0,
-          0,
-          0,
-        ],
-        "axisMovement": Array [
-          -1930,
-          0,
-          0,
-        ],
-        "axisVelocity": Array [
-          -3.8805970149253732,
-          0,
-          0,
-        ],
-        "event": Object {
-          "deltaMode": 0,
-          "deltaX": -62,
-          "deltaY": 0,
-          "timeStamp": 49527,
-        },
-        "isMomentum": false,
-        "type": "WHEEL_END",
-      },
-      "range": Array [
-        96,
-        109,
-      ],
-      "wheelType": "WHEEL",
-    },
-    Object {
-      "lastData": Object {
-        "axisDelta": Array [
-          0,
-          0,
-          0,
-        ],
-        "axisMovement": Array [
-          -2577,
+          -14998,
           0,
           0,
         ],
@@ -255,7 +158,7 @@ Object {
         "type": "MOMENTUM_WHEEL_END",
       },
       "range": Array [
-        109,
+        85,
         152,
       ],
       "wheelType": "MOMENTUM_WHEEL",
@@ -268,7 +171,7 @@ Object {
           0,
         ],
         "axisMovement": Array [
-          -2577,
+          -14998,
           0,
           0,
         ],
@@ -287,8 +190,214 @@ Object {
         "type": "ANY_WHEEL_END",
       },
       "range": Array [
-        96,
+        66,
         152,
+      ],
+      "wheelType": "ANY_WHEEL",
+    },
+  ],
+}
+`;
+
+exports[`no cancel slight increase in delta should not trigger momentum cancel Win - Chrome - swipe right 1`] = `
+Object {
+  "phases": Array [
+    Object {
+      "lastData": Object {
+        "axisDelta": Array [
+          0,
+          0,
+          0,
+        ],
+        "axisMovement": Array [
+          -1261.5,
+          0,
+          0,
+        ],
+        "axisVelocity": Array [
+          -1.6656662663927713,
+          0,
+          0,
+        ],
+        "event": Object {
+          "deltaMode": 0,
+          "deltaX": -27,
+          "deltaY": 0,
+          "timeStamp": 4111.99000000488,
+        },
+        "isMomentum": false,
+        "type": "WHEEL_END",
+      },
+      "range": Array [
+        0,
+        19,
+      ],
+      "wheelType": "WHEEL",
+    },
+    Object {
+      "lastData": Object {
+        "axisDelta": Array [
+          0,
+          0,
+          0,
+        ],
+        "axisMovement": Array [
+          -1810.5,
+          0,
+          0,
+        ],
+        "axisVelocity": Array [
+          -0.020010672361040757,
+          0,
+          0,
+        ],
+        "event": Object {
+          "deltaMode": 0,
+          "deltaX": -1.5,
+          "deltaY": 0,
+          "timeStamp": 5711.669999989681,
+        },
+        "isMomentum": true,
+        "type": "MOMENTUM_WHEEL_END",
+      },
+      "range": Array [
+        19,
+        95,
+      ],
+      "wheelType": "MOMENTUM_WHEEL",
+    },
+    Object {
+      "lastData": Object {
+        "axisDelta": Array [
+          0,
+          0,
+          0,
+        ],
+        "axisMovement": Array [
+          -1810.5,
+          0,
+          0,
+        ],
+        "axisVelocity": Array [
+          -0.020010672361040757,
+          0,
+          0,
+        ],
+        "event": Object {
+          "deltaMode": 0,
+          "deltaX": -1.5,
+          "deltaY": 0,
+          "timeStamp": 5711.669999989681,
+        },
+        "isMomentum": true,
+        "type": "ANY_WHEEL_END",
+      },
+      "range": Array [
+        0,
+        95,
+      ],
+      "wheelType": "ANY_WHEEL",
+    },
+  ],
+}
+`;
+
+exports[`no cancel slight increase in delta should not trigger momentum cancel Win - Chrome - swipe right fast 1`] = `
+Object {
+  "phases": Array [
+    Object {
+      "lastData": Object {
+        "axisDelta": Array [
+          0,
+          0,
+          0,
+        ],
+        "axisMovement": Array [
+          -2307,
+          0,
+          0,
+        ],
+        "axisVelocity": Array [
+          -3.7600716194702604,
+          0,
+          0,
+        ],
+        "event": Object {
+          "deltaMode": 0,
+          "deltaX": -61.5,
+          "deltaY": 0,
+          "timeStamp": 38931.870000000345,
+        },
+        "isMomentum": false,
+        "type": "WHEEL_END",
+      },
+      "range": Array [
+        0,
+        19,
+      ],
+      "wheelType": "WHEEL",
+    },
+    Object {
+      "lastData": Object {
+        "axisDelta": Array [
+          0,
+          0,
+          0,
+        ],
+        "axisMovement": Array [
+          -3631.5,
+          0,
+          0,
+        ],
+        "axisVelocity": Array [
+          -0.025725127018650807,
+          0,
+          0,
+        ],
+        "event": Object {
+          "deltaMode": 0,
+          "deltaX": -1.5,
+          "deltaY": 0,
+          "timeStamp": 40598.1900000188,
+        },
+        "isMomentum": true,
+        "type": "MOMENTUM_WHEEL_END",
+      },
+      "range": Array [
+        19,
+        107,
+      ],
+      "wheelType": "MOMENTUM_WHEEL",
+    },
+    Object {
+      "lastData": Object {
+        "axisDelta": Array [
+          0,
+          0,
+          0,
+        ],
+        "axisMovement": Array [
+          -3631.5,
+          0,
+          0,
+        ],
+        "axisVelocity": Array [
+          -0.025725127018650807,
+          0,
+          0,
+        ],
+        "event": Object {
+          "deltaMode": 0,
+          "deltaX": -1.5,
+          "deltaY": 0,
+          "timeStamp": 40598.1900000188,
+        },
+        "isMomentum": true,
+        "type": "ANY_WHEEL_END",
+      },
+      "range": Array [
+        0,
+        107,
       ],
       "wheelType": "ANY_WHEEL",
     },
