@@ -5,6 +5,7 @@ import useWheelDrag from '../../hooks/useWheelDrag'
 import { WheelReason, addVectors } from 'wheel-gestures'
 import { useDrag } from 'react-use-gesture'
 import c from './SimpleWheelDrag.module.scss'
+import { Plot, PlotData } from '../Plot/Plot'
 
 export default function SimpleWheelDrag() {
   const containerRef = useRef<HTMLDivElement | null>(null)
@@ -13,6 +14,8 @@ export default function SimpleWheelDrag() {
   const [{ xyz }, set] = useSpring(() => ({ xyz: [0, 0, 0] }))
   const [springMomentum, setSpringMomentum] = useSpring(() => ({ xyz: [0, 0, 0] }))
   const [preventWheelAction, setPreventWheelAction] = useState<'all' | 'x' | 'y'>('all')
+  const [momentumScroll, momentumScrollSet] = useState(false)
+  const plotData = useRef<PlotData[]>([])
 
   useWheelDrag(
     ({ start, down, axisMovement }) => {
@@ -30,11 +33,18 @@ export default function SimpleWheelDrag() {
 
   // update momentum spring
   useWheelDrag(
-    ({ down, axisMovement }) => {
+    ({ start, down, axisMovement, axisDelta, isMomentum }) => {
       setSpringMomentum({
         xyz: down ? addVectors(axisMovement, movementFromRef.current) : [0, 0, 0],
         immediate: down,
       })
+
+      momentumScrollSet(down && isMomentum)
+
+      if (start) {
+        plotData.current.length = 0
+      }
+      plotData.current.push({ axisDelta, isMomentum })
     },
     {
       domTarget: containerRef,
@@ -49,7 +59,7 @@ export default function SimpleWheelDrag() {
       set({ xyz: dragging ? [...movement, 0] : [0, 0, 0], immediate: dragging })
       setSpringMomentum({ xyz: dragging ? [...movement, 0] : [0, 0, 0], immediate: dragging })
     },
-    { domTarget: containerRef, eventOptions: { passive: false } }
+    { domTarget: elRef, eventOptions: { passive: false } }
   )
 
   useEffect(bind, [bind])
@@ -85,6 +95,8 @@ export default function SimpleWheelDrag() {
           }}
         />
       </div>
+      {momentumScroll ? 'momentum scroll' : 'user scroll'}
+      <Plot data={plotData} />
     </div>
   )
 }
