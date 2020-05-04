@@ -1,17 +1,16 @@
+import EventBus from '../events/EventBus'
 import { absMax, addVectors, average, lastOf } from '../utils'
-import { clampDelta, normalizeWheel, reverseSign } from '../wheel-normalizer/wheel-normalizer'
+import { clampAxisDelta, normalizeWheel, reverseAxisDeltaSign } from '../wheel-normalizer/wheel-normalizer'
 import { createWheelAnalyzerState } from './state'
 import {
   MergedScrollPoint,
-  PhaseData,
   PreventWheelActionType,
   ReverseSign,
-  SubscribeFn,
   Unobserve,
-  Unsubscribe,
   VectorXYZ,
   WheelEventData,
-  WheelPhase,
+  WheelGesturesEventMap,
+  WheelGestureState,
 } from './wheel-analyzer-types'
 
 const isDev = process.env.NODE_ENV !== 'production'
@@ -21,15 +20,17 @@ const WHEELEVENTS_TO_MERGE = 2
 const WHEELEVENTS_TO_ANALAZE = 5
 const reverseSignDefault: ReverseSign = [true, true, false]
 
+export type TWheelAnalyzer = ReturnType<typeof WheelAnalyzer>
+
 export interface Options {
   preventWheelAction: PreventWheelActionType
   reverseSign: ReverseSign
 }
 
 export function WheelAnalyzer(optionsParam: Partial<Options> = {}) {
+  const { on, off, dispatch } = EventBus<WheelGesturesEventMap>()
   let options: Options
   let state = createWheelAnalyzerState()
-  let subscriptions: SubscribeFn[] = []
   let targets: EventTarget[] = []
   let currentEvent: WheelEventData
   let negativeZeroFingerUpSpecialEvent = false
@@ -51,23 +52,11 @@ export function WheelAnalyzer(optionsParam: Partial<Options> = {}) {
     targets.forEach(unobserve)
   }
 
-  const subscribe = (callback: SubscribeFn): Unsubscribe => {
-    subscriptions.push(callback)
-    // return bound unsubscribe
-    return () => unsubscribe(callback)
-  }
-
-  const unsubscribe = (callback: SubscribeFn) => {
-    if (!callback) {
-      if (isDev) throw new Error('please pass the callback used to subscribe')
-      return
-    }
-    subscriptions = subscriptions.filter((s) => s !== callback)
-  }
-
-  const publish = (type: WheelPhase, additionalData?: Partial<PhaseData>) => {
-    const data: PhaseData = {
-      type,
+  const publishWheel = (additionalData?: Partial<WheelGestureState>) => {
+    const data: WheelGestureState = {
+      isStart: false,
+      isEnding: false,
+      isMomentumCancel: false,
       isMomentum: state.isMomentum,
       axisMovement: state.axisMovement,
       axisVelocity: state.axisVelocity,
@@ -75,7 +64,7 @@ export function WheelAnalyzer(optionsParam: Partial<Options> = {}) {
       event: currentEvent,
       ...additionalData,
     }
-    subscriptions.forEach((fn) => fn(type, data))
+    dispatch('wheel', data)
   }
 
   const feedWheel = (wheelEvents: WheelEventData | WheelEventData[]) => {
@@ -109,7 +98,9 @@ export function WheelAnalyzer(optionsParam: Partial<Options> = {}) {
   }
 
   const processWheelEventData = (wheelEvent: WheelEventData) => {
-    const { axisDelta, timeStamp } = clampDelta(reverseSign(normalizeWheel(wheelEvent), options.reverseSign))
+    const { axisDelta, timeStamp } = clampAxisDelta(
+      reverseAxisDeltaSign(normalizeWheel(wheelEvent), options.reverseSign)
+    )
     const deltaMaxAbs = absMax(axisDelta)
 
     if (wheelEvent.preventDefault && shouldPreventDefault(wheelEvent)) {
@@ -135,7 +126,6 @@ export function WheelAnalyzer(optionsParam: Partial<Options> = {}) {
     currentEvent = wheelEvent
     state.axisMovement = addVectors(state.axisMovement, axisDelta)
     state.lastAbsDelta = deltaMaxAbs
-
     state.scrollPointsToMerge.push({
       deltaMaxAbs,
       axisDelta,
@@ -150,6 +140,7 @@ export function WheelAnalyzer(optionsParam: Partial<Options> = {}) {
         timeStamp: average(scrollPointsToMerge.map((b) => b.timeStamp)),
       }
 
+      // TODO: remove scroll points
       state.scrollPoints.push(mergedScrollPoint)
 
       // only update velocity after a merged scrollpoint was generated
@@ -167,16 +158,11 @@ export function WheelAnalyzer(optionsParam: Partial<Options> = {}) {
       updateStartVelocity()
     }
 
-    // publish start after velocity etc. have been updated
-    if (!state.isStartPublished) {
-      publish(WheelPhase.ANY_WHEEL_START)
-      publish(WheelPhase.WHEEL_START)
-      state.isStartPublished = true
-    }
-
     // only wheel event (move) and not start/end get the delta values
-    publish(WheelPhase.ANY_WHEEL, { axisDelta })
-    publish(state.isMomentum ? WheelPhase.MOMENTUM_WHEEL : WheelPhase.WHEEL, { axisDelta })
+    publishWheel({ axisDelta, isStart: !state.isStartPublished }) // state.isMomentum ? MOMENTUM_WHEEL : WHEEL, { axisDelta })
+
+    // publish start after velocity etc. have been updated
+    state.isStartPublished = true
 
     // calc debounced end function, to recognize end of wheel event stream
     willEnd()
@@ -269,11 +255,7 @@ export function WheelAnalyzer(optionsParam: Partial<Options> = {}) {
   }
 
   const recognizedMomentum = () => {
-    if (!state.isMomentum) {
-      publish(WheelPhase.WHEEL_END)
-      state.isMomentum = true
-      publish(WheelPhase.MOMENTUM_WHEEL_START)
-    }
+    state.isMomentum = true
   }
 
   const start = () => {
@@ -293,19 +275,11 @@ export function WheelAnalyzer(optionsParam: Partial<Options> = {}) {
 
   const end = (isMomentumCancel = false) => {
     if (!state.isStarted) return
-
-    if (state.isMomentum) {
-      if (isMomentumCancel) {
-        publish(WheelPhase.MOMENTUM_WHEEL_CANCEL)
-      } else {
-        publish(WheelPhase.MOMENTUM_WHEEL_END)
-      }
+    if (state.isMomentum && isMomentumCancel) {
+      publishWheel({ isEnding: true, isMomentumCancel: true })
     } else {
-      // in case of momentum, this event was already triggered when the momentum was detected so we do not trigger it here
-      publish(WheelPhase.WHEEL_END)
+      publishWheel({ isEnding: true })
     }
-
-    publish(WheelPhase.ANY_WHEEL_END)
 
     state.isMomentum = false
     state.isStarted = false
@@ -314,11 +288,11 @@ export function WheelAnalyzer(optionsParam: Partial<Options> = {}) {
   updateOptions(optionsParam)
 
   return Object.freeze({
+    on,
+    off,
     observe,
     unobserve,
     disconnect,
-    subscribe,
-    unsubscribe,
     feedWheel,
     updateOptions,
   })
