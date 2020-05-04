@@ -10,7 +10,7 @@ export interface WheelAnalyzerState {
   axisMovement: VectorXYZ
   axisVelocity: VectorXYZ
   accelerationFactors: number[][]
-  scrollPoints: ScrollPoint[]
+  scrollPoints: MergedScrollPoint[]
   scrollPointsToMerge: ScrollPoint[]
   willEndTimeout: number
 }
@@ -27,6 +27,12 @@ export interface PhaseData {
 export interface ScrollPoint {
   deltaMaxAbs: number
   axisDelta: VectorXYZ
+  timeStamp: number
+}
+
+export interface MergedScrollPoint {
+  deltaMaxAbsAverage: number
+  axisDeltaSum: VectorXYZ
   timeStamp: number
 }
 

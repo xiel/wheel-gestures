@@ -1,11 +1,11 @@
-import { addVectors, average, lastOf } from '../utils'
+import { absMax, addVectors, average, lastOf } from '../utils'
 import { clampDelta, normalizeWheel, reverseSign } from '../wheel-normalizer/wheel-normalizer'
 import { createWheelAnalyzerState } from './state'
 import {
+  MergedScrollPoint,
   PhaseData,
   PreventWheelActionType,
   ReverseSign,
-  ScrollPoint,
   SubscribeFn,
   Unobserve,
   Unsubscribe,
@@ -32,6 +32,7 @@ export function WheelAnalyzer(optionsParam: Partial<Options> = {}) {
   let subscriptions: SubscribeFn[] = []
   let targets: EventTarget[] = []
   let currentEvent: WheelEventData
+  let negativeZeroFingerUpSpecialEvent = false
 
   const observe = (target: EventTarget): Unobserve => {
     target.addEventListener('wheel', feedWheel as EventListener, { passive: false })
@@ -109,7 +110,7 @@ export function WheelAnalyzer(optionsParam: Partial<Options> = {}) {
 
   const processWheelEventData = (wheelEvent: WheelEventData) => {
     const { axisDelta, timeStamp } = clampDelta(reverseSign(normalizeWheel(wheelEvent), options.reverseSign))
-    const deltaMaxAbs = Math.max(...axisDelta.map(Math.abs))
+    const deltaMaxAbs = absMax(axisDelta)
 
     if (wheelEvent.preventDefault && shouldPreventDefault(wheelEvent)) {
       wheelEvent.preventDefault()
@@ -118,16 +119,23 @@ export function WheelAnalyzer(optionsParam: Partial<Options> = {}) {
     if (!state.isStarted) {
       start()
     }
-
     // check if user started scrolling again -> cancel
-    if (state.isMomentum && deltaMaxAbs > Math.max(2, state.lastAbsDelta * 2)) {
+    else if (state.isMomentum && deltaMaxAbs > Math.max(2, state.lastAbsDelta * 2)) {
       end(true)
       start()
+    }
+
+    // special finger up event on windows + blink
+    if (deltaMaxAbs === 0 && Object.is && Object.is(wheelEvent.deltaX, -0)) {
+      negativeZeroFingerUpSpecialEvent = true
+      // return -> zero delta event should not influence velocity
+      return
     }
 
     currentEvent = wheelEvent
     state.axisMovement = addVectors(state.axisMovement, axisDelta)
     state.lastAbsDelta = deltaMaxAbs
+
     state.scrollPointsToMerge.push({
       deltaMaxAbs,
       axisDelta,
@@ -136,9 +144,9 @@ export function WheelAnalyzer(optionsParam: Partial<Options> = {}) {
 
     if (state.scrollPointsToMerge.length === WHEELEVENTS_TO_MERGE) {
       const { scrollPointsToMerge } = state
-      const mergedScrollPoint: ScrollPoint = {
-        deltaMaxAbs: average(scrollPointsToMerge.map((b) => b.deltaMaxAbs)),
-        axisDelta: scrollPointsToMerge.map((b) => b.axisDelta).reduce(addVectors),
+      const mergedScrollPoint: MergedScrollPoint = {
+        deltaMaxAbsAverage: average(scrollPointsToMerge.map((b) => b.deltaMaxAbs)),
+        axisDeltaSum: scrollPointsToMerge.map((b) => b.axisDelta).reduce(addVectors),
         timeStamp: average(scrollPointsToMerge.map((b) => b.timeStamp)),
       }
 
@@ -195,12 +203,10 @@ export function WheelAnalyzer(optionsParam: Partial<Options> = {}) {
     }
 
     // calc the velocity per axes
-    const velocity = pB.axisDelta.map((d) => d / deltaTime) as VectorXYZ
+    const velocity = pB.axisDeltaSum.map((d) => d / deltaTime) as VectorXYZ
 
     // calc the acceleration factor per axis
-    const accelerationFactor = velocity.map((v, i) => {
-      return v / (state.axisVelocity[i] || 1)
-    })
+    const accelerationFactor = velocity.map((v, i) => v / (state.axisVelocity[i] || 1))
 
     state.axisVelocity = velocity
     state.accelerationFactors.push(accelerationFactor)
@@ -227,26 +233,38 @@ export function WheelAnalyzer(optionsParam: Partial<Options> = {}) {
 
   const detectMomentum = () => {
     if (state.accelerationFactors.length >= WHEELEVENTS_TO_ANALAZE) {
+      if (negativeZeroFingerUpSpecialEvent) {
+        negativeZeroFingerUpSpecialEvent = false
+
+        if (absMax(state.axisVelocity) >= 0.2) {
+          recognizedMomentum()
+          return
+        }
+      }
+
       const recentAccelerationFactors = state.accelerationFactors.slice(WHEELEVENTS_TO_ANALAZE * -1)
 
       // check recent acceleration / deceleration factors
       const detectedMomentum = recentAccelerationFactors.reduce((mightBeMomentum: boolean, accFac) => {
         // all recent need to match, if any did not match -> short circuit
         if (!mightBeMomentum) return false
+
         // when both axis decelerate exactly in the same rate it is very likely caused by momentum
         const sameAccFac = !!accFac.reduce((f1, f2) => (f1 && f1 < 1 && f1 === f2 ? 1 : 0))
+
         // check if acceleration factor is within momentum range
         const bothAreInRangeOrZero = accFac.filter(accelerationFactorInMomentumRange).length === accFac.length
+
         // one the requirements must be fulfilled
         return sameAccFac || bothAreInRangeOrZero
       }, true)
 
-      // only keep the most recent events
-      state.accelerationFactors = recentAccelerationFactors
-
       if (detectedMomentum) {
         recognizedMomentum()
       }
+
+      // only keep the most recent events
+      state.accelerationFactors = recentAccelerationFactors
     }
   }
 
@@ -262,6 +280,7 @@ export function WheelAnalyzer(optionsParam: Partial<Options> = {}) {
     state = createWheelAnalyzerState()
     state.isStarted = true
     state.startTime = Date.now()
+    negativeZeroFingerUpSpecialEvent = false
   }
 
   const willEnd = (() => {
