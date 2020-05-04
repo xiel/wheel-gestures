@@ -25,6 +25,7 @@ jobs:
         run: |
           yarn
           yarn test
+          yarn lint
           yarn build
       - name: docs (install, build, and test)
         run: |
