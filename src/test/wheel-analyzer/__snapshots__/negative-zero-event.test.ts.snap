@@ -67,38 +67,6 @@ Object {
       ],
       "wheelType": "MOMENTUM_WHEEL",
     },
-    Object {
-      "lastData": Object {
-        "axisDelta": Array [
-          0,
-          0,
-          0,
-        ],
-        "axisMovement": Array [
-          -1810.5,
-          0,
-          0,
-        ],
-        "axisVelocity": Array [
-          -0.027716186256142486,
-          0,
-          0,
-        ],
-        "event": Object {
-          "deltaMode": 0,
-          "deltaX": -1.5,
-          "deltaY": 0,
-          "timeStamp": 5711.669999989681,
-        },
-        "isMomentum": true,
-        "type": "ANY_WHEEL_END",
-      },
-      "range": Array [
-        0,
-        95,
-      ],
-      "wheelType": "ANY_WHEEL",
-    },
   ],
 }
 `;
@@ -169,38 +137,6 @@ Object {
         107,
       ],
       "wheelType": "MOMENTUM_WHEEL",
-    },
-    Object {
-      "lastData": Object {
-        "axisDelta": Array [
-          0,
-          0,
-          0,
-        ],
-        "axisMovement": Array [
-          -3631.5,
-          0,
-          0,
-        ],
-        "axisVelocity": Array [
-          -0.032752879522086574,
-          0,
-          0,
-        ],
-        "event": Object {
-          "deltaMode": 0,
-          "deltaX": -1.5,
-          "deltaY": 0,
-          "timeStamp": 40598.1900000188,
-        },
-        "isMomentum": true,
-        "type": "ANY_WHEEL_END",
-      },
-      "range": Array [
-        0,
-        107,
-      ],
-      "wheelType": "ANY_WHEEL",
     },
   ],
 }

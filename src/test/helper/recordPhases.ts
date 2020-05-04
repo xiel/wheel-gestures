@@ -73,6 +73,8 @@ export function recordPhases(wheelEvents: WheelEventData[]) {
         .replace('_END', '')
         .replace('_CANCEL', '') as WheelTypes
 
+      if (wheelType === 'ANY_WHEEL') return
+
       // keep track of start and end indices for each phase
       if (isStart) {
         phaseRange[wheelType][0] = eventIndex
