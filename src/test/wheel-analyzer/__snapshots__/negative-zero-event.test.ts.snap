@@ -11,38 +11,6 @@ Object {
           0,
         ],
         "axisMovement": Array [
-          -1027.5,
-          0,
-          0,
-        ],
-        "axisVelocity": Array [
-          -3.0341912599685377,
-          0,
-          0,
-        ],
-        "event": Object {
-          "deltaMode": 0,
-          "deltaX": -48,
-          "deltaY": 0,
-          "timeStamp": 3995.230000000447,
-        },
-        "isMomentum": false,
-        "type": "WHEEL_END",
-      },
-      "range": Array [
-        0,
-        12,
-      ],
-      "wheelType": "WHEEL",
-    },
-    Object {
-      "lastData": Object {
-        "axisDelta": Array [
-          0,
-          0,
-          0,
-        ],
-        "axisMovement": Array [
           -1810.5,
           0,
           0,
@@ -58,14 +26,16 @@ Object {
           "deltaY": 0,
           "timeStamp": 5711.669999989681,
         },
+        "isEnding": true,
         "isMomentum": true,
-        "type": "MOMENTUM_WHEEL_END",
+        "isMomentumCancel": false,
+        "isStart": false,
       },
       "range": Array [
-        12,
+        95,
         95,
       ],
-      "wheelType": "MOMENTUM_WHEEL",
+      "wheelType": "momentum",
     },
   ],
 }
@@ -74,38 +44,6 @@ Object {
 exports[`negative zero event Win - Chrome - swipe right fast 1`] = `
 Object {
   "phases": Array [
-    Object {
-      "lastData": Object {
-        "axisDelta": Array [
-          0,
-          0,
-          0,
-        ],
-        "axisMovement": Array [
-          -1788,
-          0,
-          0,
-        ],
-        "axisVelocity": Array [
-          -6.035129859570418,
-          0,
-          0,
-        ],
-        "event": Object {
-          "deltaMode": 0,
-          "deltaX": -96,
-          "deltaY": 0,
-          "timeStamp": 38815.0050000113,
-        },
-        "isMomentum": false,
-        "type": "WHEEL_END",
-      },
-      "range": Array [
-        0,
-        12,
-      ],
-      "wheelType": "WHEEL",
-    },
     Object {
       "lastData": Object {
         "axisDelta": Array [
@@ -129,14 +67,16 @@ Object {
           "deltaY": 0,
           "timeStamp": 40598.1900000188,
         },
+        "isEnding": true,
         "isMomentum": true,
-        "type": "MOMENTUM_WHEEL_END",
+        "isMomentumCancel": false,
+        "isStart": false,
       },
       "range": Array [
-        12,
+        107,
         107,
       ],
-      "wheelType": "MOMENTUM_WHEEL",
+      "wheelType": "momentum",
     },
   ],
 }

@@ -11,7 +11,7 @@ describe('subscription', () => {
   it('can subscribe', () => {
     const wA = WheelAnalyzer()
     const callback = jest.fn()
-    expect(wA.subscribe(callback)).toBeTruthy()
+    expect(wA.on('wheel', callback)).toBeTruthy()
   })
 
   it('can unsubscribe', () => {
@@ -19,10 +19,10 @@ describe('subscription', () => {
     const callback = jest.fn()
     const callback2 = jest.fn()
 
-    wA.subscribe(callback)
-    wA.unsubscribe(callback)
+    wA.on('wheel', callback)
+    wA.off('wheel', callback)
 
-    const unsubscribeCallback2 = wA.subscribe(callback2)
+    const unsubscribeCallback2 = wA.on('wheel', callback2)
     unsubscribeCallback2()
 
     wA.feedWheel(createWheelEvent())
@@ -35,7 +35,7 @@ describe('subscription', () => {
     // @ts-ignore
     const wA = new WheelAnalyzer()
     const callback = jest.fn()
-    expect(wA.subscribe(callback))
+    expect(wA.on(callback))
   })
 })
 

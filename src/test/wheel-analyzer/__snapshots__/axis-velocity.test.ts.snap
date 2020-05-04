@@ -5,7 +5,7 @@ Array [
   Object {
     "axisDelta": Array [
       0,
-      0,
+      20,
       0,
     ],
     "axisMovement": Array [
@@ -24,8 +24,10 @@ Array [
       "deltaY": 20,
       "timeStamp": 0,
     },
+    "isEnding": false,
     "isMomentum": false,
-    "type": "ANY_WHEEL_START",
+    "isMomentumCancel": false,
+    "isStart": true,
   },
   Object {
     "axisDelta": Array [
@@ -49,108 +51,10 @@ Array [
       "deltaY": 20,
       "timeStamp": 0,
     },
+    "isEnding": true,
     "isMomentum": false,
-    "type": "WHEEL_START",
-  },
-  Object {
-    "axisDelta": Array [
-      0,
-      20,
-      0,
-    ],
-    "axisMovement": Array [
-      0,
-      20,
-      0,
-    ],
-    "axisVelocity": Array [
-      0,
-      0.05,
-      0,
-    ],
-    "event": Object {
-      "deltaMode": 0,
-      "deltaX": 0,
-      "deltaY": 20,
-      "timeStamp": 0,
-    },
-    "isMomentum": false,
-    "type": "ANY_WHEEL",
-  },
-  Object {
-    "axisDelta": Array [
-      0,
-      20,
-      0,
-    ],
-    "axisMovement": Array [
-      0,
-      20,
-      0,
-    ],
-    "axisVelocity": Array [
-      0,
-      0.05,
-      0,
-    ],
-    "event": Object {
-      "deltaMode": 0,
-      "deltaX": 0,
-      "deltaY": 20,
-      "timeStamp": 0,
-    },
-    "isMomentum": false,
-    "type": "WHEEL",
-  },
-  Object {
-    "axisDelta": Array [
-      0,
-      0,
-      0,
-    ],
-    "axisMovement": Array [
-      0,
-      20,
-      0,
-    ],
-    "axisVelocity": Array [
-      0,
-      0.05,
-      0,
-    ],
-    "event": Object {
-      "deltaMode": 0,
-      "deltaX": 0,
-      "deltaY": 20,
-      "timeStamp": 0,
-    },
-    "isMomentum": false,
-    "type": "WHEEL_END",
-  },
-  Object {
-    "axisDelta": Array [
-      0,
-      0,
-      0,
-    ],
-    "axisMovement": Array [
-      0,
-      20,
-      0,
-    ],
-    "axisVelocity": Array [
-      0,
-      0.05,
-      0,
-    ],
-    "event": Object {
-      "deltaMode": 0,
-      "deltaX": 0,
-      "deltaY": 20,
-      "timeStamp": 0,
-    },
-    "isMomentum": false,
-    "type": "ANY_WHEEL_END",
+    "isMomentumCancel": false,
+    "isStart": false,
   },
 ]
 `;
