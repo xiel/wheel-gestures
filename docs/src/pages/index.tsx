@@ -23,50 +23,6 @@ const IndexPage = () => (
         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus accusantium adipisci, debitis enim est
         facere illo ipsa maiores mollitia neque nisi non nostrum placeat possimus recusandae, sequi soluta, sunt vero!{' '}
       </p>
-      <div style={{ overflow: 'auto', height: 300, fontSize: 25 }}>
-        <div style={{ width: '100vw', background: 'beige' }}>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci asperiores aut consectetur consequatur,
-            doloremque eveniet, fuga hic illum iste odio officia pariatur provident quasi ratione repellendus sequi
-            soluta voluptate voluptates?
-          </p>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci asperiores aut consectetur consequatur,
-            doloremque eveniet, fuga hic illum iste odio officia pariatur provident quasi ratione repellendus sequi
-            soluta voluptate voluptates?
-          </p>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci asperiores aut consectetur consequatur,
-            doloremque eveniet, fuga hic illum iste odio officia pariatur provident quasi ratione repellendus sequi
-            soluta voluptate voluptates?
-          </p>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci asperiores aut consectetur consequatur,
-            doloremque eveniet, fuga hic illum iste odio officia pariatur provident quasi ratione repellendus sequi
-            soluta voluptate voluptates?
-          </p>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci asperiores aut consectetur consequatur,
-            doloremque eveniet, fuga hic illum iste odio officia pariatur provident quasi ratione repellendus sequi
-            soluta voluptate voluptates?
-          </p>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci asperiores aut consectetur consequatur,
-            doloremque eveniet, fuga hic illum iste odio officia pariatur provident quasi ratione repellendus sequi
-            soluta voluptate voluptates?
-          </p>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci asperiores aut consectetur consequatur,
-            doloremque eveniet, fuga hic illum iste odio officia pariatur provident quasi ratione repellendus sequi
-            soluta voluptate voluptates?
-          </p>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci asperiores aut consectetur consequatur,
-            doloremque eveniet, fuga hic illum iste odio officia pariatur provident quasi ratione repellendus sequi
-            soluta voluptate voluptates?
-          </p>
-        </div>
-      </div>
       <h3>momentum detection - Compatibility</h3>
       <p>momentum detection tested with</p>-
       <table>

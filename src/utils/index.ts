@@ -12,3 +12,7 @@ export function addVectors<T extends number[]>(v1: T, v2: T): T {
   }
   return v1.map((val, i) => val + v2[i]) as T
 }
+
+export function absMax(numbers: number[]) {
+  return Math.max(...numbers.map(Math.abs))
+}
