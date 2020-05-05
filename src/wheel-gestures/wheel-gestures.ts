@@ -4,14 +4,15 @@ import { clampAxisDelta, normalizeWheel, reverseAxisDeltaSign } from '../wheel-n
 import { createWheelAnalyzerState } from './state'
 import {
   MergedScrollPoint,
-  PreventWheelActionType,
   ReverseSign,
   Unobserve,
   VectorXYZ,
   WheelEventData,
+  WheelEventState,
+  WheelGesturesConfig,
   WheelGesturesEventMap,
-  WheelGestureState,
-} from './wheel-analyzer-types'
+  WheelGesturesOptions,
+} from './wheel-gestures-types'
 
 const isDev = process.env.NODE_ENV !== 'production'
 const ACC_FACTOR_MIN = 0.6
@@ -20,21 +21,15 @@ const WHEELEVENTS_TO_MERGE = 2
 const WHEELEVENTS_TO_ANALAZE = 5
 const reverseSignDefault: ReverseSign = [true, true, false]
 
-export type TWheelAnalyzer = ReturnType<typeof WheelAnalyzer>
-
-export interface Options {
-  preventWheelAction: PreventWheelActionType
-  reverseSign: ReverseSign
-}
-
-export function WheelAnalyzer(optionsParam: Partial<Options> = {}) {
+export function WheelGestures(optionsParam: WheelGesturesOptions = {}) {
   const { on, off, dispatch } = EventBus<WheelGesturesEventMap>()
-  let options: Options
+  let config: WheelGesturesConfig
   let state = createWheelAnalyzerState()
   let targets: EventTarget[] = []
   let currentEvent: WheelEventData
   let negativeZeroFingerUpSpecialEvent = false
 
+  // TODO: extract observe
   const observe = (target: EventTarget): Unobserve => {
     target.addEventListener('wheel', feedWheel as EventListener, { passive: false })
     targets.push(target)
@@ -52,8 +47,8 @@ export function WheelAnalyzer(optionsParam: Partial<Options> = {}) {
     targets.forEach(unobserve)
   }
 
-  const publishWheel = (additionalData?: Partial<WheelGestureState>) => {
-    const data: WheelGestureState = {
+  const publishWheel = (additionalData?: Partial<WheelEventState>) => {
+    const data: WheelEventState = {
       isStart: false,
       isEnding: false,
       isMomentumCancel: false,
@@ -75,14 +70,17 @@ export function WheelAnalyzer(optionsParam: Partial<Options> = {}) {
     }
   }
 
-  const updateOptions = (newOptions: Partial<Options> = {}): Options => {
+  const updateOptions = (newOptions: WheelGesturesOptions = {}): WheelGesturesConfig => {
     const { preventWheelAction = 'all', reverseSign = reverseSignDefault, ...otherOptions } = newOptions
-    options = { preventWheelAction, reverseSign, ...otherOptions }
-    return options
+
+    // TODO: current config should be preserved!
+    config = { preventWheelAction, reverseSign, ...otherOptions }
+
+    return config
   }
 
   const shouldPreventDefault = (e: WheelEventData) => {
-    const { preventWheelAction } = options
+    const { preventWheelAction } = config
     const { deltaX, deltaY } = e
 
     switch (preventWheelAction) {
@@ -99,7 +97,7 @@ export function WheelAnalyzer(optionsParam: Partial<Options> = {}) {
 
   const processWheelEventData = (wheelEvent: WheelEventData) => {
     const { axisDelta, timeStamp } = clampAxisDelta(
-      reverseAxisDeltaSign(normalizeWheel(wheelEvent), options.reverseSign)
+      reverseAxisDeltaSign(normalizeWheel(wheelEvent), config.reverseSign)
     )
     const deltaMaxAbs = absMax(axisDelta)
 

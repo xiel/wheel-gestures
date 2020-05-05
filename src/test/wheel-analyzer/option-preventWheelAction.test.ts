@@ -1,19 +1,19 @@
 import { EventListener } from '../../events/EventBus'
-import { Options, WheelAnalyzer } from '../../wheel-analyzer/wheel-analyzer'
-import { WheelEventData, WheelGesturesEventMap } from '../../wheel-analyzer/wheel-analyzer-types'
+import { WheelGestures } from '../../wheel-gestures/wheel-gestures'
+import { WheelEventData, WheelGesturesEventMap, WheelGesturesOptions } from '../../wheel-gestures/wheel-gestures-types'
 import slowDragRight from '../fixtures/slow-drag-right.json'
 import squareMoveTrackpad from '../fixtures/square-move-trackpad.json'
 import swipeUpTrackpad from '../fixtures/swipe-up-trackpad.json'
 
 interface Opts {
   callback?: EventListener<WheelGesturesEventMap['wheel']>
-  options?: Partial<Options>
+  options?: WheelGesturesOptions
 }
 
 function feedWheelEvents(wheelEvents: WheelEventData[], { callback = () => undefined, options }: Opts = {}) {
   // need to use fake timers, so we can run the debounced end function after feeding all events
   jest.useFakeTimers()
-  const wA = WheelAnalyzer(options)
+  const wA = WheelGestures(options)
   const unsubscribe = wA.on('wheel', callback)
   wA.feedWheel(wheelEvents)
   // fast forward and exhaust currently pending timers

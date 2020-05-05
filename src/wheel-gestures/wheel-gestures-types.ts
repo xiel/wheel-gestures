@@ -1,7 +1,7 @@
 export type VectorXYZ = [number, number, number]
 export type BooleanXYZ = [boolean, boolean, boolean]
 
-export interface WheelAnalyzerState {
+export interface WheelGesturesInternalState {
   isStarted: boolean
   isStartPublished: boolean
   isMomentum: boolean
@@ -14,6 +14,13 @@ export interface WheelAnalyzerState {
   scrollPointsToMerge: ScrollPoint[]
   willEndTimeout: number
 }
+
+export interface WheelGesturesConfig {
+  preventWheelAction: PreventWheelActionType
+  reverseSign: ReverseSign
+}
+
+export type WheelGesturesOptions = Partial<WheelGesturesConfig>
 
 export interface ScrollPoint {
   deltaMaxAbs: number
@@ -33,7 +40,7 @@ export interface WheelEventData
   extends Pick<WheelEvent, WheelEventDataRequiredFields>,
     Partial<Omit<WheelEvent, WheelEventDataRequiredFields>> {}
 
-export interface WheelGestureState {
+export interface WheelEventState {
   isStart: boolean
   isMomentum: boolean
   isEnding: boolean
@@ -45,7 +52,7 @@ export interface WheelGestureState {
 }
 
 export type WheelGesturesEventMap = {
-  wheel: WheelGestureState
+  wheel: WheelEventState
 }
 
 export type Unobserve = () => void

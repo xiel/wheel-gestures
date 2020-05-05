@@ -1,9 +1,9 @@
 import { lastOf } from '../../utils'
-import { WheelGestureState } from '../../wheel-analyzer/wheel-analyzer-types'
+import { WheelEventState } from '../../wheel-gestures/wheel-gestures-types'
 import { generateEvents } from '../helper/generateEvents'
 import { subscribeAndFeedWheelEvents } from '../helper/recordPhases'
 
-function calcAverageVelocity(phases: WheelGestureState[]) {
+function calcAverageVelocity(phases: WheelEventState[]) {
   return phases.reduce(
     (averageAcc, { axisVelocity }) => {
       averageAcc[0] = (averageAcc[0] + axisVelocity[0]) / 2

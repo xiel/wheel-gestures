@@ -1,4 +1,4 @@
-import { ReverseSign, VectorXYZ, WheelEventData } from '../wheel-analyzer/wheel-analyzer-types'
+import { ReverseSign, VectorXYZ, WheelEventData } from '../wheel-gestures/wheel-gestures-types'
 
 export interface NormalizedWheel {
   axisDelta: VectorXYZ

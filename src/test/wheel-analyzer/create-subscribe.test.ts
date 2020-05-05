@@ -1,21 +1,21 @@
-import { WheelAnalyzer } from '../../wheel-analyzer/wheel-analyzer'
+import { WheelGestures } from '../../wheel-gestures/wheel-gestures'
 import { createWheelEvent } from '../helper/generateEvents'
 
 describe('creation', () => {
   it('can be created without options', () => {
-    expect(WheelAnalyzer())
+    expect(WheelGestures())
   })
 })
 
 describe('subscription', () => {
   it('can subscribe', () => {
-    const wA = WheelAnalyzer()
+    const wA = WheelGestures()
     const callback = jest.fn()
     expect(wA.on('wheel', callback)).toBeTruthy()
   })
 
   it('can unsubscribe', () => {
-    const wA = WheelAnalyzer()
+    const wA = WheelGestures()
     const callback = jest.fn()
     const callback2 = jest.fn()
 
@@ -33,7 +33,7 @@ describe('subscription', () => {
 
   it('should work with new', function() {
     // @ts-ignore
-    const wA = new WheelAnalyzer()
+    const wA = new WheelGestures()
     const callback = jest.fn()
     expect(wA.on(callback))
   })

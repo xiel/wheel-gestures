@@ -1,19 +1,19 @@
-import { WheelAnalyzer } from '../../wheel-analyzer/wheel-analyzer'
-import { WheelEventData, WheelGestureState } from '../../wheel-analyzer/wheel-analyzer-types'
+import { WheelGestures } from '../../wheel-gestures/wheel-gestures'
+import { WheelEventData, WheelEventState } from '../../wheel-gestures/wheel-gestures-types'
 
 interface SubAndFeedProps {
   beforeFeed?: (e: WheelEventData, i: number) => void
-  callback?: (data: WheelGestureState) => void
+  callback?: (data: WheelEventState) => void
   wheelEvents?: WheelEventData[]
 }
 
 export function subscribeAndFeedWheelEvents({ beforeFeed, callback, wheelEvents = [] }: SubAndFeedProps = {}) {
-  const allPhaseData: WheelGestureState[] = []
+  const allPhaseData: WheelEventState[] = []
 
   // need to use fake timers, so we can run the debounced end function after feeding all events
   jest.useFakeTimers()
 
-  const wheelAnalyzer = WheelAnalyzer({ reverseSign: false })
+  const wheelAnalyzer = WheelGestures({ reverseSign: false })
 
   callback && wheelAnalyzer.on('wheel', callback)
   wheelAnalyzer.on('wheel', (data) => allPhaseData.push(data))
@@ -49,7 +49,7 @@ export interface PhaseRange {
   wheelType: RangeWheelType
   range: Range
   canceled?: boolean
-  lastData?: WheelGestureState
+  lastData?: WheelEventState
 }
 
 export function recordPhases(wheelEvents: WheelEventData[]) {

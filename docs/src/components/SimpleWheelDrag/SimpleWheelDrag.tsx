@@ -1,8 +1,8 @@
-import React, { useRef, useState, useEffect } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { animated, useSpring } from 'react-spring'
 import WheelRecorder from '../WheelRecorder/WheelRecorder'
 import useWheelDrag from '../../hooks/useWheelDrag'
-import { WheelReason, addVectors } from 'wheel-gestures'
+import { addVectors } from 'wheel-gestures'
 import { useDrag } from 'react-use-gesture'
 import c from './SimpleWheelDrag.module.scss'
 import { Plot, PlotData } from '../Plot/Plot'
@@ -10,47 +10,39 @@ import { Plot, PlotData } from '../Plot/Plot'
 export default function SimpleWheelDrag() {
   const containerRef = useRef<HTMLDivElement | null>(null)
   const elRef = useRef<HTMLDivElement | null>(null)
-  const movementFromRef = useRef([0, 0, 0])
+  const posRef = useRef([0, 0, 0])
   const [{ xyz }, set] = useSpring(() => ({ xyz: [0, 0, 0] }))
   const [springMomentum, setSpringMomentum] = useSpring(() => ({ xyz: [0, 0, 0] }))
   const [preventWheelAction, setPreventWheelAction] = useState<'all' | 'x' | 'y'>('all')
-  const [momentumScroll, momentumScrollSet] = useState(false)
+  const [scrollSource, scrollSourceSet] = useState('-')
   const plotData = useRef<PlotData[]>([])
 
   useWheelDrag(
-    ({ start, down, axisMovement }) => {
-      if (start) {
-        movementFromRef.current = xyz.get()
+    ({ isStart, isMomentum, isEnding, axisMovement, axisDelta }) => {
+      if (isStart) {
+        posRef.current = xyz.get()
       }
 
+      // update user spring
       set({
-        xyz: down ? addVectors(axisMovement, movementFromRef.current) : [0, 0, 0],
-        immediate: down,
+        xyz: isEnding || isMomentum ? [0, 0, 0] : addVectors(axisMovement, posRef.current),
+        immediate: !(isEnding || isMomentum),
       })
-    },
-    { domTarget: containerRef, axis: preventWheelAction }
-  )
 
-  // update momentum spring
-  useWheelDrag(
-    ({ start, down, axisMovement, axisDelta, isMomentum }) => {
+      // update momentum spring
       setSpringMomentum({
-        xyz: down ? addVectors(axisMovement, movementFromRef.current) : [0, 0, 0],
-        immediate: down,
+        xyz: isEnding ? [0, 0, 0] : addVectors(axisMovement, posRef.current),
+        immediate: !isEnding,
       })
 
-      momentumScrollSet(down && isMomentum)
+      scrollSourceSet(isEnding ? '-' : isMomentum ? 'momentum' : 'user')
 
-      if (start) {
+      if (isStart) {
         plotData.current.length = 0
       }
       plotData.current.push({ axisDelta, isMomentum })
     },
-    {
-      domTarget: containerRef,
-      axis: preventWheelAction,
-      wheelReason: WheelReason.ANY,
-    }
+    { domTarget: containerRef, preventWheelAction }
   )
 
   const bind = useDrag(
@@ -96,7 +88,7 @@ export default function SimpleWheelDrag() {
         />
         <Plot data={plotData} />
       </div>
-      {momentumScroll ? 'momentum scroll' : 'user scroll'}
+      {scrollSource}
     </div>
   )
 }
