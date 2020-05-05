@@ -40,13 +40,19 @@ const IndexPage = () => (
               Magic Mouse & Magic Trackpad
             </th>
             <td>
-              <span aria-label="tested">✅</span>
+              <span role="img" aria-label="tested">
+                ✅
+              </span>
             </td>
             <td>
-              <span aria-label="tested">✅</span>
+              <span role="img" aria-label="tested">
+                ✅
+              </span>
             </td>
             <td>
-              <span aria-label="tested">✅</span>
+              <span role="img" aria-label="tested">
+                ✅
+              </span>
             </td>
           </tr>
           <tr>
@@ -56,10 +62,14 @@ const IndexPage = () => (
               Precision Touchpads (PTP)
             </th>
             <td>
-              <span aria-label="tested">✅</span>
+              <span role="img" aria-label="tested">
+                ✅
+              </span>
             </td>
             <td>
-              <span aria-label="tested">✅</span>
+              <span role="img" aria-label="tested">
+                ✅
+              </span>
             </td>
             <td />
           </tr>

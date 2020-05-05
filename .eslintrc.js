@@ -10,6 +10,7 @@ module.exports = {
     'import/first': 'warn',
     'import/newline-after-import': 'warn',
     'import/no-duplicates': 'warn',
+    'import/no-webpack-loader-syntax': 'warn',
   },
   settings: {
     react: {
