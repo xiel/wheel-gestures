@@ -1,8 +1,9 @@
-import React from 'react'
 import VisuallyHidden from '@reach/visually-hidden'
-import c from './Header.module.scss'
 import { Link } from 'gatsby'
+import React from 'react'
+
 import { Content } from '../Layout/Layout'
+import c from './Header.module.scss'
 
 interface Props {
   siteTitle: string

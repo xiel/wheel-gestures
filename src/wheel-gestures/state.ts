@@ -1,4 +1,4 @@
-import { WheelAnalyzerState } from './wheel-analyzer-types'
+import { WheelGesturesInternalState } from './wheel-gestures-types'
 
 /**
  * the timeout is automatically adjusted during a gesture
@@ -6,7 +6,7 @@ import { WheelAnalyzerState } from './wheel-analyzer-types'
  */
 const WILL_END_TIMEOUT_DEFAULT = 400
 
-export function createWheelAnalyzerState(): WheelAnalyzerState {
+export function createWheelAnalyzerState(): WheelGesturesInternalState {
   return {
     isStarted: false,
     isStartPublished: false,

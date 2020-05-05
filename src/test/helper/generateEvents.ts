@@ -1,4 +1,4 @@
-import { WheelEventData } from '../../wheel-analyzer/wheel-analyzer-types'
+import { WheelEventData } from '../../wheel-gestures/wheel-gestures-types'
 
 interface GenerateEventsProps {
   deltaTotal: number[]

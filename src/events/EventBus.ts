@@ -1,5 +1,3 @@
-export interface Props {}
-
 export type EventMapEmpty = Record<string, unknown>
 export type EventListener<D = unknown> = (data: D) => void
 export type Off = () => void
