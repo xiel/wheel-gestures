@@ -24,7 +24,6 @@ const IndexPage = () => (
         facere illo ipsa maiores mollitia neque nisi non nostrum placeat possimus recusandae, sequi soluta, sunt vero!{' '}
       </p>
       <h3>momentum detection - Compatibility</h3>
-      <p>momentum detection tested with</p>-
       <table>
         <thead>
           <tr>
@@ -74,7 +73,11 @@ const IndexPage = () => (
         necessitatibus, nemo nesciunt nihil odio perspiciatis, quasi qui quia repudiandae tempore unde ut vitae
         voluptatem!
       </p>
-      <Link to="/gallery">Go to page 2</Link>
+      <ul>
+        <li>
+          <Link to="/gallery">Gallery</Link>
+        </li>
+      </ul>
     </Richtext>
   </Skeleton>
 )

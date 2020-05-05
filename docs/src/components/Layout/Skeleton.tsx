@@ -29,7 +29,6 @@ const Skeleton = ({ children }: { children: ReactNode }) => {
       <Header siteTitle={data.site.siteMetadata.title} />
       <Content>
         <main>{children}</main>
-        <footer>TODO: link to github, made in Berlin 🐻</footer>
       </Content>
     </>
   )
