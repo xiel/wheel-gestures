@@ -1,14 +1,13 @@
-import React from 'react'
 import { Link } from 'gatsby'
+import React from 'react'
 
+import CodeAreaCode from '!!raw-loader!../components/CodeArea/CodeArea'
+
+import CodeArea from '../components/CodeArea/CodeArea'
 import Skeleton from '../components/Layout/Skeleton'
+import { Richtext } from '../components/Richtext/Richtext'
 import SEO from '../components/seo'
 import SimpleWheelDrag from '../components/SimpleWheelDrag/SimpleWheelDrag'
-import CodeArea from '../components/CodeArea/CodeArea'
-
-// eslint-disable-next-line react-app/import/no-webpack-loader-syntax
-import CodeAreaCode from '!!raw-loader!../components/CodeArea/CodeArea'
-import { Richtext } from '../components/Richtext/Richtext'
 
 const IndexPage = () => (
   <Skeleton>

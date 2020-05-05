@@ -1,10 +1,10 @@
 import React, { useRef, useState } from 'react'
 import { animated, config as springCfg, useSpring } from 'react-spring'
 
-import c from './Gallery.module.scss'
 import useWheelDrag from '../../hooks/useWheelDrag'
 import { projection } from '../../utils/projection'
 import { rubberband } from '../../utils/rubberband'
+import c from './Gallery.module.scss'
 
 const pages = [
   'https://images.pexels.com/photos/414171/pexels-photo-414171.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',

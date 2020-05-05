@@ -1,11 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { animated, useSpring } from 'react-spring'
-import WheelRecorder from '../WheelRecorder/WheelRecorder'
-import useWheelDrag from '../../hooks/useWheelDrag'
-import { addVectors } from 'wheel-gestures'
 import { useDrag } from 'react-use-gesture'
-import c from './SimpleWheelDrag.module.scss'
+import { addVectors } from 'wheel-gestures'
+
+import useWheelDrag from '../../hooks/useWheelDrag'
 import { Plot, PlotData } from '../Plot/Plot'
+import WheelRecorder from '../WheelRecorder/WheelRecorder'
+import c from './SimpleWheelDrag.module.scss'
 
 export default function SimpleWheelDrag() {
   const containerRef = useRef<HTMLDivElement | null>(null)

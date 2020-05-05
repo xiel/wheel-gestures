@@ -1,8 +1,8 @@
 import React from 'react'
 
+import Gallery from '../components/Gallery/Gallery'
 import Skeleton from '../components/Layout/Skeleton'
 import SEO from '../components/seo'
-import Gallery from '../components/Gallery/Gallery'
 
 const SecondPage = () => (
   <Skeleton>
