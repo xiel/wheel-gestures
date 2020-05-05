@@ -1,7 +1,7 @@
 import { Link } from 'gatsby'
 import React from 'react'
 
-import CodeAreaCode from '!!raw-loader!../components/CodeArea/CodeArea'
+import CodeUseWheelDrag from '!!raw-loader!../hooks/useWheelDrag'
 
 import CodeArea from '../components/CodeArea/CodeArea'
 import Skeleton from '../components/Layout/Skeleton'
@@ -75,18 +75,14 @@ const IndexPage = () => (
           </tr>
         </tbody>
       </table>
-      <CodeArea>{CodeAreaCode}</CodeArea>
       <h3>Example</h3>
       <p>
         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus beatae debitis dicta dolor fuga labore
         necessitatibus, nemo nesciunt nihil odio perspiciatis, quasi qui quia repudiandae tempore unde ut vitae
         voluptatem!
       </p>
-      <ul>
-        <li>
-          <Link to="/gallery">Gallery</Link>
-        </li>
-      </ul>
+      <CodeArea>{CodeUseWheelDrag}</CodeArea>
+      <br />
     </Richtext>
   </Skeleton>
 )
