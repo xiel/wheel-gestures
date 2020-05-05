@@ -14,7 +14,7 @@ export default function SimpleWheelDrag() {
   const [{ xyz }, set] = useSpring(() => ({ xyz: [0, 0, 0] }))
   const [springMomentum, setSpringMomentum] = useSpring(() => ({ xyz: [0, 0, 0] }))
   const [preventWheelAction, setPreventWheelAction] = useState<'all' | 'x' | 'y'>('all')
-  const [scrollSource, scrollSourceSet] = useState('-')
+  const [wheelSource, wheelSourceSet] = useState('-')
   const plotData = useRef<PlotData[]>([])
 
   useWheelDrag(
@@ -35,7 +35,7 @@ export default function SimpleWheelDrag() {
         immediate: !isEnding,
       })
 
-      scrollSourceSet(isEnding ? '-' : isMomentum ? 'momentum' : 'user')
+      wheelSourceSet(isEnding ? '-' : isMomentum ? 'momentum' : 'user')
 
       if (isStart) {
         plotData.current.length = 0
@@ -60,18 +60,6 @@ export default function SimpleWheelDrag() {
 
   return (
     <div>
-      <div className={c.options}>
-        <WheelRecorder domTarget={containerRef} />
-        <label>
-          preventWheelAction{' '}
-          <select value={preventWheelAction} onChange={(e) => setPreventWheelAction(e.target.value as any)}>
-            <option>all</option>
-            <option>x</option>
-            <option>y</option>
-          </select>
-        </label>
-      </div>
-
       <div className={c.container} ref={containerRef}>
         <animated.div
           className={c.box + ' ' + c.momentum}
@@ -88,7 +76,18 @@ export default function SimpleWheelDrag() {
         />
         <Plot data={plotData} />
       </div>
-      {scrollSource}
+      <div className={c.options}>
+        <WheelRecorder domTarget={containerRef} />
+        <label>
+          preventWheelAction{' '}
+          <select value={preventWheelAction} onChange={(e) => setPreventWheelAction(e.target.value as any)}>
+            <option>all</option>
+            <option>x</option>
+            <option>y</option>
+          </select>
+        </label>
+        wheelSource: {wheelSource}
+      </div>
     </div>
   )
 }

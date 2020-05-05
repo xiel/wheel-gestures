@@ -66,18 +66,20 @@ export default function Gallery() {
   )
 
   return (
-    <div ref={containerRef} className={c.gallery}>
+    <div>
+      <div ref={containerRef} className={c.gallery}>
+        <animated.div style={{ x: spring.x }}>
+          {pages.map((url, i) => (
+            <div key={i}>
+              <img src={url} alt={'demo image ' + i + 1} loading="lazy" />
+            </div>
+          ))}
+        </animated.div>
+      </div>
       <select value={momentumDetectionEnabled ? 'on' : ''} onChange={(e) => setSelectedWheelReason(!!e.target.value)}>
         <option value="on">momentum detection</option>
         <option value="">no momentum detection</option>
       </select>
-      <animated.div style={{ x: spring.x }}>
-        {pages.map((url, i) => (
-          <div key={i}>
-            <img src={url} alt={'demo image ' + i + 1} loading="lazy" />
-          </div>
-        ))}
-      </animated.div>
     </div>
   )
 }
