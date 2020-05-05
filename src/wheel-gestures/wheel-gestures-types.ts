@@ -49,6 +49,7 @@ export interface WheelEventState {
   axisVelocity: VectorXYZ
   axisDelta: VectorXYZ
   event: WheelEvent | WheelEventData
+  previous?: WheelEventState
 }
 
 export type WheelGesturesEventMap = {

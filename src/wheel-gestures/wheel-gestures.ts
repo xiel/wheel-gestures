@@ -28,6 +28,7 @@ export function WheelGestures(optionsParam: WheelGesturesOptions = {}) {
   let targets: EventTarget[] = []
   let currentEvent: WheelEventData
   let negativeZeroFingerUpSpecialEvent = false
+  let prevWheelEventState: WheelEventState | undefined
 
   // TODO: extract observe
   const observe = (target: EventTarget): Unobserve => {
@@ -48,7 +49,7 @@ export function WheelGestures(optionsParam: WheelGesturesOptions = {}) {
   }
 
   const publishWheel = (additionalData?: Partial<WheelEventState>) => {
-    const data: WheelEventState = {
+    const wheelEventState: WheelEventState = {
       isStart: false,
       isEnding: false,
       isMomentumCancel: false,
@@ -59,7 +60,14 @@ export function WheelGestures(optionsParam: WheelGesturesOptions = {}) {
       event: currentEvent,
       ...additionalData,
     }
-    dispatch('wheel', data)
+
+    dispatch('wheel', {
+      ...wheelEventState,
+      previous: prevWheelEventState,
+    })
+
+    // keep reference without previous, otherwise we would create a long chain
+    prevWheelEventState = wheelEventState
   }
 
   const feedWheel = (wheelEvents: WheelEventData | WheelEventData[]) => {
@@ -260,6 +268,7 @@ export function WheelGestures(optionsParam: WheelGesturesOptions = {}) {
     state = createWheelAnalyzerState()
     state.isStarted = true
     state.startTime = Date.now()
+    prevWheelEventState = undefined
     negativeZeroFingerUpSpecialEvent = false
   }
 

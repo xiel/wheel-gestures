@@ -4,33 +4,32 @@ exports[`drag slow drag 1`] = `
 Object {
   "phases": Array [
     Object {
-      "lastData": Object {
-        "axisDelta": Array [
-          0,
-          0,
-          0,
-        ],
-        "axisMovement": Array [
-          -1407,
-          11,
-          0,
-        ],
-        "axisVelocity": Array [
-          -0.125,
-          0.0625,
-          0,
-        ],
-        "event": Object {
-          "deltaMode": 0,
-          "deltaX": -1,
-          "deltaY": 0,
-          "timeStamp": 4367,
-        },
-        "isEnding": true,
-        "isMomentum": false,
-        "isMomentumCancel": false,
-        "isStart": false,
+      "axisDelta": Array [
+        0,
+        0,
+        0,
+      ],
+      "axisMovement": Array [
+        -1407,
+        11,
+        0,
+      ],
+      "axisVelocity": Array [
+        -0.125,
+        0.0625,
+        0,
+      ],
+      "event": Object {
+        "deltaMode": 0,
+        "deltaX": -1,
+        "deltaY": 0,
+        "timeStamp": 4367,
       },
+      "hasPrevious": true,
+      "isEnding": true,
+      "isMomentum": false,
+      "isMomentumCancel": false,
+      "isStart": false,
       "range": Array [
         0,
         193,
@@ -45,33 +44,32 @@ exports[`drag square move - trackpad (tl -> tr -> br -> bl -> tl) 1`] = `
 Object {
   "phases": Array [
     Object {
-      "lastData": Object {
-        "axisDelta": Array [
-          0,
-          0,
-          0,
-        ],
-        "axisMovement": Array [
-          -408,
-          77,
-          0,
-        ],
-        "axisVelocity": Array [
-          0.022727272727272728,
-          0,
-          0,
-        ],
-        "event": Object {
-          "deltaMode": 0,
-          "deltaX": 0,
-          "deltaY": -3,
-          "timeStamp": 49225,
-        },
-        "isEnding": true,
-        "isMomentum": false,
-        "isMomentumCancel": false,
-        "isStart": false,
+      "axisDelta": Array [
+        0,
+        0,
+        0,
+      ],
+      "axisMovement": Array [
+        -408,
+        77,
+        0,
+      ],
+      "axisVelocity": Array [
+        0.022727272727272728,
+        0,
+        0,
+      ],
+      "event": Object {
+        "deltaMode": 0,
+        "deltaX": 0,
+        "deltaY": -3,
+        "timeStamp": 49225,
       },
+      "hasPrevious": true,
+      "isEnding": true,
+      "isMomentum": false,
+      "isMomentumCancel": false,
+      "isStart": false,
       "range": Array [
         0,
         206,

@@ -28,6 +28,7 @@ Array [
     "isMomentum": false,
     "isMomentumCancel": false,
     "isStart": true,
+    "previous": undefined,
   },
   Object {
     "axisDelta": Array [
@@ -55,6 +56,33 @@ Array [
     "isMomentum": false,
     "isMomentumCancel": false,
     "isStart": false,
+    "previous": Object {
+      "axisDelta": Array [
+        0,
+        20,
+        0,
+      ],
+      "axisMovement": Array [
+        0,
+        20,
+        0,
+      ],
+      "axisVelocity": Array [
+        0,
+        0.05,
+        0,
+      ],
+      "event": Object {
+        "deltaMode": 0,
+        "deltaX": 0,
+        "deltaY": 20,
+        "timeStamp": 0,
+      },
+      "isEnding": false,
+      "isMomentum": false,
+      "isMomentumCancel": false,
+      "isStart": true,
+    },
   },
 ]
 `;
