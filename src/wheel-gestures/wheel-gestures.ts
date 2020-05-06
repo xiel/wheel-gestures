@@ -1,16 +1,18 @@
 import EventBus from '../events/EventBus'
 import { WheelTargetObserver } from '../events/WheelTargetObserver'
+import {
+  VectorXYZ,
+  WheelEventData,
+  WheelEventState,
+  WheelGesturesConfig,
+  WheelGesturesEventMap,
+  WheelGesturesOptions,
+} from '../types'
 import { absMax, addVectors, average, deepFreeze, lastOf } from '../utils'
 import { clampAxisDelta, normalizeWheel, reverseAxisDeltaSign } from '../wheel-normalizer/wheel-normalizer'
-import { configDefaults, WheelGesturesConfig, WheelGesturesOptions } from './options'
+import { __DEV__, ACC_FACTOR_MAX, ACC_FACTOR_MIN, WHEELEVENTS_TO_ANALAZE, WHEELEVENTS_TO_MERGE } from './constants'
+import { configDefaults } from './options'
 import { createWheelGesturesState } from './state'
-import { VectorXYZ, WheelEventData, WheelEventState, WheelGesturesEventMap } from './wheel-gestures-types'
-
-const isDev = process.env.NODE_ENV !== 'production'
-const ACC_FACTOR_MIN = 0.6
-const ACC_FACTOR_MAX = 0.96
-const WHEELEVENTS_TO_MERGE = 2
-const WHEELEVENTS_TO_ANALAZE = 5
 
 export function WheelGestures(optionsParam: WheelGesturesOptions = {}) {
   const { on, off, dispatch } = EventBus<WheelGesturesEventMap>()
@@ -30,7 +32,7 @@ export function WheelGestures(optionsParam: WheelGesturesOptions = {}) {
 
   const updateOptions = (newOptions: WheelGesturesOptions = {}): WheelGesturesConfig => {
     if (Object.values(newOptions).some((option) => option === undefined || option === null)) {
-      isDev && console.error('updateOptions ignored! undefined & null options not allowed')
+      __DEV__ && console.error('updateOptions ignored! undefined & null options not allowed')
       return config
     }
     return (config = deepFreeze({ ...configDefaults, ...config, ...newOptions }))
@@ -73,7 +75,7 @@ export function WheelGestures(optionsParam: WheelGesturesOptions = {}) {
       case 'z':
         return Math.abs(deltaZ) >= deltaMaxAbs
       default:
-        isDev && console.warn('unsupported preventWheelAction value: ' + preventWheelAction, 'warn')
+        __DEV__ && console.warn('unsupported preventWheelAction value: ' + preventWheelAction, 'warn')
         return false
     }
   }
@@ -164,7 +166,7 @@ export function WheelGestures(optionsParam: WheelGesturesOptions = {}) {
     const deltaTime = latestScrollPoint.timeStamp - prevScrollPoint.timeStamp
 
     if (deltaTime <= 0) {
-      isDev && console.warn('invalid deltaTime')
+      __DEV__ && console.warn('invalid deltaTime')
       return
     }
 

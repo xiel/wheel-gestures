@@ -1,5 +1,5 @@
-import { ReverseSign } from '../wheel-gestures/options'
-import { VectorXYZ, WheelEventData } from '../wheel-gestures/wheel-gestures-types'
+import { ReverseSign, VectorXYZ, WheelEventData } from '../types'
+import { clamp } from '../utils'
 
 export interface NormalizedWheel {
   axisDelta: VectorXYZ
@@ -38,8 +38,6 @@ export function reverseAxisDeltaSign<T extends Pick<NormalizedWheel, 'axisDelta'
     axisDelta: wheel.axisDelta.map((delta, i) => delta * multipliers[i]),
   }
 }
-
-export const clamp = (value: number, min: number, max: number) => Math.min(Math.max(min, value), max)
 
 const DELTA_MAX_ABS = 700
 

@@ -6,6 +6,8 @@ export function average(numbers: number[]) {
   return numbers.reduce((a, b) => a + b) / numbers.length
 }
 
+export const clamp = (value: number, min: number, max: number) => Math.min(Math.max(min, value), max)
+
 export function addVectors<T extends number[]>(v1: T, v2: T): T {
   if (v1.length !== v2.length) {
     throw new Error('vectors must be same length')

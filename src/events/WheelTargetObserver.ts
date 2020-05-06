@@ -1,4 +1,7 @@
-import { deepFreeze, Unobserve, WheelEventData } from '..'
+import { WheelEventData } from '../types'
+import { deepFreeze } from '../utils'
+
+export type Unobserve = () => void
 
 export function WheelTargetObserver(eventListener: (wheelEvent: WheelEventData) => void) {
   let targets: EventTarget[] = []
