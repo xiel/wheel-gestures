@@ -1,5 +1,6 @@
 export { WheelGestures as default } from './wheel-gestures/wheel-gestures'
 export * from './wheel-gestures/wheel-gestures'
+export * from './wheel-gestures/options'
 export * from './wheel-gestures/wheel-gestures-types'
 export * from './wheel-normalizer/wheel-normalizer'
 export * from './events/EventBus'

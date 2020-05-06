@@ -1,17 +1,15 @@
 import EventBus from '../events/EventBus'
-import { absMax, addVectors, average, lastOf } from '../utils'
+import { absMax, addVectors, average, deepFreeze, lastOf } from '../utils'
 import { clampAxisDelta, normalizeWheel, reverseAxisDeltaSign } from '../wheel-normalizer/wheel-normalizer'
+import { configDefaults, WheelGesturesConfig, WheelGesturesOptions } from './options'
 import { createWheelAnalyzerState } from './state'
 import {
   MergedScrollPoint,
-  ReverseSign,
   Unobserve,
   VectorXYZ,
   WheelEventData,
   WheelEventState,
-  WheelGesturesConfig,
   WheelGesturesEventMap,
-  WheelGesturesOptions,
 } from './wheel-gestures-types'
 
 const isDev = process.env.NODE_ENV !== 'production'
@@ -19,11 +17,10 @@ const ACC_FACTOR_MIN = 0.6
 const ACC_FACTOR_MAX = 0.96
 const WHEELEVENTS_TO_MERGE = 2
 const WHEELEVENTS_TO_ANALAZE = 5
-const reverseSignDefault: ReverseSign = [true, true, false]
 
 export function WheelGestures(optionsParam: WheelGesturesOptions = {}) {
   const { on, off, dispatch } = EventBus<WheelGesturesEventMap>()
-  let config: WheelGesturesConfig
+  let config = configDefaults
   let state = createWheelAnalyzerState()
   let targets: EventTarget[] = []
   let currentEvent: WheelEventData
@@ -79,12 +76,11 @@ export function WheelGestures(optionsParam: WheelGesturesOptions = {}) {
   }
 
   const updateOptions = (newOptions: WheelGesturesOptions = {}): WheelGesturesConfig => {
-    const { preventWheelAction = 'all', reverseSign = reverseSignDefault, ...otherOptions } = newOptions
-
-    // TODO: current config should be preserved!
-    config = { preventWheelAction, reverseSign, ...otherOptions }
-
-    return config
+    if (Object.values(newOptions).some((option) => option === undefined || option === null)) {
+      isDev && console.error('updateOptions ignored! undefined & null options not allowed')
+      return config
+    }
+    return (config = deepFreeze({ ...configDefaults, ...config, ...newOptions }))
   }
 
   const shouldPreventDefault = (e: WheelEventData) => {

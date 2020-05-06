@@ -15,13 +15,6 @@ export interface WheelGesturesInternalState {
   willEndTimeout: number
 }
 
-export interface WheelGesturesConfig {
-  preventWheelAction: PreventWheelActionType
-  reverseSign: ReverseSign
-}
-
-export type WheelGesturesOptions = Partial<WheelGesturesConfig>
-
 export interface ScrollPoint {
   deltaMaxAbs: number
   axisDelta: VectorXYZ
@@ -57,5 +50,3 @@ export type WheelGesturesEventMap = {
 }
 
 export type Unobserve = () => void
-export type PreventWheelActionType = 'all' | 'x' | 'y'
-export type ReverseSign = BooleanXYZ | boolean

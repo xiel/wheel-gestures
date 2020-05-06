@@ -1,6 +1,4 @@
-import { EventListener } from '../../events/EventBus'
-import { WheelGestures } from '../../wheel-gestures/wheel-gestures'
-import { WheelEventData, WheelGesturesEventMap, WheelGesturesOptions } from '../../wheel-gestures/wheel-gestures-types'
+import { EventListener, WheelEventData, WheelGestures, WheelGesturesEventMap, WheelGesturesOptions } from '../..'
 import slowDragRight from '../fixtures/slow-drag-right.json'
 import squareMoveTrackpad from '../fixtures/square-move-trackpad.json'
 import swipeUpTrackpad from '../fixtures/swipe-up-trackpad.json'
