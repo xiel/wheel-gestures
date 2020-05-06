@@ -1,4 +1,4 @@
-import { reverseAxisDeltaSign, VectorXYZ } from '..'
+import { normalizeWheel, reverseAxisDeltaSign, VectorXYZ } from '..'
 
 const wheelEvent = { axisDelta: [5, 2, 1] as VectorXYZ }
 
@@ -18,4 +18,28 @@ describe('reverseSign', () => {
   })
 })
 
-test.todo('normalizeWheel')
+describe('normalizeWheel', () => {
+  test('deltaMode: 0', () => {
+    expect(normalizeWheel({ deltaX: 2, deltaY: 10, deltaZ: 33, deltaMode: 0, timeStamp: 0 }).axisDelta).toEqual([
+      2,
+      10,
+      33,
+    ])
+  })
+
+  test('deltaMode: 1', () => {
+    expect(normalizeWheel({ deltaX: 2, deltaY: 10, deltaZ: 33, deltaMode: 1, timeStamp: 0 }).axisDelta).toEqual([
+      2 * 18,
+      10 * 18,
+      33 * 18,
+    ])
+  })
+
+  test('deltaMode: 2', () => {
+    expect(normalizeWheel({ deltaX: 2, deltaY: 10, deltaZ: 33, deltaMode: 2, timeStamp: 0 }).axisDelta).toEqual([
+      2 * window.innerHeight,
+      10 * window.innerHeight,
+      33 * window.innerHeight,
+    ])
+  })
+})
