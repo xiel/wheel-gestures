@@ -16,13 +16,11 @@ export interface WheelGesturesInternalState {
 }
 
 export interface ScrollPoint {
-  deltaMaxAbs: number
   axisDelta: VectorXYZ
   timeStamp: number
 }
 
 export interface MergedScrollPoint {
-  deltaMaxAbsAverage: number
   axisDeltaSum: VectorXYZ
   timeStamp: number
 }
