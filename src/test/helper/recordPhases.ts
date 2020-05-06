@@ -12,10 +12,10 @@ export function subscribeAndFeedWheelEvents({ beforeFeed, callback, wheelEvents 
   // need to use fake timers, so we can run the debounced end function after feeding all events
   jest.useFakeTimers()
 
-  const wheelAnalyzer = WheelGestures({ reverseSign: false })
+  const wheelGestures = WheelGestures({ reverseSign: false })
 
-  callback && wheelAnalyzer.on('wheel', callback)
-  wheelAnalyzer.on('wheel', (data) => allPhaseData.push(data))
+  callback && wheelGestures.on('wheel', callback)
+  wheelGestures.on('wheel', (data) => allPhaseData.push(data))
 
   let prevTimeStamp = 0
 
@@ -27,7 +27,7 @@ export function subscribeAndFeedWheelEvents({ beforeFeed, callback, wheelEvents 
       }
 
       beforeFeed && beforeFeed(e, i)
-      wheelAnalyzer.feedWheel(e)
+      wheelGestures.feedWheel(e)
 
       prevTimeStamp = e.timeStamp
     })
@@ -38,7 +38,7 @@ export function subscribeAndFeedWheelEvents({ beforeFeed, callback, wheelEvents 
 
   feedEvents(wheelEvents)
 
-  return { wheelAnalyzer, allPhaseData, feedEvents }
+  return { wheelGestures, allPhaseData, feedEvents }
 }
 
 export type Range = [number, number]
