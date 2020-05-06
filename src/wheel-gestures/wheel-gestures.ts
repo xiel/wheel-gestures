@@ -1,11 +1,11 @@
 import EventBus from '../events/EventBus'
+import { WheelTargetObserver } from '../events/WheelTargetObserver'
 import { absMax, addVectors, average, deepFreeze, lastOf } from '../utils'
 import { clampAxisDelta, normalizeWheel, reverseAxisDeltaSign } from '../wheel-normalizer/wheel-normalizer'
 import { configDefaults, WheelGesturesConfig, WheelGesturesOptions } from './options'
 import { createWheelGesturesState } from './state'
 import {
   MergedScrollPoint,
-  Unobserve,
   VectorXYZ,
   WheelEventData,
   WheelEventState,
@@ -20,29 +20,27 @@ const WHEELEVENTS_TO_ANALAZE = 5
 
 export function WheelGestures(optionsParam: WheelGesturesOptions = {}) {
   const { on, off, dispatch } = EventBus<WheelGesturesEventMap>()
+
   let config = configDefaults
   let state = createWheelGesturesState()
-  let targets: EventTarget[] = []
   let currentEvent: WheelEventData
   let negativeZeroFingerUpSpecialEvent = false
   let prevWheelEventState: WheelEventState | undefined
 
-  // TODO: extract observe
-  const observe = (target: EventTarget): Unobserve => {
-    target.addEventListener('wheel', feedWheel as EventListener, { passive: false })
-    targets.push(target)
-
-    return () => unobserve(target)
+  const feedWheel = (wheelEvents: WheelEventData | WheelEventData[]) => {
+    if (Array.isArray(wheelEvents)) {
+      wheelEvents.forEach((wheelEvent) => processWheelEventData(wheelEvent))
+    } else {
+      processWheelEventData(wheelEvents)
+    }
   }
 
-  const unobserve = (target: EventTarget) => {
-    target.removeEventListener('wheel', feedWheel as EventListener)
-    targets = targets.filter((t) => t !== target)
-  }
-
-  // stops watching all of its target elements for visibility changes.
-  const disconnect = () => {
-    targets.forEach(unobserve)
+  const updateOptions = (newOptions: WheelGesturesOptions = {}): WheelGesturesConfig => {
+    if (Object.values(newOptions).some((option) => option === undefined || option === null)) {
+      isDev && console.error('updateOptions ignored! undefined & null options not allowed')
+      return config
+    }
+    return (config = deepFreeze({ ...configDefaults, ...config, ...newOptions }))
   }
 
   const publishWheel = (additionalData?: Partial<WheelEventState>) => {
@@ -65,22 +63,6 @@ export function WheelGestures(optionsParam: WheelGesturesOptions = {}) {
 
     // keep reference without previous, otherwise we would create a long chain
     prevWheelEventState = wheelEventState
-  }
-
-  const feedWheel = (wheelEvents: WheelEventData | WheelEventData[]) => {
-    if (Array.isArray(wheelEvents)) {
-      wheelEvents.forEach((wheelEvent) => processWheelEventData(wheelEvent))
-    } else {
-      processWheelEventData(wheelEvents)
-    }
-  }
-
-  const updateOptions = (newOptions: WheelGesturesOptions = {}): WheelGesturesConfig => {
-    if (Object.values(newOptions).some((option) => option === undefined || option === null)) {
-      isDev && console.error('updateOptions ignored! undefined & null options not allowed')
-      return config
-    }
-    return (config = deepFreeze({ ...configDefaults, ...config, ...newOptions }))
   }
 
   // should prevent when there is mainly movement on the desired axis
@@ -292,9 +274,11 @@ export function WheelGestures(optionsParam: WheelGesturesOptions = {}) {
     state.isStarted = false
   }
 
+  const { observe, unobserve, disconnect } = WheelTargetObserver(feedWheel)
+
   updateOptions(optionsParam)
 
-  return Object.freeze({
+  return deepFreeze({
     on,
     off,
     observe,
