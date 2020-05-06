@@ -2,7 +2,7 @@ import EventBus from '../events/EventBus'
 import { absMax, addVectors, average, deepFreeze, lastOf } from '../utils'
 import { clampAxisDelta, normalizeWheel, reverseAxisDeltaSign } from '../wheel-normalizer/wheel-normalizer'
 import { configDefaults, WheelGesturesConfig, WheelGesturesOptions } from './options'
-import { createWheelAnalyzerState } from './state'
+import { createWheelGesturesState } from './state'
 import {
   MergedScrollPoint,
   Unobserve,
@@ -21,7 +21,7 @@ const WHEELEVENTS_TO_ANALAZE = 5
 export function WheelGestures(optionsParam: WheelGesturesOptions = {}) {
   const { on, off, dispatch } = EventBus<WheelGesturesEventMap>()
   let config = configDefaults
-  let state = createWheelAnalyzerState()
+  let state = createWheelGesturesState()
   let targets: EventTarget[] = []
   let currentEvent: WheelEventData
   let negativeZeroFingerUpSpecialEvent = false
@@ -83,20 +83,24 @@ export function WheelGestures(optionsParam: WheelGesturesOptions = {}) {
     return (config = deepFreeze({ ...configDefaults, ...config, ...newOptions }))
   }
 
-  const shouldPreventDefault = (e: WheelEventData) => {
+  // should prevent when there is mainly movement on the desired axis
+  const shouldPreventDefault = (deltaMaxAbs: number, axisDelta: VectorXYZ): boolean => {
     const { preventWheelAction } = config
-    const { deltaX, deltaY } = e
+    const [deltaX, deltaY, deltaZ] = axisDelta
+
+    if (typeof preventWheelAction === 'boolean') return preventWheelAction
 
     switch (preventWheelAction) {
-      case 'all':
-        return true
       case 'x':
-        return Math.abs(deltaX) >= Math.abs(deltaY)
+        return Math.abs(deltaX) >= deltaMaxAbs
       case 'y':
-        return Math.abs(deltaY) >= Math.abs(deltaX)
+        return Math.abs(deltaY) >= deltaMaxAbs
+      case 'z':
+        return Math.abs(deltaZ) >= deltaMaxAbs
+      default:
+        isDev && console.warn('unsupported preventWheelAction value: ' + preventWheelAction, 'warn')
+        return false
     }
-
-    isDev && console.warn('unsupported preventWheelAction value: ' + preventWheelAction, 'warn')
   }
 
   const processWheelEventData = (wheelEvent: WheelEventData) => {
@@ -105,7 +109,7 @@ export function WheelGestures(optionsParam: WheelGesturesOptions = {}) {
     )
     const deltaMaxAbs = absMax(axisDelta)
 
-    if (wheelEvent.preventDefault && shouldPreventDefault(wheelEvent)) {
+    if (wheelEvent.preventDefault && shouldPreventDefault(deltaMaxAbs, axisDelta)) {
       wheelEvent.preventDefault()
     }
 
@@ -261,7 +265,7 @@ export function WheelGestures(optionsParam: WheelGesturesOptions = {}) {
   }
 
   const start = () => {
-    state = createWheelAnalyzerState()
+    state = createWheelGesturesState()
     state.isStarted = true
     state.startTime = Date.now()
     prevWheelEventState = undefined

@@ -6,7 +6,7 @@ import { WheelGesturesInternalState } from './wheel-gestures-types'
  */
 const WILL_END_TIMEOUT_DEFAULT = 400
 
-export function createWheelAnalyzerState(): WheelGesturesInternalState {
+export function createWheelGesturesState(): WheelGesturesInternalState {
   return {
     isStarted: false,
     isStartPublished: false,

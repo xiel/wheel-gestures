@@ -4,7 +4,7 @@ import { subscribeAndFeedWheelEvents } from '../helper/recordPhases'
 
 describe('updateOptions', () => {
   it('should be able to switch option (preventWheelAction)', function() {
-    const { feedEvents, wheelAnalyzer } = subscribeAndFeedWheelEvents()
+    const { feedEvents, wheelGestures } = subscribeAndFeedWheelEvents()
     const preventDefault = jest.fn()
 
     function feedDeltaYEvent() {
@@ -17,19 +17,19 @@ describe('updateOptions', () => {
       ])
     }
 
-    wheelAnalyzer.updateOptions({ preventWheelAction: 'x' })
+    wheelGestures.updateOptions({ preventWheelAction: 'x' })
     feedDeltaYEvent()
     expect(preventDefault).toHaveBeenCalledTimes(0)
 
-    wheelAnalyzer.updateOptions({ preventWheelAction: 'y' })
+    wheelGestures.updateOptions({ preventWheelAction: 'y' })
     feedDeltaYEvent()
     expect(preventDefault).toHaveBeenCalledTimes(1)
 
-    wheelAnalyzer.updateOptions({})
+    wheelGestures.updateOptions({})
     feedDeltaYEvent()
     expect(preventDefault).toHaveBeenCalledTimes(2)
 
-    wheelAnalyzer.updateOptions({ preventWheelAction: 'x' })
+    wheelGestures.updateOptions({ preventWheelAction: 'x' })
     feedDeltaYEvent()
     expect(preventDefault).toHaveBeenCalledTimes(2)
   })
@@ -37,7 +37,7 @@ describe('updateOptions', () => {
   it('should return default config by creating & calling updateOptions empty', () => {
     expect(WheelGestures().updateOptions()).toMatchInlineSnapshot(`
       Object {
-        "preventWheelAction": "all",
+        "preventWheelAction": true,
         "reverseSign": Array [
           true,
           true,

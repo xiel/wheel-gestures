@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { animated, useSpring } from 'react-spring'
 import { useDrag } from 'react-use-gesture'
-import { addVectors } from 'wheel-gestures'
+import { addVectors, WheelGesturesConfig } from 'wheel-gestures'
 
 import useWheelDrag from '../../hooks/useWheelDrag'
 import { Plot, PlotData } from '../Plot/Plot'
@@ -14,7 +14,7 @@ export default function SimpleWheelDrag() {
   const posRef = useRef([0, 0, 0])
   const [{ xyz }, set] = useSpring(() => ({ xyz: [0, 0, 0] }))
   const [springMomentum, setSpringMomentum] = useSpring(() => ({ xyz: [0, 0, 0] }))
-  const [preventWheelAction, setPreventWheelAction] = useState<'all' | 'x' | 'y'>('all')
+  const [preventWheelAction, setPreventWheelAction] = useState<WheelGesturesConfig['preventWheelAction']>(true)
   const [wheelSource, wheelSourceSet] = useState('-')
   const plotData = useRef<PlotData[]>([])
 
@@ -81,8 +81,18 @@ export default function SimpleWheelDrag() {
         <WheelRecorder domTarget={containerRef} />
         <label>
           preventWheelAction{' '}
-          <select value={preventWheelAction} onChange={(e) => setPreventWheelAction(e.target.value as any)}>
-            <option>all</option>
+          <select
+            value={preventWheelAction.toString()}
+            onChange={({ target }) => {
+              try {
+                setPreventWheelAction(JSON.parse(target.value))
+              } catch (e) {
+                setPreventWheelAction(target.value as WheelGesturesConfig['preventWheelAction'])
+              }
+            }}
+          >
+            <option>true</option>
+            <option>false</option>
             <option>x</option>
             <option>y</option>
           </select>
