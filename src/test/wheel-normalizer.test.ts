@@ -1,5 +1,4 @@
-import { VectorXYZ } from '..'
-import { reverseAxisDeltaSign } from '../wheel-normalizer/wheel-normalizer'
+import { reverseAxisDeltaSign, VectorXYZ } from '..'
 
 const wheelEvent = { axisDelta: [5, 2, 1] as VectorXYZ }
 
