@@ -1,13 +1,13 @@
 import { WheelEventData } from '../types'
 import { deepFreeze } from '../utils'
 
-export type Unobserve = () => void
+type UnobserveTarget = () => void
 
 export function WheelTargetObserver(eventListener: (wheelEvent: WheelEventData) => void) {
   let targets: EventTarget[] = []
 
   // add event listener to target element
-  const observe = (target: EventTarget): Unobserve => {
+  const observe = (target: EventTarget): UnobserveTarget => {
     target.addEventListener('wheel', eventListener as EventListener, { passive: false })
     targets.push(target)
 
