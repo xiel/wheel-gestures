@@ -1,6 +1,5 @@
 import React, { useRef, useState } from 'react'
 import { animated, config as springCfg, useSpring } from 'react-spring'
-import { projection } from 'wheel-gestures'
 
 import useWheelDrag from '../../hooks/useWheelDrag'
 import { rubberband } from '../../utils/rubberband'
@@ -27,7 +26,7 @@ export default function Gallery() {
   }
 
   useWheelDrag(
-    ({ isEnding, isMomentum, axisMovement: [x, y], axisVelocity, previous }) => {
+    ({ isEnding, isMomentum, axisMovement: [x], axisVelocity, previous, axisMovementProjection }) => {
       const [xVelo, yVelo] = axisVelocity
       const width = containerRef.current!.offsetWidth
       const minX = width * -1 * (pages.length - 1)
@@ -38,8 +37,10 @@ export default function Gallery() {
 
         const config = { velocity: xVelo }
         const snapPoints = pages.map((_, i) => i * width * -1)
-        const projectionX = projection(xVelo)
-        const projectedTarget = offsetX.current + x + projectionX
+        const [projectionX] = axisMovementProjection
+        const projectedTarget = offsetX.current + projectionX
+
+        console.log('projectionX', projectionX)
 
         const closestSnapPoint = snapPoints.reduce(
           (acc, snapPoint) => {
