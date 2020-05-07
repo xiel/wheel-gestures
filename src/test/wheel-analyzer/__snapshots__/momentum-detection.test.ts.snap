@@ -1,0 +1,807 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`momentum detection recognizes double swipe right 1`] = `
+Object {
+  "phases": Array [
+    Object {
+      "lastData": Object {
+        "axisDeltas": Array [
+          -782,
+          8,
+        ],
+        "axisVelocity": Array [
+          -1.6915201419407737,
+          0,
+        ],
+        "debugData": null,
+        "isMomentum": false,
+        "type": "WHEEL_END",
+        "willEndSoon": false,
+      },
+      "range": Array [
+        0,
+        21,
+      ],
+      "wheelType": "WHEEL",
+    },
+    Object {
+      "canceled": true,
+      "lastData": Object {
+        "axisDeltas": Array [
+          -952,
+          8,
+        ],
+        "axisVelocity": Array [
+          -0.682340725381047,
+          0,
+        ],
+        "debugData": null,
+        "isMomentum": true,
+        "type": "MOMENTUM_WHEEL_CANCEL",
+        "willEndSoon": false,
+      },
+      "range": Array [
+        21,
+        33,
+      ],
+      "wheelType": "MOMENTUM_WHEEL",
+    },
+    Object {
+      "lastData": Object {
+        "axisDeltas": Array [
+          -952,
+          8,
+        ],
+        "axisVelocity": Array [
+          -0.682340725381047,
+          0,
+        ],
+        "debugData": null,
+        "isMomentum": true,
+        "type": "ANY_WHEEL_END",
+        "willEndSoon": false,
+      },
+      "range": Array [
+        0,
+        33,
+      ],
+      "wheelType": "ANY_WHEEL",
+    },
+    Object {
+      "lastData": Object {
+        "axisDeltas": Array [
+          -1281,
+          -2,
+        ],
+        "axisVelocity": Array [
+          -2.6581998086919674,
+          0,
+        ],
+        "debugData": null,
+        "isMomentum": false,
+        "type": "WHEEL_END",
+        "willEndSoon": false,
+      },
+      "range": Array [
+        33,
+        56,
+      ],
+      "wheelType": "WHEEL",
+    },
+    Object {
+      "lastData": Object {
+        "axisDeltas": Array [
+          -1755,
+          -2,
+        ],
+        "axisVelocity": Array [
+          -0.039928129363731614,
+          0,
+        ],
+        "debugData": null,
+        "isMomentum": true,
+        "type": "MOMENTUM_WHEEL_END",
+        "willEndSoon": true,
+      },
+      "range": Array [
+        56,
+        102,
+      ],
+      "wheelType": "MOMENTUM_WHEEL",
+    },
+    Object {
+      "lastData": Object {
+        "axisDeltas": Array [
+          -1755,
+          -2,
+        ],
+        "axisVelocity": Array [
+          -0.039928129363731614,
+          0,
+        ],
+        "debugData": null,
+        "isMomentum": true,
+        "type": "ANY_WHEEL_END",
+        "willEndSoon": true,
+      },
+      "range": Array [
+        33,
+        102,
+      ],
+      "wheelType": "ANY_WHEEL",
+    },
+  ],
+}
+`;
+
+exports[`momentum detection recognizes swipe down - fast 1`] = `
+Object {
+  "phases": Array [
+    Object {
+      "lastData": Object {
+        "axisDeltas": Array [
+          -23,
+          -2342,
+        ],
+        "axisVelocity": Array [
+          0,
+          -11.235294117647058,
+        ],
+        "debugData": null,
+        "isMomentum": false,
+        "type": "WHEEL_END",
+        "willEndSoon": false,
+      },
+      "range": Array [
+        0,
+        19,
+      ],
+      "wheelType": "WHEEL",
+    },
+    Object {
+      "lastData": Object {
+        "axisDeltas": Array [
+          -23,
+          -5953,
+        ],
+        "axisVelocity": Array [
+          0,
+          -0.04081632653061224,
+        ],
+        "debugData": null,
+        "isMomentum": true,
+        "type": "MOMENTUM_WHEEL_END",
+        "willEndSoon": true,
+      },
+      "range": Array [
+        19,
+        95,
+      ],
+      "wheelType": "MOMENTUM_WHEEL",
+    },
+    Object {
+      "lastData": Object {
+        "axisDeltas": Array [
+          -23,
+          -5953,
+        ],
+        "axisVelocity": Array [
+          0,
+          -0.04081632653061224,
+        ],
+        "debugData": null,
+        "isMomentum": true,
+        "type": "ANY_WHEEL_END",
+        "willEndSoon": true,
+      },
+      "range": Array [
+        0,
+        95,
+      ],
+      "wheelType": "ANY_WHEEL",
+    },
+  ],
+}
+`;
+
+exports[`momentum detection recognizes swipe down 1`] = `
+Object {
+  "phases": Array [
+    Object {
+      "lastData": Object {
+        "axisDeltas": Array [
+          7,
+          -1643,
+        ],
+        "axisVelocity": Array [
+          0,
+          -2.8484848484848486,
+        ],
+        "debugData": null,
+        "isMomentum": false,
+        "type": "WHEEL_END",
+        "willEndSoon": false,
+      },
+      "range": Array [
+        0,
+        41,
+      ],
+      "wheelType": "WHEEL",
+    },
+    Object {
+      "lastData": Object {
+        "axisDeltas": Array [
+          7,
+          -2134,
+        ],
+        "axisVelocity": Array [
+          0,
+          -0.04878048780487805,
+        ],
+        "debugData": null,
+        "isMomentum": true,
+        "type": "MOMENTUM_WHEEL_END",
+        "willEndSoon": true,
+      },
+      "range": Array [
+        41,
+        87,
+      ],
+      "wheelType": "MOMENTUM_WHEEL",
+    },
+    Object {
+      "lastData": Object {
+        "axisDeltas": Array [
+          7,
+          -2134,
+        ],
+        "axisVelocity": Array [
+          0,
+          -0.04878048780487805,
+        ],
+        "debugData": null,
+        "isMomentum": true,
+        "type": "ANY_WHEEL_END",
+        "willEndSoon": true,
+      },
+      "range": Array [
+        0,
+        87,
+      ],
+      "wheelType": "ANY_WHEEL",
+    },
+  ],
+}
+`;
+
+exports[`momentum detection recognizes swipe left (mouse) - Firefox 1`] = `
+Object {
+  "phases": Array [
+    Object {
+      "lastData": Object {
+        "axisDeltas": Array [
+          610,
+          0,
+        ],
+        "axisVelocity": Array [
+          0.835820895522388,
+          0,
+        ],
+        "debugData": null,
+        "isMomentum": false,
+        "type": "WHEEL_END",
+        "willEndSoon": false,
+      },
+      "range": Array [
+        0,
+        27,
+      ],
+      "wheelType": "WHEEL",
+    },
+    Object {
+      "lastData": Object {
+        "axisDeltas": Array [
+          740,
+          0,
+        ],
+        "axisVelocity": Array [
+          0.04,
+          0,
+        ],
+        "debugData": null,
+        "isMomentum": true,
+        "type": "MOMENTUM_WHEEL_END",
+        "willEndSoon": true,
+      },
+      "range": Array [
+        27,
+        54,
+      ],
+      "wheelType": "MOMENTUM_WHEEL",
+    },
+    Object {
+      "lastData": Object {
+        "axisDeltas": Array [
+          740,
+          0,
+        ],
+        "axisVelocity": Array [
+          0.04,
+          0,
+        ],
+        "debugData": null,
+        "isMomentum": true,
+        "type": "ANY_WHEEL_END",
+        "willEndSoon": true,
+      },
+      "range": Array [
+        0,
+        54,
+      ],
+      "wheelType": "ANY_WHEEL",
+    },
+  ],
+}
+`;
+
+exports[`momentum detection recognizes swipe left - fast 1`] = `
+Object {
+  "phases": Array [
+    Object {
+      "lastData": Object {
+        "axisDeltas": Array [
+          2524,
+          -8,
+        ],
+        "axisVelocity": Array [
+          14.058823529411764,
+          0,
+        ],
+        "debugData": null,
+        "isMomentum": false,
+        "type": "WHEEL_END",
+        "willEndSoon": false,
+      },
+      "range": Array [
+        0,
+        17,
+      ],
+      "wheelType": "WHEEL",
+    },
+    Object {
+      "lastData": Object {
+        "axisDeltas": Array [
+          7237,
+          -8,
+        ],
+        "axisVelocity": Array [
+          0.039603960396039604,
+          0,
+        ],
+        "debugData": null,
+        "isMomentum": true,
+        "type": "MOMENTUM_WHEEL_END",
+        "willEndSoon": true,
+      },
+      "range": Array [
+        17,
+        100,
+      ],
+      "wheelType": "MOMENTUM_WHEEL",
+    },
+    Object {
+      "lastData": Object {
+        "axisDeltas": Array [
+          7237,
+          -8,
+        ],
+        "axisVelocity": Array [
+          0.039603960396039604,
+          0,
+        ],
+        "debugData": null,
+        "isMomentum": true,
+        "type": "ANY_WHEEL_END",
+        "willEndSoon": true,
+      },
+      "range": Array [
+        0,
+        100,
+      ],
+      "wheelType": "ANY_WHEEL",
+    },
+  ],
+}
+`;
+
+exports[`momentum detection recognizes swipe left 1`] = `
+Object {
+  "phases": Array [
+    Object {
+      "lastData": Object {
+        "axisDeltas": Array [
+          2138,
+          -15,
+        ],
+        "axisVelocity": Array [
+          4.382352941176471,
+          0,
+        ],
+        "debugData": null,
+        "isMomentum": false,
+        "type": "WHEEL_END",
+        "willEndSoon": false,
+      },
+      "range": Array [
+        0,
+        29,
+      ],
+      "wheelType": "WHEEL",
+    },
+    Object {
+      "lastData": Object {
+        "axisDeltas": Array [
+          3001,
+          -15,
+        ],
+        "axisVelocity": Array [
+          0.04,
+          0,
+        ],
+        "debugData": null,
+        "isMomentum": true,
+        "type": "MOMENTUM_WHEEL_END",
+        "willEndSoon": true,
+      },
+      "range": Array [
+        29,
+        82,
+      ],
+      "wheelType": "MOMENTUM_WHEEL",
+    },
+    Object {
+      "lastData": Object {
+        "axisDeltas": Array [
+          3001,
+          -15,
+        ],
+        "axisVelocity": Array [
+          0.04,
+          0,
+        ],
+        "debugData": null,
+        "isMomentum": true,
+        "type": "ANY_WHEEL_END",
+        "willEndSoon": true,
+      },
+      "range": Array [
+        0,
+        82,
+      ],
+      "wheelType": "ANY_WHEEL",
+    },
+  ],
+}
+`;
+
+exports[`momentum detection recognizes swipe right - fast 1`] = `
+Object {
+  "phases": Array [
+    Object {
+      "lastData": Object {
+        "axisDeltas": Array [
+          -15,
+          0,
+        ],
+        "axisVelocity": Array [
+          -0.03963731853433476,
+          0,
+        ],
+        "debugData": null,
+        "isMomentum": false,
+        "type": "WHEEL_END",
+        "willEndSoon": true,
+      },
+      "range": Array [
+        0,
+        9,
+      ],
+      "wheelType": "WHEEL",
+    },
+    Object {
+      "lastData": Object {
+        "axisDeltas": Array [
+          -15,
+          0,
+        ],
+        "axisVelocity": Array [
+          -0.03963731853433476,
+          0,
+        ],
+        "debugData": null,
+        "isMomentum": false,
+        "type": "ANY_WHEEL_END",
+        "willEndSoon": true,
+      },
+      "range": Array [
+        0,
+        9,
+      ],
+      "wheelType": "ANY_WHEEL",
+    },
+    Object {
+      "lastData": Object {
+        "axisDeltas": Array [
+          -3191,
+          0,
+        ],
+        "axisVelocity": Array [
+          -20.823763587311635,
+          0,
+        ],
+        "debugData": null,
+        "isMomentum": false,
+        "type": "WHEEL_END",
+        "willEndSoon": false,
+      },
+      "range": Array [
+        10,
+        33,
+      ],
+      "wheelType": "WHEEL",
+    },
+    Object {
+      "lastData": Object {
+        "axisDeltas": Array [
+          -6336,
+          0,
+        ],
+        "axisVelocity": Array [
+          -0.0400060009027491,
+          0,
+        ],
+        "debugData": null,
+        "isMomentum": true,
+        "type": "MOMENTUM_WHEEL_END",
+        "willEndSoon": true,
+      },
+      "range": Array [
+        33,
+        96,
+      ],
+      "wheelType": "MOMENTUM_WHEEL",
+    },
+    Object {
+      "lastData": Object {
+        "axisDeltas": Array [
+          -6336,
+          0,
+        ],
+        "axisVelocity": Array [
+          -0.0400060009027491,
+          0,
+        ],
+        "debugData": null,
+        "isMomentum": true,
+        "type": "ANY_WHEEL_END",
+        "willEndSoon": true,
+      },
+      "range": Array [
+        10,
+        96,
+      ],
+      "wheelType": "ANY_WHEEL",
+    },
+  ],
+}
+`;
+
+exports[`momentum detection recognizes swipe right 1`] = `
+Object {
+  "phases": Array [
+    Object {
+      "lastData": Object {
+        "axisDeltas": Array [
+          -1247,
+          0,
+        ],
+        "axisVelocity": Array [
+          -2.370280330906471,
+          0,
+        ],
+        "debugData": null,
+        "isMomentum": false,
+        "type": "WHEEL_END",
+        "willEndSoon": false,
+      },
+      "range": Array [
+        0,
+        25,
+      ],
+      "wheelType": "WHEEL",
+    },
+    Object {
+      "lastData": Object {
+        "axisDeltas": Array [
+          -1634,
+          0,
+        ],
+        "axisVelocity": Array [
+          -0.0398585023158581,
+          0,
+        ],
+        "debugData": null,
+        "isMomentum": true,
+        "type": "MOMENTUM_WHEEL_END",
+        "willEndSoon": true,
+      },
+      "range": Array [
+        25,
+        63,
+      ],
+      "wheelType": "MOMENTUM_WHEEL",
+    },
+    Object {
+      "lastData": Object {
+        "axisDeltas": Array [
+          -1634,
+          0,
+        ],
+        "axisVelocity": Array [
+          -0.0398585023158581,
+          0,
+        ],
+        "debugData": null,
+        "isMomentum": true,
+        "type": "ANY_WHEEL_END",
+        "willEndSoon": true,
+      },
+      "range": Array [
+        0,
+        63,
+      ],
+      "wheelType": "ANY_WHEEL",
+    },
+  ],
+}
+`;
+
+exports[`momentum detection recognizes swipe up - fast 1`] = `
+Object {
+  "phases": Array [
+    Object {
+      "lastData": Object {
+        "axisDeltas": Array [
+          -38,
+          2735,
+        ],
+        "axisVelocity": Array [
+          0,
+          11.676470588235293,
+        ],
+        "debugData": null,
+        "isMomentum": false,
+        "type": "WHEEL_END",
+        "willEndSoon": false,
+      },
+      "range": Array [
+        0,
+        21,
+      ],
+      "wheelType": "WHEEL",
+    },
+    Object {
+      "lastData": Object {
+        "axisDeltas": Array [
+          -38,
+          6526,
+        ],
+        "axisVelocity": Array [
+          0,
+          0.0392156862745098,
+        ],
+        "debugData": null,
+        "isMomentum": true,
+        "type": "MOMENTUM_WHEEL_END",
+        "willEndSoon": true,
+      },
+      "range": Array [
+        21,
+        98,
+      ],
+      "wheelType": "MOMENTUM_WHEEL",
+    },
+    Object {
+      "lastData": Object {
+        "axisDeltas": Array [
+          -38,
+          6526,
+        ],
+        "axisVelocity": Array [
+          0,
+          0.0392156862745098,
+        ],
+        "debugData": null,
+        "isMomentum": true,
+        "type": "ANY_WHEEL_END",
+        "willEndSoon": true,
+      },
+      "range": Array [
+        0,
+        98,
+      ],
+      "wheelType": "ANY_WHEEL",
+    },
+  ],
+}
+`;
+
+exports[`momentum detection recognizes swipe up 1`] = `
+Object {
+  "phases": Array [
+    Object {
+      "lastData": Object {
+        "axisDeltas": Array [
+          -70,
+          2197,
+        ],
+        "axisVelocity": Array [
+          0,
+          6.7164179104477615,
+        ],
+        "debugData": null,
+        "isMomentum": false,
+        "type": "WHEEL_END",
+        "willEndSoon": false,
+      },
+      "range": Array [
+        0,
+        23,
+      ],
+      "wheelType": "WHEEL",
+    },
+    Object {
+      "lastData": Object {
+        "axisDeltas": Array [
+          -70,
+          3774,
+        ],
+        "axisVelocity": Array [
+          0,
+          0.04,
+        ],
+        "debugData": null,
+        "isMomentum": true,
+        "type": "MOMENTUM_WHEEL_END",
+        "willEndSoon": true,
+      },
+      "range": Array [
+        23,
+        84,
+      ],
+      "wheelType": "MOMENTUM_WHEEL",
+    },
+    Object {
+      "lastData": Object {
+        "axisDeltas": Array [
+          -70,
+          3774,
+        ],
+        "axisVelocity": Array [
+          0,
+          0.04,
+        ],
+        "debugData": null,
+        "isMomentum": true,
+        "type": "ANY_WHEEL_END",
+        "willEndSoon": true,
+      },
+      "range": Array [
+        0,
+        84,
+      ],
+      "wheelType": "ANY_WHEEL",
+    },
+  ],
+}
+`;

@@ -12,7 +12,7 @@ wheel gestures and momentum detection in the browser
 
 - Mac OS (Chrome, Firefox, Safari, Edge), Magic Mouse, Magic Trackpad
 - Windows (Chrome, Firefox, Edge), Microsoft Precision Touchpads
-- Linux (to be tested)
+- Linux (testing needed & help appreciated)
 
 #### Prior Art
 
@@ -20,5 +20,3 @@ Other people also thought that it might be helpful for some interactions to be a
 
 - https://github.com/promo/wheel-indicator
 - https://github.com/d4nyll/lethargy
-
-

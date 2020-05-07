@@ -1,9 +1,8 @@
-import VisuallyHidden from '@reach/visually-hidden'
-import { Link } from 'gatsby'
 import React from 'react'
-
-import { Content } from '../Layout/Layout'
+import VisuallyHidden from '@reach/visually-hidden'
 import c from './Header.module.scss'
+import { Link } from 'gatsby'
+import { Content } from '../Layout/Layout'
 
 interface Props {
   siteTitle: string
@@ -25,12 +24,8 @@ export default function Header({ siteTitle }: Props) {
           </h1>
         </Link>
         <nav className={c.nav}>
-          <Link className={c.navLink} to="/">
-            Wheel Drag
-          </Link>
-          <Link className={c.navLink} to="/gallery/">
-            Gallery
-          </Link>
+          <Link className={c.navLink} to="/">Wheel Drag</Link>
+          <Link className={c.navLink} to="/gallery">Gallery</Link>
         </nav>
       </Content>
     </header>

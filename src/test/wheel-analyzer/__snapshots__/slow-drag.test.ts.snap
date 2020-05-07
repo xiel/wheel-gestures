@@ -1,0 +1,99 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`drag slow drag 1`] = `
+Object {
+  "phases": Array [
+    Object {
+      "lastData": Object {
+        "axisDeltas": Array [
+          -1407,
+          11,
+        ],
+        "axisVelocity": Array [
+          -0.125,
+          0.0625,
+        ],
+        "debugData": null,
+        "isMomentum": false,
+        "type": "WHEEL_END",
+        "willEndSoon": true,
+      },
+      "range": Array [
+        0,
+        193,
+      ],
+      "wheelType": "WHEEL",
+    },
+    Object {
+      "lastData": Object {
+        "axisDeltas": Array [
+          -1407,
+          11,
+        ],
+        "axisVelocity": Array [
+          -0.125,
+          0.0625,
+        ],
+        "debugData": null,
+        "isMomentum": false,
+        "type": "ANY_WHEEL_END",
+        "willEndSoon": true,
+      },
+      "range": Array [
+        0,
+        193,
+      ],
+      "wheelType": "ANY_WHEEL",
+    },
+  ],
+}
+`;
+
+exports[`drag square move - trackpad (tl -> tr -> br -> bl -> tl) 1`] = `
+Object {
+  "phases": Array [
+    Object {
+      "lastData": Object {
+        "axisDeltas": Array [
+          -408,
+          77,
+        ],
+        "axisVelocity": Array [
+          0.022727272727272728,
+          0,
+        ],
+        "debugData": null,
+        "isMomentum": false,
+        "type": "WHEEL_END",
+        "willEndSoon": false,
+      },
+      "range": Array [
+        0,
+        206,
+      ],
+      "wheelType": "WHEEL",
+    },
+    Object {
+      "lastData": Object {
+        "axisDeltas": Array [
+          -408,
+          77,
+        ],
+        "axisVelocity": Array [
+          0.022727272727272728,
+          0,
+        ],
+        "debugData": null,
+        "isMomentum": false,
+        "type": "ANY_WHEEL_END",
+        "willEndSoon": false,
+      },
+      "range": Array [
+        0,
+        206,
+      ],
+      "wheelType": "ANY_WHEEL",
+    },
+  ],
+}
+`;

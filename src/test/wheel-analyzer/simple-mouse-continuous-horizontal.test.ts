@@ -1,10 +1,12 @@
+import { recordPhases } from '../helper/recordPhases'
+
 import macChrome from '../fixtures/simple-mouse-continuous-horizontal/mac-chrome.json'
 import macFF from '../fixtures/simple-mouse-continuous-horizontal/mac-FF.json'
 import macSafari from '../fixtures/simple-mouse-continuous-horizontal/mac-safari.json'
+
+import winFF from '../fixtures/simple-mouse-continuous-horizontal/win-FF.json'
 import winChrome from '../fixtures/simple-mouse-continuous-horizontal/win-Chrome.json'
 import winEdge from '../fixtures/simple-mouse-continuous-horizontal/win-Edge.json'
-import winFF from '../fixtures/simple-mouse-continuous-horizontal/win-FF.json'
-import { recordPhases } from '../helper/recordPhases'
 
 describe('simple mouse - continuous horizontal wheel', () => {
   describe('Mac', () => {

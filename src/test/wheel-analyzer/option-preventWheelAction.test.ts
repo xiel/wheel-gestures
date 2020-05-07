@@ -1,21 +1,23 @@
-import { WheelEventData, WheelGesturesOptions } from '../../types'
-import { WheelGestures } from '../../wheel-gestures/wheel-gestures'
 import slowDragRight from '../fixtures/slow-drag-right.json'
 import squareMoveTrackpad from '../fixtures/square-move-trackpad.json'
 import swipeUpTrackpad from '../fixtures/swipe-up-trackpad.json'
-import { generateEvents } from '../helper/generateEvents'
+import { Options, WheelAnalyzer } from '../../wheel-analyzer'
+import { SubscribeFn, WheelEventData } from '../../wheel-analyzer.types'
 
 interface Opts {
-  options?: WheelGesturesOptions
+  callback?: SubscribeFn
+  options?: Partial<Options>
 }
 
-function feedWheelEvents(wheelEvents: WheelEventData[], { options }: Opts = {}) {
+function feedWheelEvents(wheelEvents: WheelEventData[], { callback = () => undefined, options }: Opts = {}) {
   // need to use fake timers, so we can run the debounced end function after feeding all events
   jest.useFakeTimers()
-  const wA = WheelGestures(options)
+  const wA = new WheelAnalyzer(options)
+  const unsubscribe = wA.subscribe(callback)
   wA.feedWheel(wheelEvents)
   // fast forward and exhaust currently pending timers
   jest.runOnlyPendingTimers()
+  unsubscribe()
 }
 
 function testPreventWheelActionWithOptions(wheelEvents: WheelEventData[], opts: Opts = {}) {
@@ -92,23 +94,12 @@ describe('preventDefault should be called when drag is on defined axis', () => {
   })
 })
 
-test('can disable calling preventDefault using preventWheelAction: false', () => {
-  const { wheelEventsWithPreventDefault, preventDefault } = testPreventWheelActionWithOptions(
-    generateEvents({ deltaTotal: [100, 100, 100], durationMs: 100 }).wheelEvents,
-    { options: { preventWheelAction: false } }
-  )
-
-  // preventDefault should never be called
-  expect(wheelEventsWithPreventDefault.length).toBe(6)
-  expect(preventDefault).toBeCalledTimes(0)
-})
-
 test('should warn about unsupported preventWheelAction in debug mode', () => {
   const logWarn = spyOn(console, 'warn')
 
   testPreventWheelActionWithOptions(swipeUpTrackpad.wheelEvents, {
     // @ts-ignore
-    options: { preventWheelAction: 'xyz' },
+    options: { preventWheelAction: 'xyz', isDebug: true },
   })
 
   expect(logWarn.calls.mostRecent().args[0]).toMatchInlineSnapshot(`"unsupported preventWheelAction value: xyz"`)

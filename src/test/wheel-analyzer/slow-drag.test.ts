@@ -1,6 +1,7 @@
+import { recordPhases } from '../helper/recordPhases'
+
 import slowDragRight from '../fixtures/slow-drag-right.json'
 import squareMove from '../fixtures/square-move-trackpad.json'
-import { recordPhases } from '../helper/recordPhases'
 
 describe('drag', () => {
   it('slow drag', () => {

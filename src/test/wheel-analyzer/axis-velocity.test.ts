@@ -1,9 +1,35 @@
-import { WheelEventState } from '../../types'
-import { lastOf } from '../../utils'
-import { generateEvents } from '../helper/generateEvents'
 import { subscribeAndFeedWheelEvents } from '../helper/recordPhases'
+import { PhaseData, WheelEventData } from '../../wheel-analyzer.types'
+import { lastOf } from '../../utils/utils'
 
-function calcAverageVelocity(phases: WheelEventState[]) {
+interface GenerateEventsProps {
+  deltaTotal: number[]
+  durationMs: number
+  eventEveryMs?: number
+  deltaMode?: number
+}
+
+function generateEvents({ deltaTotal, durationMs, eventEveryMs = 1000 / 60, deltaMode = 0 }: GenerateEventsProps) {
+  const wheelEvents: WheelEventData[] = []
+  const [deltaX, deltaY, deltaZ] = deltaTotal.map((d) => (d / durationMs) * eventEveryMs)
+
+  let timeStamp = 0
+  while (timeStamp < durationMs && Math.round(timeStamp + eventEveryMs) <= durationMs) {
+    timeStamp += eventEveryMs
+
+    wheelEvents.push({
+      deltaX,
+      deltaY,
+      deltaZ,
+      deltaMode,
+      timeStamp,
+    })
+  }
+
+  return { wheelEvents }
+}
+
+function calcAverageVelocity(phases: PhaseData[]) {
   return phases.reduce(
     (averageAcc, { axisVelocity }) => {
       averageAcc[0] = (averageAcc[0] + axisVelocity[0]) / 2
@@ -17,7 +43,7 @@ function calcAverageVelocity(phases: WheelEventState[]) {
 describe('velocity', () => {
   it('should have velocity in first (and only) event - x', () => {
     const { allPhaseData } = subscribeAndFeedWheelEvents({
-      wheelEvents: [{ deltaX: 0, deltaY: 20, deltaMode: 0, timeStamp: 0 }],
+      wheelEvents: [{ deltaX: 0, deltaY: 20, deltaMode: 0 }],
     })
     const [xVelo, yVelo] = allPhaseData[1].axisVelocity
 
@@ -52,7 +78,7 @@ describe('velocity', () => {
     expect(averageVelocity[0]).toBeCloseTo(0)
     expect(averageVelocity[1]).toBeCloseTo(1)
 
-    const [deltaX, deltaY] = lastOf(allPhaseData).axisMovement
+    const [deltaX, deltaY] = lastOf(allPhaseData).axisDeltas
 
     expect(deltaX).toBeCloseTo(0)
     expect(deltaY).toBeCloseTo(1000)
@@ -67,7 +93,7 @@ describe('velocity', () => {
     expect(averageVelocity[0]).toBeCloseTo(2)
     expect(averageVelocity[1]).toBeCloseTo(2)
 
-    const [deltaX, deltaY] = lastOf(allPhaseData).axisMovement
+    const [deltaX, deltaY] = lastOf(allPhaseData).axisDeltas
 
     expect(deltaX).toBeCloseTo(2000)
     expect(deltaY).toBeCloseTo(2000)

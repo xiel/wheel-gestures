@@ -1,8 +1,10 @@
+export interface Props {}
+
 export type EventMapEmpty = Record<string, unknown>
 export type EventListener<D = unknown> = (data: D) => void
 export type Off = () => void
 
-export default function EventBus<EventMap = EventMapEmpty>() {
+export default function EventBus<EventMap = EventMapEmpty>({}: Props = {}) {
   const listeners = {} as Record<keyof EventMap, EventListener<any>[]>
 
   function on<EK extends keyof EventMap>(type: EK, listener: EventListener<EventMap[EK]>): Off {

@@ -1,7 +1,7 @@
 .options {
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: center;
   margin: 2em 0;
 
   > * {
@@ -11,8 +11,7 @@
 
 .container {
   position: relative;
-  padding: 1em 0;
-  min-height: 150px;
+  height: 150px;
   background: whitesmoke;
   border-radius: 20px;
 
