@@ -1,30 +1,19 @@
+/**
+ * public types
+ * these types are exported by the module
+ */
 export type VectorXYZ = [number, number, number]
 export type BooleanXYZ = [boolean, boolean, boolean]
+export type PreventWheelActionType = true | 'x' | 'y' | 'z' | false
+export type ReverseSign = BooleanXYZ | boolean
 
-export interface WheelGesturesInternalState {
-  isStarted: boolean
-  isStartPublished: boolean
-  isMomentum: boolean
-  startTime: number
-  lastAbsDelta: number
-  axisMovement: VectorXYZ
-  axisVelocity: VectorXYZ
-  accelerationFactors: number[][]
-  scrollPoints: MergedScrollPoint[]
-  scrollPointsToMerge: ScrollPoint[]
-  willEndTimeout: number
+export interface WheelGesturesConfig {
+  preventWheelAction: PreventWheelActionType
+  reverseSign: ReverseSign
 }
 
-export interface ScrollPoint {
-  axisDelta: VectorXYZ
-  timeStamp: number
-}
-
-export interface MergedScrollPoint {
-  axisDeltaSum: VectorXYZ
-  timeStamp: number
-}
-
+// all options are optional and have reasonable defaults
+export type WheelGesturesOptions = Partial<WheelGesturesConfig>
 export type WheelEventDataRequiredFields = 'deltaMode' | 'deltaX' | 'deltaY' | 'timeStamp'
 
 export interface WheelEventData
@@ -46,5 +35,3 @@ export interface WheelEventState {
 export type WheelGesturesEventMap = {
   wheel: WheelEventState
 }
-
-export type Unobserve = () => void
