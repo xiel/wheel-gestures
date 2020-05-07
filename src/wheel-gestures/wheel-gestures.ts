@@ -8,7 +8,7 @@ import {
   WheelGesturesEventMap,
   WheelGesturesOptions,
 } from '../types'
-import { absMax, addVectors, average, deepFreeze, lastOf } from '../utils'
+import { absMax, addVectors, average, deepFreeze, lastOf, projection } from '../utils'
 import { clampAxisDelta, normalizeWheel, reverseAxisDeltaSign } from '../wheel-normalizer/wheel-normalizer'
 import { __DEV__, ACC_FACTOR_MAX, ACC_FACTOR_MIN, WHEELEVENTS_TO_ANALAZE, WHEELEVENTS_TO_MERGE } from './constants'
 import { configDefaults } from './options'
@@ -40,14 +40,20 @@ export function WheelGestures(optionsParam: WheelGesturesOptions = {}) {
 
   const publishWheel = (additionalData?: Partial<WheelEventState>) => {
     const wheelEventState: WheelEventState = {
+      event: currentEvent,
       isStart: false,
       isEnding: false,
       isMomentumCancel: false,
       isMomentum: state.isMomentum,
-      axisMovement: state.axisMovement,
-      axisVelocity: state.axisVelocity,
       axisDelta: [0, 0, 0],
-      event: currentEvent,
+      axisVelocity: state.axisVelocity,
+      axisMovement: state.axisMovement,
+      get axisMovementProjection() {
+        return addVectors(
+          wheelEventState.axisMovement,
+          wheelEventState.axisVelocity.map((velocity) => projection(velocity)) as VectorXYZ
+        )
+      },
       ...additionalData,
     }
 

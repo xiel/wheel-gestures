@@ -25,9 +25,10 @@ export interface WheelEventState {
   isMomentum: boolean
   isEnding: boolean
   isMomentumCancel: boolean
-  axisMovement: VectorXYZ
-  axisVelocity: VectorXYZ
   axisDelta: VectorXYZ
+  axisVelocity: VectorXYZ
+  axisMovement: VectorXYZ
+  axisMovementProjection: VectorXYZ
   event: WheelEvent | WheelEventData
   previous?: WheelEventState
 }
