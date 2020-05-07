@@ -5,12 +5,13 @@
  * See: https://www.gatsbyjs.org/docs/use-static-query/
  */
 
-import React, { ReactNode } from 'react'
+import '../../styles/global.scss'
+
+import { graphql, useStaticQuery } from 'gatsby'
 import PropTypes from 'prop-types'
-import { useStaticQuery, graphql } from 'gatsby'
+import React, { ReactNode } from 'react'
 
 import Header from '../Header/Header'
-import '../../styles/global.scss'
 import { Content } from './Layout'
 
 const Skeleton = ({ children }: { children: ReactNode }) => {
@@ -29,7 +30,6 @@ const Skeleton = ({ children }: { children: ReactNode }) => {
       <Header siteTitle={data.site.siteMetadata.title} />
       <Content>
         <main>{children}</main>
-        <footer>Felix Leupold © {new Date().getFullYear()}, made in Berlin 🐻</footer>
       </Content>
     </>
   )
