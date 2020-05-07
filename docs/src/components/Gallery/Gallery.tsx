@@ -40,8 +40,6 @@ export default function Gallery() {
         const [projectionX] = axisMovementProjection
         const projectedTarget = offsetX.current + projectionX
 
-        console.log('projectionX', projectionX)
-
         const closestSnapPoint = snapPoints.reduce(
           (acc, snapPoint) => {
             const diff = snapPoint - acc.projectedTarget
