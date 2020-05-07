@@ -6,10 +6,7 @@ export type Unobserve = () => void
 export function WheelTargetObserver(eventListener: (wheelEvent: WheelEventData) => void) {
   let targets: EventTarget[] = []
 
-  /**
-   * add event listener from target element
-   * @param target
-   */
+  // add event listener to target element
   const observe = (target: EventTarget): Unobserve => {
     target.addEventListener('wheel', eventListener as EventListener, { passive: false })
     targets.push(target)
@@ -17,10 +14,7 @@ export function WheelTargetObserver(eventListener: (wheelEvent: WheelEventData) 
     return () => unobserve(target)
   }
 
-  /**
-   * remove event listener from target element
-   * @param target
-   */
+  /// remove event listener from target element
   const unobserve = (target: EventTarget) => {
     target.removeEventListener('wheel', eventListener as EventListener)
     targets = targets.filter((t) => t !== target)
