@@ -1,8 +1,8 @@
 import React, { useRef, useState } from 'react'
 import { animated, config as springCfg, useSpring } from 'react-spring'
+import { projection } from 'wheel-gestures'
 
 import useWheelDrag from '../../hooks/useWheelDrag'
-import { projection } from '../../utils/projection'
 import { rubberband } from '../../utils/rubberband'
 import c from './Gallery.module.scss'
 

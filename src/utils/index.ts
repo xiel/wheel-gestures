@@ -1,3 +1,5 @@
+export * from './projection'
+
 export function lastOf<T>(array: T[]) {
   return array[array.length - 1]
 }
