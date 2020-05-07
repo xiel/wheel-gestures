@@ -61,7 +61,7 @@
     "semantic-release": "^17.0.4",
     "tsdx": "^0.13.2",
     "tslib": "^1.11.1",
-    "typescript": "^3.9.1-rc"
+    "typescript": "^4.0.0-dev.20200507"
   },
   "jest": {
     "collectCoverageFrom": [
