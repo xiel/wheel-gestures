@@ -1,11 +1,9 @@
 import React, { useRef, useState } from 'react'
 import { animated, config as springCfg, useSpring } from 'react-spring'
 
-import c from './Gallery.module.scss'
 import useWheelDrag from '../../hooks/useWheelDrag'
-import { WheelReason } from 'wheel-gestures'
-import { projection } from '../../utils/projection'
 import { rubberband } from '../../utils/rubberband'
+import c from './Gallery.module.scss'
 
 const pages = [
   'https://images.pexels.com/photos/414171/pexels-photo-414171.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
@@ -17,7 +15,7 @@ const pages = [
 export default function Gallery() {
   const containerRef = useRef<HTMLDivElement | null>(null)
   const offsetX = useRef(0)
-  const [selectedWheelReason, setSelectedWheelReason] = useState(WheelReason.USER)
+  const [momentumDetectionEnabled, setSelectedWheelReason] = useState(true)
   const [spring, set] = useSpring(() => ({
     x: offsetX.current,
     config: springCfg.stiff,
@@ -28,20 +26,19 @@ export default function Gallery() {
   }
 
   useWheelDrag(
-    ({ down, delta: [x, y], axisVelocity }) => {
+    ({ isEnding, isMomentum, axisMovement: [x], axisVelocity, previous, axisMovementProjection }) => {
       const [xVelo, yVelo] = axisVelocity
       const width = containerRef.current!.offsetWidth
       const minX = width * -1 * (pages.length - 1)
 
-      if (down) {
-        if (Math.abs(xVelo) > Math.abs(yVelo)) {
-          set({ x: rubberband(minX, 0, offsetX.current + x), immediate: true })
-        }
-      } else {
+      if (isEnding || (momentumDetectionEnabled && isMomentum)) {
+        // only snap at momentum begin
+        if (momentumDetectionEnabled && previous?.isMomentum) return
+
         const config = { velocity: xVelo }
         const snapPoints = pages.map((_, i) => i * width * -1)
-        const projectionX = projection(xVelo)
-        const projectedTarget = offsetX.current + x + projectionX
+        const [projectionX] = axisMovementProjection
+        const projectedTarget = offsetX.current + projectionX
 
         const closestSnapPoint = snapPoints.reduce(
           (acc, snapPoint) => {
@@ -58,24 +55,30 @@ export default function Gallery() {
 
         offsetX.current = closestSnapPoint.closest
         set({ x: closestSnapPoint.closest, config, onFrame })
+      } else {
+        if (Math.abs(xVelo) > Math.abs(yVelo)) {
+          set({ x: rubberband(minX, 0, offsetX.current + x), immediate: true })
+        }
       }
     },
-    { domTarget: containerRef, axis: 'x', wheelReason: selectedWheelReason }
+    { domTarget: containerRef, preventWheelAction: 'x' }
   )
 
   return (
-    <div ref={containerRef} className={c.gallery}>
-      <select value={selectedWheelReason} onChange={(e) => setSelectedWheelReason(e.target.value as WheelReason)}>
-        <option value={WheelReason.USER}>momentum detection</option>
-        <option value={WheelReason.ANY}>no momentum detection</option>
+    <div>
+      <div ref={containerRef} className={c.gallery}>
+        <animated.div style={{ x: spring.x }}>
+          {pages.map((url, i) => (
+            <div key={i}>
+              <img src={url} alt={'demo image ' + i + 1} loading="lazy" />
+            </div>
+          ))}
+        </animated.div>
+      </div>
+      <select value={momentumDetectionEnabled ? 'on' : ''} onChange={(e) => setSelectedWheelReason(!!e.target.value)}>
+        <option value="on">momentum detection</option>
+        <option value="">no momentum detection</option>
       </select>
-      <animated.div style={{ x: spring.x }}>
-        {pages.map((url, i) => (
-          <div key={i}>
-            <img src={url} alt="" />
-          </div>
-        ))}
-      </animated.div>
     </div>
   )
 }
