@@ -1,8 +1,8 @@
-const DECAY_FAST = 0.99
+const DECAY = 0.996
 
 /**
  * movement projection based on velocity
  * @param velocityPxMs
  * @param decay
  */
-export const projection = (velocityPxMs: number, decay = DECAY_FAST) => (velocityPxMs * decay) / (1 - decay)
+export const projection = (velocityPxMs: number, decay = DECAY) => (velocityPxMs * decay) / (1 - decay)

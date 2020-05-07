@@ -45,7 +45,7 @@ export function subscribeAndFeedWheelEvents({ beforeFeed, callback, wheelEvents 
 export type Range = [number, number]
 export type RangeWheelType = 'user' | 'momentum'
 
-export interface PhaseRange extends Omit<WheelEventState, 'previous'> {
+export interface PhaseRange extends Omit<WheelEventState, 'previous' | 'axisMovementProjection'> {
   wheelType: RangeWheelType
   range: Range
   hasPrevious: boolean
@@ -64,7 +64,7 @@ export function recordPhases(wheelEvents: WheelEventData[]) {
     // update index which is used to keep track of the ranges
     beforeFeed: (_, i) => (eventIndex = i),
     callback: (data) => {
-      const { isStart, isMomentum, isEnding, isMomentumCancel, previous, ...restData } = data
+      const { isStart, isMomentum, isEnding, isMomentumCancel, previous, axisMovementProjection, ...restData } = data
       const wheelType: RangeWheelType = isMomentum ? 'momentum' : 'user'
 
       if (isEnding || isMomentumCancel) {

@@ -70,6 +70,7 @@ describe('bind events', () => {
       axisDelta: [-0, -10, 0],
       axisMovement: [0, -10, 0],
       axisVelocity: [-0, -0.025, 0],
+      axisMovementProjection: expect.any(Array),
       event: expect.any(Object),
       isEnding: false,
       isMomentum: false,
