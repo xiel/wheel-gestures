@@ -1,4 +1,5 @@
-import { WheelEventData, WheelEventState, WheelGestures } from '../..'
+import { WheelEventData, WheelEventState } from '../../types'
+import { WheelGestures } from '../../wheel-gestures/wheel-gestures'
 
 interface SubAndFeedProps {
   beforeFeed?: (e: WheelEventData, i: number) => void

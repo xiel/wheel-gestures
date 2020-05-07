@@ -1,5 +1,5 @@
+import { WheelEventState } from '../../types'
 import { lastOf } from '../../utils'
-import { WheelEventState } from '../../wheel-gestures/wheel-gestures-types'
 import { generateEvents } from '../helper/generateEvents'
 import { subscribeAndFeedWheelEvents } from '../helper/recordPhases'
 

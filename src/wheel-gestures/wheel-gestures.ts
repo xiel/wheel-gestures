@@ -1,48 +1,41 @@
 import EventBus from '../events/EventBus'
-import { absMax, addVectors, average, deepFreeze, lastOf } from '../utils'
-import { clampAxisDelta, normalizeWheel, reverseAxisDeltaSign } from '../wheel-normalizer/wheel-normalizer'
-import { configDefaults, WheelGesturesConfig, WheelGesturesOptions } from './options'
-import { createWheelGesturesState } from './state'
+import { WheelTargetObserver } from '../events/WheelTargetObserver'
 import {
-  MergedScrollPoint,
-  Unobserve,
   VectorXYZ,
   WheelEventData,
   WheelEventState,
+  WheelGesturesConfig,
   WheelGesturesEventMap,
-} from './wheel-gestures-types'
-
-const isDev = process.env.NODE_ENV !== 'production'
-const ACC_FACTOR_MIN = 0.6
-const ACC_FACTOR_MAX = 0.96
-const WHEELEVENTS_TO_MERGE = 2
-const WHEELEVENTS_TO_ANALAZE = 5
+  WheelGesturesOptions,
+} from '../types'
+import { absMax, addVectors, average, deepFreeze, lastOf } from '../utils'
+import { clampAxisDelta, normalizeWheel, reverseAxisDeltaSign } from '../wheel-normalizer/wheel-normalizer'
+import { __DEV__, ACC_FACTOR_MAX, ACC_FACTOR_MIN, WHEELEVENTS_TO_ANALAZE, WHEELEVENTS_TO_MERGE } from './constants'
+import { configDefaults } from './options'
+import { createWheelGesturesState } from './state'
 
 export function WheelGestures(optionsParam: WheelGesturesOptions = {}) {
   const { on, off, dispatch } = EventBus<WheelGesturesEventMap>()
   let config = configDefaults
   let state = createWheelGesturesState()
-  let targets: EventTarget[] = []
   let currentEvent: WheelEventData
   let negativeZeroFingerUpSpecialEvent = false
   let prevWheelEventState: WheelEventState | undefined
 
-  // TODO: extract observe
-  const observe = (target: EventTarget): Unobserve => {
-    target.addEventListener('wheel', feedWheel as EventListener, { passive: false })
-    targets.push(target)
-
-    return () => unobserve(target)
+  const feedWheel = (wheelEvents: WheelEventData | WheelEventData[]) => {
+    if (Array.isArray(wheelEvents)) {
+      wheelEvents.forEach((wheelEvent) => processWheelEventData(wheelEvent))
+    } else {
+      processWheelEventData(wheelEvents)
+    }
   }
 
-  const unobserve = (target: EventTarget) => {
-    target.removeEventListener('wheel', feedWheel as EventListener)
-    targets = targets.filter((t) => t !== target)
-  }
-
-  // stops watching all of its target elements for visibility changes.
-  const disconnect = () => {
-    targets.forEach(unobserve)
+  const updateOptions = (newOptions: WheelGesturesOptions = {}): WheelGesturesConfig => {
+    if (Object.values(newOptions).some((option) => option === undefined || option === null)) {
+      __DEV__ && console.error('updateOptions ignored! undefined & null options not allowed')
+      return config
+    }
+    return (config = deepFreeze({ ...configDefaults, ...config, ...newOptions }))
   }
 
   const publishWheel = (additionalData?: Partial<WheelEventState>) => {
@@ -67,22 +60,6 @@ export function WheelGestures(optionsParam: WheelGesturesOptions = {}) {
     prevWheelEventState = wheelEventState
   }
 
-  const feedWheel = (wheelEvents: WheelEventData | WheelEventData[]) => {
-    if (Array.isArray(wheelEvents)) {
-      wheelEvents.forEach((wheelEvent) => processWheelEventData(wheelEvent))
-    } else {
-      processWheelEventData(wheelEvents)
-    }
-  }
-
-  const updateOptions = (newOptions: WheelGesturesOptions = {}): WheelGesturesConfig => {
-    if (Object.values(newOptions).some((option) => option === undefined || option === null)) {
-      isDev && console.error('updateOptions ignored! undefined & null options not allowed')
-      return config
-    }
-    return (config = deepFreeze({ ...configDefaults, ...config, ...newOptions }))
-  }
-
   // should prevent when there is mainly movement on the desired axis
   const shouldPreventDefault = (deltaMaxAbs: number, axisDelta: VectorXYZ): boolean => {
     const { preventWheelAction } = config
@@ -98,7 +75,7 @@ export function WheelGestures(optionsParam: WheelGesturesOptions = {}) {
       case 'z':
         return Math.abs(deltaZ) >= deltaMaxAbs
       default:
-        isDev && console.warn('unsupported preventWheelAction value: ' + preventWheelAction, 'warn')
+        __DEV__ && console.warn('unsupported preventWheelAction value: ' + preventWheelAction, 'warn')
         return false
     }
   }
@@ -133,36 +110,11 @@ export function WheelGestures(optionsParam: WheelGesturesOptions = {}) {
     state.axisMovement = addVectors(state.axisMovement, axisDelta)
     state.lastAbsDelta = deltaMaxAbs
     state.scrollPointsToMerge.push({
-      deltaMaxAbs,
       axisDelta,
       timeStamp,
     })
 
-    if (state.scrollPointsToMerge.length === WHEELEVENTS_TO_MERGE) {
-      const { scrollPointsToMerge } = state
-      const mergedScrollPoint: MergedScrollPoint = {
-        deltaMaxAbsAverage: average(scrollPointsToMerge.map((b) => b.deltaMaxAbs)),
-        axisDeltaSum: scrollPointsToMerge.map((b) => b.axisDelta).reduce(addVectors),
-        timeStamp: average(scrollPointsToMerge.map((b) => b.timeStamp)),
-      }
-
-      // TODO: remove scroll points
-      state.scrollPoints.push(mergedScrollPoint)
-
-      // only update velocity after a merged scrollpoint was generated
-      updateVelocity()
-
-      // reset merge array
-      state.scrollPointsToMerge = []
-
-      if (!state.isMomentum) {
-        detectMomentum()
-      }
-    }
-
-    if (!state.scrollPoints.length) {
-      updateStartVelocity()
-    }
+    mergeScrollPointsCalcVelocity()
 
     // only wheel event (move) and not start/end get the delta values
     publishWheel({ axisDelta, isStart: !state.isStartPublished }) // state.isMomentum ? MOMENTUM_WHEEL : WHEEL, { axisDelta })
@@ -174,34 +126,59 @@ export function WheelGestures(optionsParam: WheelGesturesOptions = {}) {
     willEnd()
   }
 
+  const mergeScrollPointsCalcVelocity = () => {
+    if (state.scrollPointsToMerge.length === WHEELEVENTS_TO_MERGE) {
+      state.scrollPoints.unshift({
+        axisDeltaSum: state.scrollPointsToMerge.map((b) => b.axisDelta).reduce(addVectors),
+        timeStamp: average(state.scrollPointsToMerge.map((b) => b.timeStamp)),
+      })
+
+      // only update velocity after a merged scrollpoint was generated
+      updateVelocity()
+
+      // reset toMerge array
+      state.scrollPointsToMerge.length = 0
+
+      // after calculation of velocity only keep the most recent merged scrollPoint
+      state.scrollPoints.length = 1
+
+      if (!state.isMomentum) {
+        detectMomentum()
+      }
+    } else if (!state.isStartPublished) {
+      updateStartVelocity()
+    }
+  }
+
   const updateStartVelocity = () => {
     state.axisVelocity = lastOf(state.scrollPointsToMerge).axisDelta.map((d) => d / state.willEndTimeout) as VectorXYZ
   }
 
   const updateVelocity = () => {
     // need to have two recent points to calc velocity
-    const [pA, pB] = state.scrollPoints.slice(-2)
+    const [latestScrollPoint, prevScrollPoint] = state.scrollPoints
 
-    if (!pA || !pB) {
+    if (!prevScrollPoint || !latestScrollPoint) {
       return
     }
 
     // time delta
-    const deltaTime = pB.timeStamp - pA.timeStamp
+    const deltaTime = latestScrollPoint.timeStamp - prevScrollPoint.timeStamp
 
     if (deltaTime <= 0) {
-      isDev && console.warn('invalid deltaTime')
+      __DEV__ && console.warn('invalid deltaTime')
       return
     }
 
     // calc the velocity per axes
-    const velocity = pB.axisDeltaSum.map((d) => d / deltaTime) as VectorXYZ
+    const velocity = latestScrollPoint.axisDeltaSum.map((d) => d / deltaTime) as VectorXYZ
 
     // calc the acceleration factor per axis
     const accelerationFactor = velocity.map((v, i) => v / (state.axisVelocity[i] || 1))
 
     state.axisVelocity = velocity
     state.accelerationFactors.push(accelerationFactor)
+
     updateWillEndTimeout(deltaTime)
   }
 
@@ -237,10 +214,8 @@ export function WheelGestures(optionsParam: WheelGesturesOptions = {}) {
       const recentAccelerationFactors = state.accelerationFactors.slice(WHEELEVENTS_TO_ANALAZE * -1)
 
       // check recent acceleration / deceleration factors
-      const detectedMomentum = recentAccelerationFactors.reduce((mightBeMomentum: boolean, accFac) => {
-        // all recent need to match, if any did not match -> short circuit
-        if (!mightBeMomentum) return false
-
+      // all recent need to match, if any did not match
+      const detectedMomentum = recentAccelerationFactors.every((accFac) => {
         // when both axis decelerate exactly in the same rate it is very likely caused by momentum
         const sameAccFac = !!accFac.reduce((f1, f2) => (f1 && f1 < 1 && f1 === f2 ? 1 : 0))
 
@@ -249,7 +224,7 @@ export function WheelGestures(optionsParam: WheelGesturesOptions = {}) {
 
         // one the requirements must be fulfilled
         return sameAccFac || bothAreInRangeOrZero
-      }, true)
+      })
 
       if (detectedMomentum) {
         recognizedMomentum()
@@ -282,6 +257,7 @@ export function WheelGestures(optionsParam: WheelGesturesOptions = {}) {
 
   const end = (isMomentumCancel = false) => {
     if (!state.isStarted) return
+
     if (state.isMomentum && isMomentumCancel) {
       publishWheel({ isEnding: true, isMomentumCancel: true })
     } else {
@@ -292,9 +268,11 @@ export function WheelGestures(optionsParam: WheelGesturesOptions = {}) {
     state.isStarted = false
   }
 
+  const { observe, unobserve, disconnect } = WheelTargetObserver(feedWheel)
+
   updateOptions(optionsParam)
 
-  return Object.freeze({
+  return deepFreeze({
     on,
     off,
     observe,

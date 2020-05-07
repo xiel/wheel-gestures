@@ -1,31 +1,44 @@
-import { WheelGestures } from '../../wheel-gestures/wheel-gestures'
+import { WheelGestures } from '../..'
 import { createWheelEvent } from '../helper/generateEvents'
 
 describe('creation', () => {
-  it('can be created without options', () => {
-    expect(WheelGestures())
+  it('can be created without options and return expected general interface', () => {
+    expect(WheelGestures()).toMatchInlineSnapshot(`
+      Object {
+        "disconnect": [Function],
+        "feedWheel": [Function],
+        "observe": [Function],
+        "off": [Function],
+        "on": [Function],
+        "unobserve": [Function],
+        "updateOptions": [Function],
+      }
+    `)
   })
 })
 
 describe('subscription', () => {
   it('can subscribe', () => {
-    const wA = WheelGestures()
+    const wG = WheelGestures()
     const callback = jest.fn()
-    expect(wA.on('wheel', callback)).toBeTruthy()
+    expect(wG.on('wheel', callback)).toBeTruthy()
+    wG.feedWheel(createWheelEvent())
+    wG.feedWheel(createWheelEvent())
+    expect(callback).toHaveBeenCalledTimes(2)
   })
 
   it('can unsubscribe', () => {
-    const wA = WheelGestures()
+    const wG = WheelGestures()
     const callback = jest.fn()
     const callback2 = jest.fn()
 
-    wA.on('wheel', callback)
-    wA.off('wheel', callback)
+    wG.on('wheel', callback)
+    wG.off('wheel', callback)
 
-    const unsubscribeCallback2 = wA.on('wheel', callback2)
+    const unsubscribeCallback2 = wG.on('wheel', callback2)
     unsubscribeCallback2()
 
-    wA.feedWheel(createWheelEvent())
+    wG.feedWheel(createWheelEvent())
 
     expect(callback).toHaveBeenCalledTimes(0)
     expect(callback2).toHaveBeenCalledTimes(0)
@@ -33,12 +46,58 @@ describe('subscription', () => {
 
   it('should work with new', function() {
     // @ts-ignore
-    const wA = new WheelGestures()
+    const wG = new WheelGestures()
     const callback = jest.fn()
-    expect(wA.on(callback))
+    expect(wG.on(callback))
   })
 })
 
 describe('bind events', () => {
-  it.todo('observe, unobserve, disconnect')
+  it('should observe/unobserve target', () => {
+    const wG = WheelGestures()
+    const addEventListener = jest.spyOn(document.documentElement, 'addEventListener')
+    const removeEventListener = jest.spyOn(document.documentElement, 'removeEventListener')
+    const callback = jest.fn()
+
+    wG.on('wheel', callback)
+    wG.observe(document.documentElement)
+
+    expect(addEventListener).toHaveBeenLastCalledWith('wheel', expect.any(Function), { passive: false })
+
+    document.documentElement.dispatchEvent(new WheelEvent('wheel', createWheelEvent({ deltaY: 10 })))
+
+    expect(callback).toHaveBeenLastCalledWith({
+      axisDelta: [-0, -10, 0],
+      axisMovement: [0, -10, 0],
+      axisVelocity: [-0, -0.025, 0],
+      event: expect.any(Object),
+      isEnding: false,
+      isMomentum: false,
+      isMomentumCancel: false,
+      isStart: true,
+      previous: undefined,
+    })
+
+    wG.unobserve(document.documentElement)
+    expect(removeEventListener).toHaveBeenLastCalledWith('wheel', expect.any(Function))
+  })
+
+  it('should observe + disconnect all', () => {
+    const wG = WheelGestures()
+    const addEventListenerDoc = jest.spyOn(document.documentElement, 'addEventListener')
+    const removeEventListenerDoc = jest.spyOn(document.documentElement, 'removeEventListener')
+    const addEventListenerBody = jest.spyOn(document.body, 'addEventListener')
+    const removeEventListenerBody = jest.spyOn(document.body, 'removeEventListener')
+
+    wG.observe(document.documentElement)
+    wG.observe(document.body)
+
+    expect(addEventListenerDoc).toHaveBeenLastCalledWith('wheel', expect.any(Function), { passive: false })
+    expect(addEventListenerBody).toHaveBeenLastCalledWith('wheel', expect.any(Function), { passive: false })
+
+    wG.disconnect()
+
+    expect(removeEventListenerDoc).toHaveBeenLastCalledWith('wheel', expect.any(Function))
+    expect(removeEventListenerBody).toHaveBeenLastCalledWith('wheel', expect.any(Function))
+  })
 })

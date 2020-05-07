@@ -6,7 +6,8 @@
   "module": "dist/wheel-gestures.esm.js",
   "typings": "dist/index.d.ts",
   "files": [
-    "dist"
+    "dist",
+    "src"
   ],
   "engines": {
     "node": ">=10"
