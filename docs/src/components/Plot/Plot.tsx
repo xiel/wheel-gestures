@@ -1,8 +1,9 @@
 import React, { RefObject, useEffect, useRef } from 'react'
-import { WheelDragState, clamp } from 'wheel-gestures'
+import { clamp, WheelEventState } from 'wheel-gestures'
+
 import c from './Plot.module.scss'
 
-export type PlotData = Pick<WheelDragState, 'axisDelta' | 'isMomentum'>
+export type PlotData = Pick<WheelEventState, 'axisDelta' | 'isMomentum'>
 
 interface Props {
   width?: number

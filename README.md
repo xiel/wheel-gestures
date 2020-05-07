@@ -12,6 +12,13 @@ you bring the wheel events, wheelAnalyzer returns wheel gestures & momentum info
 
 **OS & Browsers**
 
-- Mac OS (Chrome, Firefox, Safari, Brave, Edge, IE10+)
-- Windows (testing needed & help appreciated)
-- Linux (testing needed & help appreciated)
+- Mac OS (Chrome, Firefox, Safari, Edge), Magic Mouse, Magic Trackpad
+- Windows (Chrome, Firefox, Edge), Microsoft Precision Touchpads
+- Linux (to be tested)
+
+#### Prior Art
+
+Other people also thought that it might be helpful for some interactions to be able to distinguish between user initiated wheel events and the ones that are triggered by inertia scroll, but none of the other known libraries delivered results in the precision I needed, so I developed my own solution. Honourable mentions:
+
+- https://github.com/promo/wheel-indicator
+- https://github.com/d4nyll/lethargy

@@ -1,4 +1,5 @@
-import { ReverseSign, VectorXYZ, WheelEventData } from '../wheel-analyzer/wheel-analyzer-types'
+import { ReverseSign, VectorXYZ, WheelEventData } from '../types'
+import { clamp } from '../utils'
 
 export interface NormalizedWheel {
   axisDelta: VectorXYZ
@@ -22,7 +23,10 @@ export function normalizeWheel(e: WheelEventData): NormalizedWheel {
 
 const reverseAll = [-1, -1, -1]
 
-export function reverseSign<T extends Pick<NormalizedWheel, 'axisDelta'>>(wheel: T, reverseSign: ReverseSign): T {
+export function reverseAxisDeltaSign<T extends Pick<NormalizedWheel, 'axisDelta'>>(
+  wheel: T,
+  reverseSign: ReverseSign
+): T {
   if (!reverseSign) {
     return wheel
   }
@@ -35,11 +39,9 @@ export function reverseSign<T extends Pick<NormalizedWheel, 'axisDelta'>>(wheel:
   }
 }
 
-export const clamp = (value: number, min: number, max: number) => Math.min(Math.max(min, value), max)
-
 const DELTA_MAX_ABS = 700
 
-export const clampDelta = <T extends Pick<NormalizedWheel, 'axisDelta'>>(wheel: T) => {
+export const clampAxisDelta = <T extends Pick<NormalizedWheel, 'axisDelta'>>(wheel: T) => {
   return {
     ...wheel,
     axisDelta: wheel.axisDelta.map((delta) => clamp(delta, -DELTA_MAX_ABS, DELTA_MAX_ABS)),

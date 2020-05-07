@@ -1,22 +1,22 @@
-import { WheelAnalyzer } from '../../wheel-analyzer/wheel-analyzer'
-import { PhaseData, SubscribeFn, WheelEventData, WheelTypes } from '../../wheel-analyzer/wheel-analyzer-types'
+import { WheelEventData, WheelEventState } from '../../types'
+import { WheelGestures } from '../../wheel-gestures/wheel-gestures'
 
 interface SubAndFeedProps {
   beforeFeed?: (e: WheelEventData, i: number) => void
-  callback?: SubscribeFn
+  callback?: (data: WheelEventState) => void
   wheelEvents?: WheelEventData[]
 }
 
 export function subscribeAndFeedWheelEvents({ beforeFeed, callback, wheelEvents = [] }: SubAndFeedProps = {}) {
-  const allPhaseData: PhaseData[] = []
+  const allPhaseData: WheelEventState[] = []
 
   // need to use fake timers, so we can run the debounced end function after feeding all events
   jest.useFakeTimers()
 
-  const wheelAnalyzer = WheelAnalyzer({ reverseSign: false })
+  const wheelGestures = WheelGestures({ reverseSign: false })
 
-  callback && wheelAnalyzer.subscribe(callback)
-  wheelAnalyzer.subscribe((_, data) => allPhaseData.push(data))
+  callback && wheelGestures.on('wheel', callback)
+  wheelGestures.on('wheel', (data) => allPhaseData.push(data))
 
   let prevTimeStamp = 0
 
@@ -28,7 +28,7 @@ export function subscribeAndFeedWheelEvents({ beforeFeed, callback, wheelEvents 
       }
 
       beforeFeed && beforeFeed(e, i)
-      wheelAnalyzer.feedWheel(e)
+      wheelGestures.feedWheel(e)
 
       prevTimeStamp = e.timeStamp
     })
@@ -39,24 +39,23 @@ export function subscribeAndFeedWheelEvents({ beforeFeed, callback, wheelEvents 
 
   feedEvents(wheelEvents)
 
-  return { wheelAnalyzer, allPhaseData, feedEvents }
+  return { wheelGestures, allPhaseData, feedEvents }
 }
 
 export type Range = [number, number]
+export type RangeWheelType = 'user' | 'momentum'
 
-export interface PhaseRange {
-  wheelType: WheelTypes
+export interface PhaseRange extends Omit<WheelEventState, 'previous' | 'axisMovementProjection'> {
+  wheelType: RangeWheelType
   range: Range
-  canceled?: boolean
-  lastData?: PhaseData
+  hasPrevious: boolean
 }
 
 export function recordPhases(wheelEvents: WheelEventData[]) {
   const phases: PhaseRange[] = []
-  const phaseRange: Record<WheelTypes, Range> = {
-    WHEEL: [-1, -1],
-    MOMENTUM_WHEEL: [-1, -1],
-    ANY_WHEEL: [-1, -1],
+  const phaseRange: Record<RangeWheelType, Range> = {
+    user: [-1, -1],
+    momentum: [-1, -1],
   }
   let eventIndex = -1
 
@@ -64,21 +63,11 @@ export function recordPhases(wheelEvents: WheelEventData[]) {
   subscribeAndFeedWheelEvents({
     // update index which is used to keep track of the ranges
     beforeFeed: (_, i) => (eventIndex = i),
-    callback: (type, data) => {
-      const isStart = type.endsWith('_START')
-      const isEnd = type.endsWith('_END')
-      const isCancel = type.endsWith('_CANCEL')
-      const wheelType = type
-        .replace('_START', '')
-        .replace('_END', '')
-        .replace('_CANCEL', '') as WheelTypes
+    callback: (data) => {
+      const { isStart, isMomentum, isEnding, isMomentumCancel, previous, axisMovementProjection, ...restData } = data
+      const wheelType: RangeWheelType = isMomentum ? 'momentum' : 'user'
 
-      if (wheelType === 'ANY_WHEEL') return
-
-      // keep track of start and end indices for each phase
-      if (isStart) {
-        phaseRange[wheelType][0] = eventIndex
-      } else if (isEnd || isCancel) {
+      if (isEnding || isMomentumCancel) {
         phaseRange[wheelType][1] = eventIndex
 
         // check if phase has a valid start index, if save the phase
@@ -86,13 +75,21 @@ export function recordPhases(wheelEvents: WheelEventData[]) {
           phases.push({
             wheelType,
             range: phaseRange[wheelType],
-            ...(isCancel ? { canceled: isCancel } : null),
-            lastData: data,
+            isStart,
+            isMomentum,
+            isEnding,
+            isMomentumCancel,
+            hasPrevious: !!previous,
+            ...restData,
           })
         }
 
         // end & reset phase
         phaseRange[wheelType] = [-1, -1]
+      }
+      // keep track of start and end indices for each phase
+      else if (isStart || isMomentum) {
+        phaseRange[wheelType][0] = eventIndex
       }
     },
     wheelEvents,

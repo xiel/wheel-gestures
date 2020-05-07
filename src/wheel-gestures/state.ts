@@ -1,12 +1,12 @@
-import { WheelAnalyzerState } from './wheel-analyzer-types'
-
 /**
  * the timeout is automatically adjusted during a gesture
  * the initial timeout period is pretty long, so even old mouses, which emit wheel events less often, can produce a continuous gesture
  */
+import { WheelGesturesInternalState } from './internal-types'
+
 const WILL_END_TIMEOUT_DEFAULT = 400
 
-export function createWheelAnalyzerState(): WheelAnalyzerState {
+export function createWheelGesturesState(): WheelGesturesInternalState {
   return {
     isStarted: false,
     isStartPublished: false,

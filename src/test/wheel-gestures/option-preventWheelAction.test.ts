@@ -1,23 +1,21 @@
-import { Options, WheelAnalyzer } from '../../wheel-analyzer/wheel-analyzer'
-import { SubscribeFn, WheelEventData } from '../../wheel-analyzer/wheel-analyzer-types'
+import { WheelEventData, WheelGesturesOptions } from '../../types'
+import { WheelGestures } from '../../wheel-gestures/wheel-gestures'
 import slowDragRight from '../fixtures/slow-drag-right.json'
 import squareMoveTrackpad from '../fixtures/square-move-trackpad.json'
 import swipeUpTrackpad from '../fixtures/swipe-up-trackpad.json'
+import { generateEvents } from '../helper/generateEvents'
 
 interface Opts {
-  callback?: SubscribeFn
-  options?: Partial<Options>
+  options?: WheelGesturesOptions
 }
 
-function feedWheelEvents(wheelEvents: WheelEventData[], { callback = () => undefined, options }: Opts = {}) {
+function feedWheelEvents(wheelEvents: WheelEventData[], { options }: Opts = {}) {
   // need to use fake timers, so we can run the debounced end function after feeding all events
   jest.useFakeTimers()
-  const wA = WheelAnalyzer(options)
-  const unsubscribe = wA.subscribe(callback)
+  const wA = WheelGestures(options)
   wA.feedWheel(wheelEvents)
   // fast forward and exhaust currently pending timers
   jest.runOnlyPendingTimers()
-  unsubscribe()
 }
 
 function testPreventWheelActionWithOptions(wheelEvents: WheelEventData[], opts: Opts = {}) {
@@ -92,6 +90,17 @@ describe('preventDefault should be called when drag is on defined axis', () => {
     // gets called a few times when deltas are equal
     expect(preventDefault).toBeCalledTimes(85)
   })
+})
+
+test('can disable calling preventDefault using preventWheelAction: false', () => {
+  const { wheelEventsWithPreventDefault, preventDefault } = testPreventWheelActionWithOptions(
+    generateEvents({ deltaTotal: [100, 100, 100], durationMs: 100 }).wheelEvents,
+    { options: { preventWheelAction: false } }
+  )
+
+  // preventDefault should never be called
+  expect(wheelEventsWithPreventDefault.length).toBe(6)
+  expect(preventDefault).toBeCalledTimes(0)
 })
 
 test('should warn about unsupported preventWheelAction in debug mode', () => {

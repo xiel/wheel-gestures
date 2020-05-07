@@ -1,9 +1,9 @@
+import { WheelEventState } from '../../types'
 import { lastOf } from '../../utils'
-import { PhaseData } from '../../wheel-analyzer/wheel-analyzer-types'
 import { generateEvents } from '../helper/generateEvents'
 import { subscribeAndFeedWheelEvents } from '../helper/recordPhases'
 
-function calcAverageVelocity(phases: PhaseData[]) {
+function calcAverageVelocity(phases: WheelEventState[]) {
   return phases.reduce(
     (averageAcc, { axisVelocity }) => {
       averageAcc[0] = (averageAcc[0] + axisVelocity[0]) / 2

@@ -1,6 +1,8 @@
-import React, { useEffect, useRef } from 'react'
-import Prism from 'prismjs'
 import './prism-atom-dark.css'
+
+import Prism from 'prismjs'
+import React, { useEffect, useRef } from 'react'
+
 import c from './CodeArea.module.scss'
 
 interface Props {
