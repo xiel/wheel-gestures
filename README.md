@@ -2,7 +2,7 @@
 
 wheel gestures and momentum detection in the browser
 
-🚧 `IN DEVELOPMENT` still working heavily on docs & demos
+🚧 `IN DEVELOPMENT` still working on docs & demos
 
 [![npm (tag)](https://img.shields.io/npm/v/wheel-gestures/latest.svg)](https://www.npmjs.com/package/wheel-gestures)
 ![GitHub top language](https://img.shields.io/github/languages/top/xiel/wheel-gestures.svg)
