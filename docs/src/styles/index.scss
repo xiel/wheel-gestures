@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply bg-gray-100 text-gray-900;
+
+  @screen dark {
+    @apply bg-black text-gray-500;
+  }
+}
+
+@screen dark {
+  button,
+  input,
+  optgroup,
+  select,
+  textarea {
+    background: inherit;
+  }
+}

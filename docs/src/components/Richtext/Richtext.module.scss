@@ -1,28 +1,51 @@
 .richtext {
+  > * {
+    @apply my-4;
+  }
+
   p {
-    margin: 1em 0;
+    @apply my-4;
   }
 
   h1,
   h2,
   h3,
   h4 {
-    margin: 2em 0 1em;
+    @apply my-4 font-bold leading-tight;
+  }
 
-    &:first-child {
-      margin-top: 0;
-    }
+  h1 {
+    @apply text-3xl;
+  }
+
+  h2 {
+    @apply text-2xl;
+  }
+
+  h3 {
+    @apply text-xl;
   }
 
   ul,
   ol {
-    list-style: initial;
-    padding-left: 1em;
+    @apply my-4 pl-4 list-disc;
   }
 
-  th, td {
-    padding: .25em;
+  ol {
+    @apply list-decimal;
+  }
+
+  li {
+    @apply m-1;
+  }
+
+  table {
+
+  }
+
+  th,
+  td {
+    padding: 0.25em;
     text-align: center;
   }
-
 }

@@ -21,6 +21,19 @@ const IndexPage = () => (
         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus accusantium adipisci, debitis enim est
         facere illo ipsa maiores mollitia neque nisi non nostrum placeat possimus recusandae, sequi soluta, sunt vero!{' '}
       </p>
+      <ul>
+        <li>lorem lorem ipsum dolor</li>
+        <li>lorem lorem ipsum dolor</li>
+        <li>lorem lorem ipsum dolor</li>
+      </ul>
+      <div className="mt-4">
+        <a
+          href="#"
+          className="inline-block bg-indigo-500 text-white px-5 py-3 rounded shadow-5 uppercase tracking-wider font-semibold text-sm"
+        >
+          Book your escape
+        </a>
+      </div>
       <h3>momentum detection - Compatibility</h3>
       <table>
         <thead>
@@ -79,6 +92,11 @@ const IndexPage = () => (
         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus beatae debitis dicta dolor fuga labore
         necessitatibus, nemo nesciunt nihil odio perspiciatis, quasi qui quia repudiandae tempore unde ut vitae
         voluptatem!
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias debitis deserunt eius enim error fugit labore,
+        maiores, necessitatibus nisi numquam optio placeat praesentium quaerat quia quibusdam suscipit vero voluptas
+        voluptates!
       </p>
       <CodeArea>{CodeUseWheelDrag}</CodeArea>
       <br />
