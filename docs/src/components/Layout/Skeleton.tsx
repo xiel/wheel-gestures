@@ -5,8 +5,6 @@
  * See: https://www.gatsbyjs.org/docs/use-static-query/
  */
 
-import '../../styles/global.scss'
-
 import { graphql, useStaticQuery } from 'gatsby'
 import PropTypes from 'prop-types'
 import React, { ReactNode } from 'react'

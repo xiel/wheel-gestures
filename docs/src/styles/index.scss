@@ -6,7 +6,7 @@ body {
   @apply bg-gray-100 text-gray-900;
 
   @screen dark {
-    @apply bg-black text-gray-500;
+    @apply bg-black text-gray-100;
   }
 }
 
