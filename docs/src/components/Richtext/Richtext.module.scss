@@ -16,6 +16,7 @@
 
   h1 {
     @apply text-3xl;
+    @apply mb-10;
   }
 
   h2 {
@@ -40,12 +41,17 @@
   }
 
   table {
-
+    @apply my-4;
+    @apply table-auto;
+    @apply w-full;
   }
 
   th,
   td {
-    padding: 0.25em;
-    text-align: center;
+    @apply m-1 px-4 py-2;
+  }
+
+  td {
+    @apply border;
   }
 }

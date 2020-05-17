@@ -10,6 +10,7 @@ import PropTypes from 'prop-types'
 import React, { ReactNode } from 'react'
 
 import Header from '../Header/Header'
+import { Footer } from './Footer'
 import { Content } from './Layout'
 
 const Skeleton = ({ children }: { children: ReactNode }) => {
@@ -29,6 +30,7 @@ const Skeleton = ({ children }: { children: ReactNode }) => {
       <Content>
         <main>{children}</main>
       </Content>
+      <Footer />
     </>
   )
 }

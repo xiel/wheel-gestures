@@ -17,24 +17,17 @@ export default function Docs() {
           Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus accusantium adipisci, debitis enim est
           facere illo ipsa maiores mollitia neque nisi non nostrum placeat possimus recusandae, sequi soluta, sunt vero!{' '}
         </p>
+        <CodeArea>yarn add wheel-gestures</CodeArea>
         <ul>
           <li>lorem lorem ipsum dolor</li>
           <li>lorem lorem ipsum dolor</li>
           <li>lorem lorem ipsum dolor</li>
         </ul>
-        <div className="mt-4">
-          <a
-            href="#"
-            className="inline-block bg-indigo-500 text-white px-5 py-3 rounded shadow-5 uppercase tracking-wider font-semibold text-sm"
-          >
-            Book your escape
-          </a>
-        </div>
         <h3>momentum detection - Compatibility</h3>
         <table>
           <thead>
             <tr>
-              <td />
+              <th />
               <th>Firefox</th>
               <th>Chromium (Edge, Chrome etc.)</th>
               <th>Safari</th>
@@ -94,8 +87,6 @@ export default function Docs() {
           maiores, necessitatibus nisi numquam optio placeat praesentium quaerat quia quibusdam suscipit vero voluptas
           voluptates!
         </p>
-        <CodeArea>yarn add wheel-gestures</CodeArea>
-        <br />
       </Richtext>
     </Skeleton>
   )
