@@ -1,10 +1,10 @@
 import React from 'react'
 
 import CodeArea from '../components/CodeArea/CodeArea'
+import { simpleListener } from '../components/docs/docs-codes'
 import Skeleton from '../components/Layout/Skeleton'
 import { Richtext } from '../components/Richtext/Richtext'
 import SEO from '../components/seo'
-import { simpleListener } from './docs/docs-codes'
 
 export default function Docs() {
   return (
