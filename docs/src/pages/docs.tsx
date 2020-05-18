@@ -4,6 +4,7 @@ import CodeArea from '../components/CodeArea/CodeArea'
 import Skeleton from '../components/Layout/Skeleton'
 import { Richtext } from '../components/Richtext/Richtext'
 import SEO from '../components/seo'
+import { simpleListener } from './docs/docs-codes'
 
 export default function Docs() {
   return (
@@ -23,6 +24,8 @@ export default function Docs() {
           <li>lorem lorem ipsum dolor</li>
           <li>lorem lorem ipsum dolor</li>
         </ul>
+        <h3>Getting started</h3>
+        <CodeArea>{simpleListener}</CodeArea>
         <h3>momentum detection - Compatibility</h3>
         <table>
           <thead>

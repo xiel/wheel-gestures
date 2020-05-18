@@ -15,7 +15,7 @@ html {
 }
 
 body {
-  @apply bg-gray-100 text-gray-900;
+  @apply bg-gray-200 text-gray-800;
 
   @screen dark {
     @apply bg-black text-gray-100;

@@ -7,10 +7,10 @@ interface Props {}
 export function Footer(props: Props) {
   return (
     <Content>
-      <footer className="flex flex-wrap items-center justify-between">
+      <footer className="flex flex-wrap items-center justify-between py-8">
         <div className="text-xs">
           <p>
-            A Open Source project by{' '}
+            An Open Source project by{' '}
             <a className="hover:underline focus:underline" href="https://xiel.dev">
               Felix Leupold
             </a>{' '}

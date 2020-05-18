@@ -9,15 +9,15 @@ interface Props {
 }
 
 const link = {
-  className: `mx-3 my-1 md:text-lg border-b-2 border-transparent focus:border-current hover:border-current hover:text-gray-200`,
-  activeClassName: 'text-red-600 border-current',
+  className: `mx-3 my-1 md:text-lg border-b-2 border-transparent hover:text-red focus:border-current hover:border-current`,
+  activeClassName: 'text-red border-current',
 }
 
 export default function Header({ siteTitle }: Props) {
   return (
     <Content>
-      <header className="flex flex-wrap items-center justify-between">
-        <h1 className="mx-3 w-10/12 md:w-2/3 max-w-md">
+      <header className="flex flex-wrap items-center justify-between py-6 md:py-8">
+        <h1 className="py-2 w-10/12 md:w-2/3 max-w-md">
           <Link to="/" className="">
             <VisuallyHidden>{siteTitle}</VisuallyHidden>
             <svg className="max-w-full" viewBox="0 0 912 56" xmlns="http://www.w3.org/2000/svg" aria-hidden>
@@ -28,7 +28,7 @@ export default function Header({ siteTitle }: Props) {
             </svg>
           </Link>
         </h1>
-        <nav className="flex flex-wrap py-4">
+        <nav className="flex flex-wrap py-2">
           <Link {...link} to="/">
             Install
           </Link>

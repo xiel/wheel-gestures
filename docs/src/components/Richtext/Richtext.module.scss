@@ -1,17 +1,17 @@
 .richtext {
   > * {
-    @apply my-4;
+    @apply my-6;
   }
 
   p {
-    @apply my-4;
+    @apply my-6;
   }
 
   h1,
   h2,
   h3,
   h4 {
-    @apply my-4 font-bold leading-tight;
+    @apply my-6 font-bold leading-tight;
   }
 
   h1 {
@@ -29,7 +29,7 @@
 
   ul,
   ol {
-    @apply my-4 pl-4 list-disc;
+    @apply my-6 pl-4 list-disc;
   }
 
   ol {
@@ -41,7 +41,7 @@
   }
 
   table {
-    @apply my-4;
+    @apply my-6;
     @apply table-auto;
     @apply w-full;
   }
