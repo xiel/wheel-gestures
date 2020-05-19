@@ -33,7 +33,7 @@
   },
   "devDependencies": {
     "babel-plugin-prismjs": "^2.0.1",
-    "babel-preset-gatsby": "^0.4.0",
+    "babel-preset-gatsby": "^0.4.3",
     "prettier": "^2.0.5"
   },
   "keywords": [
