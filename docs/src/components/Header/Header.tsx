@@ -1,23 +1,24 @@
 import VisuallyHidden from '@reach/visually-hidden'
 import { Link } from 'gatsby'
 import React from 'react'
+import GitHubButton from 'react-github-btn'
 
-import { Content } from '../Layout/Layout'
+import { Content } from '../Layout/Content'
 
 interface Props {
   siteTitle: string
 }
 
 const link = {
-  className: `mx-3 my-1 md:text-lg border-b-2 border-transparent hover:text-red focus:border-current hover:border-current`,
+  className: `mx-4 my-1 md:text-lg border-b-2 border-transparent hover:text-red focus:border-current hover:border-current`,
   activeClassName: 'text-red border-current',
 }
 
 export default function Header({ siteTitle }: Props) {
   return (
     <Content>
-      <header className="flex flex-wrap items-center justify-between py-6 md:py-8">
-        <h1 className="py-2 w-10/12 md:w-2/3 max-w-md">
+      <header className="flex flex-wrap items-center justify-between py-6 md:py-6">
+        <h1 className="px-4 py-2 w-10/12 md:w-1/3 max-w-md">
           <Link to="/" className="">
             <VisuallyHidden>{siteTitle}</VisuallyHidden>
             <svg className="max-w-full" viewBox="0 0 912 56" xmlns="http://www.w3.org/2000/svg" aria-hidden>
@@ -28,7 +29,7 @@ export default function Header({ siteTitle }: Props) {
             </svg>
           </Link>
         </h1>
-        <nav className="flex flex-wrap py-2">
+        <nav className="flex flex-wrap items-center px-2 py-2">
           <Link {...link} to="/">
             Install
           </Link>

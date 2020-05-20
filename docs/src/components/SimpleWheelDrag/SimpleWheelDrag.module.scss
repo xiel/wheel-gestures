@@ -15,6 +15,7 @@
   min-height: 150px;
   background: whitesmoke;
   border-radius: 20px;
+  @apply shadow-2xl;
 
   @media (prefers-color-scheme: dark) {
     background: #111;
