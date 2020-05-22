@@ -2,7 +2,7 @@ import React from 'react'
 
 import CodeArea from '../components/CodeArea/CodeArea'
 import InlineCodeArea from '../components/CodeArea/InlineCodeArea'
-import { simpleListener } from '../components/docs/docs-codes'
+import { codeWheelEventState, simpleListener } from '../components/docs/docs-codes'
 import Skeleton from '../components/Layout/Skeleton'
 import { Richtext } from '../components/Richtext/Richtext'
 import SEO from '../components/seo'
@@ -21,35 +21,63 @@ export default function Docs() {
               <a href="#">Usage</a>
             </li>
             <li>
-              <a href="#">Usage</a>
-            </li>
-            <li>
-              <a href="#">Options</a>
+              <a href="#">API</a>
+              <ul>
+                <li>Options</li>
+                <li>WheelEventState</li>
+              </ul>
             </li>
             <li>
               <a href="#">Usage</a>
             </li>
           </ul>
         </nav>
-        <Richtext className="px-6 max-w-full">
+        <Richtext className="flex-1 px-6 max-w-full">
           <h1>Docs</h1>
-
-          <h3>Installation</h3>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus accusantium adipisci, debitis enim est
-            facere illo ipsa maiores mollitia neque nisi non nostrum placeat possimus recusandae, sequi soluta, sunt
-            vero!{' '}
-          </p>
-          <CodeArea>yarn add wheel-gestures</CodeArea>
-          <ul>
-            <li>lorem lorem ipsum dolor</li>
-            <li>lorem lorem ipsum dolor</li>
-            <li>lorem lorem ipsum dolor</li>
-          </ul>
           <h3>Getting started</h3>
+          <p>
+            wheel-gestures is a small (2.5kB), low-level open-source library that makes handling wheel events a breeze.
+            Your can use it in plain old JavaScript or with <em>any framework</em>.
+          </p>
+          <h3>Installation</h3>
+          <p>Install wheel-gestures using your package manager and import it</p>
+          <CodeArea language="shell">yarn add wheel-gestures # npm install wheel-gestures</CodeArea>
           <h3>Usage</h3>
+          <p>
+            Your can then import WheelGestures from the package into your JavaScript/TypeScript file, create an instance
+            and add the element you want the user to be able to start wheel gestures on.
+          </p>
+          <CodeArea>{simpleListener}</CodeArea>
+          <p>
+            Now your callback you added with <code>.on('wheen', callback)</code> get's called for each recognized wheel
+            event, with normalized information about the wheel deltas and addition meta data like velocity.
+          </p>
+          <p>
+            Avoid adding multiple elements with <code>.observe()</code> that are ancestors/descendants (nested). This
+            often leds to unexpected results.
+          </p>
+          <h4>Examples</h4>
+          <ul>
+            <li>Plain JavaScript / TypeScript</li>
+            <li>React</li>
+            <li>Vue</li>
+            <li>Svelte</li>
+          </ul>
           <h3>Options</h3>
           <CodeArea>{simpleListener}</CodeArea>
+          <h3>API / wheelEventState</h3>
+          <CodeArea>{codeWheelEventState}</CodeArea>
+          <h3>Motivation</h3>
+          <p>
+            Due to the many differences between different browsers, operating systems and input devices, wheel events
+            are not the easiest to work with. Which makes many developers neglect the wheel event as an input event to
+            their web apps. Others use the wheel event already, but are overwhelmed by their complexity and handle them
+            in a suboptimal way.
+          </p>
+          <p>This small lib normalizes wheel events, provides useful meta data and an easier API.</p>
+          <h3>License</h3>
+          <p>MIT.</p>
+          <p>Please don't use this library to implement unresponsive page scroll jacking.</p>
           <h3>
             Momentum/Inertia detection <InlineCodeArea>isMomentum</InlineCodeArea>
           </h3>
@@ -58,7 +86,6 @@ export default function Docs() {
             <li>macOS + Magic Mouse & Magic Trackpad</li>
             <li>Windows 10 + Precision Touchpads (PTP)</li>
           </ul>
-
           <h3>Example</h3>
           <p>
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus beatae debitis dicta dolor fuga labore

@@ -22,7 +22,7 @@ export function Footer(props: Props) {
             )
           </p>
         </div>
-        <div className="px-2 py-2">
+        <div className="flex items-center px-2 py-2">
           <GitHubButton
             href="https://github.com/xiel/wheel-gestures"
             data-color-scheme="no-preference: light; light: light; dark: dark;"

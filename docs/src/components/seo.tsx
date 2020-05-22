@@ -26,6 +26,52 @@ function SEO({ description, lang, meta, title }: any) {
   )
 
   const metaDescription = description || site.siteMetadata.description
+  const metaProp: JSX.IntrinsicElements['meta'][] = [
+    {
+      name: `description`,
+      content: metaDescription,
+    },
+    {
+      property: `og:title`,
+      content: title,
+    },
+    {
+      property: `og:description`,
+      content: metaDescription,
+    },
+    {
+      property: `og:type`,
+      content: `website`,
+    },
+    {
+      name: `twitter:card`,
+      content: `summary`,
+    },
+    {
+      name: `twitter:creator`,
+      content: site.siteMetadata.author,
+    },
+    {
+      name: `twitter:title`,
+      content: title,
+    },
+    {
+      name: `twitter:description`,
+      content: metaDescription,
+    },
+  ].concat(meta)
+
+  const links: JSX.IntrinsicElements['link'][] = []
+
+  if (window && window.location) {
+    const loc = window.location
+    if (loc.origin !== 'https://wheel-gestures.xiel.dev') {
+      links.push({
+        rel: 'canoncial',
+        href: loc.href.replace(loc.origin, 'https://wheel-gestures.xiel.dev'),
+      })
+    }
+  }
 
   return (
     <Helmet
@@ -34,40 +80,8 @@ function SEO({ description, lang, meta, title }: any) {
       }}
       title={title}
       titleTemplate={`%s | ${site.siteMetadata.title}`}
-      meta={[
-        {
-          name: `description`,
-          content: metaDescription,
-        },
-        {
-          property: `og:title`,
-          content: title,
-        },
-        {
-          property: `og:description`,
-          content: metaDescription,
-        },
-        {
-          property: `og:type`,
-          content: `website`,
-        },
-        {
-          name: `twitter:card`,
-          content: `summary`,
-        },
-        {
-          name: `twitter:creator`,
-          content: site.siteMetadata.author,
-        },
-        {
-          name: `twitter:title`,
-          content: title,
-        },
-        {
-          name: `twitter:description`,
-          content: metaDescription,
-        },
-      ].concat(meta)}
+      meta={metaProp}
+      link={links}
     />
   )
 }

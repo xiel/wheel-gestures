@@ -1,6 +1,7 @@
-import 'prismjs/themes/prism-okaidia.css'
-
+/* eslint-disable simple-import-sort/sort */
 import Prism from 'prismjs'
+import 'prismjs/themes/prism-okaidia.css'
+import 'prismjs/components/prism-bash'
 import React, { useEffect, useRef } from 'react'
 
 import c from './CodeArea.module.scss'

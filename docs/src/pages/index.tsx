@@ -9,9 +9,16 @@ const IndexPage = () => (
   <Skeleton>
     <SEO title="Home" />
     <Richtext>
-      <h1>Add wheel gestures to your web app</h1>
-      <p>Allow users to interact with your website like on a touch device</p>
-      <SimpleWheelDrag />
+      <div className="text-center px-6">
+        <div className="mx-auto max-w-2xl">
+          <h2>Dealing with wheel events made easy</h2>
+          <p>
+            Allow users to interact with your website like on a touch device. <br />
+            This lib normalizes wheel event data and provides useful meta data.
+          </p>
+        </div>
+        <SimpleWheelDrag />
+      </div>
     </Richtext>
   </Skeleton>
 )
