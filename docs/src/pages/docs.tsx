@@ -49,12 +49,17 @@ export default function Docs() {
           </p>
           <CodeArea>{simpleListener}</CodeArea>
           <p>
-            Now your callback you added with <code>.on('wheen', callback)</code> get's called for each recognized wheel
+            The callback you added with <code>.on('wheel', callback)</code> now get's called for each recognized wheel
             event, with normalized information about the wheel deltas and addition meta data like velocity.
           </p>
           <p>
             Avoid adding multiple elements with <code>.observe()</code> that are ancestors/descendants (nested). This
             often leds to unexpected results.
+          </p>
+          <p>
+            By default wheel-gestures prevents default (scrolling) on all axis. If you are only interested in allowing
+            the user to perform a wheel gesture on one axis, but keep the default behaviour (scrolling) on the other see
+            the Options page, how to customize the behaviour.
           </p>
           <h4>Examples</h4>
           <ul>
@@ -64,7 +69,11 @@ export default function Docs() {
             <li>Svelte</li>
           </ul>
           <h3>Options</h3>
-          <CodeArea>{simpleListener}</CodeArea>
+          <p>wheel-gestures accepts different options</p>
+          <p>you can pass them on init or update them after creation...</p>
+          <CodeArea>{`const wheelGestures = WheelGestures({ preventAxis: 'x' })`}</CodeArea>
+          <CodeArea>{'wheelGestures.updateOptions({})'}</CodeArea>
+
           <h3>API / wheelEventState</h3>
           <CodeArea>{codeWheelEventState}</CodeArea>
           <h3>Motivation</h3>
