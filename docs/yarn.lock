@@ -13652,11 +13652,9 @@ whatwg-fetch@2.0.4:
   integrity sha512-dcQ1GWpOD/eEQ97k66aiEVpNnapVj90/+R+SXTPYGHpYBBypfKJEQjLrvMZ7YXbKm21gXd4NcuxUTjiv1YtLng==
 
 wheel-gestures@*:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/wheel-gestures/-/wheel-gestures-1.0.1.tgz#abbb72c99fbfc36f71bd4ea24f725c816228fc0c"
-  integrity sha512-qhwPRvTmuUwpVnq0FA5MvWxbmZW5achy8hGu5ciAzH1Qd/MMVOjd7F8AybxuUTBN5ypjfqTk9w7e+8UipDI38Q==
-  dependencies:
-    throttle-debounce "^2.1.0"
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/wheel-gestures/-/wheel-gestures-2.1.1.tgz#1b296b464c1ba96f6facfd1252ab541f1a0d2036"
+  integrity sha512-TT/a6ddyZS6f9MpLeA8qkYXjIQxLTsvDeNcj5Wp62VBCSmN7Yxf5fWimIOMw3R4+EjspwVKaTQTfCcHHzmbj+g==
 
 which-module@^1.0.0:
   version "1.0.0"
