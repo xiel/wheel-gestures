@@ -74,6 +74,11 @@ wheelGestures.on("wheel", (wheelEventState) => {
 })
 `
 
-export const destructuringExample = `
-const [deltaX, deltaY, deltaZ] = wheelEventState.axisDelta
+export const offWheelCallbackExample = `
+wheelGestures.on("wheel", callback)
+wheelGestures.off("wheel", callback)
+
+// alternative:
+const off = wheelGestures.on("wheel", callback)
+off()
 `

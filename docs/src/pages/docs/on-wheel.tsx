@@ -1,7 +1,7 @@
 import React from 'react'
 
 import CodeArea from '../../components/CodeArea/CodeArea'
-import { codeWheelEventState, wheelCallbackExample } from '../../components/Docs/docs-codes'
+import { codeWheelEventState, offWheelCallbackExample, wheelCallbackExample } from '../../components/Docs/docs-codes'
 import { DocsContent } from '../../components/Docs/DocsContent'
 import { DocsNav } from '../../components/Docs/DocsNav'
 import SEO from '../../components/seo'
@@ -37,6 +37,10 @@ export default function Docs() {
             <li>macOS + Magic Mouse & Magic Trackpad</li>
             <li>Windows 10 + Precision Touchpads (PTP)</li>
           </ul>
+
+          <h2>Remove Callback</h2>
+          <p>To cleanup you can use one of the following methods to remove the callback:</p>
+          <CodeArea>{offWheelCallbackExample}</CodeArea>
         </DocsContent>
       </div>
     </Skeleton>
