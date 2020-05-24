@@ -1,87 +1,37 @@
+import { Link } from 'gatsby'
 import React from 'react'
 
-import CodeUseWheelDrag from '!!raw-loader!../hooks/useWheelDrag'
-
 import CodeArea from '../components/CodeArea/CodeArea'
-import Skeleton from '../components/Layout/Skeleton'
+import Gallery from '../components/Gallery/Gallery'
 import { Richtext } from '../components/Richtext/Richtext'
 import SEO from '../components/seo'
-import SimpleWheelDrag from '../components/SimpleWheelDrag/SimpleWheelDrag'
+import Skeleton from '../components/Skeleton/Skeleton'
 
 const IndexPage = () => (
   <Skeleton>
     <SEO title="Home" />
     <Richtext>
-      <h1>Add wheel gestures to your web app</h1>
-      <p>Allow users to interact with your website like on a touch device</p>
-      <h3>Demo</h3>
-      <SimpleWheelDrag />
-      <h3>Installation</h3>
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus accusantium adipisci, debitis enim est
-        facere illo ipsa maiores mollitia neque nisi non nostrum placeat possimus recusandae, sequi soluta, sunt vero!{' '}
-      </p>
-      <h3>momentum detection - Compatibility</h3>
-      <table>
-        <thead>
-          <tr>
-            <td />
-            <th>Firefox</th>
-            <th>Chromium (Edge, Chrome etc.)</th>
-            <th>Safari</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th>
-              macOS +
-              <br />
-              Magic Mouse & Magic Trackpad
-            </th>
-            <td>
-              <span role="img" aria-label="tested">
-                ✅
-              </span>
-            </td>
-            <td>
-              <span role="img" aria-label="tested">
-                ✅
-              </span>
-            </td>
-            <td>
-              <span role="img" aria-label="tested">
-                ✅
-              </span>
-            </td>
-          </tr>
-          <tr>
-            <th>
-              Windows 10 +
-              <br />
-              Precision Touchpads (PTP)
-            </th>
-            <td>
-              <span role="img" aria-label="tested">
-                ✅
-              </span>
-            </td>
-            <td>
-              <span role="img" aria-label="tested">
-                ✅
-              </span>
-            </td>
-            <td />
-          </tr>
-        </tbody>
-      </table>
-      <h3>Example</h3>
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus beatae debitis dicta dolor fuga labore
-        necessitatibus, nemo nesciunt nihil odio perspiciatis, quasi qui quia repudiandae tempore unde ut vitae
-        voluptatem!
-      </p>
-      <CodeArea>{CodeUseWheelDrag}</CodeArea>
-      <br />
+      <div className="text-center px-6">
+        <div className="mx-auto max-w-2xl">
+          <h2>wheel interactions made easy</h2>
+          <p>
+            Allow users to interact with your website like on a touch device. <br />
+            This lib normalizes wheel event data and provides useful meta data.
+          </p>
+        </div>
+
+        <Gallery />
+
+        <div className="mx-auto max-w-xl">
+          <h3>Installation</h3>
+          <p>Install wheel-gestures using your package manager:</p>
+          <CodeArea language="shell">yarn add wheel-gestures # npm install wheel-gestures</CodeArea>
+          <p>
+            Learn how to use wheel-gestures in the <Link to="/docs/">docs</Link> or have a look at the{' '}
+            <Link to="/examples/">examples</Link>.
+          </p>
+        </div>
+      </div>
     </Richtext>
   </Skeleton>
 )

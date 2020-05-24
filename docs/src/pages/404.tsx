@@ -1,7 +1,7 @@
 import React from 'react'
 
-import Skeleton from '../components/Layout/Skeleton'
 import SEO from '../components/seo'
+import Skeleton from '../components/Skeleton/Skeleton'
 
 const NotFoundPage = () => (
   <Skeleton>
