@@ -56,8 +56,8 @@ export default function Index() {
           </p>
           <p>This small lib normalizes wheel events, provides useful meta data and an easier API.</p>
           <h3>License</h3>
+          <p>Don't use this library to implement unresponsive page scroll jacking.</p>
           <p>MIT.</p>
-          <p>Please don't use this library to implement unresponsive page scroll jacking.</p>
         </DocsContent>
       </div>
     </Skeleton>

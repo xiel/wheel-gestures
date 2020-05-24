@@ -10,7 +10,7 @@ const aActiveClass = 'block py-1 px-2 rounded bg-gray-500 bg-opacity-25 bold fon
 
 export const DocsNav = () => {
   return (
-    <nav className="flex-1 px-6 my-8 min-w-64">
+    <nav className="flex-grow px-6 my-8 min-w-64">
       <ul>
         <li className={liClass}>
           <Link to="/docs/" className={aClass} activeClassName={aActiveClass}>

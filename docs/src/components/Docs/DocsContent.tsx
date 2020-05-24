@@ -8,5 +8,5 @@ type Props = {
 }
 
 export const DocsContent: React.FunctionComponent<Props> = ({ className, ...props }: Props) => {
-  return <Richtext className={clsx('flex-1 px-6 min-w-xl max-w-full', className)} {...props} />
+  return <Richtext className={clsx('flex-1 px-6 min-w-2xl max-w-full', className)} {...props} />
 }

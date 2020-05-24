@@ -63,7 +63,7 @@ function SEO({ description, lang, meta, title }: any) {
 
   const links: JSX.IntrinsicElements['link'][] = []
 
-  if (window && window.location) {
+  if (typeof window !== 'undefined' && window.location) {
     const loc = window.location
     if (loc.origin !== 'https://wheel-gestures.xiel.dev') {
       links.push({
