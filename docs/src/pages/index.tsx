@@ -2,6 +2,7 @@ import { Link } from 'gatsby'
 import React from 'react'
 
 import CodeArea from '../components/CodeArea/CodeArea'
+import Gallery from '../components/Gallery/Gallery'
 import { Richtext } from '../components/Richtext/Richtext'
 import SEO from '../components/seo'
 import Skeleton from '../components/Skeleton/Skeleton'
@@ -18,6 +19,8 @@ const IndexPage = () => (
             This lib normalizes wheel event data and provides useful meta data.
           </p>
         </div>
+
+        <Gallery />
 
         <div className="mx-auto max-w-xl">
           <h3>Installation</h3>

@@ -7,6 +7,10 @@
     @apply my-6;
   }
 
+  em {
+    @apply italic opacity-75;
+  }
+
   h1,
   h2,
   h3,

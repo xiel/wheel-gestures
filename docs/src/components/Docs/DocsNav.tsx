@@ -18,21 +18,19 @@ export const DocsNav = () => {
           </Link>
         </li>
         <li className={liClass}>
-          <Link to="/docs/api/" className={aClass} activeClassName={aActiveClass}>
-            API
+          <Link to="/docs/options/" className={aClass} activeClassName={aActiveClass}>
+            Options
           </Link>
-          <ul className={ulClass}>
-            <li className={liClass}>
-              <Link to="/docs/api/options/" className={aClass} activeClassName={aActiveClass}>
-                Options
-              </Link>
-            </li>
-            <li className={liClass}>
-              <Link to="/docs/api/wheel-event-state/" className={aClass} activeClassName={aActiveClass}>
-                WheelEventState
-              </Link>
-            </li>
-          </ul>
+        </li>
+        <li className={liClass}>
+          <Link to="/docs/observe/" className={aClass} activeClassName={aActiveClass}>
+            observe(element)
+          </Link>
+        </li>
+        <li className={liClass}>
+          <Link to="/docs/on-wheel/" className={aClass} activeClassName={aActiveClass}>
+            on('wheel', callback)
+          </Link>
         </li>
       </ul>
     </nav>

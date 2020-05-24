@@ -1,5 +1,3 @@
-import { WheelGesturesOptions } from 'wheel-gestures'
-
 export const simpleListener = `
 import { WheelGestures } from 'wheel-gestures'
 
@@ -15,7 +13,16 @@ wheelGestures.on('wheel', (wheelEventState) => {
   //...
 })`
 
+export const optionsExample = `
+const wheelGestures = WheelGestures({ preventWheelAction: 'x' })
+
+// ... or later after creation
+wheelGestures.updateOptions({ preventWheelAction: 'y' })
+`
+
 export const codeWheelEventState = `
+export type VectorXYZ = [number, number, number]
+
 export interface WheelEventState {
   isStart: boolean
   isMomentum: boolean
@@ -28,3 +35,45 @@ export interface WheelEventState {
   event: WheelEvent | WheelEventData
   previous?: WheelEventState
 }`
+
+export const observeExample = `
+const wheelGestures = WheelGestures()
+const domElement = document.getElementById("wheel-movable")
+wheelGestures.observe(domElement)
+`
+
+export const unobserveExample = `
+wheelGestures.unobserve(domElement)
+`
+
+export const unobserveReturned = `
+const unobserveDomElement = wheelGestures.observe(domElement)
+// later in clean up...
+unobserveDomElement()
+`
+
+export const feedWheelExample = `
+const wheelGestures = WheelGestures()
+const domElement = document.getElementById("wheel-movable")
+
+domElement.addEventListener("wheel", wheelGestures.feedWheel)
+`
+export const wheelCallbackExample = `
+const wheelGestures = WheelGestures()
+
+wheelGestures.on("wheel", (wheelEventState) => {
+  const {
+    isStart,
+    isEnding,
+    axisDelta: [deltaX, deltaY, deltaZ],
+    ...moreData
+  } = wheelEventState
+  
+  // use the data...
+  console.log(deltaX, deltaY, deltaZ)
+})
+`
+
+export const destructuringExample = `
+const [deltaX, deltaY, deltaZ] = wheelEventState.axisDelta
+`

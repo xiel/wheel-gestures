@@ -31,7 +31,7 @@ export default function Header({ siteTitle }: Props) {
         </h1>
         <nav className="flex flex-wrap items-center px-2 py-2">
           <Link {...link} to="/">
-            Install
+            Start
           </Link>
           <Link {...link} to="/docs/" partiallyActive>
             Docs

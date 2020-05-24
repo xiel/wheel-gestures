@@ -7,7 +7,6 @@ import Skeleton from '../../components/Skeleton/Skeleton'
 const Examples = () => (
   <Skeleton>
     <SEO title="Examples" />
-    <h1>Gallery Example</h1>
     <Gallery />
   </Skeleton>
 )

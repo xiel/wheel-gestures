@@ -30,7 +30,7 @@ export default function Index() {
           <CodeArea>{simpleListener}</CodeArea>
           <p>
             The callback you added with <code>.on('wheel', callback)</code> now gets called for each recognized wheel
-            event, with normalized information about the wheel deltas and additional metadata like velocity.
+            event, with normalized information (eg. deltas) and metadata like velocity.
           </p>
           <p>
             Avoid adding multiple elements with <code>.observe()</code> that are ancestors/descendants.
@@ -40,7 +40,9 @@ export default function Index() {
             allowing the user to perform a wheel gesture on one axis but keep the default behavior on the other, see the
             Options page and customize it.
           </p>
-          <h4>Examples</h4>
+          <h4>
+            Examples <em>(coming soon)</em>
+          </h4>
           <ul>
             <li>Plain JavaScript / TypeScript</li>
             <li>React</li>
