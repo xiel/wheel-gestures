@@ -20,19 +20,19 @@
   },
   "dependencies": {
     "@reach/visually-hidden": "^0.10.1",
-    "@types/prismjs": "^1.16.0",
+    "@types/prismjs": "^1.16.1",
     "@types/react-helmet": "^5.0.15",
     "@types/throttle-debounce": "^2.1.0",
     "clsx": "^1.1.0",
     "gatsby": "^2.22.3",
     "gatsby-image": "^2.4.4",
-    "gatsby-plugin-manifest": "^2.4.5",
+    "gatsby-plugin-manifest": "^2.4.9",
     "gatsby-plugin-offline": "^3.2.6",
     "gatsby-plugin-react-helmet": "^3.3.0",
-    "gatsby-plugin-sass": "^2.3.0",
-    "gatsby-plugin-sharp": "^2.6.5",
+    "gatsby-plugin-sass": "^2.3.2",
+    "gatsby-plugin-sharp": "^2.6.9",
     "gatsby-plugin-typescript": "^2.3.1",
-    "gatsby-source-filesystem": "^2.2.2",
+    "gatsby-source-filesystem": "^2.3.8",
     "gatsby-transformer-sharp": "^2.4.4",
     "node-sass": "^4.14.0",
     "prism-themes": "^1.4.0",
@@ -50,7 +50,7 @@
   },
   "devDependencies": {
     "babel-plugin-prismjs": "^2.0.1",
-    "babel-preset-gatsby": "^0.4.6",
+    "babel-preset-gatsby": "^0.4.7",
     "prettier": "^2.0.5"
   },
   "resolutions": {
