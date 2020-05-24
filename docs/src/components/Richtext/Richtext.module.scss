@@ -1,5 +1,4 @@
 .richtext {
-
   > * {
     @apply my-6;
   }
@@ -54,5 +53,23 @@
 
   td {
     @apply border;
+  }
+
+  :not(pre) > code {
+    @apply inline-block px-1 bg-gray-500 bg-opacity-25 rounded;
+  }
+
+  :not(pre) > code[class*='language-'],
+  pre[class*='language-'] {
+    @apply bg-gray-900;
+  }
+
+  a[href] {
+    @apply text-red font-semibold;
+
+    &:hover,
+    &:focus {
+      @apply border-b-2 border-current;
+    }
   }
 }

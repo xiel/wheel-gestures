@@ -1,12 +1,11 @@
 import React from 'react'
 
+import { configDefaults } from '../../../../../src'
 import CodeArea from '../../../components/CodeArea/CodeArea'
-import InlineCodeArea from '../../../components/CodeArea/InlineCodeArea'
-import { codeWheelEventState } from '../../../components/Docs/docs-codes'
+import { DocsContent } from '../../../components/Docs/DocsContent'
 import { DocsNav } from '../../../components/Docs/DocsNav'
-import Skeleton from '../../../components/Layout/Skeleton'
-import { Richtext } from '../../../components/Richtext/Richtext'
 import SEO from '../../../components/seo'
+import Skeleton from '../../../components/Skeleton/Skeleton'
 
 export default function Docs() {
   return (
@@ -14,46 +13,38 @@ export default function Docs() {
       <SEO title="Docs" />
       <div className="flex flex-wrap">
         <DocsNav />
-        <Richtext className="flex-1 px-6 max-w-full">
-          <h3>Options</h3>
-          <p>wheel-gestures accepts different options</p>
-          <p>you can pass them on init or update them after creation...</p>
-          <CodeArea>{`const wheelGestures = WheelGestures({ preventWheelAction: 'x' })`}</CodeArea>
-          <CodeArea>{'wheelGestures.updateOptions({})'}</CodeArea>
+        <DocsContent>
+          <h2>Options</h2>
 
-          <h3>API / wheelEventState</h3>
-          <CodeArea>{codeWheelEventState}</CodeArea>
-          <h3>Motivation</h3>
+          <p>To customize the behaviour of wheel-gestures options can be passed at creation…</p>
+          <CodeArea>{`const wheelGestures = WheelGestures({ preventWheelAction: 'x' })`}</CodeArea>
+          <p>… or afterwards using the updateOptions method.</p>
+          <CodeArea>{`wheelGestures.updateOptions({ preventWheelAction: 'y' })`}</CodeArea>
+          <p>These are options available including a short description:</p>
+          <h3>preventWheelAction</h3>
           <p>
-            Due to the many differences between different browsers, operating systems and input devices, wheel events
-            are not the easiest to work with. Which makes many developers neglect the wheel event as an input event to
-            their web apps. Others use the wheel event already, but are overwhelmed by their complexity and handle them
-            in a suboptimal way.
+            default: <code>{JSON.stringify(configDefaults.preventWheelAction)}</code>
           </p>
-          <p>This small lib normalizes wheel events, provides useful meta data and an easier API.</p>
-          <h3>License</h3>
-          <p>MIT.</p>
-          <p>Please don't use this library to implement unresponsive page scroll jacking.</p>
-          <h3>
-            Momentum/Inertia detection <InlineCodeArea>isMomentum</InlineCodeArea>
-          </h3>
-          <p>Tested with all current versions of all major browsers (Chrome, Firefox, Safari, Edge)</p>
-          <ul>
-            <li>macOS + Magic Mouse & Magic Trackpad</li>
-            <li>Windows 10 + Precision Touchpads (PTP)</li>
-          </ul>
-          <h3>Example</h3>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus beatae debitis dicta dolor fuga labore
-            necessitatibus, nemo nesciunt nihil odio perspiciatis, quasi qui quia repudiandae tempore unde ut vitae
-            voluptatem!
-          </p>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias debitis deserunt eius enim error fugit
-            labore, maiores, necessitatibus nisi numquam optio placeat praesentium quaerat quia quibusdam suscipit vero
-            voluptas voluptates!
-          </p>
-        </Richtext>
+          <CodeArea>type PreventWheelActionType = boolean | 'x' | 'y' | 'z'</CodeArea>
+
+          <h3>reverseSign:</h3>
+          <table>
+            <tbody>
+              <tr>
+                <th>default</th>
+                <td>
+                  <code>{JSON.stringify(configDefaults.reverseSign)}</code>
+                </td>
+              </tr>
+              <tr>
+                <th>type</th>
+                <td>
+                  <code>boolean</code> | <code>[boolean, boolean, boolean]</code>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </DocsContent>
       </div>
     </Skeleton>
   )

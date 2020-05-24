@@ -8,7 +8,7 @@ interface Props {}
 export function Footer(props: Props) {
   return (
     <Content>
-      <footer className="flex flex-wrap items-center justify-between px-4 py-4 mt-6 border-t-2">
+      <footer className="flex flex-wrap items-center justify-between px-4 py-4 mt-10 border-t-2">
         <div className="text-xs px-2 py-2">
           <p>
             An Open Source project by{' '}
@@ -28,7 +28,7 @@ export function Footer(props: Props) {
             data-color-scheme="no-preference: light; light: light; dark: dark;"
             aria-label="Star xiel/wheel-gestures on GitHub"
             data-size="large"
-            // data-show-count
+            data-show-count
           >
             View on Github
           </GitHubButton>

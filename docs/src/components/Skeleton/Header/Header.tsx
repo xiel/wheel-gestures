@@ -3,7 +3,7 @@ import { Link } from 'gatsby'
 import React from 'react'
 import GitHubButton from 'react-github-btn'
 
-import { Content } from '../Layout/Content'
+import { Content } from '../Content'
 
 interface Props {
   siteTitle: string
@@ -33,10 +33,10 @@ export default function Header({ siteTitle }: Props) {
           <Link {...link} to="/">
             Install
           </Link>
-          <Link {...link} to="/docs/">
+          <Link {...link} to="/docs/" partiallyActive>
             Docs
           </Link>
-          <Link {...link} to="/examples/">
+          <Link {...link} to="/examples/" partiallyActive>
             Examples
           </Link>
           <a className={link.className} href="https://github.com/xiel/wheel-gestures">

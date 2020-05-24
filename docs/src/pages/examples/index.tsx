@@ -1,8 +1,8 @@
 import React from 'react'
 
-import Gallery from '../components/Gallery/Gallery'
-import Skeleton from '../components/Layout/Skeleton'
-import SEO from '../components/seo'
+import Gallery from '../../components/Gallery/Gallery'
+import SEO from '../../components/seo'
+import Skeleton from '../../components/Skeleton/Skeleton'
 
 const Examples = () => (
   <Skeleton>

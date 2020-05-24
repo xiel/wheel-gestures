@@ -9,9 +9,9 @@ import { graphql, useStaticQuery } from 'gatsby'
 import PropTypes from 'prop-types'
 import React, { ReactNode } from 'react'
 
-import Header from '../Header/Header'
 import { Content } from './Content'
 import { Footer } from './Footer'
+import Header from './Header/Header'
 
 const Skeleton = ({ children }: { children: ReactNode }) => {
   const data = useStaticQuery(graphql`
@@ -26,10 +26,12 @@ const Skeleton = ({ children }: { children: ReactNode }) => {
 
   return (
     <>
-      <Header siteTitle={data.site.siteMetadata.title} />
-      <Content>
-        <main>{children}</main>
-      </Content>
+      <div className="min-h-screen">
+        <Header siteTitle={data.site.siteMetadata.title} />
+        <Content>
+          <main>{children}</main>
+        </Content>
+      </div>
       <Footer />
     </>
   )

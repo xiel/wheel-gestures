@@ -2,10 +2,10 @@ import React from 'react'
 
 import CodeArea from '../../components/CodeArea/CodeArea'
 import { simpleListener } from '../../components/Docs/docs-codes'
+import { DocsContent } from '../../components/Docs/DocsContent'
 import { DocsNav } from '../../components/Docs/DocsNav'
-import Skeleton from '../../components/Layout/Skeleton'
-import { Richtext } from '../../components/Richtext/Richtext'
 import SEO from '../../components/seo'
+import Skeleton from '../../components/Skeleton/Skeleton'
 
 export default function Index() {
   return (
@@ -13,9 +13,8 @@ export default function Index() {
       <SEO title="Docs" />
       <div className="flex flex-wrap">
         <DocsNav />
-        <Richtext className="flex-1 px-6 max-w-full">
-          <h1>Docs</h1>
-          <h3>Getting started</h3>
+        <DocsContent>
+          <h2>Getting started</h2>
           <p>
             wheel-gestures is a small low-level open-source library that makes handling wheel events a breeze. You can
             use it in plain old JavaScript or with <em>any framework</em>.
@@ -48,7 +47,18 @@ export default function Index() {
             <li>Vue</li>
             <li>Svelte</li>
           </ul>
-        </Richtext>
+          <h3>Motivation</h3>
+          <p>
+            Due to the many differences between different browsers, operating systems and input devices, wheel events
+            are not the easiest to work with. Which makes many developers neglect the wheel event as an input event to
+            their web apps. Others use the wheel event already, but are overwhelmed by their complexity and handle them
+            in a suboptimal way.
+          </p>
+          <p>This small lib normalizes wheel events, provides useful meta data and an easier API.</p>
+          <h3>License</h3>
+          <p>MIT.</p>
+          <p>Please don't use this library to implement unresponsive page scroll jacking.</p>
+        </DocsContent>
       </div>
     </Skeleton>
   )
