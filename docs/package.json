@@ -4,41 +4,6 @@
   "description": "examples and documentation for wheel-gestures package",
   "version": "0.1.0",
   "author": "Felix Leupold <felix@xiel.de>",
-  "dependencies": {
-    "@reach/visually-hidden": "^0.10.1",
-    "@types/prismjs": "^1.16.0",
-    "@types/react-helmet": "^5.0.15",
-    "@types/throttle-debounce": "^2.1.0",
-    "throttle-debounce": "^2.1.0",
-    "gatsby": "^2.21.35",
-    "gatsby-image": "^2.4.4",
-    "gatsby-plugin-manifest": "^2.4.5",
-    "gatsby-plugin-offline": "^3.1.2",
-    "gatsby-plugin-react-helmet": "^3.3.0",
-    "gatsby-plugin-sass": "^2.3.0",
-    "gatsby-plugin-sharp": "^2.6.5",
-    "gatsby-plugin-typescript": "^2.3.1",
-    "gatsby-source-filesystem": "^2.2.2",
-    "gatsby-transformer-sharp": "^2.4.4",
-    "node-sass": "^4.14.0",
-    "prism-themes": "^1.4.0",
-    "prismjs": "^1.20.0",
-    "prop-types": "^15.7.2",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
-    "react-helmet": "^6.0.0",
-    "react-spring": "^9.0.0-beta.34",
-    "react-use-gesture": "^7.0.15",
-    "wheel-gestures": "*"
-  },
-  "devDependencies": {
-    "babel-plugin-prismjs": "^2.0.1",
-    "babel-preset-gatsby": "^0.4.3",
-    "prettier": "^2.0.5"
-  },
-  "keywords": [
-    "gatsby"
-  ],
   "license": "MIT",
   "scripts": {
     "build": "gatsby build",
@@ -53,6 +18,47 @@
     "predevelop": "yarn link-package",
     "link-package": "cd ..; yarn unlink; yarn link; cd docs; yarn link wheel-gestures;"
   },
+  "dependencies": {
+    "@reach/visually-hidden": "^0.10.1",
+    "@types/prismjs": "^1.16.1",
+    "@types/react-helmet": "^5.0.15",
+    "@types/throttle-debounce": "^2.1.0",
+    "clsx": "^1.1.0",
+    "gatsby": "^2.22.3",
+    "gatsby-image": "^2.4.4",
+    "gatsby-plugin-manifest": "^2.4.9",
+    "gatsby-plugin-offline": "^3.2.6",
+    "gatsby-plugin-react-helmet": "^3.3.0",
+    "gatsby-plugin-sass": "^2.3.2",
+    "gatsby-plugin-sharp": "^2.6.9",
+    "gatsby-plugin-typescript": "^2.3.1",
+    "gatsby-source-filesystem": "^2.3.8",
+    "gatsby-transformer-sharp": "^2.4.4",
+    "node-sass": "^4.14.0",
+    "prism-themes": "^1.4.0",
+    "prismjs": "^1.20.0",
+    "prop-types": "^15.7.2",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-github-btn": "^1.2.0",
+    "react-helmet": "^6.0.0",
+    "react-spring": "^9.0.0-beta.34",
+    "react-use-gesture": "^7.0.15",
+    "tailwindcss": "^1.4.6",
+    "throttle-debounce": "^2.1.0",
+    "wheel-gestures": "*"
+  },
+  "devDependencies": {
+    "babel-plugin-prismjs": "^2.0.1",
+    "babel-preset-gatsby": "^0.4.7",
+    "prettier": "^2.0.5"
+  },
+  "resolutions": {
+    "typescript": "^3.9.1-rc"
+  },
+  "keywords": [
+    "gatsby"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/gatsbyjs/gatsby-starter-default"

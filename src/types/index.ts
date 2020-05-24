@@ -4,8 +4,8 @@
  */
 export type VectorXYZ = [number, number, number]
 export type BooleanXYZ = [boolean, boolean, boolean]
-export type PreventWheelActionType = true | 'x' | 'y' | 'z' | false
-export type ReverseSign = BooleanXYZ | boolean
+export type PreventWheelActionType = boolean | 'x' | 'y' | 'z'
+export type ReverseSign = boolean | BooleanXYZ
 
 export interface WheelGesturesConfig {
   preventWheelAction: PreventWheelActionType

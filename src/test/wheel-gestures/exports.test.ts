@@ -11,6 +11,14 @@ test('exports', () => {
       "addVectors": [Function],
       "average": [Function],
       "clamp": [Function],
+      "configDefaults": Object {
+        "preventWheelAction": true,
+        "reverseSign": Array [
+          true,
+          true,
+          false,
+        ],
+      },
       "deepFreeze": [Function],
       "default": [Function],
       "lastOf": [Function],
