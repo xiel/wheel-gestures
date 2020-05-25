@@ -13801,9 +13801,9 @@ whatwg-fetch@2.0.4:
   integrity sha512-dcQ1GWpOD/eEQ97k66aiEVpNnapVj90/+R+SXTPYGHpYBBypfKJEQjLrvMZ7YXbKm21gXd4NcuxUTjiv1YtLng==
 
 wheel-gestures@*:
-  version "2.1.1"
-  resolved "https://registry.yarnpkg.com/wheel-gestures/-/wheel-gestures-2.1.1.tgz#1b296b464c1ba96f6facfd1252ab541f1a0d2036"
-  integrity sha512-TT/a6ddyZS6f9MpLeA8qkYXjIQxLTsvDeNcj5Wp62VBCSmN7Yxf5fWimIOMw3R4+EjspwVKaTQTfCcHHzmbj+g==
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/wheel-gestures/-/wheel-gestures-2.2.0.tgz#8ae26c379541cfb1142c63c5b850caaced52879b"
+  integrity sha512-HnRaNVoXh3O5nFIN4Pv8PDWBNMio/+rRlqF07qrUeZY4PIsCcmBPpmvbEwyhSr4IfZ2oihi9oOJ+cgM/o++unA==
 
 which-module@^1.0.0:
   version "1.0.0"
