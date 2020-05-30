@@ -21,7 +21,7 @@
   "dependencies": {
     "@reach/visually-hidden": "^0.10.1",
     "@types/prismjs": "^1.16.1",
-    "@types/react-helmet": "^5.0.15",
+    "@types/react-helmet": "^6.0.0",
     "@types/throttle-debounce": "^2.1.0",
     "clsx": "^1.1.0",
     "gatsby": "^2.22.11",
