@@ -6329,7 +6329,7 @@ gatsby-cli@^2.12.66:
     yargs "^15.3.1"
     yurnalist "^1.1.2"
 
-gatsby-core-utils@^1.3.13, gatsby-core-utils@^1.3.14, gatsby-core-utils@^1.3.8:
+gatsby-core-utils@^1.3.14, gatsby-core-utils@^1.3.8:
   version "1.3.14"
   resolved "https://registry.yarnpkg.com/gatsby-core-utils/-/gatsby-core-utils-1.3.14.tgz#a830412a9edb87544bc0d1ad9c2556d33aa0d157"
   integrity sha512-jfC+x5rrYUfl70MHRLsOtsXqdlqIbQGVDKXrvp6IPIUP8TKU6XIpYktF0Yd4ldJIWmGZTa062RWUOd2DFBHVSw==
@@ -6438,16 +6438,16 @@ gatsby-plugin-sass@^2.3.12:
     "@babel/runtime" "^7.10.3"
     sass-loader "^7.3.1"
 
-gatsby-plugin-sharp@^2.6.21:
-  version "2.6.21"
-  resolved "https://registry.yarnpkg.com/gatsby-plugin-sharp/-/gatsby-plugin-sharp-2.6.21.tgz#872eb076f6862e773fbde529fa6b821a97745ae5"
-  integrity sha512-KKVdMAysqZe8oPyPyGDC6tyfAKxqK0tDBk2PVp+Y76TjFMniFxCYJ/4LDPGLfQ+r1wkXX6ndK1lO2osTuzHSRA==
+gatsby-plugin-sharp@^2.6.22:
+  version "2.6.22"
+  resolved "https://registry.yarnpkg.com/gatsby-plugin-sharp/-/gatsby-plugin-sharp-2.6.22.tgz#4f35f03c87126bd35f7c5c92f7d7f7334e136542"
+  integrity sha512-yXIghEbpziqSZw+yqh+W2SpNTZpUkZX98+2YZNctc6CH9ToaMIGuYMwxf/90pStNjkwnlHcmnZ6o6Bk0jrjSFg==
   dependencies:
     "@babel/runtime" "^7.10.3"
     async "^2.6.3"
     bluebird "^3.7.2"
     fs-extra "^8.1.0"
-    gatsby-core-utils "^1.3.13"
+    gatsby-core-utils "^1.3.14"
     got "^8.3.2"
     imagemin "^6.1.0"
     imagemin-mozjpeg "^8.0.0"
