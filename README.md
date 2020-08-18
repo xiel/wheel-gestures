@@ -11,8 +11,6 @@ wheel gestures and momentum detection in the browser
 
 <hr/>
 
-🚧 still working on docs & demos
-
 **OS & Browsers**
 
 - Mac OS (Chrome, Firefox, Safari, Edge), Magic Mouse, Magic Trackpad
