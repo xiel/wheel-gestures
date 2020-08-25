@@ -51,7 +51,7 @@
   "devDependencies": {
     "babel-plugin-prismjs": "^2.0.1",
     "babel-preset-gatsby": "^0.4.12",
-    "prettier": "^2.0.5"
+    "prettier": "^2.1.0"
   },
   "resolutions": {
     "typescript": "^3.9.1-rc"
