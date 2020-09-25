@@ -1,3 +1,5 @@
+import { deepFreeze } from '../utils'
+
 export type EventMapEmpty = Record<string, unknown>
 export type EventListener<D = unknown> = (data: D) => void
 export type Off = () => void
@@ -19,7 +21,7 @@ export default function EventBus<EventMap = EventMapEmpty>() {
     listeners[type].forEach((l) => l(data))
   }
 
-  return Object.freeze({
+  return deepFreeze({
     on,
     off,
     dispatch,

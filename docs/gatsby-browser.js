@@ -5,3 +5,7 @@
  */
 
 import './src/styles/index.scss'
+
+import LogRocket from 'logrocket'
+
+LogRocket.init('yl40qh/wheel-gestures-dev')
