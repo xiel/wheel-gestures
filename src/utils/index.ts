@@ -24,7 +24,7 @@ export function absMax(numbers: number[]) {
 export function deepFreeze<T extends object>(o: T): Readonly<T> {
   Object.freeze(o)
   Object.values(o).forEach((value) => {
-    if (value !== null && (typeof value === 'object' || typeof value === 'function') && !Object.isFrozen(value)) {
+    if (value !== null && typeof value === 'object' && !Object.isFrozen(value)) {
       deepFreeze(value)
     }
   })
