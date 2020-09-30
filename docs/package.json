@@ -31,7 +31,7 @@
     "gatsby-plugin-react-helmet": "^3.3.12",
     "gatsby-plugin-sass": "^2.3.13",
     "gatsby-plugin-sharp": "^2.6.37",
-    "gatsby-plugin-typescript": "^2.4.20",
+    "gatsby-plugin-typescript": "^2.4.21",
     "gatsby-source-filesystem": "^2.3.27",
     "gatsby-transformer-sharp": "^2.5.14",
     "logrocket": "^1.0.13",
