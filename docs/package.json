@@ -45,7 +45,7 @@
     "react-helmet": "^6.1.0",
     "react-spring": "^9.0.0-rc.3",
     "react-use-gesture": "^7.0.16",
-    "tailwindcss": "^1.7.6",
+    "tailwindcss": "^1.8.13",
     "throttle-debounce": "^2.3.0",
     "wheel-gestures": "*"
   },
