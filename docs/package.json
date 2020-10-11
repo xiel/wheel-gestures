@@ -37,7 +37,7 @@
     "logrocket": "^1.0.13",
     "node-sass": "^4.14.1",
     "prism-themes": "^1.4.1",
-    "prismjs": "^1.21.0",
+    "prismjs": "^1.22.0",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
