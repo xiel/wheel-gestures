@@ -2,7 +2,7 @@
   "name": "wheel-gestures-docs",
   "private": true,
   "description": "examples and documentation for wheel-gestures package",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "author": "Felix Leupold <felix@xiel.de>",
   "license": "MIT",
   "scripts": {
