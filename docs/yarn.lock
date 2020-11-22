@@ -15474,9 +15474,9 @@ websocket@1.0.32:
     yaeti "^0.0.6"
 
 wheel-gestures@*:
-  version "2.2.0"
-  resolved "https://registry.yarnpkg.com/wheel-gestures/-/wheel-gestures-2.2.0.tgz#8ae26c379541cfb1142c63c5b850caaced52879b"
-  integrity sha512-HnRaNVoXh3O5nFIN4Pv8PDWBNMio/+rRlqF07qrUeZY4PIsCcmBPpmvbEwyhSr4IfZ2oihi9oOJ+cgM/o++unA==
+  version "2.2.3"
+  resolved "https://registry.yarnpkg.com/wheel-gestures/-/wheel-gestures-2.2.3.tgz#5ef78b2ec60f9ed54ea821418fc5acea01163ad6"
+  integrity sha512-Yct++FD4dWhFMzxNO7Fspn6EptZy2WtuF7kRSrxsJg3XkNQH8aJlSH7eaV+VbV9rzLWASxB4eCKzJyo0WTHopw==
 
 which-module@^2.0.0:
   version "2.0.0"
