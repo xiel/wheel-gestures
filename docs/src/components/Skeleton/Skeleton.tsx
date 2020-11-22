@@ -12,6 +12,7 @@ import React, { ReactNode } from 'react'
 import { Content } from './Content'
 import { Footer } from './Footer'
 import Header from './Header/Header'
+import { WheelEventNotice } from './WheelEventNotice'
 
 const Skeleton = ({ children }: { children: ReactNode }) => {
   const data = useStaticQuery(graphql`
@@ -27,6 +28,7 @@ const Skeleton = ({ children }: { children: ReactNode }) => {
   return (
     <>
       <div className="min-h-screen">
+        <WheelEventNotice />
         <Header siteTitle={data.site.siteMetadata.title} />
         <Content>
           <main>{children}</main>
