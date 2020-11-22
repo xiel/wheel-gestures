@@ -55,7 +55,7 @@ export default function SimpleWheelDrag() {
     { domTarget: elRef, eventOptions: { passive: false } }
   )
 
-  useEffect(bind, [bind])
+  useEffect(bind as any, [bind])
 
   const interpolate = (x: number, y: number) => `translate3D(${x}px, ${y}px, 0)`
 
