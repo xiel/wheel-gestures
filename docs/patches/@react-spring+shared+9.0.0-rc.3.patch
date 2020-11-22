@@ -1,0 +1,26 @@
+diff --git a/node_modules/@react-spring/shared/esm/FrameLoop.js b/node_modules/@react-spring/shared/esm/FrameLoop.js
+index 8532b32..69e94dc 100644
+--- a/node_modules/@react-spring/shared/esm/FrameLoop.js
++++ b/node_modules/@react-spring/shared/esm/FrameLoop.js
+@@ -97,7 +97,7 @@ var FrameLoop = /** @class */ (function () {
+                     // Animations can be added while the frameloop is updating,
+                     // but they need a higher priority to be started on this frame.
+                     if (animations.length) {
+-                        G.willAdvance(animations);
++                        G.willAdvance && G.willAdvance(animations);
+                         animations = animations.filter(function (animation) {
+                             priority = animation.priority;
+                             // Animations may go idle before the next frame.
+diff --git a/node_modules/@react-spring/shared/package.json b/node_modules/@react-spring/shared/package.json
+index 93be66f..8a6fefb 100644
+--- a/node_modules/@react-spring/shared/package.json
++++ b/node_modules/@react-spring/shared/package.json
+@@ -11,7 +11,7 @@
+   "contributors": [
+     "Alec Larson (https://github.com/aleclarson)"
+   ],
+-  "sideEffects": false,
++  "sideEffects": true,
+   "main": "cjs/index.js",
+   "module": "esm/index.js",
+   "dependencies": {

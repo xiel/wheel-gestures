@@ -16,6 +16,7 @@
     "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1",
     "prebuild": "yarn link-package",
     "predevelop": "yarn link-package",
+    "postinstall": "patch-package",
     "link-package": "cd ..; yarn unlink; yarn link; cd docs; yarn link wheel-gestures;"
   },
   "dependencies": {
@@ -36,6 +37,8 @@
     "gatsby-transformer-sharp": "^2.5.14",
     "logrocket": "^1.0.13",
     "node-sass": "^4.14.1",
+    "patch-package": "^6.2.2",
+    "postinstall-postinstall": "^2.1.0",
     "prism-themes": "^1.4.0",
     "prismjs": "^1.21.0",
     "prop-types": "^15.7.2",
@@ -43,7 +46,7 @@
     "react-dom": "^16.13.1",
     "react-github-btn": "^1.2.0",
     "react-helmet": "^6.1.0",
-    "react-spring": "^9.0.0-rc.3",
+    "react-spring": "9.0.0-rc.3",
     "react-use-gesture": "^7.0.16",
     "tailwindcss": "^1.7.6",
     "throttle-debounce": "^2.3.0",
