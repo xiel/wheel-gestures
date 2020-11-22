@@ -21,10 +21,6 @@ export default function Gallery() {
     config: springCfg.stiff,
   }))
 
-  const onFrame = (currentValue: { x?: number }) => {
-    offsetX.current = currentValue.x ?? offsetX.current
-  }
-
   useWheelDrag(
     ({ isEnding, isMomentum, axisMovement: [x], axisVelocity, previous, axisMovementProjection }) => {
       const [xVelo, yVelo] = axisVelocity
@@ -54,7 +50,14 @@ export default function Gallery() {
         )
 
         offsetX.current = closestSnapPoint.closest
-        set({ x: closestSnapPoint.closest, config, onFrame })
+
+        set({
+          x: closestSnapPoint.closest,
+          config,
+          onChange: (currentValue: { x?: number }) => {
+            offsetX.current = currentValue.x ?? offsetX.current
+          },
+        })
       } else {
         if (Math.abs(xVelo) > Math.abs(yVelo)) {
           set({ x: rubberband(minX, 0, offsetX.current + x), immediate: true })
