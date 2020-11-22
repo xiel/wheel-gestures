@@ -49,7 +49,7 @@
     "react-spring": "9.0.0-rc.3",
     "react-use-gesture": "^7.0.16",
     "tailwindcss": "^1.7.6",
-    "throttle-debounce": "^2.3.0",
+    "throttle-debounce": "^3.0.1",
     "wheel-gestures": "*"
   },
   "devDependencies": {
