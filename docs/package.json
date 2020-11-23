@@ -29,7 +29,7 @@
     "gatsby-image": "^2.6.0",
     "gatsby-plugin-manifest": "^2.4.27",
     "gatsby-plugin-offline": "^3.2.29",
-    "gatsby-plugin-react-helmet": "^3.3.12",
+    "gatsby-plugin-react-helmet": "^3.5.0",
     "gatsby-plugin-sass": "^2.3.15",
     "gatsby-plugin-sharp": "^2.6.40",
     "gatsby-plugin-typescript": "^2.4.21",
