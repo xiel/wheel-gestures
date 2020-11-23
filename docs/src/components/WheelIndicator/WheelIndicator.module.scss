@@ -4,6 +4,7 @@
   bottom: 2rem;
   padding: 10px;
   border-radius: 20px;
+  color: #fff;
   background: hsla(0deg, 0, 20%, 0.2);
   transform: translateX(-50%);
   pointer-events: none;
@@ -44,7 +45,7 @@
 .wheelIndicator {
   width: 140px;
   height: 80px;
-  border: 2px solid #fff;
+  border: 2px solid;
   border-radius: 10px;
 
   &.flipped {
