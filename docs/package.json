@@ -25,7 +25,7 @@
     "@types/react-helmet": "^6.1.0",
     "@types/throttle-debounce": "^2.1.0",
     "clsx": "^1.1.1",
-    "gatsby": "^2.27.1",
+    "gatsby": "^2.27.2",
     "gatsby-image": "^2.6.0",
     "gatsby-plugin-manifest": "^2.4.27",
     "gatsby-plugin-offline": "^3.2.29",
