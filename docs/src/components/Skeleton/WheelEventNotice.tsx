@@ -15,7 +15,7 @@ export function WheelEventNotice() {
   if (!visible) return null
 
   return (
-    <div className="bg-pink-800 overflow-hidden">
+    <div className="bg-pink-800 text-white overflow-hidden">
       <Richtext>
         <div className="text-center px-6">
           <p>
