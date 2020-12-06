@@ -16,8 +16,9 @@
     "start": "tsdx watch --noClean",
     "build": "tsdx build",
     "test": "tsdx test",
-    "lint": "tsdx lint src docs",
+    "lint": "tsdx lint src docs && yarn type-check",
     "lint:fix": "tsdx lint src docs --fix",
+    "type-check": "tsc --noEmit",
     "prepare": "tsdx build",
     "semantic-release": "semantic-release"
   },

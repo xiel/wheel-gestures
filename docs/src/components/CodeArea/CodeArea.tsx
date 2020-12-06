@@ -15,7 +15,7 @@ interface Props {
 export default function CodeArea({ code, children, language = 'tsx' }: Props): JSX.Element {
   const ref = useRef<HTMLElement | null>(null)
 
-  useEffect(() => Prism.highlightElement(ref.current!))
+  useEffect(() => void (ref.current && Prism.highlightElement(ref.current)))
 
   return (
     <figure className={c.codeWrapper}>

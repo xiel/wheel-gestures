@@ -38,8 +38,9 @@ export default function Gallery() {
   useWheelDrag(
     useCallback(
       ({ isEnding, isMomentum, axisMovement: [x], axisVelocity, previous, axisMovementProjection }) => {
+        if (!containerRef.current) return
         const [xVelo, yVelo] = axisVelocity
-        const width = containerRef.current!.offsetWidth
+        const width = containerRef.current.offsetWidth
         const minX = width * -1 * (pages.length - 1)
 
         if (refLatest.current.indicatorVisible) {
