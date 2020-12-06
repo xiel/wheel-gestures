@@ -10,7 +10,19 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import { Helmet } from 'react-helmet'
 
-function SEO({ description, lang, meta, title }: any) {
+type MetaTag = { name: string; content: string } | { property: string; content: string }
+
+function SEO({
+  description,
+  lang,
+  meta,
+  title,
+}: {
+  description: string
+  lang: string
+  meta: MetaTag | MetaTag[]
+  title: string
+}) {
   const { site } = useStaticQuery(
     graphql`
       query {
@@ -25,8 +37,8 @@ function SEO({ description, lang, meta, title }: any) {
     `
   )
 
-  const metaDescription = description || site.siteMetadata.description
-  const metaProp: JSX.IntrinsicElements['meta'][] = [
+  const metaDescription: string = description || site.siteMetadata.description
+  const metaProp: MetaTag[] = [
     {
       name: `description`,
       content: metaDescription,

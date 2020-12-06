@@ -1,6 +1,6 @@
-test('exports', () => {
-  const WheelGestureExports = require('../../index')
+import * as WheelGestureExports from '../../index'
 
+test('exports', () => {
   expect(WheelGestureExports.default.name).toEqual('WheelGestures')
 
   // freeze in snapshot to check export changes/regressions
