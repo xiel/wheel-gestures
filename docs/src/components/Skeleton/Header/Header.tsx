@@ -1,7 +1,6 @@
 import VisuallyHidden from '@reach/visually-hidden'
 import { Link } from 'gatsby'
 import React from 'react'
-import GitHubButton from 'react-github-btn'
 
 import { Content } from '../Content'
 

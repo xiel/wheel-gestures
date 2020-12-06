@@ -45,10 +45,10 @@ describe('subscription', () => {
   })
 
   it('should work with new', function() {
-    // @ts-ignore
+    // @ts-expect-error
     const wG = new WheelGestures()
     const callback = jest.fn()
-    expect(wG.on(callback))
+    expect(typeof wG.on(callback)).toEqual('function')
   })
 })
 

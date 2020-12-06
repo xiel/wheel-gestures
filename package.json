@@ -17,7 +17,7 @@
     "build": "tsdx build",
     "test": "tsdx test",
     "lint": "tsdx lint src docs",
-    "lint:fix": "tsdx lint src --fix",
+    "lint:fix": "tsdx lint src docs --fix",
     "prepare": "tsdx build",
     "semantic-release": "semantic-release"
   },
