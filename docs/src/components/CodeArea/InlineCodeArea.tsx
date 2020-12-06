@@ -12,7 +12,7 @@ interface Props {
 export default function InlineCodeArea({ code, children, language = 'tsx' }: Props) {
   const ref = useRef<HTMLElement | null>(null)
 
-  useEffect(() => Prism.highlightElement(ref.current!))
+  useEffect(() => void (ref.current && Prism.highlightElement(ref.current)))
 
   return (
     <code ref={ref} className={'language-' + language}>

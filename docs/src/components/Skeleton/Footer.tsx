@@ -3,9 +3,7 @@ import GitHubButton from 'react-github-btn'
 
 import { Content } from './Content'
 
-interface Props {}
-
-export function Footer(props: Props) {
+export function Footer() {
   return (
     <Content>
       <footer className="flex flex-wrap items-center justify-between px-4 py-4 mt-10 border-t-2">
