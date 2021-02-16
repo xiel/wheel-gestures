@@ -47,7 +47,7 @@
     "react-github-btn": "^1.2.0",
     "react-helmet": "^6.1.0",
     "react-spring": "9.0.0-rc.3",
-    "react-use-gesture": "^8.0.1",
+    "react-use-gesture": "^9.0.4",
     "tailwindcss": "^1.9.6",
     "throttle-debounce": "^3.0.1",
     "wheel-gestures": "*"
