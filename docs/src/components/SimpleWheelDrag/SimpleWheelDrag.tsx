@@ -48,7 +48,9 @@ export default function SimpleWheelDrag() {
 
   const bind = useDrag(
     ({ movement, dragging, event }) => {
-      event?.preventDefault()
+      if (event) {
+        event.preventDefault()
+      }
       set({ xyz: dragging ? [...movement, 0] : [0, 0, 0], immediate: dragging })
       setSpringMomentum({ xyz: dragging ? [...movement, 0] : [0, 0, 0], immediate: dragging })
     },

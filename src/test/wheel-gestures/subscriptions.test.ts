@@ -45,7 +45,7 @@ describe('subscription', () => {
   })
 
   it('should work with new', function() {
-    // @ts-expect-error
+    // @ts-expect-error new missing in signature
     const wG = new WheelGestures()
     const callback = jest.fn()
     expect(typeof wG.on(callback)).toEqual('function')
