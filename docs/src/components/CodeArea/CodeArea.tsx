@@ -1,4 +1,4 @@
-/* eslint-disable simple-import-sort/sort */
+/* eslint-disable simple-import-sort/imports */
 import Prism from 'prismjs'
 import 'prismjs/themes/prism-okaidia.css'
 import 'prismjs/components/prism-bash'
@@ -12,10 +12,10 @@ interface Props {
   language?: string
 }
 
-export default function CodeArea({ code, children, language = 'tsx' }: Props) {
+export default function CodeArea({ code, children, language = 'tsx' }: Props): JSX.Element {
   const ref = useRef<HTMLElement | null>(null)
 
-  useEffect(() => Prism.highlightElement(ref.current!))
+  useEffect(() => void (ref.current && Prism.highlightElement(ref.current)))
 
   return (
     <figure className={c.codeWrapper}>

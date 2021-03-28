@@ -17,7 +17,9 @@ interface DrawProps {
 }
 
 function draw({ canvas, data }: DrawProps) {
-  const ctx = canvas.getContext('2d')!
+  const ctx = canvas.getContext('2d')
+  if (!ctx) throw Error()
+
   const { width, height } = canvas
   const halfHeight = height / 2
 

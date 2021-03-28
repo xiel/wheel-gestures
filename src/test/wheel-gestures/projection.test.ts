@@ -8,7 +8,9 @@ import { subscribeAndFeedWheelEvents } from '../helper/recordPhases'
 function checkProjection(wheelEvents: WheelEventData[]) {
   const { allPhaseData } = subscribeAndFeedWheelEvents({ wheelEvents })
 
-  const firstMomentumStateWithMomentum = allPhaseData.find((data) => data.isMomentum)!
+  const firstMomentumStateWithMomentum = allPhaseData.find((data) => data.isMomentum)
+  if (!firstMomentumStateWithMomentum) throw new Error('missing firstMomentumStateWithMomentum')
+
   const lastState = lastOf(allPhaseData)
 
   expect(lastState.isEnding).toBeTruthy()
