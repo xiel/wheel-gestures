@@ -107,7 +107,7 @@ test('should warn about unsupported preventWheelAction in debug mode', () => {
   const logWarn = spyOn(console, 'warn')
 
   testPreventWheelActionWithOptions(swipeUpTrackpad.wheelEvents, {
-    // @ts-expect-error
+    // @ts-expect-error unsupported option
     options: { preventWheelAction: 'xyz' },
   })
 

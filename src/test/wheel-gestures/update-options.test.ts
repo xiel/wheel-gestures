@@ -73,7 +73,7 @@ describe('updateOptions', () => {
     const logWarn = spyOn(console, 'error')
     const wheelGestures = WheelGestures({ preventWheelAction: undefined })
     expect(logWarn).toHaveBeenCalledTimes(1)
-    // @ts-expect-error
+    // @ts-expect-error type error expected
     wheelGestures.updateOptions({ reverseSign: null })
     expect(logWarn).toHaveBeenCalledTimes(2)
     expect(logWarn).toHaveBeenCalledWith('updateOptions ignored! undefined & null options not allowed')
