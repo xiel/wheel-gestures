@@ -19,7 +19,7 @@
     "lint": "tsdx lint src docs && yarn type-check",
     "lint:fix": "tsdx lint src docs --fix",
     "type-check": "tsc --noEmit",
-    "prepare": "tsdx build",
+    "prepare": "tsdx build; husky install",
     "semantic-release": "semantic-release"
   },
   "husky": {
@@ -58,12 +58,19 @@
     "eslint-plugin-simple-import-sort": "^7.0.0",
     "eslint-plugin-react": "^7.14.3",
     "eslint-plugin-react-app": "^6.2.2",
-    "husky": "^4.2.5",
+    "husky": "^6.0.0",
     "lint-staged": "^10.1.6",
     "semantic-release": "^17.4.2",
     "tsdx": "^0.14.1",
     "tslib": "^2.0.0",
-    "typescript": "^3.9.1-rc"
+    "typescript": "^4.2.3"
+  },
+  "resolutions": {
+    "**/@typescript-eslint/eslint-plugin": "^4.11.1",
+    "**/@typescript-eslint/parser": "^4.11.1",
+    "**/jest": "^26.6.3",
+    "**/ts-jest": "^26.4.4",
+    "**/typescript": "^4.2.3"
   },
   "jest": {
     "collectCoverageFrom": [

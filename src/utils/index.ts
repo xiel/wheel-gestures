@@ -21,6 +21,7 @@ export function absMax(numbers: number[]) {
   return Math.max(...numbers.map(Math.abs))
 }
 
+// eslint-disable-next-line @typescript-eslint/ban-types
 export function deepFreeze<T extends object>(o: T): Readonly<T> {
   Object.freeze(o)
   Object.values(o).forEach((value) => {
