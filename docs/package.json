@@ -35,7 +35,7 @@
     "gatsby-plugin-typescript": "^2.4.21",
     "gatsby-source-filesystem": "^2.11.1",
     "gatsby-transformer-sharp": "^2.12.0",
-    "logrocket": "^1.1.0",
+    "logrocket": "^1.2.0",
     "node-sass": "^4.14.1",
     "patch-package": "^6.2.2",
     "postinstall-postinstall": "^2.1.0",
