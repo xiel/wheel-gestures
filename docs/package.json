@@ -20,7 +20,7 @@
     "link-package": "cd ..; yarn unlink; yarn link; cd docs; yarn link wheel-gestures;"
   },
   "dependencies": {
-    "@reach/visually-hidden": "^0.14.0",
+    "@reach/visually-hidden": "^0.15.0",
     "@types/prismjs": "^1.16.5",
     "@types/react-helmet": "^6.1.0",
     "@types/throttle-debounce": "^2.1.0",
