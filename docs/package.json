@@ -37,7 +37,7 @@
     "gatsby-transformer-sharp": "^2.12.1",
     "logrocket": "^1.2.2",
     "node-sass": "^4.14.1",
-    "patch-package": "^6.2.2",
+    "patch-package": "^6.4.7",
     "postinstall-postinstall": "^2.1.0",
     "prism-themes": "^1.5.0",
     "prismjs": "^1.23.0",
