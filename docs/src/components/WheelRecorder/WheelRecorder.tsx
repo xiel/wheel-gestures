@@ -10,7 +10,7 @@ interface Props {
 }
 
 export default function WheelRecorder({ domTarget = globalThis.document?.body }: Props) {
-  const [recording, setRecording] = useState(false)
+  const [recording, setRecording] = useState(true)
   const recordedEvents = useRef<WheelEventData[]>([])
   const [downloadHref, setDownloadHref] = useState('')
   const [downloadName, setDownloadName] = useState('')
@@ -60,16 +60,49 @@ export default function WheelRecorder({ domTarget = globalThis.document?.body }:
     recordedEvents.current = []
     const stopWhenDone = debounce(2000, () => setRecording(false))
     const handler = (e: WheelEvent) => {
-      const { deltaMode, deltaX, deltaY, timeStamp } = e
+      const { deltaMode, deltaX, deltaY, deltaZ, timeStamp, ctrlKey, metaKey } = e
 
-      recordedEvents.current.push({ deltaMode, deltaX, deltaY, timeStamp })
+      console.log({
+        deltaMode,
+        deltaX,
+        deltaY,
+        deltaZ,
+        timeStamp,
+        ctrlKey,
+        metaKey,
+      })
+
+      recordedEvents.current.push({ deltaMode, deltaX, deltaY, deltaZ, ctrlKey, timeStamp })
+
       if (autoStop) {
         stopWhenDone()
       }
       e.preventDefault()
     }
+
     element.addEventListener('wheel', handler as EventListener, { passive: false })
-    return () => element.removeEventListener('wheel', handler as EventListener)
+
+    element.addEventListener(
+      'gesturestart',
+      (e) => {
+        e.preventDefault()
+        console.log('start', e)
+      },
+      { passive: false }
+    )
+
+    element.addEventListener(
+      'gesturechange',
+      (e) => {
+        e.preventDefault()
+        console.log('change', e, e.scale)
+      },
+      { passive: false }
+    )
+
+    return () => {
+      element.removeEventListener('wheel', handler as EventListener)
+    }
   }, [autoStop, createDownloadHref, recording, domTarget])
 
   const downloadFallbackName = new Date().toJSON()
