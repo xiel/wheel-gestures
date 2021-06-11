@@ -1,6 +1,10 @@
-# ![wheel gestures](./WheelGestures.svg)
 
 <h1 align="center">WheelGestures</h1>
+<p align="center">
+  <a href="https://wheel-gestures.xiel.dev">
+    <img alt="wheel gestures animation, link to docs" src="./wheelGestures.gif" />
+  </a>
+</p>
 <p align="center">
   wheel gestures and momentum detection in the browser
 </p>
