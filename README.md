@@ -1,7 +1,8 @@
 # ![wheel gestures](./WheelGestures.svg)
 
+<h1 align="center">WheelGestures</h1>
 <p align="center">
-wheel gestures and momentum detection in the browser
+  wheel gestures and momentum detection in the browser
 </p>
 
 <p align="center">
