@@ -17,7 +17,7 @@
     "src"
   ],
   "engines": {
-    "node": ">=10"
+    "node": "18.x"
   },
   "scripts": {
     "start": "tsdx watch --noClean",
