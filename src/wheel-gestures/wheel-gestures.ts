@@ -254,7 +254,7 @@ export function WheelGestures(optionsParam: WheelGesturesOptions = {}) {
   }
 
   const willEnd = (() => {
-    let willEndId: number
+    let willEndId: NodeJS.Timeout | number
     return () => {
       clearTimeout(willEndId)
       willEndId = setTimeout(end, state.willEndTimeout)
