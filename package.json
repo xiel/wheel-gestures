@@ -5,6 +5,13 @@
   "main": "dist/index.js",
   "module": "dist/wheel-gestures.esm.js",
   "typings": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.js",
+      "import": "./dist/wheel-gestures.esm.js"
+    }
+  },
   "files": [
     "dist",
     "src"
