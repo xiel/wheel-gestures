@@ -6,18 +6,35 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+
+    "prebuild": "yarn link-package",
+    "predevelop": "yarn link-package",
+    "postinstall": "patch-package",
+    "link-package": "cd ..; yarn unlink; yarn link; cd docs; yarn link wheel-gestures;"
   },
   "dependencies": {
+    "@reach/visually-hidden": "^0.15.0",
     "next": "14.2.4",
     "react": "^18",
     "react-dom": "^18",
-    "sass": "^1.77.6"
+    "sass": "^1.77.6",
+    "react-github-btn": "^1.2.0",
+    "patch-package": "^6.4.7",
+    "postinstall-postinstall": "^2.1.0",
+    "prism-themes": "^1.7.0",
+    "prismjs": "^1.23.0",
+    "react-spring": "9.0.0-rc.3",
+    "react-use-gesture": "^8.0.1",
+    "throttle-debounce": "^3.0.1",
+    "wheel-gestures": "*",
+    "clsx": "^1.1.1"
   },
   "devDependencies": {
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
-    "typescript": "^5"
+    "typescript": "^5",
+    "prettier": "^2.3.0"
   }
 }
