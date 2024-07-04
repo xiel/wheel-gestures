@@ -1,8 +1,6 @@
-/* eslint-disable simple-import-sort/imports */
 import Prism from 'prismjs'
 import 'prismjs/themes/prism-okaidia.css'
-import 'prismjs/components/prism-bash'
-import React, { useEffect, useRef } from 'react'
+import React, { useCallback } from 'react'
 
 import c from './CodeArea.module.scss'
 
@@ -12,15 +10,26 @@ interface Props {
   language?: string
 }
 
-export default function CodeArea({ code, children, language = 'tsx' }: Props): JSX.Element {
-  const ref = useRef<HTMLElement | null>(null)
+require('prismjs/components/prism-bash')
+require('prismjs/components/prism-markup')
+require('prismjs/components/prism-css')
+require('prismjs/components/prism-javascript')
+require('prismjs/components/prism-typescript')
+require('prismjs/components/prism-jsx')
+require('prismjs/components/prism-tsx')
 
-  useEffect(() => void (ref.current && Prism.highlightElement(ref.current)))
+// By setting this value to `true`, Prism will not automatically highlight all code elements on the page.
+Prism.manual = true
+
+export default function CodeArea({ code, children, language = 'tsx' }: Props): JSX.Element {
+  const highlightCode = useCallback((el: HTMLElement) => {
+    el && Prism.highlightElement(el)
+  }, [])
 
   return (
     <figure className={c.codeWrapper}>
       <pre className={'raw-code raw-code language-' + language}>
-        <code ref={ref} className={'language-' + language}>
+        <code ref={highlightCode} className={'language-' + language}>
           {code?.trim()}
           {children?.trim()}
         </code>
