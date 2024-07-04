@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react'
 import { WheelEventState, WheelGestures, WheelGesturesOptions } from 'wheel-gestures'
 
-type WheelDragHandler = (state: WheelEventState) => void
+export type WheelDragHandler = (state: WheelEventState) => void
 
 interface Options extends WheelGesturesOptions {
   domTarget?: EventTarget | React.RefObject<EventTarget> | null
