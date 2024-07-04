@@ -1,19 +1,12 @@
 {
   "name": "wheel-gestures-docs",
+  "version": "2.0.0",
   "private": true,
-  "description": "examples and documentation for wheel-gestures package",
-  "version": "0.2.0",
-  "author": "Felix Leupold <felix@xiel.de>",
-  "license": "MIT",
   "scripts": {
-    "build": "tsc && gatsby build",
-    "develop": "gatsby develop -H 0.0.0.0",
-    "format": "prettier --write \"**/*.{js,jsx,json,md}\"",
-    "start": "npm run develop",
-    "serve": "gatsby serve",
-    "clean": "gatsby clean",
-    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1",
-    "lint": "eslint 'src/**/*.{js,jsx,ts,tsx}'",
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
     "prebuild": "yarn link-package",
     "predevelop": "yarn link-package",
     "postinstall": "patch-package",
@@ -21,53 +14,32 @@
   },
   "dependencies": {
     "@reach/visually-hidden": "^0.15.0",
-    "@types/prismjs": "^1.16.5",
     "@types/react-helmet": "^6.1.1",
-    "@types/throttle-debounce": "^2.1.0",
+    "@types/prismjs": "^1.16.5",
+    "autoprefixer": "^10.4.19",
     "clsx": "^1.1.1",
-    "gatsby": "^2.32.13",
-    "gatsby-image": "^3.6.0",
-    "gatsby-plugin-manifest": "^2.12.1",
-    "gatsby-plugin-offline": "^3.10.2",
-    "gatsby-plugin-react-helmet": "^3.10.0",
-    "gatsby-plugin-sass": "^2.8.0",
-    "gatsby-plugin-sharp": "^2.14.4",
-    "gatsby-plugin-typescript": "^2.4.21",
-    "gatsby-source-filesystem": "^2.11.1",
-    "gatsby-transformer-sharp": "^2.12.1",
-    "logrocket": "^1.2.3",
-    "node-sass": "^4.14.1",
+    "next": "14.2.4",
     "patch-package": "^6.4.7",
+    "postcss": "^8.4.39",
     "postinstall-postinstall": "^2.1.0",
     "prism-themes": "^1.7.0",
     "prismjs": "^1.23.0",
-    "prop-types": "^15.7.2",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
+    "react": "^18",
+    "react-dom": "^18",
     "react-github-btn": "^1.2.0",
     "react-helmet": "^6.1.0",
     "react-spring": "9.0.0-rc.3",
     "react-use-gesture": "^8.0.1",
-    "tailwindcss": "^1.9.6",
+    "sass": "^1.77.6",
+    "tailwindcss": "^3.4.4",
     "throttle-debounce": "^3.0.1",
     "wheel-gestures": "*"
   },
   "devDependencies": {
-    "babel-plugin-prismjs": "^2.0.1",
-    "babel-preset-gatsby": "^0.4.12",
-    "prettier": "^2.3.0"
-  },
-  "resolutions": {
-    "typescript": "^3.9.1-rc"
-  },
-  "keywords": [
-    "gatsby"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/gatsbyjs/gatsby-starter-default"
-  },
-  "bugs": {
-    "url": "https://github.com/gatsbyjs/gatsby/issues"
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "prettier": "^2.3.0",
+    "typescript": "^5"
   }
 }

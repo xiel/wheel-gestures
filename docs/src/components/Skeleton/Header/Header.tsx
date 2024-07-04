@@ -1,5 +1,6 @@
+import { LinkActiveClassName } from '@/components/LinkActiveClassName'
 import VisuallyHidden from '@reach/visually-hidden'
-import { Link } from 'gatsby'
+import Link from 'next/link'
 import React from 'react'
 
 import { Content } from '../Content'
@@ -18,7 +19,7 @@ export default function Header({ siteTitle }: Props) {
     <Content>
       <header className="flex flex-wrap items-center justify-between py-6 md:py-6">
         <h1 className="px-4 py-2 w-10/12 md:w-1/3 max-w-md">
-          <Link to="/" className="">
+          <Link href="/" className="">
             <VisuallyHidden>{siteTitle}</VisuallyHidden>
             <svg className="max-w-full" viewBox="0 0 912 56" xmlns="http://www.w3.org/2000/svg" aria-hidden>
               <path
@@ -29,15 +30,15 @@ export default function Header({ siteTitle }: Props) {
           </Link>
         </h1>
         <nav className="flex flex-wrap items-center px-2 py-2">
-          <Link {...link} to="/">
+          <LinkActiveClassName {...link} href="/">
             Start
-          </Link>
-          <Link {...link} to="/docs/" partiallyActive>
+          </LinkActiveClassName>
+          <LinkActiveClassName {...link} href="/docs">
             Docs
-          </Link>
-          <Link {...link} to="/examples/" partiallyActive>
+          </LinkActiveClassName>
+          <LinkActiveClassName {...link} href="/examples">
             Examples
-          </Link>
+          </LinkActiveClassName>
           <a className={link.className} href="https://github.com/xiel/wheel-gestures">
             GitHub
           </a>
