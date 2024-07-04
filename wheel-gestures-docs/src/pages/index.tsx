@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import React from 'react'
 
 import CodeArea from '../components/CodeArea/CodeArea'
@@ -26,8 +27,8 @@ const IndexPage = () => (
           <p>Install wheel-gestures using your package manager:</p>
           <CodeArea language="shell">yarn add wheel-gestures # npm install wheel-gestures</CodeArea>
           <p>
-            Learn how to use wheel-gestures in the <Link to="/docs/">docs</Link> or have a look at the{' '}
-            <Link to="/examples/">examples</Link>.
+            Learn how to use wheel-gestures in the <Link href="/docs/">docs</Link> or have a look at the{' '}
+            <Link href="/examples/">examples</Link>.
           </p>
         </div>
       </div>

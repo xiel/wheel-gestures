@@ -1,5 +1,5 @@
 import VisuallyHidden from '@reach/visually-hidden'
-import { Link } from 'gatsby'
+import Link from 'next/link'
 import React from 'react'
 
 import { Content } from '../Content'
@@ -10,7 +10,7 @@ interface Props {
 
 const link = {
   className: `mx-4 my-1 md:text-lg border-b-2 border-transparent hover:text-red focus:border-current hover:border-current`,
-  activeClassName: 'text-red border-current',
+  // activeClassName: 'text-red border-current',
 }
 
 export default function Header({ siteTitle }: Props) {
@@ -18,7 +18,7 @@ export default function Header({ siteTitle }: Props) {
     <Content>
       <header className="flex flex-wrap items-center justify-between py-6 md:py-6">
         <h1 className="px-4 py-2 w-10/12 md:w-1/3 max-w-md">
-          <Link to="/" className="">
+          <Link href="/" className="">
             <VisuallyHidden>{siteTitle}</VisuallyHidden>
             <svg className="max-w-full" viewBox="0 0 912 56" xmlns="http://www.w3.org/2000/svg" aria-hidden>
               <path
@@ -29,13 +29,13 @@ export default function Header({ siteTitle }: Props) {
           </Link>
         </h1>
         <nav className="flex flex-wrap items-center px-2 py-2">
-          <Link {...link} to="/">
+          <Link {...link} href="/">
             Start
           </Link>
-          <Link {...link} to="/docs/" partiallyActive>
+          <Link {...link} href="/docs/" >
             Docs
           </Link>
-          <Link {...link} to="/examples/" partiallyActive>
+          <Link {...link} href="/examples/" >
             Examples
           </Link>
           <a className={link.className} href="https://github.com/xiel/wheel-gestures">
