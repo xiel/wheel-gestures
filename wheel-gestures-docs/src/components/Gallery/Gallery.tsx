@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { animated, config as springCfg, useSpring } from 'react-spring'
 
 import useRefOfLatest from '../../hooks/useRefOfLatest'
-import useWheelDrag from '../../hooks/useWheelDrag'
+import useWheelDrag, { WheelDragHandler } from '../../hooks/useWheelDrag'
 import { rubberband } from '../../utils/rubberband'
 import { WheelIndicator } from '../WheelIndicator/WheelIndicator'
 import c from './Gallery.module.scss'
@@ -35,69 +35,78 @@ export default function Gallery() {
     return () => clearTimeout(id)
   }, [indicatorVisible])
 
-  useWheelDrag(
-    useCallback(
-      ({ isEnding, isMomentum, axisMovement: [x], axisVelocity, previous, axisMovementProjection }) => {
-        if (!containerRef.current) return
-        const [xVelo, yVelo] = axisVelocity
-        const width = containerRef.current.offsetWidth
-        const minX = width * -1 * (pages.length - 1)
+  const wheelDragHandler = useCallback<WheelDragHandler>(
+    (state) => {
+      const {
+        isEnding,
+        isMomentum,
+        axisMovement: [x],
+        axisVelocity,
+        previous,
+        axisMovementProjection,
+      } = state
 
-        if (refLatest.current.indicatorVisible) {
-          setIndicatorVisible(false)
+      if (!containerRef.current) return
+
+      const [xVelo, yVelo] = axisVelocity
+      const width = containerRef.current.offsetWidth
+      const minX = width * -1 * (pages.length - 1)
+
+      if (refLatest.current.indicatorVisible) {
+        setIndicatorVisible(false)
+      }
+
+      if (isEnding || (momentumDetectionEnabled && isMomentum)) {
+        // only snap at momentum begin
+        if (momentumDetectionEnabled && previous?.isMomentum) return
+
+        const config = { velocity: xVelo }
+        const snapPoints = pages.map((_, i) => i * width * -1)
+        const [projectionX] = axisMovementProjection
+        const projectedTarget = offsetX.current + projectionX
+
+        const closestSnapPoint = snapPoints.reduce(
+          (acc, snapPoint) => {
+            const diff = snapPoint - acc.projectedTarget
+            const isCloser = Math.abs(diff) < Math.abs(acc.closestDiff)
+            return isCloser ? { ...acc, closest: snapPoint, closestDiff: diff } : acc
+          },
+          {
+            projectedTarget,
+            closest: Infinity,
+            closestDiff: Infinity,
+          }
+        )
+
+        // update indicator direction
+        const hitFirst = closestSnapPoint.closest === snapPoints[0]
+        const hitLast = closestSnapPoint.closest === snapPoints[snapPoints.length - 1]
+
+        if (hitFirst) {
+          setIndicatorFlipped(false)
+        } else if (hitLast) {
+          setIndicatorFlipped(true)
         }
 
-        if (isEnding || (momentumDetectionEnabled && isMomentum)) {
-          // only snap at momentum begin
-          if (momentumDetectionEnabled && previous?.isMomentum) return
+        offsetX.current = closestSnapPoint.closest
 
-          const config = { velocity: xVelo }
-          const snapPoints = pages.map((_, i) => i * width * -1)
-          const [projectionX] = axisMovementProjection
-          const projectedTarget = offsetX.current + projectionX
-
-          const closestSnapPoint = snapPoints.reduce(
-            (acc, snapPoint) => {
-              const diff = snapPoint - acc.projectedTarget
-              const isCloser = Math.abs(diff) < Math.abs(acc.closestDiff)
-              return isCloser ? { ...acc, closest: snapPoint, closestDiff: diff } : acc
-            },
-            {
-              projectedTarget,
-              closest: Infinity,
-              closestDiff: Infinity,
-            }
-          )
-
-          // update indicator direction
-          const hitFirst = closestSnapPoint.closest === snapPoints[0]
-          const hitLast = closestSnapPoint.closest === snapPoints[snapPoints.length - 1]
-
-          if (hitFirst) {
-            setIndicatorFlipped(false)
-          } else if (hitLast) {
-            setIndicatorFlipped(true)
-          }
-
-          offsetX.current = closestSnapPoint.closest
-
-          set({
-            x: closestSnapPoint.closest,
-            config,
-            onChange: (currentValue: { x?: number }) => {
-              offsetX.current = currentValue.x ?? offsetX.current
-            },
-          })
-        } else {
-          if (Math.abs(xVelo) > Math.abs(yVelo)) {
-            set({ x: rubberband(minX, 0, offsetX.current + x), immediate: true })
-          }
+        set({
+          x: closestSnapPoint.closest,
+          config,
+          onChange: (currentValue: { x?: number }) => {
+            offsetX.current = currentValue.x ?? offsetX.current
+          },
+        })
+      } else {
+        if (Math.abs(xVelo) > Math.abs(yVelo)) {
+          set({ x: rubberband(minX, 0, offsetX.current + x), immediate: true })
         }
-      },
-      [momentumDetectionEnabled, refLatest, set]
-    ),
-    { domTarget: containerRef, preventWheelAction: 'x' }
+      }
+    },
+    [momentumDetectionEnabled, refLatest, set]
   )
+
+  useWheelDrag(wheelDragHandler, { domTarget: containerRef, preventWheelAction: 'x' })
 
   return (
     <div className={c.outer}>

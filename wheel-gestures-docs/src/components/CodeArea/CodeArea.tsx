@@ -22,7 +22,7 @@ require('prismjs/components/prism-tsx')
 Prism.manual = true
 
 export default function CodeArea({ code, children, language = 'tsx' }: Props): JSX.Element {
-  const highlightCode = useCallback((el) => {
+  const highlightCode = useCallback((el: HTMLElement) => {
     el && Prism.highlightElement(el)
   }, [])
 
