@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "prebuild": "yarn link-package",
+    "old:prebuild": "yarn link-package",
     "predevelop": "yarn link-package",
     "postinstall": "patch-package",
     "link-package": "cd ..; yarn unlink; yarn link; cd docs; yarn link wheel-gestures;"
