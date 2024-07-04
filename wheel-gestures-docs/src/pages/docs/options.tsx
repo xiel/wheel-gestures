@@ -1,12 +1,17 @@
 import React from 'react'
 
-import { configDefaults } from '../../../../src'
+import { configDefaults } from 'wheel-gestures'
 import CodeArea from '../../components/CodeArea/CodeArea'
 import { optionsExample } from '../../components/Docs/docs-codes'
 import { DocsContent } from '../../components/Docs/DocsContent'
 import { DocsNav } from '../../components/Docs/DocsNav'
 import SEO from '../../components/seo'
 import Skeleton from '../../components/Skeleton/Skeleton'
+
+// const configDefaults: WheelGesturesConfig = {
+//   preventWheelAction: true,
+//   reverseSign: [true, true, false],
+// }
 
 export default function Options() {
   return (

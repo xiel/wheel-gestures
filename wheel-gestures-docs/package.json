@@ -1,6 +1,6 @@
 {
   "name": "wheel-gestures-docs",
-  "version": "0.1.0",
+  "version": "2.0.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -15,6 +15,7 @@
   "dependencies": {
     "@reach/visually-hidden": "^0.15.0",
     "@types/react-helmet": "^6.1.1",
+    "@types/prismjs": "^1.16.5",
     "autoprefixer": "^10.4.19",
     "clsx": "^1.1.1",
     "next": "14.2.4",
