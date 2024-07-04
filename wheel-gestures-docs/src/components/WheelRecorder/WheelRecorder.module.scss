@@ -1,0 +1,37 @@
+.container {
+  display: inline-flex;
+  align-items: center;
+  padding: 1em;
+  border-radius: 32px;
+  border: 2px solid lightgray;
+
+  label {
+    margin-left: 1em;
+  }
+}
+
+.recordButton {
+  width: 32px;
+  height: 32px;
+  font-size: 12px;
+  border: 0 none;
+  border-radius: 32px;
+  color: #333;
+  background: lightgray;
+  transition: 200ms;
+  cursor: pointer;
+  text-align: center;
+
+  &:focus,
+  &:hover {
+    opacity: 0.8;
+    color: white;
+    background: gray;
+    transform: scale(1.1);
+  }
+
+  &.active {
+    color: white;
+    background: orangered;
+  }
+}

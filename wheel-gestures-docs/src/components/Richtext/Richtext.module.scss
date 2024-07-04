@@ -1,0 +1,79 @@
+.richtext {
+  > * {
+    @apply my-6;
+  }
+
+  p {
+    @apply my-6;
+  }
+
+  em {
+    @apply italic opacity-75;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply my-6 font-bold leading-tight;
+  }
+
+  h1 {
+    @apply text-3xl;
+    @apply mb-10;
+  }
+
+  h2 {
+    @apply text-2xl;
+  }
+
+  h3 {
+    @apply text-xl;
+  }
+
+  ul,
+  ol {
+    @apply my-6 pl-4 list-disc;
+  }
+
+  ol {
+    @apply list-decimal;
+  }
+
+  li {
+    @apply m-1;
+  }
+
+  table {
+    @apply my-6;
+    @apply table-auto;
+    @apply w-full;
+  }
+
+  th,
+  td {
+    @apply m-1 px-4 py-2;
+  }
+
+  td {
+    @apply border;
+  }
+
+  :not(pre) > code {
+    @apply inline-block px-1 bg-gray-500 bg-opacity-25 rounded;
+  }
+
+  :not(pre) > code[class*='language-'],
+  pre[class*='language-'] {
+    @apply bg-gray-900;
+  }
+
+  a[href] {
+    @apply text-red font-semibold;
+
+    &:hover,
+    &:focus {
+      @apply border-b-2 border-current;
+    }
+  }
+}
