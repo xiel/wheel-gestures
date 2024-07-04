@@ -1,25 +1,25 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`drag slow drag 1`] = `
-Object {
-  "phases": Array [
-    Object {
-      "axisDelta": Array [
+{
+  "phases": [
+    {
+      "axisDelta": [
         0,
         0,
         0,
       ],
-      "axisMovement": Array [
+      "axisMovement": [
         -1407,
         11,
         0,
       ],
-      "axisVelocity": Array [
+      "axisVelocity": [
         -0.125,
         0.0625,
         0,
       ],
-      "event": Object {
+      "event": {
         "deltaMode": 0,
         "deltaX": -1,
         "deltaY": 0,
@@ -30,7 +30,7 @@ Object {
       "isMomentum": false,
       "isMomentumCancel": false,
       "isStart": false,
-      "range": Array [
+      "range": [
         0,
         193,
       ],
@@ -41,25 +41,25 @@ Object {
 `;
 
 exports[`drag square move - trackpad (tl -> tr -> br -> bl -> tl) 1`] = `
-Object {
-  "phases": Array [
-    Object {
-      "axisDelta": Array [
+{
+  "phases": [
+    {
+      "axisDelta": [
         0,
         0,
         0,
       ],
-      "axisMovement": Array [
+      "axisMovement": [
         -408,
         77,
         0,
       ],
-      "axisVelocity": Array [
+      "axisVelocity": [
         0.022727272727272728,
         0,
         0,
       ],
-      "event": Object {
+      "event": {
         "deltaMode": 0,
         "deltaX": 0,
         "deltaY": -3,
@@ -70,7 +70,7 @@ Object {
       "isMomentum": false,
       "isMomentumCancel": false,
       "isStart": false,
-      "range": Array [
+      "range": [
         0,
         206,
       ],

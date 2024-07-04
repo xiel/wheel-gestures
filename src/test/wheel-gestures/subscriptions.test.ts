@@ -4,7 +4,7 @@ import { createWheelEvent } from '../helper/generateEvents'
 describe('creation', () => {
   it('can be created without options and return expected general interface', () => {
     expect(WheelGestures()).toMatchInlineSnapshot(`
-      Object {
+      {
         "disconnect": [Function],
         "feedWheel": [Function],
         "observe": [Function],

@@ -36,9 +36,9 @@ describe('updateOptions', () => {
 
   it('should return default config by creating & calling updateOptions empty', () => {
     expect(WheelGestures().updateOptions()).toMatchInlineSnapshot(`
-      Object {
+      {
         "preventWheelAction": true,
-        "reverseSign": Array [
+        "reverseSign": [
           true,
           true,
           false,
@@ -49,7 +49,7 @@ describe('updateOptions', () => {
 
   it('should return config with changed options by calling updateOptions empty', () => {
     expect(WheelGestures({ preventWheelAction: 'x', reverseSign: true }).updateOptions()).toMatchInlineSnapshot(`
-      Object {
+      {
         "preventWheelAction": "x",
         "reverseSign": true,
       }
@@ -70,7 +70,7 @@ describe('updateOptions', () => {
   })
 
   it('should warn about undefined/null values', function() {
-    const logWarn = spyOn(console, 'error')
+    const logWarn = jest.spyOn(console, 'error').mockImplementation(() => {})
     const wheelGestures = WheelGestures({ preventWheelAction: undefined })
     expect(logWarn).toHaveBeenCalledTimes(1)
     // @ts-expect-error type error expected
