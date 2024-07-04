@@ -1,3 +1,4 @@
+import { LinkActiveClassName } from '@/components/LinkActiveClassName'
 import VisuallyHidden from '@reach/visually-hidden'
 import Link from 'next/link'
 import React from 'react'
@@ -10,7 +11,7 @@ interface Props {
 
 const link = {
   className: `mx-4 my-1 md:text-lg border-b-2 border-transparent hover:text-red focus:border-current hover:border-current`,
-  // activeClassName: 'text-red border-current',
+  activeClassName: 'text-red border-current',
 }
 
 export default function Header({ siteTitle }: Props) {
@@ -29,15 +30,15 @@ export default function Header({ siteTitle }: Props) {
           </Link>
         </h1>
         <nav className="flex flex-wrap items-center px-2 py-2">
-          <Link {...link} href="/">
+          <LinkActiveClassName {...link} href="/">
             Start
-          </Link>
-          <Link {...link} href="/docs/" >
+          </LinkActiveClassName>
+          <LinkActiveClassName {...link} href="/docs">
             Docs
-          </Link>
-          <Link {...link} href="/examples/" >
+          </LinkActiveClassName>
+          <LinkActiveClassName {...link} href="/examples">
             Examples
-          </Link>
+          </LinkActiveClassName>
           <a className={link.className} href="https://github.com/xiel/wheel-gestures">
             GitHub
           </a>

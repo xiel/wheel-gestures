@@ -5,6 +5,7 @@
  * See: https://www.gatsbyjs.org/docs/use-static-query/
  */
 
+import Head from 'next/head'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { Helmet } from 'react-helmet'
@@ -22,26 +23,12 @@ function SEO({
   meta: MetaTag | MetaTag[]
   title: string
 }) {
-  // const { site } = useStaticQuery(
-  //   graphql`
-  //     query {
-  //       site {
-  //         siteMetadata {
-  //           title
-  //           description
-  //           author
-  //         }
-  //       }
-  //     }
-  //   `
-  // )
-
   const site = {
     siteMetadata: {
       title: 'wheel-gestures documentation',
       description: 'wheel interactions made easy',
       author: 'xiel',
-    }
+    },
   }
 
   const metaDescription: string = description || site.siteMetadata.description
@@ -93,18 +80,22 @@ function SEO({
   }
 
   return (
-    <Helmet
-      htmlAttributes={{
-        lang,
-      }}
-      title={title}
-      titleTemplate={`%s | ${site.siteMetadata.title}`}
-      meta={metaProp}
-      link={links}
-    />
+    <>
+      <Head>
+        <title>{`${title} | ${site.siteMetadata.title}`}</title>
+      </Head>
+      <Helmet
+        htmlAttributes={{
+          lang,
+        }}
+        title={title}
+        titleTemplate={`%s | ${site.siteMetadata.title}`}
+        meta={metaProp}
+        link={links}
+      />
+    </>
   )
 }
-
 
 SEO.propTypes = {
   description: PropTypes.string,
