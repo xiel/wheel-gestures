@@ -1,25 +1,25 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`momentum detection recognizes double swipe right 1`] = `
-Object {
-  "phases": Array [
-    Object {
-      "axisDelta": Array [
+{
+  "phases": [
+    {
+      "axisDelta": [
         0,
         0,
         0,
       ],
-      "axisMovement": Array [
+      "axisMovement": [
         -952,
         8,
         0,
       ],
-      "axisVelocity": Array [
+      "axisVelocity": [
         -0.682340725381047,
         0,
         0,
       ],
-      "event": Object {
+      "event": {
         "deltaMode": 0,
         "deltaX": -2,
         "deltaY": 0,
@@ -30,29 +30,29 @@ Object {
       "isMomentum": true,
       "isMomentumCancel": true,
       "isStart": false,
-      "range": Array [
+      "range": [
         32,
         33,
       ],
       "wheelType": "momentum",
     },
-    Object {
-      "axisDelta": Array [
+    {
+      "axisDelta": [
         0,
         0,
         0,
       ],
-      "axisMovement": Array [
+      "axisMovement": [
         -1755,
         -2,
         0,
       ],
-      "axisVelocity": Array [
+      "axisVelocity": [
         -0.039928129363731614,
         0,
         0,
       ],
-      "event": Object {
+      "event": {
         "deltaMode": 0,
         "deltaX": -1,
         "deltaY": 0,
@@ -63,7 +63,7 @@ Object {
       "isMomentum": true,
       "isMomentumCancel": false,
       "isStart": false,
-      "range": Array [
+      "range": [
         102,
         102,
       ],
@@ -74,25 +74,25 @@ Object {
 `;
 
 exports[`momentum detection recognizes swipe down - fast 1`] = `
-Object {
-  "phases": Array [
-    Object {
-      "axisDelta": Array [
+{
+  "phases": [
+    {
+      "axisDelta": [
         0,
         0,
         0,
       ],
-      "axisMovement": Array [
+      "axisMovement": [
         -23,
         -7290,
         0,
       ],
-      "axisVelocity": Array [
+      "axisVelocity": [
         0,
         -0.04081632653061224,
         0,
       ],
-      "event": Object {
+      "event": {
         "deltaMode": 0,
         "deltaX": 0,
         "deltaY": -1,
@@ -103,7 +103,7 @@ Object {
       "isMomentum": true,
       "isMomentumCancel": false,
       "isStart": false,
-      "range": Array [
+      "range": [
         95,
         95,
       ],
@@ -114,25 +114,25 @@ Object {
 `;
 
 exports[`momentum detection recognizes swipe down 1`] = `
-Object {
-  "phases": Array [
-    Object {
-      "axisDelta": Array [
+{
+  "phases": [
+    {
+      "axisDelta": [
         0,
         0,
         0,
       ],
-      "axisMovement": Array [
+      "axisMovement": [
         7,
         -2134,
         0,
       ],
-      "axisVelocity": Array [
+      "axisVelocity": [
         0,
         -0.04878048780487805,
         0,
       ],
-      "event": Object {
+      "event": {
         "deltaMode": 0,
         "deltaX": 0,
         "deltaY": -1,
@@ -143,7 +143,7 @@ Object {
       "isMomentum": true,
       "isMomentumCancel": false,
       "isStart": false,
-      "range": Array [
+      "range": [
         87,
         87,
       ],
@@ -154,25 +154,25 @@ Object {
 `;
 
 exports[`momentum detection recognizes swipe left (mouse) - Firefox 1`] = `
-Object {
-  "phases": Array [
-    Object {
-      "axisDelta": Array [
+{
+  "phases": [
+    {
+      "axisDelta": [
         0,
         0,
         0,
       ],
-      "axisMovement": Array [
+      "axisMovement": [
         740,
         0,
         0,
       ],
-      "axisVelocity": Array [
+      "axisVelocity": [
         0.04,
         0,
         0,
       ],
-      "event": Object {
+      "event": {
         "deltaMode": 0,
         "deltaX": 1,
         "deltaY": 0,
@@ -183,7 +183,7 @@ Object {
       "isMomentum": true,
       "isMomentumCancel": false,
       "isStart": false,
-      "range": Array [
+      "range": [
         54,
         54,
       ],
@@ -194,25 +194,25 @@ Object {
 `;
 
 exports[`momentum detection recognizes swipe left - fast 1`] = `
-Object {
-  "phases": Array [
-    Object {
-      "axisDelta": Array [
+{
+  "phases": [
+    {
+      "axisDelta": [
         0,
         0,
         0,
       ],
-      "axisMovement": Array [
+      "axisMovement": [
         9964,
         -8,
         0,
       ],
-      "axisVelocity": Array [
+      "axisVelocity": [
         0.039603960396039604,
         0,
         0,
       ],
-      "event": Object {
+      "event": {
         "deltaMode": 0,
         "deltaX": 1,
         "deltaY": 0,
@@ -223,7 +223,7 @@ Object {
       "isMomentum": true,
       "isMomentumCancel": false,
       "isStart": false,
-      "range": Array [
+      "range": [
         100,
         100,
       ],
@@ -234,25 +234,25 @@ Object {
 `;
 
 exports[`momentum detection recognizes swipe left 1`] = `
-Object {
-  "phases": Array [
-    Object {
-      "axisDelta": Array [
+{
+  "phases": [
+    {
+      "axisDelta": [
         0,
         0,
         0,
       ],
-      "axisMovement": Array [
+      "axisMovement": [
         3001,
         -15,
         0,
       ],
-      "axisVelocity": Array [
+      "axisVelocity": [
         0.04,
         0,
         0,
       ],
-      "event": Object {
+      "event": {
         "deltaMode": 0,
         "deltaX": 1,
         "deltaY": 0,
@@ -263,7 +263,7 @@ Object {
       "isMomentum": true,
       "isMomentumCancel": false,
       "isStart": false,
-      "range": Array [
+      "range": [
         82,
         82,
       ],
@@ -274,25 +274,25 @@ Object {
 `;
 
 exports[`momentum detection recognizes swipe right - fast 1`] = `
-Object {
-  "phases": Array [
-    Object {
-      "axisDelta": Array [
+{
+  "phases": [
+    {
+      "axisDelta": [
         0,
         0,
         0,
       ],
-      "axisMovement": Array [
+      "axisMovement": [
         -15,
         0,
         0,
       ],
-      "axisVelocity": Array [
+      "axisVelocity": [
         -0.03963731853433476,
         0,
         0,
       ],
-      "event": Object {
+      "event": {
         "deltaMode": 0,
         "deltaX": -1,
         "deltaY": 0,
@@ -303,29 +303,29 @@ Object {
       "isMomentum": false,
       "isMomentumCancel": false,
       "isStart": false,
-      "range": Array [
+      "range": [
         0,
         9,
       ],
       "wheelType": "user",
     },
-    Object {
-      "axisDelta": Array [
+    {
+      "axisDelta": [
         0,
         0,
         0,
       ],
-      "axisMovement": Array [
+      "axisMovement": [
         -12774,
         0,
         0,
       ],
-      "axisVelocity": Array [
+      "axisVelocity": [
         -0.0400060009027491,
         0,
         0,
       ],
-      "event": Object {
+      "event": {
         "deltaMode": 0,
         "deltaX": -1,
         "deltaY": 0,
@@ -336,7 +336,7 @@ Object {
       "isMomentum": true,
       "isMomentumCancel": false,
       "isStart": false,
-      "range": Array [
+      "range": [
         96,
         96,
       ],
@@ -347,25 +347,25 @@ Object {
 `;
 
 exports[`momentum detection recognizes swipe right 1`] = `
-Object {
-  "phases": Array [
-    Object {
-      "axisDelta": Array [
+{
+  "phases": [
+    {
+      "axisDelta": [
         0,
         0,
         0,
       ],
-      "axisMovement": Array [
+      "axisMovement": [
         -1634,
         0,
         0,
       ],
-      "axisVelocity": Array [
+      "axisVelocity": [
         -0.0398585023158581,
         0,
         0,
       ],
-      "event": Object {
+      "event": {
         "deltaMode": 0,
         "deltaX": -1,
         "deltaY": 0,
@@ -376,7 +376,7 @@ Object {
       "isMomentum": true,
       "isMomentumCancel": false,
       "isStart": false,
-      "range": Array [
+      "range": [
         63,
         63,
       ],
@@ -387,25 +387,25 @@ Object {
 `;
 
 exports[`momentum detection recognizes swipe up - fast 1`] = `
-Object {
-  "phases": Array [
-    Object {
-      "axisDelta": Array [
+{
+  "phases": [
+    {
+      "axisDelta": [
         0,
         0,
         0,
       ],
-      "axisMovement": Array [
+      "axisMovement": [
         -38,
         8065,
         0,
       ],
-      "axisVelocity": Array [
+      "axisVelocity": [
         0,
         0.0392156862745098,
         0,
       ],
-      "event": Object {
+      "event": {
         "deltaMode": 0,
         "deltaX": 0,
         "deltaY": 1,
@@ -416,7 +416,7 @@ Object {
       "isMomentum": true,
       "isMomentumCancel": false,
       "isStart": false,
-      "range": Array [
+      "range": [
         98,
         98,
       ],
@@ -427,25 +427,25 @@ Object {
 `;
 
 exports[`momentum detection recognizes swipe up 1`] = `
-Object {
-  "phases": Array [
-    Object {
-      "axisDelta": Array [
+{
+  "phases": [
+    {
+      "axisDelta": [
         0,
         0,
         0,
       ],
-      "axisMovement": Array [
+      "axisMovement": [
         -70,
         3836,
         0,
       ],
-      "axisVelocity": Array [
+      "axisVelocity": [
         0,
         0.04,
         0,
       ],
-      "event": Object {
+      "event": {
         "deltaMode": 0,
         "deltaX": 0,
         "deltaY": 1,
@@ -456,7 +456,7 @@ Object {
       "isMomentum": true,
       "isMomentumCancel": false,
       "isStart": false,
-      "range": Array [
+      "range": [
         84,
         84,
       ],

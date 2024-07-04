@@ -5,15 +5,15 @@ test('exports', () => {
 
   // freeze in snapshot to check export changes/regressions
   expect(WheelGestureExports).toMatchInlineSnapshot(`
-    Object {
+    {
       "WheelGestures": [Function],
       "absMax": [Function],
       "addVectors": [Function],
       "average": [Function],
       "clamp": [Function],
-      "configDefaults": Object {
+      "configDefaults": {
         "preventWheelAction": true,
-        "reverseSign": Array [
+        "reverseSign": [
           true,
           true,
           false,

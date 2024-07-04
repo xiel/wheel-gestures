@@ -1,25 +1,25 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`simple mouse - continuous horizontal wheel Mac Chrome 1`] = `
-Object {
-  "phases": Array [
-    Object {
-      "axisDelta": Array [
+{
+  "phases": [
+    {
+      "axisDelta": [
         0,
         0,
         0,
       ],
-      "axisMovement": Array [
+      "axisMovement": [
         -881.3275146484375,
         0,
         0,
       ],
-      "axisVelocity": Array [
+      "axisVelocity": [
         -1.9548461698762425,
         0,
         0,
       ],
-      "event": Object {
+      "event": {
         "deltaMode": 0,
         "deltaX": -226.881103515625,
         "deltaY": 0,
@@ -30,7 +30,7 @@ Object {
       "isMomentum": false,
       "isMomentumCancel": false,
       "isStart": false,
-      "range": Array [
+      "range": [
         0,
         8,
       ],
@@ -41,25 +41,25 @@ Object {
 `;
 
 exports[`simple mouse - continuous horizontal wheel Mac FF 1`] = `
-Object {
-  "phases": Array [
-    Object {
-      "axisDelta": Array [
+{
+  "phases": [
+    {
+      "axisDelta": [
         0,
         0,
         0,
       ],
-      "axisMovement": Array [
+      "axisMovement": [
         -468,
         0,
         0,
       ],
-      "axisVelocity": Array [
+      "axisVelocity": [
         -0.8977556109725686,
         0,
         0,
       ],
-      "event": Object {
+      "event": {
         "deltaMode": 1,
         "deltaX": -6,
         "deltaY": 0,
@@ -70,7 +70,7 @@ Object {
       "isMomentum": false,
       "isMomentumCancel": false,
       "isStart": false,
-      "range": Array [
+      "range": [
         0,
         8,
       ],
@@ -81,25 +81,25 @@ Object {
 `;
 
 exports[`simple mouse - continuous horizontal wheel Mac Safari 1`] = `
-Object {
-  "phases": Array [
-    Object {
-      "axisDelta": Array [
+{
+  "phases": [
+    {
+      "axisDelta": [
         0,
         0,
         0,
       ],
-      "axisMovement": Array [
+      "axisMovement": [
         -829.88525390625,
         0,
         0,
       ],
-      "axisVelocity": Array [
+      "axisVelocity": [
         -1.9534027099609375,
         0,
         0,
       ],
-      "event": Object {
+      "event": {
         "deltaMode": 0,
         "deltaX": -175.9234619140625,
         "deltaY": 0,
@@ -110,7 +110,7 @@ Object {
       "isMomentum": false,
       "isMomentumCancel": false,
       "isStart": false,
-      "range": Array [
+      "range": [
         0,
         8,
       ],
@@ -121,25 +121,25 @@ Object {
 `;
 
 exports[`simple mouse - continuous horizontal wheel Windows Chrome 1`] = `
-Object {
-  "phases": Array [
-    Object {
-      "axisDelta": Array [
+{
+  "phases": [
+    {
+      "axisDelta": [
         0,
         0,
         0,
       ],
-      "axisMovement": Array [
+      "axisMovement": [
         -900,
         0,
         0,
       ],
-      "axisVelocity": Array [
+      "axisVelocity": [
         -1.4989881830374567,
         0,
         0,
       ],
-      "event": Object {
+      "event": {
         "deltaMode": 0,
         "deltaX": -150,
         "deltaY": 0,
@@ -150,7 +150,7 @@ Object {
       "isMomentum": false,
       "isMomentumCancel": false,
       "isStart": false,
-      "range": Array [
+      "range": [
         0,
         5,
       ],
@@ -161,25 +161,25 @@ Object {
 `;
 
 exports[`simple mouse - continuous horizontal wheel Windows Edge 1`] = `
-Object {
-  "phases": Array [
-    Object {
-      "axisDelta": Array [
+{
+  "phases": [
+    {
+      "axisDelta": [
         0,
         0,
         0,
       ],
-      "axisMovement": Array [
+      "axisMovement": [
         -2342.5501708984375,
         0,
         0,
       ],
-      "axisVelocity": Array [
+      "axisVelocity": [
         -3.282129479414435,
         0,
         0,
       ],
-      "event": Object {
+      "event": {
         "deltaMode": 0,
         "deltaX": -334.6500244140625,
         "deltaY": 0,
@@ -190,7 +190,7 @@ Object {
       "isMomentum": false,
       "isMomentumCancel": false,
       "isStart": false,
-      "range": Array [
+      "range": [
         0,
         6,
       ],
@@ -201,25 +201,25 @@ Object {
 `;
 
 exports[`simple mouse - continuous horizontal wheel Windows FF 1`] = `
-Object {
-  "phases": Array [
-    Object {
-      "axisDelta": Array [
+{
+  "phases": [
+    {
+      "axisDelta": [
         0,
         0,
         0,
       ],
-      "axisMovement": Array [
+      "axisMovement": [
         -54,
         0,
         0,
       ],
-      "axisVelocity": Array [
+      "axisVelocity": [
         -0.135,
         0,
         0,
       ],
-      "event": Object {
+      "event": {
         "deltaMode": 1,
         "deltaX": -3,
         "deltaY": 0,
@@ -230,29 +230,29 @@ Object {
       "isMomentum": false,
       "isMomentumCancel": false,
       "isStart": false,
-      "range": Array [
+      "range": [
         0,
         0,
       ],
       "wheelType": "user",
     },
-    Object {
-      "axisDelta": Array [
+    {
+      "axisDelta": [
         0,
         0,
         0,
       ],
-      "axisMovement": Array [
+      "axisMovement": [
         -1296,
         0,
         0,
       ],
-      "axisVelocity": Array [
+      "axisVelocity": [
         -0.5524296675191815,
         0,
         0,
       ],
-      "event": Object {
+      "event": {
         "deltaMode": 1,
         "deltaX": -3,
         "deltaY": 0,
@@ -263,7 +263,7 @@ Object {
       "isMomentum": false,
       "isMomentumCancel": false,
       "isStart": false,
-      "range": Array [
+      "range": [
         1,
         24,
       ],

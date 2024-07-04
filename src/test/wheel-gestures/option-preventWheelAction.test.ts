@@ -104,12 +104,14 @@ test('can disable calling preventDefault using preventWheelAction: false', () =>
 })
 
 test('should warn about unsupported preventWheelAction in debug mode', () => {
-  const logWarn = spyOn(console, 'warn')
+  const logWarn = jest.spyOn(console, 'warn').mockImplementation(() => {})
 
   testPreventWheelActionWithOptions(swipeUpTrackpad.wheelEvents, {
     // @ts-expect-error unsupported option
     options: { preventWheelAction: 'xyz' },
   })
 
-  expect(logWarn.calls.mostRecent().args[0]).toMatchInlineSnapshot(`"unsupported preventWheelAction value: xyz"`)
+  expect(logWarn.mock.calls[0][0]).toMatchInlineSnapshot(`"unsupported preventWheelAction value: xyz"`)
+
+  // expect(logWarn.mock.calls.at(-1).args[0]).toMatchInlineSnapshot(`"unsupported preventWheelAction value: xyz"`)
 })
