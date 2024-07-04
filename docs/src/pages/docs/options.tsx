@@ -1,6 +1,6 @@
 import React from 'react'
-
 import { configDefaults } from 'wheel-gestures'
+
 import CodeArea from '../../components/CodeArea/CodeArea'
 import { optionsExample } from '../../components/Docs/docs-codes'
 import { DocsContent } from '../../components/Docs/DocsContent'

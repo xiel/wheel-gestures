@@ -1,5 +1,6 @@
-import { LinkActiveClassName } from '@/components/LinkActiveClassName'
 import React from 'react'
+
+import { LinkActiveClassName } from '@/components/LinkActiveClassName'
 
 const liClass = 'my-2'
 const aClass = 'block py-1 px-2 rounded hover:bg-gray-500 hover:bg-opacity-25 focus:bg-gray-500 focus:bg-opacity-25'
