@@ -5,7 +5,6 @@
  * See: https://www.gatsbyjs.org/docs/use-static-query/
  */
 
-import { graphql, useStaticQuery } from 'gatsby'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { Helmet } from 'react-helmet'
@@ -14,8 +13,8 @@ type MetaTag = { name: string; content: string } | { property: string; content: 
 
 function SEO({
   description,
-  lang,
-  meta,
+  lang = `en`,
+  meta = [],
   title,
 }: {
   description: string
@@ -23,19 +22,27 @@ function SEO({
   meta: MetaTag | MetaTag[]
   title: string
 }) {
-  const { site } = useStaticQuery(
-    graphql`
-      query {
-        site {
-          siteMetadata {
-            title
-            description
-            author
-          }
-        }
-      }
-    `
-  )
+  // const { site } = useStaticQuery(
+  //   graphql`
+  //     query {
+  //       site {
+  //         siteMetadata {
+  //           title
+  //           description
+  //           author
+  //         }
+  //       }
+  //     }
+  //   `
+  // )
+
+  const site = {
+    siteMetadata: {
+      title: 'wheel-gestures documentation',
+      description: 'wheel interactions made easy',
+      author: 'xiel',
+    }
+  }
 
   const metaDescription: string = description || site.siteMetadata.description
   const metaProp: MetaTag[] = [
@@ -98,11 +105,6 @@ function SEO({
   )
 }
 
-SEO.defaultProps = {
-  lang: `en`,
-  meta: [],
-  description: ``,
-}
 
 SEO.propTypes = {
   description: PropTypes.string,

@@ -5,7 +5,6 @@
  * See: https://www.gatsbyjs.org/docs/use-static-query/
  */
 
-import { graphql, useStaticQuery } from 'gatsby'
 import PropTypes from 'prop-types'
 import React, { ReactNode } from 'react'
 
@@ -15,21 +14,12 @@ import Header from './Header/Header'
 import { WheelEventNotice } from './WheelEventNotice'
 
 const Skeleton = ({ children }: { children: ReactNode }) => {
-  const data = useStaticQuery(graphql`
-    query SiteTitleQuery {
-      site {
-        siteMetadata {
-          title
-        }
-      }
-    }
-  `)
 
   return (
     <>
       <div className="min-h-screen">
         <WheelEventNotice />
-        <Header siteTitle={data.site.siteMetadata.title} />
+        <Header siteTitle={'wheel-gestures documentation'} />
         <Content>
           <main>{children}</main>
         </Content>
