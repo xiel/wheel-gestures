@@ -1,12 +1,11 @@
 import * as React from 'react'
-import { useLayoutEffect, useState } from 'react'
-
+import { useEffect, useState } from 'react'
 import { Richtext } from '../Richtext/Richtext'
 
 export function WheelEventNotice() {
   const [visible, setVisible] = useState(false)
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if ('ontouchstart' in window || navigator.msMaxTouchPoints) {
       setVisible(true)
     }
