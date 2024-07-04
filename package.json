@@ -79,7 +79,7 @@
     "eslint-plugin-react-hooks": "^4",
     "eslint-plugin-simple-import-sort": "^7.0.0",
     "husky": "^7.0.0",
-    "lint-staged": "^12.0.2",
+    "lint-staged": "^15.2.7",
     "semantic-release": "^19.0.5",
     "ts-jest": "^29",
     "tsdx": "^0.14.1",
