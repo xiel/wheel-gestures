@@ -23,8 +23,8 @@
     "start": "tsdx watch --noClean",
     "build": "tsdx build",
     "test": "tsdx test",
-    "lint": "tsdx lint src docs && yarn type-check",
-    "lint:fix": "tsdx lint src docs --fix",
+    "lint": "eslint src docs && yarn type-check",
+    "lint:fix": "eslint src docs --fix",
     "type-check": "tsc --noEmit",
     "prepare": "tsdx build; husky install",
     "semantic-release": "semantic-release"
@@ -56,14 +56,26 @@
   },
   "homepage": "https://github.com/xiel/wheel-gestures#readme",
   "peerDependencies": {},
-  "dependencies": {},
+  "dependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11"
+  },
   "devDependencies": {
+    "@eslint/eslintrc": "^3.1.0",
+    "@eslint/js": "^9.6.0",
     "@testing-library/react": "^12.0.0",
     "@types/jest": "^27.0.0",
+    "@typescript-eslint/eslint-plugin": "^7",
+    "@typescript-eslint/parser": "^7",
     "bundlewatch": "^0.3.1",
-    "eslint-plugin-import": "^2.19.1",
-    "eslint-plugin-react": "^7.14.3",
-    "eslint-plugin-react-app": "^6.2.2",
+    "eslint": "^8",
+    "eslint-config-prettier": "^8",
+    "eslint-config-react-app": "^7",
+    "eslint-plugin-flowtype": "^8",
+    "eslint-plugin-import": "^2",
+    "eslint-plugin-jsx-a11y": "^6",
+    "eslint-plugin-prettier": "^5",
+    "eslint-plugin-react": "^7",
+    "eslint-plugin-react-hooks": "^4",
     "eslint-plugin-simple-import-sort": "^7.0.0",
     "husky": "^7.0.0",
     "lint-staged": "^12.0.2",
@@ -73,11 +85,20 @@
     "typescript": "^5"
   },
   "resolutions": {
-    "**/@typescript-eslint/eslint-plugin": "^4.11.1",
-    "**/@typescript-eslint/parser": "^5",
     "**/jest": "^26.6.3",
     "**/ts-jest": "^26.4.4",
-    "**/typescript": "^4.2.3"
+    "**/typescript": "^4.2.3",
+    "@typescript-eslint/eslint-plugin": "^7",
+    "@typescript-eslint/parser": "^7",
+    "eslint": "^8",
+    "eslint-config-prettier": "^8",
+    "eslint-config-react-app": "^7",
+    "eslint-plugin-flowtype": "^8",
+    "eslint-plugin-import": "^2",
+    "eslint-plugin-jsx-a11y": "^6",
+    "eslint-plugin-prettier": "^5",
+    "eslint-plugin-react": "^7",
+    "eslint-plugin-react-hooks": "^4"
   },
   "jest": {
     "collectCoverageFrom": [

@@ -1,11 +1,5 @@
 module.exports = {
-  extends: [
-    'eslint:recommended',
-    'plugin:@typescript-eslint/recommended',
-    'react-app',
-    'prettier/@typescript-eslint',
-    'plugin:prettier/recommended',
-  ],
+  extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended', 'react-app', 'prettier'],
   plugins: ['@typescript-eslint', 'simple-import-sort'],
   rules: {
     'no-shadow': 'error',
