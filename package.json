@@ -27,7 +27,7 @@
     "lint:fix": "eslint src docs --fix",
     "type-check": "tsc --noEmit",
     "prepare": "tsdx build; husky install",
-    "semantic-release": "semantic-release --dry-run"
+    "semantic-release": "semantic-release"
   },
   "husky": {
     "hooks": {
