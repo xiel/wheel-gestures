@@ -1,7 +1,8 @@
-import { LinkActiveClassName } from '@/components/LinkActiveClassName'
 import VisuallyHidden from '@reach/visually-hidden'
 import Link from 'next/link'
 import React from 'react'
+
+import { LinkActiveClassName } from '@/components/LinkActiveClassName'
 
 import { Content } from '../Content'
 

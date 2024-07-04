@@ -1,5 +1,6 @@
-import Prism from 'prismjs'
 import 'prismjs/themes/prism-okaidia.css'
+
+import Prism from 'prismjs'
 import React, { useCallback } from 'react'
 
 import c from './CodeArea.module.scss'
