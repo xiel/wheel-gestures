@@ -57,10 +57,9 @@
   "homepage": "https://github.com/xiel/wheel-gestures#readme",
   "peerDependencies": {},
   "dependencies": {
-    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
-    "jest-environment-jsdom": "^29.7.0"
   },
   "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@eslint/eslintrc": "^3.1.0",
     "@eslint/js": "^9.6.0",
     "@testing-library/react": "^12.0.0",
@@ -79,6 +78,7 @@
     "eslint-plugin-react-hooks": "^4",
     "eslint-plugin-simple-import-sort": "^7.0.0",
     "husky": "^7.0.0",
+    "jest-environment-jsdom": "^29.7.0",
     "lint-staged": "^15.2.7",
     "semantic-release": "^19.0.5",
     "ts-jest": "^29",
