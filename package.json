@@ -80,7 +80,7 @@
     "husky": "^7.0.0",
     "jest-environment-jsdom": "^29.7.0",
     "lint-staged": "^15.2.7",
-    "semantic-release": "^19.0.5",
+    "semantic-release": "^24.1.1",
     "ts-jest": "^29",
     "tsdx": "^0.14.1",
     "tslib": "^2.0.0",
