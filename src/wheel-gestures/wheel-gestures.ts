@@ -91,6 +91,7 @@ export function WheelGestures(optionsParam: WheelGesturesOptions = {}) {
       reverseAxisDeltaSign(normalizeWheel(wheelEvent), config.reverseSign)
     )
     const deltaMaxAbs = absMax(axisDelta)
+    const nativeMomentum = typeof wheelEvent.momentum === 'boolean' ? wheelEvent.momentum : undefined
 
     if (wheelEvent.preventDefault && shouldPreventDefault(deltaMaxAbs, axisDelta)) {
       wheelEvent.preventDefault()
@@ -100,19 +101,27 @@ export function WheelGestures(optionsParam: WheelGesturesOptions = {}) {
       start()
     }
     // check if user started scrolling again -> cancel
-    else if (state.isMomentum && deltaMaxAbs > Math.max(2, state.lastAbsDelta * 2)) {
+    else if (
+      state.isMomentum &&
+      (nativeMomentum === false ||
+        (nativeMomentum === undefined && deltaMaxAbs > Math.max(2, state.lastAbsDelta * 2)))
+    ) {
       end(true)
       start()
     }
 
     // special finger up event on windows + blink
-    if (deltaMaxAbs === 0 && Object.is && Object.is(wheelEvent.deltaX, -0)) {
+    if (nativeMomentum === undefined && deltaMaxAbs === 0 && Object.is && Object.is(wheelEvent.deltaX, -0)) {
       negativeZeroFingerUpSpecialEvent = true
       // return -> zero delta event should not influence velocity
       return
     }
 
     currentEvent = wheelEvent
+    if (nativeMomentum !== undefined) {
+      state.isMomentum = nativeMomentum
+      negativeZeroFingerUpSpecialEvent = false
+    }
     state.axisMovement = addVectors(state.axisMovement, axisDelta)
     state.lastAbsDelta = deltaMaxAbs
     state.scrollPointsToMerge.push({
@@ -148,7 +157,7 @@ export function WheelGestures(optionsParam: WheelGesturesOptions = {}) {
       // after calculation of velocity only keep the most recent merged scrollPoint
       state.scrollPoints.length = 1
 
-      if (!state.isMomentum) {
+      if (!state.isMomentum && typeof currentEvent.momentum !== 'boolean') {
         detectMomentum()
       }
     } else if (!state.isStartPublished) {
