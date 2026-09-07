@@ -68,6 +68,10 @@ export interface WheelEventState {
 
 Read more in the [docs](https://wheel-gestures.xiel.dev).
 
+When an event exposes a boolean `WheelEvent.momentum`, that value determines
+`isMomentum`. Browsers without it continue to use the existing momentum detection.
+Recorded events passed to `feedWheel` can also include the optional `momentum` field.
+
 **OS & Browsers**
 
 - Mac OS (Chrome, Firefox, Safari, Edge), Magic Mouse, Magic Trackpad
