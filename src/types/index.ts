@@ -18,7 +18,10 @@ export type WheelEventDataRequiredFields = 'deltaMode' | 'deltaX' | 'deltaY' | '
 
 export interface WheelEventData
   extends Pick<WheelEvent, WheelEventDataRequiredFields>,
-    Partial<Omit<WheelEvent, WheelEventDataRequiredFields>> {}
+    Partial<Omit<WheelEvent, WheelEventDataRequiredFields | 'momentum'>> {
+  /** Browser-provided inertia state, when supported. */
+  momentum?: boolean
+}
 
 export interface WheelEventState {
   isStart: boolean
