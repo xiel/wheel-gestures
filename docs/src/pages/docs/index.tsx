@@ -2,7 +2,7 @@ import Link from 'next/link'
 import React from 'react'
 
 import CodeArea from '../../components/CodeArea/CodeArea'
-import { emblaExample, simpleListener } from '../../components/Docs/docs-codes'
+import { emblaExample, emblaInstall, simpleListener } from '../../components/Docs/docs-codes'
 import { DocsContent } from '../../components/Docs/DocsContent'
 import { DocsNav } from '../../components/Docs/DocsNav'
 import SEO from '../../components/seo'
@@ -17,10 +17,18 @@ export default function Index() {
         <DocsContent>
           <h2>Getting started</h2>
           <p>
-            wheel-gestures is a small low-level open-source library that makes handling wheel events a breeze. You can
-            use it in plain old JavaScript or with <em>any framework</em>.
+            Choose the core library for custom wheel and trackpad interactions, or the Embla plugin for a carousel or
+            picker with dragging, snapping, and wheel support.
           </p>
-          <h3>Installation</h3>
+          <ul>
+            <li>
+              <a href="#core">Core library</a> — normalized gesture data in JavaScript or any framework.
+            </li>
+            <li>
+              <a href="#embla">Embla integration</a> — ready-made wheel support for React carousels and pickers.
+            </li>
+          </ul>
+          <h3 id="core">Core library</h3>
           <p>Install wheel-gestures using your package manager:</p>
           <CodeArea language="shell">npm install wheel-gestures</CodeArea>
           <p>Or with Yarn:</p>
@@ -48,15 +56,18 @@ export default function Index() {
             Try the <Link href="/examples">interactive demos</Link> or explore momentum detection in the{' '}
             <Link href="/examples/visualizer">wheel visualizer</Link>.
           </p>
-          <h4>React carousel with Embla</h4>
+          <h3 id="embla">Embla integration for React</h3>
           <p>
-            For a carousel, use Embla and its wheel-gestures plugin to handle dragging, snapping, and momentum. This
-            example uses the same compatible versions as the gallery on this site:
+            Install these packages in an existing React project. The plugin includes wheel-gestures as a dependency, so
+            you do not need to install it separately unless you also use the core API directly. These are the compatible
+            versions used by this site's carousel and time picker:
           </p>
-          <CodeArea language="shell">
-            npm install embla-carousel@8.6.0 embla-carousel-react@8.6.0 embla-carousel-wheel-gestures@8.1.0
-          </CodeArea>
+          <CodeArea language="shell">{emblaInstall}</CodeArea>
           <CodeArea>{emblaExample}</CodeArea>
+          <p>
+            For a vertical, looping example with wheel support, try the{' '}
+            <Link href="/examples#time-picker">time picker and copy its source</Link>.
+          </p>
           <h3>Motivation</h3>
           <p>
             Due to the many differences between different browsers, operating systems and input devices, wheel events

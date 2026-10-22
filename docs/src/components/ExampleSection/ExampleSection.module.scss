@@ -1,0 +1,45 @@
+.section {
+  margin: 3rem 0;
+  scroll-margin-top: 2rem;
+}
+
+.intro {
+  margin-bottom: 1.5rem;
+
+  h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
+  p {
+    margin-top: 0.75rem;
+    max-width: 46rem;
+    line-height: 1.65;
+  }
+}
+
+.code {
+  margin-top: 1.5rem;
+  border-block: 1px solid rgba(128, 128, 128, 0.3);
+
+  summary {
+    cursor: pointer;
+    padding: 1rem 0;
+    font-weight: 600;
+
+    &:focus-visible {
+      outline: 2px solid currentColor;
+      outline-offset: 3px;
+    }
+  }
+
+  pre {
+    max-height: 28rem;
+  }
+
+  p {
+    margin-block: 1rem;
+  }
+  a {
+    text-decoration: underline;
+  }
+}

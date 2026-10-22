@@ -1,5 +1,8 @@
 .container {
   display: inline-flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  max-width: 100%;
   align-items: center;
   padding: 1em;
   border-radius: 32px;
@@ -11,7 +14,7 @@
 }
 
 .recordButton {
-  width: 32px;
+  min-width: 64px;
   height: 32px;
   font-size: 12px;
   border: 0 none;

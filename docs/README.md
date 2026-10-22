@@ -1,7 +1,7 @@
 # wheel-gestures website
 
-The Next.js website includes the documentation, Embla gallery, wheel visualizer,
-and recorder.
+The Next.js website includes the documentation, Embla gallery, looping time picker,
+wheel visualizer, and recorder.
 
 ## Develop
 
@@ -47,3 +47,22 @@ outside that root.
 
 For the library's own tests and package builds, install dependencies at the
 repository root and use the root scripts as usual.
+
+## Demo maintenance
+
+The time picker uses Embla 8.6.0 and wheel plugin 8.0.5. The plugin is deliberately
+pinned below 8.1.0: that release treats scroll progress at zero as a boundary even
+when Embla loops, blocking reverse wheel input from `00`. Upgrade once a compatible
+release handles looping boundaries correctly. Check both `00 → 23/59` and
+`23/59 → 00`, using wheel input as well as keyboard controls, before changing it.
+The non-looping photo gallery shares this plugin version.
+
+The picker replaces Embla's flat translations with the 3D presentation; Embla still
+owns dragging, wheel input through the plugin, snapping, and looping. The example
+source and styles displayed on the examples page are read from the component files
+at build time. Keep its CSS item height and TypeScript `ITEM_HEIGHT` in sync.
+
+The momentum visualizer uses `@react-spring/web` and `@use-gesture/react` and runs
+with React Strict Mode enabled. No dependency patches or postinstall scripts are
+needed. When changing the demo, check wheel input, pointer dragging, recorder
+start/stop, and navigation away and back for duplicate listeners.

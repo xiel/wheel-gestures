@@ -10,7 +10,11 @@ interface Props {
   meta?: MetaTag[]
 }
 
-export default function SEO({ title, description = 'wheel interactions made easy', meta = [] }: Props) {
+export default function SEO({
+  title,
+  description = 'Normalized wheel and trackpad gestures, with movement, velocity, and momentum detection.',
+  meta = [],
+}: Props) {
   const { pathname } = useRouter()
   const pageTitle = `${title} | wheel-gestures documentation`
   const canonicalUrl = `https://wheel-gestures.xiel.dev${pathname}`

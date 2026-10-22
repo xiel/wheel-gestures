@@ -55,5 +55,14 @@ export function Plot({ width = 1000, height = 300, data }: Props) {
     return () => cancelAnimationFrame(id)
   }, [data])
 
-  return <canvas ref={ctxRef} className={c.canvas} width={width} height={height} />
+  return (
+    <canvas
+      ref={ctxRef}
+      className={c.canvas}
+      width={width}
+      height={height}
+      role="img"
+      aria-label="Wheel movement per event. Solid bars show user input; faded bars show momentum."
+    />
+  )
 }
