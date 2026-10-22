@@ -1,107 +1,36 @@
-/**
- * SEO component that queries for data with
- *  Gatsby's useStaticQuery React hook
- *
- * See: https://www.gatsbyjs.org/docs/use-static-query/
- */
-
 import Head from 'next/head'
-import PropTypes from 'prop-types'
+import { useRouter } from 'next/router'
 import React from 'react'
-import { Helmet } from 'react-helmet'
 
 type MetaTag = { name: string; content: string } | { property: string; content: string }
 
-function SEO({
-  description,
-  lang = `en`,
-  meta = [],
-  title,
-}: {
-  description: string
-  lang: string
-  meta: MetaTag | MetaTag[]
+interface Props {
   title: string
-}) {
-  const site = {
-    siteMetadata: {
-      title: 'wheel-gestures documentation',
-      description: 'wheel interactions made easy',
-      author: 'xiel',
-    },
-  }
+  description?: string
+  meta?: MetaTag[]
+}
 
-  const metaDescription: string = description || site.siteMetadata.description
-  const metaProp: MetaTag[] = [
-    {
-      name: `description`,
-      content: metaDescription,
-    },
-    {
-      property: `og:title`,
-      content: title,
-    },
-    {
-      property: `og:description`,
-      content: metaDescription,
-    },
-    {
-      property: `og:type`,
-      content: `website`,
-    },
-    {
-      name: `twitter:card`,
-      content: `summary`,
-    },
-    {
-      name: `twitter:creator`,
-      content: site.siteMetadata.author,
-    },
-    {
-      name: `twitter:title`,
-      content: title,
-    },
-    {
-      name: `twitter:description`,
-      content: metaDescription,
-    },
-  ].concat(meta)
-
-  const links: JSX.IntrinsicElements['link'][] = []
-
-  if (typeof window !== 'undefined' && window.location) {
-    const loc = window.location
-    if (loc.origin !== 'https://wheel-gestures.xiel.dev') {
-      links.push({
-        rel: 'canoncial',
-        href: loc.href.replace(loc.origin, 'https://wheel-gestures.xiel.dev'),
-      })
-    }
-  }
+export default function SEO({ title, description = 'wheel interactions made easy', meta = [] }: Props) {
+  const { pathname } = useRouter()
+  const pageTitle = `${title} | wheel-gestures documentation`
+  const canonicalUrl = `https://wheel-gestures.xiel.dev${pathname}`
 
   return (
-    <>
-      <Head>
-        <title>{`${title} | ${site.siteMetadata.title}`}</title>
-      </Head>
-      <Helmet
-        htmlAttributes={{
-          lang,
-        }}
-        title={title}
-        titleTemplate={`%s | ${site.siteMetadata.title}`}
-        meta={metaProp}
-        link={links}
-      />
-    </>
+    <Head>
+      <title>{pageTitle}</title>
+      <meta name="description" content={description} key="description" />
+      <link rel="canonical" href={canonicalUrl} />
+      <meta property="og:title" content={pageTitle} key="og:title" />
+      <meta property="og:description" content={description} key="og:description" />
+      <meta property="og:type" content="website" key="og:type" />
+      <meta property="og:url" content={canonicalUrl} key="og:url" />
+      <meta name="twitter:card" content="summary" key="twitter:card" />
+      <meta name="twitter:creator" content="@xiel" key="twitter:creator" />
+      <meta name="twitter:title" content={pageTitle} key="twitter:title" />
+      <meta name="twitter:description" content={description} key="twitter:description" />
+      {meta.map((tag) => (
+        <meta key={'name' in tag ? tag.name : tag.property} {...tag} />
+      ))}
+    </Head>
   )
 }
-
-SEO.propTypes = {
-  description: PropTypes.string,
-  lang: PropTypes.string,
-  meta: PropTypes.arrayOf(PropTypes.object),
-  title: PropTypes.string.isRequired,
-}
-
-export default SEO

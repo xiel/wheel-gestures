@@ -10,7 +10,7 @@ import Skeleton from '../../components/Skeleton/Skeleton'
 export default function Docs() {
   return (
     <Skeleton>
-      <SEO title="Docs" />
+      <SEO title="Wheel event callbacks" />
       <div className="flex flex-wrap">
         <DocsNav />
         <DocsContent>

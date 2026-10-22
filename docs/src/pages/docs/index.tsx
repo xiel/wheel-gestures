@@ -1,7 +1,8 @@
+import Link from 'next/link'
 import React from 'react'
 
 import CodeArea from '../../components/CodeArea/CodeArea'
-import { simpleListener } from '../../components/Docs/docs-codes'
+import { emblaExample, simpleListener } from '../../components/Docs/docs-codes'
 import { DocsContent } from '../../components/Docs/DocsContent'
 import { DocsNav } from '../../components/Docs/DocsNav'
 import SEO from '../../components/seo'
@@ -10,7 +11,7 @@ import Skeleton from '../../components/Skeleton/Skeleton'
 export default function Index() {
   return (
     <Skeleton>
-      <SEO title="Docs" />
+      <SEO title="Getting started" />
       <div className="flex flex-wrap">
         <DocsNav />
         <DocsContent>
@@ -21,7 +22,9 @@ export default function Index() {
           </p>
           <h3>Installation</h3>
           <p>Install wheel-gestures using your package manager:</p>
-          <CodeArea language="shell">yarn add wheel-gestures # npm install wheel-gestures</CodeArea>
+          <CodeArea language="shell">npm install wheel-gestures</CodeArea>
+          <p>Or with Yarn:</p>
+          <CodeArea language="shell">yarn add wheel-gestures</CodeArea>
           <h3>Usage</h3>
           <p>
             Import WheelGestures from the package into your JavaScript/TypeScript file, create an instance and add the
@@ -40,15 +43,20 @@ export default function Index() {
             allowing the user to perform a wheel gesture on one axis but keep the default behavior on the other, see the
             Options page and customize it.
           </p>
-          <h4>
-            Examples <em>(coming soon)</em>
-          </h4>
-          <ul>
-            <li>Plain JavaScript / TypeScript</li>
-            <li>React</li>
-            <li>Vue</li>
-            <li>Svelte</li>
-          </ul>
+          <h3>Examples</h3>
+          <p>
+            Try the <Link href="/examples">interactive demos</Link> or explore momentum detection in the{' '}
+            <Link href="/examples/visualizer">wheel visualizer</Link>.
+          </p>
+          <h4>React carousel with Embla</h4>
+          <p>
+            For a carousel, use Embla and its wheel-gestures plugin to handle dragging, snapping, and momentum. This
+            example uses the same compatible versions as the gallery on this site:
+          </p>
+          <CodeArea language="shell">
+            npm install embla-carousel@8.6.0 embla-carousel-react@8.6.0 embla-carousel-wheel-gestures@8.1.0
+          </CodeArea>
+          <CodeArea>{emblaExample}</CodeArea>
           <h3>Motivation</h3>
           <p>
             Due to the many differences between different browsers, operating systems and input devices, wheel events

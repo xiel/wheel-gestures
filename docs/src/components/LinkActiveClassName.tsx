@@ -6,5 +6,12 @@ import React, { ComponentProps } from 'react'
 export function LinkActiveClassName(props: ComponentProps<typeof Link> & { activeClassName: string }) {
   const { href, className, activeClassName, ...rest } = props
   const isActive = href === usePathname()
-  return <Link {...rest} href={href} className={clsx(className, isActive && activeClassName)} />
+  return (
+    <Link
+      {...rest}
+      href={href}
+      aria-current={isActive ? 'page' : undefined}
+      className={clsx(className, isActive && activeClassName)}
+    />
+  )
 }

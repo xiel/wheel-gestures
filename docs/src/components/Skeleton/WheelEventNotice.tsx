@@ -7,7 +7,7 @@ export function WheelEventNotice() {
   const [visible, setVisible] = useState(false)
 
   useEffect(() => {
-    if ('ontouchstart' in window || navigator.msMaxTouchPoints) {
+    if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
       setVisible(true)
     }
   }, [])
@@ -19,7 +19,8 @@ export function WheelEventNotice() {
       <Richtext>
         <div className="text-center px-6">
           <p>
-            Please note the demos only support wheel & scroll events made with <strong>trackpads & mouse</strong>.
+            The wheel visualizer and recorder need a <strong>trackpad or mouse wheel</strong>. You can also drag the
+            boxes, and use touch, mouse dragging, or the buttons in the photo gallery.
           </p>
         </div>
       </Richtext>
