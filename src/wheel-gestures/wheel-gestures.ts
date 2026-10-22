@@ -263,10 +263,11 @@ export function WheelGestures(optionsParam: WheelGesturesOptions = {}) {
   }
 
   const willEnd = (() => {
-    let willEndId: number
+    const scheduleEnd = () => setTimeout(end, state.willEndTimeout)
+    let willEndId: ReturnType<typeof scheduleEnd>
     return () => {
       clearTimeout(willEndId)
-      willEndId = setTimeout(end, state.willEndTimeout)
+      willEndId = scheduleEnd()
     }
   })()
 

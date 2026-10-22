@@ -1,40 +1,49 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# wheel-gestures website
 
-## Getting Started
+The Next.js website includes the documentation, Embla gallery, wheel visualizer,
+and recorder.
 
-First, run the development server:
+## Develop
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+From the repository root, using Node 18 or newer and Yarn Classic:
+
+```sh
+yarn --cwd docs install --frozen-lockfile
+yarn --cwd docs dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+All website imports of `wheel-gestures`, including those inside
+`embla-carousel-wheel-gestures`, resolve to this checkout's `src/index.ts`.
+Edits under `src/` are compiled and watched directly by Next.js. No `yarn link`,
+root library build, or separate `yarn start` watcher is required.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+`next.config.mjs` applies an exact package alias in both development and production
+builds. The Embla plugin is bundled rather than externalized on the server, so
+its dependency uses that alias too. `tsconfig.json` maps the same package name to
+local source for type checking. Embla and its plugin still use the published
+versions pinned in `package.json`; only `wheel-gestures` is sourced locally.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+An installed registry copy of `wheel-gestures` may still exist in `node_modules`
+as a dependency. Plain Node resolution can report that copy (or an old Yarn
+link); it does not reflect the website's configured bundler resolution.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+Use the documented `dev` script (Next's webpack mode). The webpack alias is not
+configured for `next dev --turbo`.
 
-## Learn More
+## Check and build
 
-To learn more about Next.js, take a look at the following resources:
+```sh
+yarn --cwd docs lint
+yarn --cwd docs build
+yarn --cwd docs start
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+The production build checks TypeScript and compiles the same local source used
+in development. Deployments must include both `docs/` and the repository's
+`src/` directory. If the deployment project root is `docs/`, allow access to files
+outside that root.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+For the library's own tests and package builds, install dependencies at the
+repository root and use the root scripts as usual.
