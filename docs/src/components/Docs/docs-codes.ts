@@ -110,3 +110,27 @@ export function Carousel() {
   )
 }
 `
+
+export const emblaInstall =
+  'npm install embla-carousel@8.6.0 embla-carousel-react@8.6.0 embla-carousel-wheel-gestures@8.0.5'
+
+export const momentumExample = `
+import { WheelGestures } from 'wheel-gestures'
+
+// Attach only to your interactive panel, so the rest of the page still scrolls.
+const panel = document.querySelector('.gesture-panel')
+const gestures = WheelGestures({ preventWheelAction: true })
+
+if (panel) {
+  const unobserve = gestures.observe(panel)
+  const unsubscribe = gestures.on('wheel', ({ isMomentum, isEnding, axisDelta }) => {
+    const phase = isEnding ? 'idle' : isMomentum ? 'momentum' : 'user input'
+    console.log(phase, axisDelta)
+    // Update your interface here.
+  })
+
+  // On teardown (for example, in your framework's effect cleanup):
+  // unsubscribe()
+  // unobserve()
+}
+`

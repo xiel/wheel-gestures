@@ -84,8 +84,13 @@ export default function WheelRecorder({ domTarget = globalThis.document?.body }:
 
   return (
     <div className={c.container}>
-      <button className={c.recordButton + ' ' + (recording ? c.active : '')} onClick={() => setRecording(!recording)}>
-        <span className={c.pauseButtonInner}>Rec</span>
+      <button
+        className={c.recordButton + ' ' + (recording ? c.active : '')}
+        type="button"
+        aria-pressed={recording}
+        onClick={() => setRecording(!recording)}
+      >
+        <span>{recording ? 'Stop' : 'Record'}</span>
       </button>
       <label>
         <input type="checkbox" onChange={() => setAutoStop(!autoStop)} checked={autoStop} /> auto-stop

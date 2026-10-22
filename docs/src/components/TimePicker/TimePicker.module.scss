@@ -1,0 +1,169 @@
+.demo {
+  --picker-background: #fff;
+  padding: 2rem 1rem;
+  border: 1px solid rgba(128, 128, 128, 0.2);
+  border-radius: 1.5rem;
+  background: var(--picker-background);
+  text-align: center;
+
+  @media (prefers-color-scheme: dark) {
+    --picker-background: #111;
+  }
+}
+
+.picker {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 24rem;
+  margin: auto;
+}
+
+.column {
+  flex: 1;
+  min-width: 0;
+}
+
+.label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+
+.step {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  font-size: 1.25rem;
+  color: inherit;
+
+  &:hover {
+    background: rgba(128, 128, 128, 0.1);
+  }
+}
+
+.scene {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 260px;
+  overflow: hidden;
+  border-radius: 0.75rem;
+  touch-action: pan-x pinch-zoom;
+  cursor: grab;
+  user-select: none;
+
+  &:active {
+    cursor: grabbing;
+  }
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: calc(50% - 20px);
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  &::before {
+    top: 0;
+    background: linear-gradient(to bottom, var(--picker-background), transparent);
+  }
+
+  &::after {
+    bottom: 0;
+    background: linear-gradient(to top, var(--picker-background), transparent);
+  }
+}
+
+.scene:focus-visible,
+.step:focus-visible {
+  outline: 2px solid #ff4949;
+  outline-offset: 3px;
+}
+
+.viewport {
+  width: 100%;
+  height: 40px;
+  perspective: 1000px;
+  touch-action: pan-x pinch-zoom;
+}
+
+.container {
+  height: 100%;
+  transform-style: preserve-3d;
+}
+
+.slide {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.75rem;
+  font-variant-numeric: tabular-nums;
+  backface-visibility: hidden;
+  opacity: 0;
+
+  &[data-selected='true'] {
+    color: #d52e2e;
+    font-weight: 600;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    &[data-selected='true'] {
+      color: #ff7777;
+    }
+  }
+}
+
+.selection {
+  position: absolute;
+  inset: calc(50% - 20px) 0 auto;
+  height: 40px;
+  border-block: 1px solid rgba(128, 128, 128, 0.3);
+  background: rgba(128, 128, 128, 0.05);
+  pointer-events: none;
+}
+
+.separator {
+  width: 2rem;
+  padding-top: 1.5rem;
+  font-size: 1.5rem;
+}
+
+.result {
+  margin-top: 1.5rem;
+  font-size: 0.9rem;
+
+  output {
+    margin-left: 0.75rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+.hint {
+  margin-top: 0.75rem;
+  font-size: 0.8rem;
+  opacity: 0.8;
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}

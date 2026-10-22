@@ -4,7 +4,7 @@ const wheelGesturesSource = fileURLToPath(new URL('../src/index.ts', import.meta
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: false, // TODO: current use-spring is not compatible with strict mode
+  reactStrictMode: true,
   // Bundle the plugin on the server too, so its imports use the same local alias.
   transpilePackages: ['wheel-gestures', 'embla-carousel-wheel-gestures'],
   webpack(config) {
