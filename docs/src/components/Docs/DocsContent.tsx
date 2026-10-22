@@ -4,6 +4,7 @@ import * as React from 'react'
 import { Richtext } from '../Richtext/Richtext'
 
 type Props = {
+  children?: React.ReactNode
   className?: string
 }
 

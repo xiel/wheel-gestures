@@ -6,7 +6,7 @@ import Skeleton from '../../components/Skeleton/Skeleton'
 
 const Index = () => (
   <Skeleton>
-    <SEO title="Examples" />
+    <SEO title="Wheel visualizer" />
     <h1>Visualizer</h1>
     <SimpleWheelDrag />
   </Skeleton>

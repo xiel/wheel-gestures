@@ -1,5 +1,28 @@
 .codeWrapper {
-  margin: 1em -1em;
-  width: calc(100% + 2em);
-  overflow: auto;
+  margin: 1em 0;
+  max-width: 100%;
+  text-align: left;
+
+  pre {
+    overflow-x: auto;
+  }
+}
+
+.toolbar {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.8rem;
+
+  button {
+    padding: 0.25rem 0.75rem;
+    border: 1px solid currentColor;
+    border-radius: 0.25rem;
+
+    &:focus-visible {
+      outline: 2px solid currentColor;
+      outline-offset: 2px;
+    }
+  }
 }

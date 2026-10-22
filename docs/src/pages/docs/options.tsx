@@ -16,7 +16,7 @@ import Skeleton from '../../components/Skeleton/Skeleton'
 export default function Options() {
   return (
     <Skeleton>
-      <SEO title="Docs" />
+      <SEO title="Options" />
       <div className="flex flex-wrap">
         <DocsNav />
         <DocsContent>

@@ -25,7 +25,9 @@ const IndexPage = () => (
         <div className="mx-auto max-w-xl">
           <h3>Installation</h3>
           <p>Install wheel-gestures using your package manager:</p>
-          <CodeArea language="shell">yarn add wheel-gestures # npm install wheel-gestures</CodeArea>
+          <CodeArea language="shell">npm install wheel-gestures</CodeArea>
+          <p>Or with Yarn:</p>
+          <CodeArea language="shell">yarn add wheel-gestures</CodeArea>
           <p>
             Learn how to use wheel-gestures in the <Link href="/docs/">docs</Link> or have a look at the{' '}
             <Link href="/examples/">examples</Link>.

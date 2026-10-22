@@ -5,6 +5,7 @@ import { addVectors, WheelGesturesConfig } from 'wheel-gestures'
 
 import useWheelDrag from '../../hooks/useWheelDrag'
 import { Plot, PlotData } from '../Plot/Plot'
+import { WheelEventNotice } from '../Skeleton/WheelEventNotice'
 import WheelRecorder from '../WheelRecorder/WheelRecorder'
 import c from './SimpleWheelDrag.module.scss'
 
@@ -63,6 +64,7 @@ export default function SimpleWheelDrag() {
 
   return (
     <div>
+      <WheelEventNotice />
       <div className={c.container} ref={containerRef}>
         <animated.div
           className={c.box + ' ' + c.momentum}

@@ -1,9 +1,7 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react'
-import { animated, config as springCfg, useSpring } from 'react-spring'
+import useEmblaCarousel from 'embla-carousel-react'
+import { WheelGesturesPlugin } from 'embla-carousel-wheel-gestures'
+import React, { useEffect, useState } from 'react'
 
-import useRefOfLatest from '../../hooks/useRefOfLatest'
-import useWheelDrag, { WheelDragHandler } from '../../hooks/useWheelDrag'
-import { rubberband } from '../../utils/rubberband'
 import { WheelIndicator } from '../WheelIndicator/WheelIndicator'
 import c from './Gallery.module.scss'
 
@@ -15,117 +13,80 @@ const pages = [
 ]
 
 export default function Gallery() {
-  const containerRef = useRef<HTMLDivElement | null>(null)
-  const offsetX = useRef(0)
-  const [momentumDetectionEnabled, setSelectedWheelReason] = useState(true)
-  const [spring, set] = useSpring(() => ({
-    x: offsetX.current,
-    config: springCfg.stiff,
-  }))
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false, skipSnaps: true }, [WheelGesturesPlugin()])
+  const [selectedIndex, setSelectedIndex] = useState(0)
+  const [canScrollPrev, setCanScrollPrev] = useState(false)
+  const [canScrollNext, setCanScrollNext] = useState(false)
   const [indicatorVisible, setIndicatorVisible] = useState(false)
   const [indicatorFlipped, setIndicatorFlipped] = useState(false)
-  const refLatest = useRefOfLatest({ indicatorVisible })
 
   useEffect(() => {
-    if (indicatorVisible) return
+    if (!emblaApi) return
 
-    const id = setTimeout(() => {
-      setIndicatorVisible(true)
-    }, 2000)
-    return () => clearTimeout(id)
-  }, [indicatorVisible])
+    let indicatorTimeout: ReturnType<typeof setTimeout>
+    const onScroll = () => {
+      setIndicatorVisible(false)
+      clearTimeout(indicatorTimeout)
+      indicatorTimeout = setTimeout(() => setIndicatorVisible(true), 2000)
+    }
+    const onSelect = () => {
+      setSelectedIndex(emblaApi.selectedScrollSnap())
+      setCanScrollPrev(emblaApi.canScrollPrev())
+      setCanScrollNext(emblaApi.canScrollNext())
+      if (!emblaApi.canScrollPrev()) setIndicatorFlipped(false)
+      else if (!emblaApi.canScrollNext()) setIndicatorFlipped(true)
+    }
 
-  const wheelDragHandler = useCallback<WheelDragHandler>(
-    (state) => {
-      const {
-        isEnding,
-        isMomentum,
-        axisMovement: [x],
-        axisVelocity,
-        previous,
-        axisMovementProjection,
-      } = state
-
-      if (!containerRef.current) return
-
-      const [xVelo, yVelo] = axisVelocity
-      const width = containerRef.current.offsetWidth
-      const minX = width * -1 * (pages.length - 1)
-
-      if (refLatest.current.indicatorVisible) {
-        setIndicatorVisible(false)
-      }
-
-      if (isEnding || (momentumDetectionEnabled && isMomentum)) {
-        // only snap at momentum begin
-        if (momentumDetectionEnabled && previous?.isMomentum) return
-
-        const config = { velocity: xVelo }
-        const snapPoints = pages.map((_, i) => i * width * -1)
-        const [projectionX] = axisMovementProjection
-        const projectedTarget = offsetX.current + projectionX
-
-        const closestSnapPoint = snapPoints.reduce(
-          (acc, snapPoint) => {
-            const diff = snapPoint - acc.projectedTarget
-            const isCloser = Math.abs(diff) < Math.abs(acc.closestDiff)
-            return isCloser ? { ...acc, closest: snapPoint, closestDiff: diff } : acc
-          },
-          {
-            projectedTarget,
-            closest: Infinity,
-            closestDiff: Infinity,
-          }
-        )
-
-        // update indicator direction
-        const hitFirst = closestSnapPoint.closest === snapPoints[0]
-        const hitLast = closestSnapPoint.closest === snapPoints[snapPoints.length - 1]
-
-        if (hitFirst) {
-          setIndicatorFlipped(false)
-        } else if (hitLast) {
-          setIndicatorFlipped(true)
-        }
-
-        offsetX.current = closestSnapPoint.closest
-
-        set({
-          x: closestSnapPoint.closest,
-          config,
-          onChange: (currentValue: { x?: number }) => {
-            offsetX.current = currentValue.x ?? offsetX.current
-          },
-        })
-      } else {
-        if (Math.abs(xVelo) > Math.abs(yVelo)) {
-          set({ x: rubberband(minX, 0, offsetX.current + x), immediate: true })
-        }
-      }
-    },
-    [momentumDetectionEnabled, refLatest, set]
-  )
-
-  useWheelDrag(wheelDragHandler, { domTarget: containerRef, preventWheelAction: 'x' })
+    onSelect()
+    onScroll()
+    emblaApi
+      .on('select', onSelect)
+      .on('reInit', onSelect)
+      .on('scroll', onScroll)
+    return () => {
+      clearTimeout(indicatorTimeout)
+      emblaApi
+        .off('select', onSelect)
+        .off('reInit', onSelect)
+        .off('scroll', onScroll)
+    }
+  }, [emblaApi])
 
   return (
-    <div className={c.outer}>
+    <section className={c.outer} aria-label="Photo gallery" aria-roledescription="carousel">
       <div className={c.galleryWrapper}>
-        <div ref={containerRef} className={c.gallery}>
-          <animated.div style={{ x: spring.x }}>
+        <div ref={emblaRef} className={c.gallery}>
+          <div className={c.container}>
             {pages.map((url, i) => (
-              <div key={i}>
-                <img src={url} alt={'demo image ' + i + 1} loading="lazy" />
+              <div
+                key={url}
+                className={c.slide}
+                role="group"
+                aria-roledescription="slide"
+                aria-label={`${i + 1} of ${pages.length}`}
+              >
+                <img src={url} alt={`Landscape ${i + 1}`} loading={i === 0 ? 'eager' : 'lazy'} draggable={false} />
               </div>
             ))}
-          </animated.div>
+          </div>
         </div>
         <WheelIndicator visible={indicatorVisible} flipped={indicatorFlipped} />
       </div>
-      <select value={momentumDetectionEnabled ? 'on' : ''} onChange={(e) => setSelectedWheelReason(!!e.target.value)}>
-        <option value="on">momentum detection</option>
-        <option value="">no momentum detection</option>
-      </select>
-    </div>
+      <div className={c.controls}>
+        <button type="button" onClick={() => emblaApi?.scrollPrev()} disabled={!canScrollPrev}>
+          Previous
+        </button>
+        <span aria-live="polite" aria-atomic="true">
+          {selectedIndex + 1} / {pages.length}
+        </span>
+        <button type="button" onClick={() => emblaApi?.scrollNext()} disabled={!canScrollNext}>
+          Next
+        </button>
+      </div>
+      <p className={c.caption}>
+        Built with <a href="https://www.embla-carousel.com/">Embla Carousel</a> and{' '}
+        <a href="https://github.com/xiel/embla-carousel-wheel-gestures">embla-carousel-wheel-gestures</a>.
+      </p>
+    </section>
   )
 }

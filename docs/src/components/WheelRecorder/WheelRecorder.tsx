@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { debounce } from 'throttle-debounce'
 import { WheelEventData } from 'wheel-gestures'
 
 import useRefOfLatest from '../../hooks/useRefOfLatest'
@@ -17,7 +16,6 @@ export default function WheelRecorder({ domTarget = globalThis.document?.body }:
   const [autoStop, setAutoStop] = useState(true)
 
   const createDownloadHref = useRefOfLatest(() => {
-    URL.revokeObjectURL && URL.revokeObjectURL(downloadHref)
     if (recordedEvents.current.length) {
       const wheelEvents = recordedEvents.current
       const userAgent = navigator.userAgent
@@ -41,6 +39,12 @@ export default function WheelRecorder({ domTarget = globalThis.document?.body }:
   })
 
   useEffect(() => {
+    return () => {
+      if (downloadHref) URL.revokeObjectURL(downloadHref)
+    }
+  }, [downloadHref])
+
+  useEffect(() => {
     const handleKey = ({ key, metaKey }: KeyboardEvent) => {
       if (key === 'e' && metaKey) {
         setRecording(!recording)
@@ -58,18 +62,22 @@ export default function WheelRecorder({ domTarget = globalThis.document?.body }:
     }
     if (!element) return
     recordedEvents.current = []
-    const stopWhenDone = debounce(2000, () => setRecording(false))
+    let stopTimeout: ReturnType<typeof setTimeout> | undefined
     const handler = (e: WheelEvent) => {
       const { deltaMode, deltaX, deltaY, timeStamp } = e
 
       recordedEvents.current.push({ deltaMode, deltaX, deltaY, timeStamp })
       if (autoStop) {
-        stopWhenDone()
+        clearTimeout(stopTimeout)
+        stopTimeout = setTimeout(() => setRecording(false), 2000)
       }
       e.preventDefault()
     }
     element.addEventListener('wheel', handler as EventListener, { passive: false })
-    return () => element.removeEventListener('wheel', handler as EventListener)
+    return () => {
+      clearTimeout(stopTimeout)
+      element.removeEventListener('wheel', handler as EventListener)
+    }
   }, [autoStop, createDownloadHref, recording, domTarget])
 
   const downloadFallbackName = new Date().toJSON()
